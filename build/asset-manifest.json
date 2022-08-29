@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/carry-kar/static/css/main.beb72fa3.css",
+    "main.js": "/carry-kar/static/js/main.2c4e4e1b.js",
+    "static/media/commuter.png": "/carry-kar/static/media/commuter.02f6414b0b602ec61833.png",
+    "static/media/homebg1.png": "/carry-kar/static/media/homebg1.4d1adba391794d46372c.png",
+    "static/media/referearn1.png": "/carry-kar/static/media/referearn1.67f45b2f599d42d1deaf.png",
+    "static/media/aboutimg.png": "/carry-kar/static/media/aboutimg.08062993c624061aa84b.png",
+    "static/media/quetion.png": "/carry-kar/static/media/quetion.a59185a1d101751bde62.png",
+    "static/media/befikar2.png": "/carry-kar/static/media/befikar2.319933fb5f6603316528.png",
+    "static/media/footerlogo.png": "/carry-kar/static/media/footerlogo.5c285837229d5fb60de9.png",
+    "static/media/befikar3.png": "/carry-kar/static/media/befikar3.5183d7cd8794bf40e6ad.png",
+    "index.html": "/carry-kar/index.html",
+    "main.beb72fa3.css.map": "/carry-kar/static/css/main.beb72fa3.css.map",
+    "main.2c4e4e1b.js.map": "/carry-kar/static/js/main.2c4e4e1b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.beb72fa3.css",
+    "static/js/main.2c4e4e1b.js"
+  ]
+}

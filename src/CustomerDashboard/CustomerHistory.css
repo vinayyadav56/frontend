@@ -1,0 +1,36 @@
+.payments_method{
+    margin-top: 3rem;
+}
+.payments_method p{
+    color: #504E4E;
+}
+.payments_method p strong{
+    font-size: 18px;
+    color: #000;
+}
+.payments_method .card_method{
+    display: flex;
+}
+.payments_method .card_method .card:nth-child(1){
+    margin-left: 0rem;
+}
+.payments_method .card_method .card{
+    margin-left: 3rem;
+    display: flex;
+    width: 200px;
+    align-items: center;
+    justify-content: center;
+}
+.payments_method .card_method .card .card-body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.payments_method .card_method .card a{
+    color: #000;
+    font-weight: 580;
+    font-size: 12px;
+}
+.payments_method .card_method .card a:hover{
+    text-decoration: none;
+}

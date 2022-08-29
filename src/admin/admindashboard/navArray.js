@@ -1,0 +1,50 @@
+import GroupWorkRoundedIcon from "@mui/icons-material/GroupWorkRounded";
+import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
+import BorderColorRoundedIcon from '@mui/icons-material/BorderColorRounded';
+import SettingsIcon from '@mui/icons-material/Settings';
+import HelpCenterRoundedIcon from '@mui/icons-material/HelpCenterRounded';
+// show ur hide sidebar
+//   const menuBtn = document.querySelector('#menu-btn');
+// const closeBtn = document.querySelector('#close-btn');
+// const sidebar = document.querySelector('aside');
+// menuBtn.addEventListener('click', () => {
+//     sidebar.style.display = 'block';
+// })
+// closeBtn.addEventListener('click', () => {
+//     sidebar.style.display = 'none';
+// })
+const navArray = [
+    {
+        id: 1,
+        nav: 'Partner',
+        icon: <GroupWorkRoundedIcon />,
+        link: '/partner/dashboard'
+    },
+    {
+        id: 2,
+        nav: 'Order',
+        icon: <StarBorderRoundedIcon />,
+        link: '/admindashboard'
+    },
+    {
+        id: 3,
+        nav: 'Recent Order',
+        icon: <BorderColorRoundedIcon />,
+        link: '/admindashboard'
+    },
+    {
+        id: 4,
+        nav: 'Setting',
+        icon: <SettingsIcon />,
+        link: '/admindashboard'
+    },
+    {
+        id: 5,
+        nav: 'Help Center',
+        icon: <HelpCenterRoundedIcon />,
+        link: '/admindashboard'
+    },
+
+
+]
+export default navArray;

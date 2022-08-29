@@ -1,0 +1,235 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  font-family: "Poppins", sans-serif;
+}
+.admin-login{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #0747a9;
+}
+.admin-section{
+  height: 242px;
+  width: 290px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: -4px 1px 29px -5px rgba(0,0,0,0.75);
+  -webkit-box-shadow: -4px 1px 29px -5px rgba(0,0,0,0.75);
+  -moz-box-shadow: -4px 1px 29px -5px rgba(0,0,0,0.75);
+}
+.user-login-section{
+  height: 300px;
+  width: 290px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: -4px 1px 29px -5px rgba(0,0,0,0.75);
+  -webkit-box-shadow: -4px 1px 29px -5px rgba(0,0,0,0.75);
+  -moz-box-shadow: -4px 1px 29px -5px rgba(0,0,0,0.75);
+}
+.partner-section{
+  height: 308px;
+  width: 290px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: -4px 1px 29px -5px rgba(0,0,0,0.75);
+  -webkit-box-shadow: -4px 1px 29px -5px rgba(0,0,0,0.75);
+  -moz-box-shadow: -4px 1px 29px -5px rgba(0,0,0,0.75);
+}
+.forget{
+  height: 257px !important;
+}
+.signup-section{
+  height: 455px;
+  width: 380px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: -4px 1px 29px -5px rgba(0,0,0,0.75);
+  -webkit-box-shadow: -4px 1px 29px -5px rgba(0,0,0,0.75);
+  -moz-box-shadow: -4px 1px 29px -5px rgba(0,0,0,0.75);
+}
+.adminleftctn{
+  width: 100%;
+  justify-content: center;
+  border-radius: 5px;
+  display: flex;
+  /* padding-top: 10px;
+  padding-left: 10px !important;
+  padding-right: 10px !important; */
+  width: 100% !important;
+  height: 100%;
+  background: #fff;
+}
+
+.adminleftctn .my-form{
+  /* padding-left: 20px;
+  padding-right: 20px; */
+  width: 85%;
+  padding-top: 10px;
+}
+.adminleftctn .my-form .wel-msg{
+  display: flex;
+  line-height: 2.8rem;
+  font-size: 1.4rem;
+  margin-bottom: 1.2rem;
+  font-weight: 600;
+  justify-content:left;
+  border-bottom: 2px solid rgb(237, 236, 236);
+}
+.adminleftctn .my-form .log-title{
+  color: #141515;
+  display: flex;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 1.2rem;
+}
+.adminleftctn .my-form .footer-title{
+  color: #141515;
+  display: flex;
+  align-items: centers;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 500;
+  margin-top: 0.6rem;
+  margin-bottom: 0.6rem;
+}
+.admin-section .login-form .form-group input:focus{
+  outline: none;
+  border: 1px solid #0747a9;
+  border-radius: 0px;
+}
+.login-det .form-group input{
+  width: 100%;
+  color: rgb(101, 100, 100);
+  font-size: 0.8rem;
+  padding: 0.4rem 0.8rem !important;
+  border: 1px solid grey;
+  border-radius: 2px;
+  height: auto !important;
+  margin-bottom: 0rem !important;
+}
+.login-det .form-group input::placeholder{
+  color: rgb(189, 185, 185);
+  font-size: 10px;
+  padding: 0rem;
+  letter-spacing: 0.1px;
+}
+/* forget btn css */
+.forget-btn{
+  margin-left: auto;
+  margin-top: 0.6rem;
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+}
+.forget-btn a{
+  font-size: 12px;
+  margin-left: auto;
+  color: #333;
+  letter-spacing: 0px;
+}
+.forget-btn a:hover{
+  text-decoration: none;
+}
+.forget-btn label{
+  font-size: 0.8rem;
+  margin-bottom: 0rem;
+}
+.login-btn {
+  background-color: #0747a9;
+  color: #fff;
+  width:100%;
+  border:1px solid #0747a9;
+  font-size: 0.8rem;
+  border-radius:20px;
+  font-weight: 500;
+  padding: 6px;
+  margin-bottom: 0.6rem;
+  text-transform:uppercase;
+  display: block;
+  text-align: center;
+  width: 100%;
+  -webkit-box-shadow:0px 10px 41px -11px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow:0px 10px 41px -11px rgba(0, 0, 0, 0.7);
+  box-shadow:0px 10px 41px -11px rgba(0, 0, 0, 0.7);
+}
+.login-btn:hover{
+      background-color:#0747a9;
+      border:1px solid #0747a9;
+      color: #fff;
+      text-decoration: none;
+}
+/* sign up css */
+.signup-create h3{
+  font-weight: 600;
+  font-size: 20px;
+  color: rgba(255, 208, 0, 0.872);
+  margin-bottom: 2rem;
+}
+.signup-create h3::after{
+  content:'';
+  display: block;
+  border-top: 1px solid #16028bc2;
+  width: 30%;
+  line-height: 2px;
+  margin-bottom: 0.6rem;
+}
+.signup-btn {
+  background-color:#0747a9;
+  border:1px solid #0747a9;
+  color: #fff ;
+  border-radius: 20px;
+  text-decoration: none;
+  width: 100%;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 6px;
+  margin-bottom: 0.6rem;
+  text-transform:uppercase;
+  display: block;
+  text-align: center;
+  width: 100%;
+  -webkit-box-shadow:0px 10px 41px -11px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow:0px 10px 41px -11px rgba(0, 0, 0, 0.7);
+  box-shadow:0px 10px 41px -11px rgba(0, 0, 0, 0.7);
+}
+.signup-btn:hover{
+      background-color:#0747a9;
+      border:1px solid #0747a9;
+      color: #fff ;
+      text-decoration: none;
+}
+.sign-footer{
+  font-size: 12px !important;
+  display: flex;
+  justify-content: center;
+}
+.sign-footer button{
+  background-color: transparent;
+}
+.sign-footer button:hover{
+  background-color: transparent;
+  color: #0747a9;
+}
+@media only screen and (max-width:991px){
+  .signup-log .adminleftctn{
+    padding-top: 5px !important;
+  }
+  .signup-log .signup-create h3{
+    margin-bottom: 0.6rem !important;
+  }
+  .signup-log .form-group{
+    margin-bottom: 5px !important;
+  }
+  .signup-log .login-det{
+    margin-top: 0px !important;
+  }
+}
