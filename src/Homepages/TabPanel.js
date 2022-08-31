@@ -177,13 +177,23 @@ export default function BasicTabs() {
             <input type="date" id="retdate" className="form-control" required />
           </div>
           <div className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-2">
-            <label for="#lsp">Luggage Space</label>
-            <input type="text" id="lsp" className="form-control" required />
+            <div className="input-box">
+              <label for="#lsp">Luggage Space</label>
+              <input
+                type="number"
+                max="2"
+                min="1"
+                id="lsp"
+                className="form-control"
+                required
+              />
+              <span class="unit">Kg</span>
+            </div>
           </div>
           <div className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-2">
             <label for="#put">Pickup Time</label>
             <input
-              type="datetime-local"
+              type="time"
               id="put"
               className="form-control"
               // placeholder="Enter time"
