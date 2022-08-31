@@ -26,26 +26,18 @@ const Adminlogin = () => {
       .post("http://35.91.35.188/api/admin-login", adminlogin)
       .then(() =>{
         console.log("test");
-        alert.success("data posted");
+        alert.success("Login successfully");
         history.push("/admindashboard");
-
-      
       });
       }else{
         alert.error("Invalid inputs please retry");
       }
     };
-    
-   
-   
-
-
   return (
     <>
       <div className="container-fluid admin-login">
         <div className="row admin-section">
           <div className="col-12 adminleftctn">
-
               <form className="my-form" onSubmit={handleLogin}>
                 <span className="wel-msg">Welcome To Carrykar</span>
                 <span className="log-title">Login to continue</span>
@@ -79,7 +71,6 @@ const Adminlogin = () => {
                   </button>
                 </div>
               </form>
-      
           </div>
         </div>
       </div>

@@ -1,6 +1,9 @@
 import React from 'react'
 import {NavLink} from "react-router-dom";
 // import {InstagramIcon,FacebookIcon,LinkedInIcon} from '@mui/icons-material';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import footerlogo from "../images/footerlogo.png";
 const HomeFoooter = () => {
   return(
@@ -15,16 +18,13 @@ const HomeFoooter = () => {
                 <NavLink to="/services">Services</NavLink>
               </li>
               <li>
-                <NavLink to="/subscription">Subscription</NavLink>
-              </li>
-              <li>
                 <NavLink to="/location">Locations</NavLink>
               </li>
               <li>
-                <NavLink to="/about">About Us</NavLink>
+                <NavLink to="/contact">Become a Partner</NavLink>
               </li>
               <li>
-                <NavLink to="/contact">Contact Us</NavLink>
+                <NavLink to="/refer">Refer & Earn</NavLink>
               </li>
             </ul>
           </div>
@@ -38,6 +38,9 @@ const HomeFoooter = () => {
               </li>
               <li>
                 <NavLink to="/Knowledgebase">Knowledge base</NavLink>
+              </li>
+              <li>
+                <NavLink to="/Knowledgebase">Contact Us</NavLink>
               </li>
               
             </ul>
@@ -57,12 +60,7 @@ const HomeFoooter = () => {
           </div>
           <div className="col-lg-3 col-6 mb-3">
             <ul>
-              <li>
-                <h4>BECOME A PARTNER</h4>
-              </li>
-              <li>
-                <NavLink to="/refer">Refer & Earn</NavLink>
-              </li>
+              
             </ul>
           </div>
           <div className='col-lg-3 col-6 mb-3 footer_logo'>
@@ -76,9 +74,9 @@ const HomeFoooter = () => {
         <div>
         <p>Follow Us On</p>
         <div className='icon-group'>
-          {/* <InstagramIcon className='mr-3'/> */}
-          {/* <FacebookIcon className='mr-3'/>
-          <LinkedInIcon className='mr-3'/> */}
+          <InstagramIcon className='mr-3 so_icn'/>
+          <FacebookIcon className='mr-3 so_icn'/>
+          <LinkedInIcon className='mr-3 so_icn'/>
         </div>
         </div>
       </div>

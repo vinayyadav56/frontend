@@ -16,7 +16,7 @@ const Sidebar = () => {
         <section className="user-sidebar">
           <div className="desktop-navbar">
             <nav className="user-dash-navbar">
-              <NavLink to="/carrierdashboard/dashboard" className="navbar-brand">
+              <NavLink to="/carrier/dashboard" className="navbar-brand">
                 <img src={dashboardlogo} alt="dashlogo" />
                 {/* <img src={moblogo} alt="mobilelogo" /> */}
               </NavLink>
@@ -41,19 +41,19 @@ const Sidebar = () => {
                   </div>
                 </li>
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="/carrierdashboard/profile">
+                  <NavLink className="nav-link" to="/carrier/dashboard/profile">
                     <img src={prlogo} alt="pr" />
                     <span>Profile</span>
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="/carrierdashboard/paymenthistory">
+                  <NavLink className="nav-link" to="/carrier/dashboard/paymenthistory">
                     <img src={paymenticon} alt="payment" />
                     <span>Payment History</span>
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="/carrierdashboard/managereffrals">
+                  <NavLink className="nav-link" to="/carrier/dashboard/managereffrals">
                     <img src={historyicon} alt="manage" />
                     <span> Manage Referals</span>
                   </NavLink>
@@ -79,7 +79,7 @@ const Sidebar = () => {
                 <ul className="nav-mobile-links">
                   <li>
                     {" "}
-                    <NavLink exact onClick={() => setToggleMenu(false)} to="/">
+                    <NavLink exact onClick={() => setToggleMenu(false)} to="/carrykar">
                       Carrykar
                     </NavLink>{" "}
                   </li>

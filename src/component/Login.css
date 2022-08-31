@@ -34,7 +34,7 @@ body{
   -moz-box-shadow: -4px 1px 29px -5px rgba(0,0,0,0.75);
 }
 .partner-section{
-  height: 308px;
+  height: 250px;
   width: 290px;
   display: flex;
   justify-content: center;
@@ -170,7 +170,8 @@ body{
 .signup-create h3{
   font-weight: 600;
   font-size: 20px;
-  color: rgba(255, 208, 0, 0.872);
+  /* color: rgba(255, 208, 0, 0.872); */
+  color: #000;
   margin-bottom: 2rem;
 }
 .signup-create h3::after{

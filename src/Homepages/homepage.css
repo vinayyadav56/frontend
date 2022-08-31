@@ -2,11 +2,12 @@ body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    background-color: #E7F0F9 !important;
 }
 
 .main_section {
     background: linear-gradient(77.42deg, #0747A9 -0.01%, #2277C9 94.19%);
-    height: 100vh;
+    height: 90vh;
     padding-bottom: 5rem;
 }
 
@@ -19,6 +20,10 @@ body {
     align-items: center;
     justify-content: space-between;
     margin-top: -40px;
+}
+
+.hero_section .hero_section-div .txt_content {
+    padding-top: 4rem;
 }
 
 .hero_section .hero_section-div .txt_content h3 {
@@ -77,13 +82,19 @@ body {
         height: auto;
     }
 
+    .hero_section .hero_section-div .txt_content {
+        padding-top: 0rem;
+        display: flex;
+        justify-content: center;
+    }
+
     .hero_section .hero_section-div .img_content img {
         width: 85%;
     }
 
     .main_section .hero_section .hero_section-div {
         display: block;
-        margin-top: 20px;
+        margin-top: 10px;
     }
 
     .main_section .hero_section .hero_section-div .img_content {
@@ -139,7 +150,6 @@ body {
 
 section.nav-sec {
     background-color: var(--color-blue);
-    border-top: 1px solid var(--color-white);
     padding: 20px 0;
 }
 
@@ -165,27 +175,29 @@ ul {
 }
 
 .menu .desktop-links ul li:last-child a {
-    background-color: #0747A9;
-    border: 1px solid #0747A9;
+    background-color: #fff;
+    color: #0747A9;
+    border: 1px solid #fff;
     padding: 4px 8px;
     border-radius: 5px;
 }
 
 .menu .desktop-links ul li:last-child a:hover {
     background: transparent;
+    color: #fff;
 }
 
 .menu .desktop-links ul li:nth-child(5) a {
-    background: #fff;
-    border: 1px solid #2277C9;
+    background: transparent;
+    border: 1px solid #fff;
     padding: 4px 16px;
-    color: #0747A9;
+    color: #fff;
     border-radius: 5px;
 }
 
 .menu .desktop-links ul li:nth-child(5) a:hover {
-    background: #0747A9;
-    color: #fff;
+    background: #fff;
+    color: #0747A9;
 }
 
 .menu a {
@@ -214,24 +226,24 @@ ul {
 }
 
 /* dropdown css start */
-.dropdown {
+.menu .dropdown {
     position: relative;
     display: inline-block;
 }
 
-.dropdown-menu a {
+.menu .dropdown-menu a {
     display: block;
     color: #333;
     padding: 4px 2px;
 }
 
-.dropdown-menu a:hover {
+.menu .dropdown-menu a:hover {
     color: #333;
     background-color: rgb(233, 245, 247);
     padding: 4px 2px;
 }
 
-.dropdown-menu {
+.menu .dropdown-menu {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
@@ -239,9 +251,10 @@ ul {
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     padding: 12px 6px;
     z-index: 1;
+    border-radius: 10px;
 }
 
-.dropdown:hover .dropdown-menu {
+.menu .dropdown:hover .dropdown-menu {
     display: block;
 }
 
@@ -366,12 +379,12 @@ ul {
 }
 
 /* .trip_section .trip_section-bgc{
-    background-color: #E7F0F9 ;
+    
 } */
 
 .trip_search .card {
     width: 100%;
-    padding: 2rem 0 0 0;
+    padding: 0;
     box-shadow: -4px 1px 29px -5px rgba(0, 0, 0, 0.75);
     -webkit-box-shadow: -4px 1px 29px -5px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: -4px 1px 29px -5px rgba(0, 0, 0, 0.75);
@@ -530,13 +543,14 @@ ul {
 
 .carrier_section .card-deck {
     padding-top: 3rem;
-    width: 60%;
+    width: 55%;
 }
 
 .carrier_section .card {
-    box-shadow: -4px 2px 29px -5px rgba(0, 0, 0, 0.75);
-    -webkit-box-shadow: -4px 1px 29px -5px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: -4px 1px 29px -5px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 0px 1px 10px 5px rgba(163, 163, 163, 1);
+    -moz-box-shadow: 0px 1px 10px 5px rgba(163, 163, 163, 1);
+    box-shadow: 0px 1px 10px 5px rgba(163, 163, 163, 1);
+    border-radius: 10px;
 }
 
 .carrier_section .card p {
@@ -627,18 +641,42 @@ ul {
 /* carrykar_steps css start */
 .carrykar_steps {
     background: #fff;
-    padding: 7rem 0 4rem;
 }
 
-.carrykar_steps .container .box {
+.carrykar_steps img {
+    width: 100%;
+    height: auto;
+    margin-top: -55px;
+}
+.carrykar_steps .container{
+    padding-top: 2rem;
+    padding-left: 0;
+}
+.carrykar_steps p:nth-child(1) {
+    color: #0849AA;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    margin-bottom: 0;
+    font-size: 24px;
+}
+.carrykar_steps p:nth-child(2) {
+    color: #0849AA;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 48px;
+}
+
+/* .carrykar_steps .container .box {
     height: 80px;
     width: 100%;
     border-radius: 100px;
     border: 1px dotted #0849AA;
     border-bottom: 1px dashed #0849AA;
     position: relative;
-}
-
+} */
+/* 
 .carrykar_steps .container .box div.main_box-h {
     display: flex;
     align-items: center;
@@ -705,7 +743,7 @@ ul {
 .carrykar_steps .container .box .step_6 {
     bottom: -41px;
     left: 57px;
-}
+} */
 
 /* carrykarsteps css ends */
 
@@ -744,7 +782,9 @@ ul {
     text-align: center;
     color: #fff;
 }
-
+.operational .location_card .card-body img{
+    width: 100%;
+}
 .operational .location_card .card-body p {
     padding-top: 0.6rem;
     font-size: 16px;
@@ -784,9 +824,12 @@ ul {
 }
 
 .commuter_section .card {
-    border-radius: 8px;
     border: 1px solid #E9E9E9;
     margin-bottom: 1.5rem;
+    -webkit-box-shadow: 0px 0px 15px -1px rgba(181, 179, 181, 1);
+    -moz-box-shadow: 0px 0px 15px -1px rgba(181, 179, 181, 1);
+    box-shadow: 0px 0px 15px -1px rgba(181, 179, 181, 1);
+    border-radius: 10px;
 }
 
 .commuter_section .card .card-t {
@@ -879,9 +922,9 @@ ul {
     padding-bottom: 0.6rem;
 }
 
-.home_footer .container-fluid .row {
+/* .home_footer .container-fluid .row {
     margin-bottom: 5rem;
-}
+} */
 
 .copyright p {
     color: #fff;
@@ -937,6 +980,28 @@ ul {
     background-color: #fff;
 }
 
+.social_icons .icon-group .so_icn:nth-child(1) {
+    color: #fff;
+    background: #f09433;
+    background: -moz-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    background: -webkit-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f09433', endColorstr='#bc1888', GradientType=1);
+    border-radius: 5px;
+}
+
+.social_icons .icon-group .so_icn:nth-child(2) {
+    background: #3b5998;
+    color: #fff;
+    border-radius: 5px;
+    padding: 0;
+}
+
+.social_icons .icon-group .so_icn:nth-child(3) {
+    background-color: #0072b1;
+    color: #fff;
+    border-radius: 5px;
+}
 
 /* Radio Button Start */
 /* The radio-sec */
@@ -1010,10 +1075,6 @@ ul {
 }
 
 @media screen and (max-width: 991px) {
-    .operational .location_card {
-        display: block;
-    }
-
     .trip_section {
         margin-top: 0;
         margin: 4rem 0;
@@ -1094,43 +1155,12 @@ ul {
 }
 
 @media screen and (max-width: 575px) {
-    .carrykar_steps .container .box div.main_box-h p {
-        font-size: 20px;
+
+    .hero_section .hero_section-div .txt_content {
+        padding-top: 0rem;
+        display: unset;
     }
 
-    .carrykar_steps .container .box {
-        display: none;
-    }
-
-    /* .carrykar_steps .container .box{
-        height: 400px;
-        width:80px;
-        margin: auto;
-        border-radius: 100px;
-        border: 1px dotted #0849AA;
-        border-bottom: 1px dashed #0849AA;
-        position: relative;
-    }
-    .carrykar_steps .container .box .carry_step-common{
-        display: flex;
-        align-items: center;
-    }
-    .carrykar_steps .container .box .carry_step-common>div {
-        margin-left:5px;
-        width: 180px;
-        order: 2;
-    }
-    .carrykar_steps .container .box .carry_step-common>p{
-        margin-bottom: 0.5rem;
-    }
-    .carrykar_steps .container .box .step_1 {
-        top: 35px;
-        left: 74px;
-    }
-    .carrykar_steps .container .box .step_2 {
-        top: 185px;
-        left: 74px;
-    } */
 }
 
 @media screen and (max-width: 545px) {

@@ -104,7 +104,8 @@ html {
     left: 15%;
 }
 .partner-order{
-    margin-left:40%;
+    display: flex;
+    justify-content: center !important;
     margin-bottom: 1rem;
 }
 .partnerdash-nav .search-bar input[type="search"] {
@@ -283,7 +284,10 @@ main aside .sidebar a:hover span {
     .partnerdash-nav .profile-area {
         gap: 2.6rem;
     }
-
+    .sender-info h2{
+        font-size: 14px;
+        font-weight: bold;
+    }
     .partnerdash-nav .profile span {
         display: none;
     }

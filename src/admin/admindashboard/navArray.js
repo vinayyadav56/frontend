@@ -24,25 +24,25 @@ const navArray = [
         id: 2,
         nav: 'Order',
         icon: <StarBorderRoundedIcon />,
-        link: '/admindashboard'
+        link: '/admin/dashboard'
     },
     {
         id: 3,
         nav: 'Recent Order',
         icon: <BorderColorRoundedIcon />,
-        link: '/admindashboard'
+        link: '/admin/dashboard'
     },
     {
         id: 4,
         nav: 'Setting',
         icon: <SettingsIcon />,
-        link: '/admindashboard'
+        link: '/admin/dashboard'
     },
     {
         id: 5,
         nav: 'Help Center',
         icon: <HelpCenterRoundedIcon />,
-        link: '/admindashboard'
+        link: '/admin/dashboard'
     },
 
 

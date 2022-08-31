@@ -6,20 +6,20 @@ import { useHistory } from "react-router-dom";
 const Form = () => {
   let alert = useAlert();
   let history = useHistory();
-  const [createorder , setCreateorder] = useState({
-    order_description:"",
-    quantity:"",
-    order_dimension:"",
-    from_location:"",
-    to_location:"",
-    sender_name:"",
+  const [createorder, setCreateorder] = useState({
+    order_description: "",
+    quantity: "",
+    order_dimension: "",
+    from_location: "",
+    to_location: "",
+    sender_name: "",
     sender_email: "",
     sender_phone: "",
     sender_city: "",
     sender_state: "",
     sender_pin: "",
     sender_address: "",
-    receiver_name:"",
+    receiver_name: "",
     receiver_email: "",
     receiver_phone: "",
     receiver_city: "",
@@ -36,36 +36,54 @@ const Form = () => {
   };
   const handleOrder = (e) => {
     e.preventDefault();
-    const { 
-        order_description,
-        quantity,
-        order_dimension,
-        from_location,
-        to_location,
-        sender_name,
-        sender_email,
-        sender_phone,
-        sender_city,
-        sender_state,
-        sender_pin,
-        sender_address,
-        receiver_name,
-        receiver_email,
-        receiver_phone,
-        receiver_city,
-        receiver_state,
-        receiver_pin,
-        receiver_address,
-        } = createorder;
+    const {
+      order_description,
+      quantity,
+      order_dimension,
+      from_location,
+      to_location,
+      sender_name,
+      sender_email,
+      sender_phone,
+      sender_city,
+      sender_state,
+      sender_pin,
+      sender_address,
+      receiver_name,
+      receiver_email,
+      receiver_phone,
+      receiver_city,
+      receiver_state,
+      receiver_pin,
+      receiver_address,
+    } = createorder;
     if (
-        order_description && quantity && order_dimension && from_location && to_location && sender_name &&
-        sender_email && sender_phone && sender_city && sender_state && sender_pin && sender_address && receiver_name &&
-        receiver_email &&  receiver_phone &&  receiver_city &&  receiver_state &&  receiver_pin &&  receiver_address
-        ) {
-        axios.post("http://35.91.35.188/api/partner-order", createorder).then(() => {
-        alert.success("Order succesfully");
-        history.push("/partner/dashboard");
-      });
+      order_description &&
+      quantity &&
+      order_dimension &&
+      from_location &&
+      to_location &&
+      sender_name &&
+      sender_email &&
+      sender_phone &&
+      sender_city &&
+      sender_state &&
+      sender_pin &&
+      sender_address &&
+      receiver_name &&
+      receiver_email &&
+      receiver_phone &&
+      receiver_city &&
+      receiver_state &&
+      receiver_pin &&
+      receiver_address
+    ) {
+      axios
+        .post("http://35.91.35.188/api/partner-order", createorder)
+        .then(() => {
+          alert.success("Order succesfully");
+          history.push("/partner/dashboard");
+        });
     } else {
       alert.error("Please fill all fields");
     }
@@ -79,26 +97,26 @@ const Form = () => {
         <div className="order-sum">
           <form className="order-dis" onSubmit={handleOrder}>
             <div className="form-group mt-2">
-              <label for="exampleFormControlTextarea1">
+              <label for="Textarea1">
                 Order Description :
               </label>
               <textarea
                 className="form-control"
                 placeholder="Enter Description"
-                id="exampleFormControlTextarea1"
+                id="Textarea1"
                 rows="3"
                 name="order_description"
                 value={createorder.order_description}
                 onChange={handleCreateinput}
               ></textarea>
             </div>
-            <div class="form-group row">
+            <div className="form-group row">
               <div className="col-md-6">
-                <label for="inputEmail">Size</label>
+                <label for="inputsize">Size</label>
                 <input
                   size="dimension"
-                  class="form-control"
-                  id="inputEmail"
+                  className="form-control"
+                  id="inputsize"
                   placeholder="WW/HH/LL"
                   name="order_dimension"
                   value={createorder.order_dimension}
@@ -120,16 +138,28 @@ const Form = () => {
 
               <div className="col-md-6">
                 <label for="inputAddress">From :</label>
-                <select id="inputquantity" className="form-control" name="from_location"  value={createorder.from_location}   onChange={handleCreateinput}>
-                  <option selected>Select Location</option>
+                <select
+                  id="inputfrom"
+                  className="form-control"
+                  name="from_location"
+                  value={createorder.from_location}
+                  onChange={handleCreateinput}
+                >
+                  <option select>Select Location</option>
                   <option>Delhi</option>
                   <option>Goa</option>
                   <option>Mumbai</option>
                 </select>
               </div>
               <div className="col-md-6">
-                <label for="inputAddress2">To :</label>
-                <select id="inputquantity" name="to_location"   value={createorder.to_location} onChange={handleCreateinput} className="form-control">
+                <label for="inputto">To :</label>
+                <select
+                  id="inputto"
+                  name="to_location"
+                  value={createorder.to_location}
+                  onChange={handleCreateinput}
+                  className="form-control"
+                >
                   <option selected>Select Location</option>
                   <option>Delhi</option>
                   <option>Goa</option>
@@ -138,7 +168,7 @@ const Form = () => {
               </div>
               <div className="col-md-6 img-upload">
                 <label for="inputimage">Upload Order Packing Image</label>
-                <input type="file" class="form-control" />
+                <input type="file" className="form-control" />
               </div>
             </div>
             <h2 className="sender-info">Sender Details :</h2>
@@ -305,7 +335,7 @@ const Form = () => {
                 />
               </div>
               <div className="col-md-12">
-                <label for="inputaddress" className="mt-2">  
+                <label for="inputaddress" className="mt-2">
                   Full Address
                 </label>
                 <input
@@ -320,9 +350,11 @@ const Form = () => {
               </div>
             </div>
             <Additem />
-            <button type="submit" className="btn btn-danger partner-order">
-              Create Order
-            </button>
+            <div className="partner-order">
+              <button type="submit" className="btn btn-danger">
+                Create Order
+              </button>
+            </div>
           </form>
         </div>
       </div>

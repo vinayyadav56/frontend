@@ -63,31 +63,31 @@ const App = () => {
             <Route path="/partner" component={Partnerlogin} />
             <Route path="/admin" component={Adminlogin} />
             <Route path="/admindashboard" component={AdminDashboard} />
-            <Route path="/carrierdashboard/profile" >
-              <UserProfile   />
+            <Route path="/carrier/dashboard/profile" >
+              <UserProfile  />
             </Route>
             <Route
-              path="/carrierdashboard/paymenthistory"
+              path="/carrier/dashboard/paymenthistory"
               component={Paymenthistory}
             />
             <Route
-              path="/carrierdashboard/managereffrals"
+              path="/carrier/dashboard/managereferals"
               component={Managereffrals}
             />
-            <Route path="/carrierdashboard" >
+            <Route path="/carrier/dashboard" >
               <Userdashboard  user={user} addUserLocal={addUserLocal} />
             </Route>
             <Route path="/customer/dashboard" component={CustomerDashboard} />
             <Route
-              path="/customerdashboard/profile"
+              path="/customer/dashboard/profile"
               component={CustomerProfile}
             />
             <Route
-              path="/customerdashboard/trackhistory"
+              path="/customer/dashboard/trackhistory"
               component={CustomerTrack}
             />
             <Route
-              path="/customerdashboard/paymenthistory"
+              path="/customer/dashboard/paymenthistory"
               component={CustomerPaymenthistory}
             />
             <Redirect to="/" />

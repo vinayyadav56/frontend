@@ -44,7 +44,7 @@ const PartnerDashboard = () => {
                   <Link className="dropdown-item" to="/partner">
                     Logout
                   </Link>
-                  <Link className="dropdown-item" to="/home">
+                  <Link className="dropdown-item" to="/carrykar">
                     Change Profile
                   </Link>
                   <Link className="dropdown-item" to="/setting">

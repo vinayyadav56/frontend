@@ -26,19 +26,10 @@ const Login = () => {
       axios.post("http://35.91.35.188/api/login", loginuser).then((result) => {
         if (result.data.success === true) {
           alert.success(result.data.message);
-          history.push("/carrierdashboard/profile");
+          history.push("/carrier/dashboard");
         } else if (result.data.success === false) {
           alert.success(result.data.message);
         }
-        // if(result.success==='true'){
-        //   var userData = result.user;
-        //   if(userData.type==='carrier'){
-        //   }
-        //   alert.success(result.data.message);
-        //   history.push("/dashboard");
-        // }else{
-        //   alert.error(result.data.message);
-        // }
       });
     } else {
       alert.error("Invalid Inputs");

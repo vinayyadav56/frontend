@@ -1,10 +1,13 @@
 import * as React from "react";
 import PropTypes from "prop-types";
+import "./tabpanel.css";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import trip from "../images/triplocation.png";
+import FromSuggestion from "./FromSuggestion";
+import ToSugestion from "./ToSugestion";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -41,14 +44,37 @@ function a11yProps(index) {
 
 export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  // const [filteredData, setFiltereddata] = useState([]);
+  // const handleSrchfilter = (e) => {
+  //   const srchWord = e.target.value;
+  //   const newFilter = tabArray.filter((value) => {
+  //     return value.name.toLowerCase().includes(srchWord.toLowerCase());
+  //   });
+  //   setFiltereddata(newFilter);
+  // };
+
+  //AutoSuggestion
+  // const [searchVal, setSearchVal] = useState("");
+
+  // const handleSuggestion = (e) => {
+  //   setSearchVal(e.target.value);
+  // };
+
+  // const [arrayFilter, setarrayFilter] = useState(tabArray);
+  // console.log("arrayFilter " + JSON.stringify(arrayFilter));
+
+  // const onSearch = (searchTerm) => {
+  //   setSearchVal(searchTerm);
+  //   alert("test");
+  //   console.log("search ", searchTerm);
+  // };
 
   return (
     <Box sx={{ width: "100%" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+      <Box sx={{ borderColor: "divider" }}>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -60,31 +86,39 @@ export default function BasicTabs() {
       </Box>
       <TabPanel value={value} index={0}>
         <div className="row">
-          <div className="form-group col-sm-6 col-md-5  mb-sm-4 px-2  col-lg-2">
-            <label for="#from">From</label>
+          {/* <div className="form-group col-sm-6 col-md-5  mb-sm-4 px-2  col-lg-5">
             <input
               name="input1"
               type="text"
               className="form-control mb-2 mr-sm-2"
-              placeholder="Enter City"
+              placeholder="From"
               id="from"
+              value={filteredData.newFilter}
+              onChange={handleSrchfilter}
             />
+            {filteredData.Lenght !== 0 && (
+              <div className="srcDataresult">
+                {filteredData.map((value, key) => {
+                  return (
+                    <p className="dataItem" onClick={() => handleSrchfilter()}>
+                      {value.name}
+                    </p>
+                  );
+                })}
+              </div>
+            )}
+          </div> */}
+          <div className="form-group col-sm-6 col-md-5  mb-sm-4 px-2  col-lg-5">
+            <FromSuggestion />
           </div>
-          <input type="radio" name="pankaj" id="pankaj" />
-          <div className="form-group col-sm-6 col-md-2  mb-sm-4 px-0  col-lg-1">
+          <div className="form-group col-sm-6 col-md-2  mb-sm-4 px-0  col-lg-2 d-flex justify-content-center">
             <img src={trip} alt="triploc" />
           </div>
-          <div className="form-group col-sm-6 col-md-5  mb-sm-4 px-2  col-lg-2">
-            <label for="#to">To</label>
-            <input
-              type="text"
-              id="to"
-              className="form-control"
-              placeholder="Enter City"
-            />
+          <div className="form-group col-sm-6 col-md-5  mb-sm-4 px-2  col-lg-5">
+            <ToSugestion />
           </div>
-          <div className="form-group col-sm-6 col-md-6  mb-sm-4 px-2  col-lg-2">
-            <label for="#depdate">Departure Date</label>
+          <div className="form-group col-sm-6 col-md-6  mb-sm-4 px-2  col-lg-3">
+            <label for="#depdate">Journey Date</label>
             <input
               type="date"
               // placeholder="Date"
@@ -93,65 +127,68 @@ export default function BasicTabs() {
               required
             />
           </div>
-          {/* <div className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-2">
-            <label for="#retdate">Return Date</label>
-            <input type="date" id="retdate" className="form-control" required />
-          </div> */}
-          <div className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-2">
+          <div className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-3">
+            <div className="input-box">
+              <label for="#lsp">Luggage Space</label>
+              <input
+                type="number"
+                max="2"
+                min="1"
+                id="lsp"
+                className="form-control"
+                required
+              />
+              <span class="unit">Kg</span>
+            </div>
+          </div>
+          <div className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-3">
+            <label for="#put">Pickup Time</label>
+            <input type="time" id="put" className="form-control" required />
+          </div>
+          <div className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-3">
             <label for="#tno">Ticket No.</label>
             <input
               type="text"
               id="tno"
               className="form-control"
-              placeholder="Enter number"
+              // placeholder="Ticket number"
               required
             />
-          </div>
-          <div className="col-lg-1 px-0">
-            <button type="submit" className="btn search_submit mb-2">
-              Search
-            </button>
           </div>
         </div>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <div className="row">
-          <div className="form-group col-sm-6 col-md-5  mb-sm-4 px-2  col-lg-2">
-            <label for="#from">From</label>
-            <input
-              name="input1"
-              type="text"
-              className="form-control mb-2 mr-sm-2"
-              placeholder="Enter City"
-              id="from"
-            />
+          <div className="form-group col-sm-6 col-md-5  mb-sm-4 px-2  col-lg-5">
+            <FromSuggestion />
           </div>
-          <input type="radio" name="pankaj" id="pankaj" />
-          <div className="form-group col-sm-6 col-md-2  mb-sm-4 px-0  col-lg-1">
+          <div className="form-group col-sm-6 col-md-2  mb-sm-4 px-0  col-lg-2 d-flex justify-content-center">
             <img src={trip} alt="triploc" />
           </div>
-          <div className="form-group col-sm-6 col-md-5  mb-sm-4 px-2  col-lg-2">
-            <label for="#to">To</label>
-            <input
-              type="text"
-              id="to"
-              className="form-control"
-              placeholder="Enter City"
-            />
+          <div className="form-group col-sm-6 col-md-5  mb-sm-4 px-2  col-lg-5">
+            <ToSugestion />
           </div>
-          <div className="form-group col-sm-6 col-md-6  mb-sm-4 px-2  col-lg-2">
+          <div className="form-group col-sm-6 col-md-6  mb-sm-4 px-2  col-lg-3">
             <label for="#depdate">Departure Date</label>
-            <input
-              type="date"
-              // placeholder="Date"
-              className="form-control"
-              id="depdate"
-              required
-            />
+            <input type="date" className="form-control" id="depdate" required />
           </div>
-          <div className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-2">
+          <div className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-3">
             <label for="#retdate">Return Date</label>
             <input type="date" id="retdate" className="form-control" required />
+          </div>
+          <div className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-2">
+            <label for="#lsp">Luggage Space</label>
+            <input type="text" id="lsp" className="form-control" required />
+          </div>
+          <div className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-2">
+            <label for="#put">Pickup Time</label>
+            <input
+              type="datetime-local"
+              id="put"
+              className="form-control"
+              // placeholder="Enter time"
+              required
+            />
           </div>
           <div className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-2">
             <label for="#tno">Ticket No.</label>
@@ -159,14 +196,9 @@ export default function BasicTabs() {
               type="text"
               id="tno"
               className="form-control"
-              placeholder="Enter number"
+              // placeholder="Enter number"
               required
             />
-          </div>
-          <div className="col-lg-1 px-0">
-            <button type="submit" className="btn search_submit mb-2">
-              Search
-            </button>
           </div>
         </div>
       </TabPanel>

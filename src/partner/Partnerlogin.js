@@ -1,40 +1,40 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useAlert } from "react-alert";
+import { useHistory } from "react-router-dom";
 const Adminlogin = () => {
-  const [partner_email, setPartner_email] = useState("");
-  const [partner_password, setPartner_password] = useState("");
-  const [error, setError] = useState("");
-  const handleEmail = (e) => {
-    setPartner_email(e.target.value);
+  let alert = useAlert();
+  let history = useHistory();
+  const [login_partner, setLogin_partner] = useState({
+    partner_email: "",
+    partner_password: "",
+  });
+  const handlePartner = (e) => {
+    const { name, value } = e.target;
+    setLogin_partner({
+      ...login_partner,
+      [name]: value,
+    });
   };
 
-  const handlePassword = (e) => {
-    setPartner_password(e.target.value);
-  };
+  const handleApipartner = (e) => {
 
-  const handleApi = () => {
-    if (partner_email === "" || partner_password === "") {
-      setError("Fields are required");
-      return;
-    }
-
-    const {partner_email, partner_password} =
-
-    axios
-      .post("http://54.187.167.159/api/lo", {
-        partner_email: partner_email,
-        partner_password: partner_password,
-      })
-
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
+  e.preventDefault();
+  const { partner_email, partner_password} = login_partner;
+  if (partner_email && partner_password) {
+    axios.post("http://35.91.35.188/api/partner-login", login_partner).then((result) => {
+      if (result.data.success === true) {
+        alert.success(result.data.message);
+        history.push("/partner/dashboard");
+      } else if (result.data.success === false) {
+        alert.success(result.data.message);
+      }
+    });
+  } else {
+    alert.error("Invalid Inputs");
+  }
+};
   return (
     <>
       <div className="container-fluid admin-login">
@@ -51,8 +51,8 @@ const Adminlogin = () => {
                     type="email"
                     name="partner_email"
                     placeholder="Email"
-                    value={partner_email}
-                    onChange={handleEmail}
+                    value={login_partner.partner_email}
+                    onChange={handlePartner}
                     autoComplete="off"
                   />
                 </div>
@@ -61,8 +61,8 @@ const Adminlogin = () => {
                     type="password"
                     name="partner_password"
                     placeholder="Password"
-                    value={partner_password}
-                    onChange={handlePassword}
+                    value={login_partner.partner_password}
+                    onChange={handlePartner}
                   />
                 </div>
               </div>
@@ -73,19 +73,9 @@ const Adminlogin = () => {
                 <Link
                   to="/partner/dashboard"
                   className="login-btn"
-                  onClick={handleApi}
+                  onClick={handleApipartner}
                 >
                   Login
-                </Link>
-                <span className="footer-title">
-                  Don't have an account yet ?
-                </span>
-                <Link
-                  to="/signup"
-                  className="signup-btn"
-                  onClick={handleApi}
-                >
-                  SIGNUP
                 </Link>
               </div>
             </div>

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import HomeFoooter from "./HomeFoooter";
-import homgpagebanner from "../images/homebg1.png";
+import homgbg from "../images/homebg.png";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
 import { NavLink, Link } from "react-router-dom";
-import logo from "../images/Frame.png";
+import Frame from "../images/Frame.png";
+import step_carrykar1 from "../images/step_carrykar1.png";
 import befikar1 from "../images/befikar1.png";
 import befikar2 from "../images/befikar2.png";
 import befikar3 from "../images/befikar3.png";
@@ -24,7 +25,7 @@ import commuter from "../images/commuter.png";
 import commuter1 from "../images/commuter1.png";
 import commuter2 from "../images/commuter2.png";
 import commuter3 from "../images/commuter3.png";
-import quetion1 from "../images/quetion.png";
+import quetion from "../images/quetion.png";
 import "./homepage.css";
 import Tripsearch from "./Tripsearch";
 
@@ -39,16 +40,16 @@ const Homepage = () => {
               <div className="menu">
                 <div className="desktop-menu">
                   <div className="nav-logo">
-                    <NavLink to="/" className="nav-link">
-                      <img src={logo} alt="logo" />
+                    <NavLink to="/carrykar" className="nav-link">
+                      <img src={Frame} alt="logo" />
                     </NavLink>
                   </div>
                   <div className="desktop-links">
                     <ul>
                       <li className="dropdown">
-                        <p
+                        <Link
                           exact
-                          to="/"
+                          to="/carrykar"
                           className="dropdown-toggle"
                           data-toggle="dropdown"
                         >
@@ -61,7 +62,7 @@ const Homepage = () => {
                               Premium Delivery
                             </Link>
                           </div>
-                        </p>
+                        </Link>
                       </li>
                       <li>
                         <NavLink to="/latestjob">Daily Commuter</NavLink>
@@ -171,7 +172,7 @@ const Homepage = () => {
                 </div> */}
               </div>
               <div className="img_content">
-                <img src={homgpagebanner} alt="homgpagebanner" />
+                <img src={homgbg} alt="homgpagebanner" />
               </div>
             </div>
           </div>
@@ -311,8 +312,7 @@ const Homepage = () => {
 
       <section className="step_section">
         <div className="carrykar_steps">
-          <div className="container">
-            <div className="box">
+          {/* <div className="box">
               <div className="main_box-h">
                 <p>Steps of Befikar carrykar</p>
               </div>
@@ -354,8 +354,12 @@ const Homepage = () => {
                   <h4>Earn rewards</h4>
                 </div>
               </div>
-            </div>
+            </div> */}
+          <div className="container">
+            <p>steps of</p>
+            <p>Befikar Carrykar</p>
           </div>
+          <img src={step_carrykar1} alt="step-carrykar" />
         </div>
         <div className="operational">
           <div className="container">
@@ -442,7 +446,7 @@ const Homepage = () => {
                 <h3>Freuquently Asked Quetions</h3>
                 <p>If you have any further quetions please contact us.</p>
               </div>
-              <img className="que-mark" src={quetion1} alt="que-img" />
+              <img className="que-mark" src={quetion} alt="que-img" />
             </div>
             <div className="row mt-2">
               <div className="col-md-6">
@@ -535,6 +539,38 @@ const Homepage = () => {
                         <p className="mb-0">
                           The luggage will be available to you at the airport
                           before the scheduled departure time.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className="card">
+                  <div className="card-body">
+                    <div id="accordion5">
+                      <div id="heading5" className="que-heading">
+                        <Link
+                          className="que-link btn-link"
+                          data-toggle="collapse"
+                          data-target="#collapse5"
+                          aria-expanded="true"
+                          aria-controls="collapse5"
+                        >
+                          Who should I contact if I have any problems?
+                          <AddIcon className="que-add" />
+                        </Link>
+                      </div>
+                      <div
+                        id="collapse5"
+                        className="collapse"
+                        aria-labelledby="heading5"
+                        data-parent="#accordion5"
+                      >
+                        <p className="mb-0">
+                          You can email us at carrykar@gmail.com or speak with a
+                          member of our dedicated customer care staff, who will
+                          respond to your questions as soon as possible.
                         </p>
                       </div>
                     </div>

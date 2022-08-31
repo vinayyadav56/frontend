@@ -18,31 +18,31 @@ const partnerArray = [
         id: 1,
         navitem: 'Dashboard',
         icon: <GridViewRoundedIcon />,
-        link: '/admindashboard'
+        link: '/admin/dashboard'
     },
     {
         id: 2,
         navitem: 'Order',
         icon: <StarBorderRoundedIcon />,
-        link: '/admindashboard'
+        link: '/admin/dashboard'
     },
     {
         id: 3,
         navitem: 'Recent Order',
         icon: <BorderColorRoundedIcon />,
-        link: '/admindashboard'
+        link: '/admin/dashboard'
     },
     {
         id: 4,
         navitem: 'Setting',
         icon: <SettingsIcon />,
-        link: '/admindashboard'
+        link: '/admin/dashboard'
     },
     {
         id: 5,
         navitem: 'Help Center',
         icon: <HelpCenterRoundedIcon />,
-        link: '/admindashboard'
+        link: '/admin/dashboard'
     },
 
 

@@ -6,7 +6,7 @@ import profilelogo from "../images/profilelogo.png";
 import prlogo from "../images/pr-img.png";
 import paymenticon from "../images/paymenthistory.png";
 import dashboardlogo from "../images/Frame.png";
-import historyicon from "../images/refral.png";
+// import historyicon from "../images/refral.png";
 import vector from "../images/Vector.png";
 
 const CustomerSidebar = () => {
@@ -41,19 +41,19 @@ const CustomerSidebar = () => {
                   </div>
                 </li>
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="/customerdashboard/profile">
+                  <NavLink className="nav-link" to="/customer/dashboard/profile">
                     <img src={prlogo} alt="pr" />
                     <span>Profile</span>
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="/customerdashboard/trackhistory">
+                  <NavLink className="nav-link" to="/customer/dashboard/trackhistory">
                     <img src={paymenticon} alt="payment" />
                     <span>Track History</span>
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="/customerdashboard/paymenthistory">
+                  <NavLink className="nav-link" to="/customer/dashboard/paymenthistory">
                   <img src={paymenticon} alt="payment" />
                     <span>Payment History</span>
                   </NavLink>
