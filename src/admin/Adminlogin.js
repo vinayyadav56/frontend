@@ -4,7 +4,7 @@ import "../component/Login.css";
 import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { useHistory } from "react-router-dom";
-const Adminlogin = () => {
+const Adminlogin = ({ addUserLocal }) => {
   let alert = useAlert();
   let history = useHistory();
  const [adminlogin , setAdminlogin] = useState({
@@ -24,10 +24,18 @@ const Adminlogin = () => {
     if(admin_username && admin_password){
       axios
       .post("http://35.91.35.188/api/admin-login", adminlogin)
-      .then(() =>{
-        console.log("test");
-        alert.success("Login successfully");
-        history.push("/admindashboard");
+      .then((result) =>{
+        // console.log("test");
+        // alert.success("Login successfully");
+        
+        if (result.data.success === true) {
+          alert.success(result.data.message);
+          console.log("result.data.loginData " + result.data.loginData);
+          addUserLocal(result.data.loginData);
+          history.push("/admindashboard");
+        } else if (result.data.success === false) {
+          alert.success(result.data.message);
+        }
       });
       }else{
         alert.error("Invalid inputs please retry");

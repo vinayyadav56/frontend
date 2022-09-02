@@ -53,43 +53,100 @@ const App = () => {
       <Provider template={AlertTemplate} {...options}>
         <Router>
           <Switch>
-            <Route path="/signup" component={Signup} />
+            <Route path="/carrier/signup" component={Signup} />
             <Route exact path="/" component={Homepage} />
             <Route path="/forgetpassword" component={Forgetpassword} />
-            <Route path="/login" component={Login} />
+            <Route path="/login">
+              <Login addUserLocal={addUserLocal} />
+            </Route>
             <Route path="/about" component={About} />
             <Route path="/contact" component={Contact} />
-            <Route path="/partner/dashboard" component={PartnerDashboard} />
-            <Route path="/partner" component={Partnerlogin} />
-            <Route path="/admin" component={Adminlogin} />
-            <Route path="/admindashboard" component={AdminDashboard} />
-            <Route path="/carrier/dashboard/profile" >
-              <UserProfile  />
+            {/* no show before login */}
+
+            <Route path="/partner/dashboard">
+              {user && user.id ? (
+                <PartnerDashboard />
+              ) : (
+                <Login addUserLocal={addUserLocal} />
+              )}
             </Route>
-            <Route
-              path="/carrier/dashboard/paymenthistory"
-              component={Paymenthistory}
-            />
-            <Route
-              path="/carrier/dashboard/managereferals"
-              component={Managereffrals}
-            />
-            <Route path="/carrier/dashboard" >
-              <Userdashboard  user={user} addUserLocal={addUserLocal} />
+            <Route path="/partner">
+              {user && user.id ? (
+                <Partnerlogin />
+              ) : (
+                <Login addUserLocal={addUserLocal} />
+              )}
             </Route>
-            <Route path="/customer/dashboard" component={CustomerDashboard} />
-            <Route
-              path="/customer/dashboard/profile"
-              component={CustomerProfile}
-            />
-            <Route
-              path="/customer/dashboard/trackhistory"
-              component={CustomerTrack}
-            />
-            <Route
-              path="/customer/dashboard/paymenthistory"
-              component={CustomerPaymenthistory}
-            />
+            <Route path="/admin">
+              {user && user.id ? (
+                <Adminlogin />
+              ) : (
+                <Login addUserLocal={addUserLocal} />
+              )}
+            </Route>
+            <Route path="/admindashboard">
+              {user && user.id ? (
+                <AdminDashboard />
+              ) : (
+                <Login addUserLocal={addUserLocal} />
+              )}
+            </Route>
+            <Route path="/carrier/dashboard/profile">
+              {user && user.id ? (
+                <UserProfile userActive={user}/>
+              ) : (
+                <Login addUserLocal={addUserLocal} />
+              )}
+            </Route>
+            <Route path="/carrier/dashboard/paymenthistory">
+              {user && user.id ? (
+                <Paymenthistory userActive={user} />
+              ) : (
+                <Login addUserLocal={addUserLocal} />
+              )}
+            </Route>
+            <Route path="/carrier/dashboard/managereferals">
+              {user && user.id ? (
+                <Managereffrals userActive={user}/>
+              ) : (
+                <Login addUserLocal={addUserLocal} />
+              )}
+            </Route>
+            <Route path="/carrier/dashboard">
+              {user && user.id ? (
+                <Userdashboard userActive={user} addUserLocal={addUserLocal} />
+              ) : (
+                <Login addUserLocal={addUserLocal} />
+              )}
+            </Route>
+            <Route path="/customer/dashboard">
+              {user && user.id ? (
+                <CustomerDashboard />
+              ) : (
+                <Login addUserLocal={addUserLocal} />
+              )}
+            </Route>
+            <Route path="/customer/dashboard/profile">
+              {user && user.id ? (
+                <CustomerProfile />
+              ) : (
+                <Login addUserLocal={addUserLocal} />
+              )}
+            </Route>
+            <Route path="/customer/dashboard/trackhistory">
+              {user && user.id ? (
+                <CustomerTrack />
+              ) : (
+                <Login addUserLocal={addUserLocal} />
+              )}
+            </Route>
+            <Route path="/customer/dashboard/paymenthistory">
+              {user && user.id ? (
+                <CustomerPaymenthistory />
+              ) : (
+                <Login addUserLocal={addUserLocal} />
+              )}
+            </Route>
             <Redirect to="/" />
           </Switch>
         </Router>

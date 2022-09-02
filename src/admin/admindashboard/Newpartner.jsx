@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AddIcon from "@mui/icons-material/Add";
+// import AddIcon from "@mui/icons-material/Add";
 import { useAlert } from "react-alert";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
@@ -49,14 +49,14 @@ const Newpartner = () => {
       axios
         .post("http://35.91.35.188/api/partners", partnerregister)
         .then((response) => {
-          if(response.data.success == true){
+          if(response.data.success === true){
             alert.success(response.data.message);
             console.log(response.data);
-          } else if(response.data.success == false){
+            history.push("/admindashboard");
+          } else if(response.data.success === false){
             alert.error(response.data.message);
           }
-          // alert(response.data.message)
-          // history.push("/admindashbaord");
+         
         });
     } else {
       alert.error("Invalid Inputs");

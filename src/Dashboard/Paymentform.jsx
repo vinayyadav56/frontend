@@ -2,29 +2,10 @@
 import { Link } from "react-router-dom";
 import emailicon from "../images/emailicon.png";
 // import axios from "axios"
-const Profileform = () => {
-    // const [user , setUser] = useState([]);
-    // const fetchProfileuser = () =>{
-    //     axios.get("http://35.91.35.188/api/fetch-user/1")
-    //     .then((result) =>{
-    //         setUser(result.user)
-    //     })
-    // };
-    // useEffect(() => {
-    //     fetchProfileuser();
-    //   }, []);
+const Paymentform = () => {
   return (
     <>
       <form>
-        {/* {user.map(users =>{
-            return(
-                <>
-                <div key={users.id}>
-                  <h1>{users.first_name} </h1>
-                </div>
-                </>
-            )
-        })} */}
         <div className="row">
           <div className="form-group col-6">
             <label>Account holder Name</label>
@@ -95,4 +76,4 @@ const Profileform = () => {
   );
 };
 
-export default Profileform;
+export default Paymentform;

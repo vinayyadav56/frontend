@@ -4,7 +4,7 @@ import "./Login.css";
 import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { useHistory } from "react-router-dom";
-const Login = () => {
+const Login = ({ addUserLocal }) => {
   // const [loader, setLoader] = useState(false)
   let alert = useAlert();
   let history = useHistory();
@@ -26,6 +26,8 @@ const Login = () => {
       axios.post("http://35.91.35.188/api/login", loginuser).then((result) => {
         if (result.data.success === true) {
           alert.success(result.data.message);
+          console.log("result.data.loginData " + result.data.loginData);
+          addUserLocal(result.data.loginData);
           history.push("/carrier/dashboard");
         } else if (result.data.success === false) {
           alert.success(result.data.message);

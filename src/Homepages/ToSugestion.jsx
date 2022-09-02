@@ -44,7 +44,7 @@ export default function ToSugestion() {
                 fullName !== searchTermTo
               );
             })
-            .slice(0, 10)
+            .slice(0, 3)
             .map((item) => (
               <div
                 onClick={() => onSearchTo(item.full_name)}

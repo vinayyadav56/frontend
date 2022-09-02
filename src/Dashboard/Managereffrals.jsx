@@ -1,16 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "./Dashboardheader";
 import Sidebar from "./Dashboardsidebar";
 import refral from '../images/referearn1.png';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import "./managerefer.css";
-const Managereffrals = () => {
+const Managereffrals = ({addUserLocal, userActive }) => {
+  const [copy, setCopy] = useState('CDR2940KAJIM');
+  const [myStyle, setMyStyle] = useState({
+    color:'black',
+  });
+  const handleCopy = () => {
+    if(myStyle.color == 'white'){
+      setMyStyle({
+        color:'black',
+        backgroundColor:'#fff',
+        boxShadow:'none'
+      })
+    }else{
+      setMyStyle({
+        color:'white',
+      })
+    }
+    var copy = document.getElementById("myCode");
+    copy.select();
+    navigator.clipboard.writeText(copy.value);
+    setCopy('CDR2940KAJIM');
+  }
   return (
     <div>
       <section className="user-dashboard">
-        <Sidebar />
+        <Sidebar userActive={userActive}/>
         <section className="main-content">
-          <Header />
+          <Header userActive={userActive} addUserLocal={addUserLocal}/>
           <div className="refer_earn">
             <div className="container-fluid refer_content">
               <div className="row">
@@ -23,8 +45,9 @@ const Managereffrals = () => {
                   </span>
                   <p className="refer_code">Refer Code</p>
                   <div className="card">
-                    <div className="card-body">
-                        <p>CDR2940KAJIM</p>
+                    <div className="card-body d-flex justify-content-between">
+                    <input type="text" id="myCode" name="country" value={copy} disabled style={myStyle} />
+                        <OpenInNewIcon onClick={handleCopy}/>
                     </div>
                   </div>
                 </div>

@@ -7,25 +7,25 @@ const Paymentarray = [
         id:1,
         title:"$500",
         text:"Total Savings",
-        src:'../images/paymentimg4.png'
+        src:{paymentimg1}
     },
     {
-        id:1,
+        id:2,
         title:"24",
         text:"Total Bookings",
-        src:'../images/paymentimg.png'
+        src:{paymentimg2}
     },
     {
-        id:1,
+        id:3,
         title:"19kgs",
         text:"Total Weight",
-        src:'../images/paymentimg3.png'
+        src:{paymentimg3}
     },
     {
-        id:1,
+        id:4,
         title:"4",
         text:"Upcomig Bookings",
-        src:'../images/paymentimg4.png'
+        src:{paymentimg4}
     },
 ]
 

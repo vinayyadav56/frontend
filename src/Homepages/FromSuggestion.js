@@ -44,7 +44,7 @@ export default function FromSuggestion() {
                 fullName !== searchTerm
               );
             })
-            .slice(0, 10)
+            .slice(0, 3)
             .map((item) => (
               <div
                 onClick={() => onSearch(item.full_name)}

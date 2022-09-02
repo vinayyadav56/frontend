@@ -58,9 +58,13 @@ const Signup = () => {
       address &&
       password === reEnterPass
     ) {
-      axios.post("http://35.91.35.188/api/register-user", user).then(() => {
-        alert.success("data posted");
-        history.push("/dashboard");
+      axios.post("http://35.91.35.188/api/register-user", user).then((result) => {
+        if (result.data.success === true) {
+          alert.success(result.data.message);
+          history.push("/carrier/dashboard");
+        } else if (result.data.success === false) {
+          alert.success(result.data.message);
+        }
       });
     } else {
       alert.error("Invalid inputs");
@@ -227,7 +231,7 @@ const Signup = () => {
                       Already have an account?
                       <button
                         type="button"
-                        onClick={() => history.push("/login")}
+                        onClick={() => history.push("/carrier/login")}
                       >
                         Login Here
                       </button>

@@ -49,7 +49,7 @@ const Homepage = () => {
                       <li className="dropdown">
                         <Link
                           exact
-                          to="/carrykar"
+                          to="/"
                           className="dropdown-toggle"
                           data-toggle="dropdown"
                         >
@@ -79,8 +79,23 @@ const Homepage = () => {
                       <li>
                         <NavLink to="/Login">Login</NavLink>
                       </li>
-                      <li>
-                        <NavLink to="/signup">Sign Up</NavLink>
+                      <li className="dropdown">
+                        <Link
+                          exact
+                          to="/"
+                          className="dropdown-toggle"
+                          data-toggle="dropdown"
+                        >
+                          SignUp
+                          <div className="dropdown-menu">
+                            <Link to="/carrier/signup" className="dropdown-item">
+                              Customer SignUp
+                            </Link>
+                            <Link to="/carrier/signup" className="dropdown-item">
+                              Carrier SignUp
+                            </Link>
+                          </div>
+                        </Link>
                       </li>
                     </ul>
                   </div>
@@ -312,49 +327,6 @@ const Homepage = () => {
 
       <section className="step_section">
         <div className="carrykar_steps">
-          {/* <div className="box">
-              <div className="main_box-h">
-                <p>Steps of Befikar carrykar</p>
-              </div>
-              <div className="step_1 carry_step-common">
-                <div>
-                  <h4>Register to CarryKar </h4>
-                </div>
-                <p></p>
-              </div>
-              <div className="step_2 carry_step-common">
-                <div>
-                  <h4>Become our carrier</h4>
-                </div>
-                <p></p>
-              </div>
-              <div className="step_3 carry_step-common">
-                <div>
-                  <h4>Choose your destination</h4>
-                </div>
-                <p></p>
-              </div>
-              <div className="step_4 carry_step-common">
-                <p></p>
-                <div>
-                  <h4>Travel to your Destination</h4>
-                </div>
-              </div>
-              <div className="step_5  carry_step-common">
-                <p></p>
-                <div>
-                  <h4>
-                    Deliver luggage to our delivery partners at the destination
-                  </h4>
-                </div>
-              </div>
-              <div className="step_6  carry_step-common">
-                <p></p>
-                <div>
-                  <h4>Earn rewards</h4>
-                </div>
-              </div>
-            </div> */}
           <div className="container">
             <p>steps of</p>
             <p>Befikar Carrykar</p>

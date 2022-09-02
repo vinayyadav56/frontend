@@ -10,13 +10,13 @@ import tableicon from "../images/tableicon.png";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import LuggageOutlinedIcon from "@mui/icons-material/LuggageOutlined";
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
-const Paymenthistory = () => {
+const Paymenthistory = ({addUserLocal, userActive }) => {
   return (
     <>
       <section className="user-dashboard">
-        <Sidebar />
+        <Sidebar userActive={userActive}/>
         <section className="main-content">
-          <Header />
+          <Header userActive={userActive} addUserLocal={addUserLocal}/>
           <div className="payment-cards">
             <div className="card">
               <div className="card-body">

@@ -7,7 +7,7 @@ body {
 
 .main_section {
     background: linear-gradient(77.42deg, #0747A9 -0.01%, #2277C9 94.19%);
-    height: 90vh;
+    height: 100%;
     padding-bottom: 5rem;
 }
 
@@ -73,7 +73,7 @@ body {
 
 @media screen and (min-width: 1200px) {
     .hero_section .hero_section-div .img_content img {
-        width: 90%;
+        width: 100%;
     }
 }
 
@@ -174,17 +174,18 @@ ul {
     margin-right: 0rem;
 }
 
-.menu .desktop-links ul li:last-child a {
+.menu .desktop-links ul li:last-child .dropdown-toggle {
     background-color: #fff;
     color: #0747A9;
     border: 1px solid #fff;
-    padding: 4px 8px;
+    padding: 3px 8px;
     border-radius: 5px;
 }
 
-.menu .desktop-links ul li:last-child a:hover {
+.menu .desktop-links ul li:last-child .dropdown-toggle:hover {
     background: transparent;
     color: #fff;
+    cursor: pointer;
 }
 
 .menu .desktop-links ul li:nth-child(5) a {
@@ -250,11 +251,28 @@ ul {
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     padding: 12px 6px;
+    margin-top: 2px;
     z-index: 1;
     border-radius: 10px;
 }
 
 .menu .dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.menu .dropleft-menu {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    padding: 12px 6px;
+    margin-top: 2px;
+    z-index: 1;
+    border-radius: 10px;
+}
+
+.menu .dropleft:hover .dropdown-menu {
     display: block;
 }
 
@@ -391,53 +409,103 @@ ul {
     border-radius: 20px;
 }
 
-.trip_search .card .btn_group {
-    display: flex;
+
+/*  */
+
+.trip_search_form .btn-group .radio {
+    width: 100px;
 }
 
-.trip_search .card .btn_group .select_btn {
+.trip_search_form .btn-group .radio label {
+    margin-left: 0;
+}
+
+/*  */
+
+
+.trip_search_form .btn-group {
+    display: flex;
+    width: 100%;
+}
+
+.trip_search_form .btn-group .radio {
     margin-right: 2rem;
-    padding: 2px 5px;
-    border-radius: 20px;
-    border: 1px solid #ababab;
+}
+
+.trip_search_form .fswTabs button {
     text-align: center;
-    width: 15%;
+    width: 100%;
     display: flex;
     align-items: center;
+    border: 1px solid #ababab;
+    border-radius: 20px;
+    margin-right: 1rem;
+    cursor: pointer;
+    padding: 4px 8px;
     justify-content: start;
 }
 
-.trip_search .card .btn_group .select_btn:focus {
+.trip_search_form .fswTabs button p {
+    margin-bottom: 0;
+    margin-left: 2.6rem;
+}
+
+.active {
+    background: #1057B3;
+    color: #fff;
+}
+
+.fswTabs button:active {
+    background: #1057B3;
+    color: #fff;
+}
+
+/* .trip_search_form .fswTabs button:focus {
     box-shadow: none;
     background-color: #1057B3;
-    color: #fff;
-}
+} */
 
-.trip_search .card .btn_group .select_btn:hover {
+.trip_search_form .fswTabs button:hover {
     background-color: #1057B3;
     color: #fff;
 }
 
 
-.trip_search .card .btn_group .select_btn .btn_icn {
+.trip_search .card .btn_icn{
     border-radius: 50%;
-    margin-right: auto;
     padding: 2px;
+    margin-right: 2rem !important;
 }
-
-.trip_search .card .btn_group .select_btn:focus .btn_icn {
+.trip_search_form .fswTabs button:hover .btn_icn{
+    background-color: #fff;
+    color: #0747A9;
+}
+.trip_search .card button.active .btn_icn {
     background-color: #fff;
     color: #0747A9;
 }
 
-.trip_search .card .btn_group .select_btn:hover .btn_icn {
-    background-color: #fff;
-    color: #0747A9;
+.trip_search_form .trp_form_submit .btn {
+    color: #fff;
+    background-color: #2277C9;
+    padding: 4px 16px;
+    border-radius: 5px;
+    border: 1px solid #2277C9;
 }
 
-.trip_search .card .btn_group .select_btn span:last-child {
-    margin-bottom: 0;
-    margin-left: 30%;
+.trip_search_form .trp_form_submit .btn:hover {
+    color: #2277C9;
+    background-color: #fff;
+}
+
+.trip_search_form .trp_form_submit .btn:focus {
+    box-shadow: none;
+}
+
+.trp_form_submit {
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
 /* form css start */
@@ -517,6 +585,48 @@ ul {
     border: 1px solid #0E53B1;
 }
 
+.fswTabs {
+    display: flex;
+    width: 40%;
+    justify-content: space-between;
+}
+
+/* .fswTabs li.selected {
+    background: #e7e7e7;
+    color: #000000;
+} */
+/* .fswTabs li {
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin: 0 10px;
+    text-align: center;
+    padding: 2px 6px;
+    border-radius: 20px;
+} */
+/* .fswTabs li.selected .tabsCircle {
+    border: solid 1px #000;
+    background: #000;
+} */
+/* .fswTabs li .tabsCircle {
+    width: 12px;
+    height: 12px;
+    border-radius: 100%;
+    margin-right: 5px;
+    border: solid 1px #9b9b9b;
+} */
+/* .tabsCircle:after {
+    content: '';
+    display: block;
+    width: 3px;
+    height: 6px;
+    border: solid #fff;
+    border-width: 0 1px 1px 0;
+    transform: rotate(45deg);
+    margin-top: 1px;
+    margin-left: 3px;
+} */
 /* Slide bottom Ends */
 
 /* carrier_about_services css start */
@@ -648,10 +758,12 @@ ul {
     height: auto;
     margin-top: -55px;
 }
-.carrykar_steps .container{
+
+.carrykar_steps .container {
     padding-top: 2rem;
     padding-left: 0;
 }
+
 .carrykar_steps p:nth-child(1) {
     color: #0849AA;
     font-family: 'Poppins';
@@ -660,6 +772,7 @@ ul {
     margin-bottom: 0;
     font-size: 24px;
 }
+
 .carrykar_steps p:nth-child(2) {
     color: #0849AA;
     font-family: 'Poppins';
@@ -782,9 +895,11 @@ ul {
     text-align: center;
     color: #fff;
 }
-.operational .location_card .card-body img{
+
+.operational .location_card .card-body img {
     width: 100%;
 }
+
 .operational .location_card .card-body p {
     padding-top: 0.6rem;
     font-size: 16px;
@@ -1149,7 +1264,7 @@ ul {
         width: 4rem !important;
     }
 
-    .trip_search .card .btn_group .select_btn {
+    .trip_search .card .select_btn {
         width: 100%;
     }
 }
@@ -1171,14 +1286,14 @@ ul {
 }
 
 @media screen and (max-width: 460px) {
-    .trip_search .card .btn_group {
+    .trip_search .card {
         display: flex;
         justify-content: center;
         align-items: center;
         flex-wrap: wrap;
     }
 
-    .trip_search .card .btn_group .select_btn {
+    .trip_search .card .select_btn {
         width: 120px !important;
         margin: 10px;
     }
@@ -1186,10 +1301,10 @@ ul {
 
 @media screen and (max-width: 365px) {
 
-    /* .trip_search .card .btn_group {
+    /* .trip_search .card {
         display: block;
     } */
-    .trip_search .card .btn_group .select_btn {
+    .trip_search .card .select_btn {
         width: 100px !important;
         margin: 10px;
     }

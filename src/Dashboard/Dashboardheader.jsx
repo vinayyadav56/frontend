@@ -4,7 +4,8 @@ import SearchIcon from "@mui/icons-material/Search";
 // import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import bellicon from "../images/bellicon.png";
 import logout from "../images/logout.png";
-const Header = ({ addUserLocal, user }) => {
+import { Link } from 'react-router-dom';
+const Header = ({ addUserLocal, userActive }) => {
   return (
     <div>
         <nav className="navbar navbar-fixed dashboard-header">
@@ -20,14 +21,13 @@ const Header = ({ addUserLocal, user }) => {
                   <span className="input-group-text"><SearchIcon /></span>
                 </div>
               </div>
-
               <li>
                 <img src={headericon} alt="bell" />
               </li>
               <li>
                 <img src={bellicon} alt="bell" />
               </li>
-              <button className="header-btn d-flex">
+              <button className="header-btn d-flex" onClick={()=>addUserLocal({})}>
                 {/* <ExitToAppIcon className="mr-2" /> */}
                 <img src={logout} alt="logoutimg" />
                 Logout

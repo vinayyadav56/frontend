@@ -2,33 +2,31 @@ import Sidebar from "./Dashboardsidebar";
 import Header from "./Dashboardheader";
 import Profileform from "./Profileform";
 import Paymentform from "./Paymentform";
-import { useState } from "react";
-import axios from "axios";
-import { useEffect } from "react";
-const UserProfile = () => {
-  const [stableUser, setstableUser] = useState([]);
-  const fetch_Url = "http://127.0.0.1:8000/api/fetch-user/1";
+const UserProfile = ({ addUserLocal, userActive }) => {
 
-  const fetchUser = async () => {
-    const response = await axios.get(fetch_Url);
-    try {
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const [stableUser, setstableUser] = useState([]);
+  // const fetch_Url = "http://127.0.0.1:8000/api/fetch-user/1";
 
-  useEffect(() => {
-    fetchUser()
-  }, [])
+  // const fetchUser = async () => {
+  //   const response = await axios.get(fetch_Url);
+  //   try {
+  //     console.log(response);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchUser()
+  // }, [])
   
 
   return (
     <div>
       <section className="user-dashboard">
-        <Sidebar />
+        <Sidebar userActive={userActive} />
         <section className="main-content">
-          <Header />
+          <Header userActive={userActive} addUserLocal={addUserLocal}/>
           <div className="personal-info-form">
             <div className="d-flex justify-content-center">
               <div>
@@ -36,7 +34,7 @@ const UserProfile = () => {
                   <h3>Personal Info</h3>
                   <p>Update your personal detail here</p>
                 </div>
-                <Profileform />
+                <Profileform userActive={userActive}/>
               </div>
             </div>
             <div className="d-flex justify-content-center mt-5">
