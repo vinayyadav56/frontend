@@ -5,9 +5,10 @@ import CloseIcon from "@mui/icons-material/Close";
 import profilelogo from "../images/profilelogo.png";
 import prlogo from "../images/pr-img.png";
 import paymenticon from "../images/paymenthistory.png";
-import dashboardlogo from "../images/Frame.png";
+import Frame from "../images/Frame.png";
 import historyicon from "../images/refral.png";
 import vector from "../images/Vector.png";
+import moblogo from "../images/moblogo1.png";
 
 const Sidebar = ({ userActive }) => {
   const [toggleMenu, setToggleMenu] = useState();
@@ -17,8 +18,8 @@ const Sidebar = ({ userActive }) => {
         <div className="desktop-navbar">
           <nav className="user-dash-navbar">
             <NavLink to="/carrier/dashboard" className="navbar-brand">
-              <img src={dashboardlogo} alt="dashlogo" />
-              {/* <img src={moblogo} alt="mobilelogo" /> */}
+              <img src={Frame} alt="dashlogo" className="dashlogo"/>
+              <img src={moblogo} alt="mobilelogo" className="moblogo" />
             </NavLink>
             <ul className="navbar-nav">
               <li className="nav-item">
@@ -45,6 +46,12 @@ const Sidebar = ({ userActive }) => {
                       })} */}
                   </p>
                 </div>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/carrier/dashboard/postavailabilty">
+                  <img src={prlogo} alt="pr" />
+                  <span>Post Avalaiblity</span>
+                </NavLink>
               </li>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/carrier/dashboard/profile">
@@ -79,7 +86,7 @@ const Sidebar = ({ userActive }) => {
             </ul>
           </nav>
         </div>
-        <div className="nav-mobile">
+        {/* <div className="nav-mobile">
           <MenuIcon onClick={() => setToggleMenu(true)} />
 
           {toggleMenu && (
@@ -133,7 +140,7 @@ const Sidebar = ({ userActive }) => {
               </ul>
             </div>
           )}
-        </div>
+        </div> */}
       </section>
     </div>
   );

@@ -56,7 +56,7 @@
 
 /* payment-history css start */
 .payment-history{
-    margin-top: 2rem;
+    margin-top: 1rem;
     padding-right: 4rem;
 }
 .payment-history .payment-heading{
@@ -152,4 +152,12 @@ tbody tr td .abled{
     color: #960101;
     border: 1px solid #960101;
     cursor: no-drop;
+}
+
+
+/* @media queries start */
+@media only screen and (max-width:991px){
+    .payment-cards {
+        grid-template-columns: 4fr 4fr;
+    }
 }

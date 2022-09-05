@@ -58,7 +58,7 @@ const Reactdatatable = () => {
               type="text"
               className="form-control"
               placeholder="Filter"
-              onInput={(e) => setSearchTerm(e.target.value)}
+              onInput={handleSearch}
             />
           </div>
           {/* <div className="col">
@@ -95,7 +95,7 @@ const Reactdatatable = () => {
         <Tbody>
           {tdata
             .filter((val) => {
-              if (searchTerm == "") {
+              if (searchTerm === "") {
                 return val;
               } else if (
                 val.partner_name

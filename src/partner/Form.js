@@ -1,9 +1,10 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useAlert } from "react-alert";
-import Additem from "./Additem";
+// import Additem from "./Additem";
 import { useHistory } from "react-router-dom";
 const Form = () => {
+  
   let alert = useAlert();
   let history = useHistory();
   const [createorder, setCreateorder] = useState({
@@ -12,6 +13,7 @@ const Form = () => {
     order_dimension: "",
     from_location: "",
     to_location: "",
+    file:"",
     sender_name: "",
     sender_email: "",
     sender_phone: "",
@@ -20,13 +22,17 @@ const Form = () => {
     sender_pin: "",
     sender_address: "",
     receiver_name: "",
-    receiver_email: "",
+    receiver_email: " ",
     receiver_phone: "",
     receiver_city: "",
     receiver_state: "",
     receiver_pin: "",
     receiver_address: "",
   });
+  const handlalert = (createorder) =>{
+    alert.success("Submit")
+    console.log(createorder.quantity);
+  }
   const handleCreateinput = (e) => {
     const { name, value } = e.target;
     setCreateorder({
@@ -42,6 +48,7 @@ const Form = () => {
       order_dimension,
       from_location,
       to_location,
+      file,
       sender_name,
       sender_email,
       sender_phone,
@@ -63,6 +70,7 @@ const Form = () => {
       order_dimension &&
       from_location &&
       to_location &&
+      file&&
       sender_name &&
       sender_email &&
       sender_phone &&
@@ -94,8 +102,8 @@ const Form = () => {
         <div className="form-title">
           <h2>Create Order</h2>
         </div>
-        <div className="order-sum">
-          <form className="order-dis" onSubmit={handleOrder}>
+        <div className="order-sum" onSubmit={handleOrder}>
+          <form className="order-dis" >
             <div className="form-group mt-2">
               <label for="Textarea1">
                 Order Description :
@@ -168,7 +176,7 @@ const Form = () => {
               </div>
               <div className="col-md-6 img-upload">
                 <label for="inputimage">Upload Order Packing Image</label>
-                <input type="file" className="form-control" />
+                <input type="file" value={createorder.file} className="form-control" />
               </div>
             </div>
             <h2 className="sender-info">Sender Details :</h2>
@@ -349,13 +357,13 @@ const Form = () => {
                 />
               </div>
             </div>
-            <Additem />
             <div className="partner-order">
-              <button type="submit" className="btn btn-danger">
-                Create Order
-              </button>
+              
             </div>
           </form>
+          <button type="click" className="btn btn-danger" onClick={handlalert}>
+                Create Order
+              </button>
         </div>
       </div>
     </div>

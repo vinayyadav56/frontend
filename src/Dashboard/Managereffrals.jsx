@@ -36,7 +36,7 @@ const Managereffrals = ({addUserLocal, userActive }) => {
           <div className="refer_earn">
             <div className="container-fluid refer_content">
               <div className="row">
-                <div className="col-6">
+                <div className="col-lg-6 col-md-12 ">
                   <h2>REFER & EARN!!!</h2>
                   <p className="refer_heading">Share and Save some cash!</p>
                   <span>
@@ -51,7 +51,7 @@ const Managereffrals = ({addUserLocal, userActive }) => {
                     </div>
                   </div>
                 </div>
-                <div className="col-6">
+                <div className="col-lg-6">
                     <img src={refral} alt="ref" />
                 </div>
               </div>

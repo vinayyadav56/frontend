@@ -77,25 +77,10 @@ const Homepage = () => {
                         <NavLink to="/answerkey">Contact Us</NavLink>
                       </li>
                       <li>
-                        <NavLink to="/Login">Login</NavLink>
+                        <NavLink to="/login">Login</NavLink>
                       </li>
-                      <li className="dropdown">
-                        <Link
-                          exact
-                          to="/"
-                          className="dropdown-toggle"
-                          data-toggle="dropdown"
-                        >
-                          SignUp
-                          <div className="dropdown-menu">
-                            <Link to="/carrier/signup" className="dropdown-item">
-                              Customer SignUp
-                            </Link>
-                            <Link to="/carrier/signup" className="dropdown-item">
-                              Carrier SignUp
-                            </Link>
-                          </div>
-                        </Link>
+                      <li>
+                        <NavLink to="/carrier/signup">SignUp</NavLink>
                       </li>
                     </ul>
                   </div>

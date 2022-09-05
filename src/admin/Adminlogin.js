@@ -25,12 +25,10 @@ const Adminlogin = ({ addUserLocal }) => {
       axios
       .post("http://35.91.35.188/api/admin-login", adminlogin)
       .then((result) =>{
-        // console.log("test");
-        // alert.success("Login successfully");
         
         if (result.data.success === true) {
           alert.success(result.data.message);
-          console.log("result.data.loginData " + result.data.loginData);
+          // console.log("result.data.loginData " + result.data.loginData);
           addUserLocal(result.data.loginData);
           history.push("/admindashboard");
         } else if (result.data.success === false) {

@@ -29,6 +29,7 @@ import CustomerProfile from "./CustomerDashboard/CustomerProfile";
 import CustomerTrack from "./CustomerDashboard/CustomerTrack";
 import CustomerPaymenthistory from "./CustomerDashboard/CustomerPaymenthistory";
 import Managereffrals from "./Dashboard/Managereffrals";
+import Postavailablity from "./Dashboard/Postavailablity";
 const App = () => {
   const options = {
     timeout: 5000,
@@ -53,7 +54,7 @@ const App = () => {
       <Provider template={AlertTemplate} {...options}>
         <Router>
           <Switch>
-            <Route path="/carrier/signup" component={Signup} />
+            <Route exact path="/carrier/signup" component={Signup} />
             <Route exact path="/" component={Homepage} />
             <Route path="/forgetpassword" component={Forgetpassword} />
             <Route path="/login">
@@ -87,6 +88,13 @@ const App = () => {
             <Route path="/admindashboard">
               {user && user.id ? (
                 <AdminDashboard />
+              ) : (
+                <Login addUserLocal={addUserLocal} />
+              )}
+            </Route>
+            <Route path="/carrier/dashboard/postavailabilty">
+              {user && user.id ? (
+                <Postavailablity userActive={user}/>
               ) : (
                 <Login addUserLocal={addUserLocal} />
               )}

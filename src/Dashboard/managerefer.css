@@ -29,6 +29,14 @@
     font-weight: 500;
 }
 .refer_content img{
-    height:250px;
     float: right;
+    height: auto;
+    width: 100%;
+}
+@media only screen and (max-width:991px){
+    .refer_content img{
+        float:none;
+        height: auto;
+        width: 100%;
+    }
 }

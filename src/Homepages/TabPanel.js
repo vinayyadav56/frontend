@@ -78,7 +78,7 @@ export default function BasicTabs() {
               // placeholder="Date"
               className="form-control"
               id="depdate"
-              
+              required
             />
           </div>
           <div className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-3">
@@ -90,14 +90,14 @@ export default function BasicTabs() {
                 min="1"
                 id="lsp"
                 className="form-control"
-                
+                required
               />
               <span className="unit">Kg</span>
             </div>
           </div>
           <div className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-3">
             <label htmlFor="#put">Pickup Time</label>
-            <input type="time" id="put" className="form-control"  />
+            <input type="time" id="put" className="form-control" required />
           </div>
           <div className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-3">
             <label htmlFor="#tno">Ticket No.</label>
@@ -105,7 +105,7 @@ export default function BasicTabs() {
               type="text"
               id="tno"
               className="form-control"
-              
+              required
             />
           </div>
         </div>
@@ -123,20 +123,22 @@ export default function BasicTabs() {
           </div>
           <div className="form-group col-sm-6 col-md-6  mb-sm-4 px-2  col-lg-3">
             <label htmlFor="#depdate">Departure Date</label>
-            <input type="date" className="form-control" id="depdate"  />
+            <input type="date" className="form-control" id="depdate" required />
           </div>
           <div className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-3">
             <label htmlFor="#retdate">Return Date</label>
-            <input type="date" id="retdate" className="form-control"  />
+            <input type="date" id="retdate" className="form-control" required />
           </div>
           <div className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-2">
             <div className="input-box">
               <label htmlFor="#lsp">Luggage Space</label>
               <input
                 type="number"
+                max="2"
+                min="1"
                 id="lsp"
                 className="form-control"
-                
+                required
               />
               <span class="unit">Kg</span>
             </div>
@@ -148,7 +150,7 @@ export default function BasicTabs() {
               id="put"
               className="form-control"
               // placeholder="Enter time"
-              
+              required
             />
           </div>
           <div className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-2">
@@ -158,7 +160,7 @@ export default function BasicTabs() {
               id="tno"
               className="form-control"
               // placeholder="Enter number"
-              
+              required
             />
           </div>
         </div>

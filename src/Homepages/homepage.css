@@ -8,11 +8,11 @@ body {
 .main_section {
     background: linear-gradient(77.42deg, #0747A9 -0.01%, #2277C9 94.19%);
     height: 100%;
-    padding-bottom: 5rem;
 }
 
 .main_section .hero_section {
     position: relative;
+    padding-bottom: 10rem;
 }
 
 .main_section .hero_section .hero_section-div {
@@ -80,6 +80,7 @@ body {
 @media screen and (max-width: 991px) {
     .main_section {
         height: auto;
+        padding-bottom: 5rem;
     }
 
     .hero_section .hero_section-div .txt_content {
@@ -107,7 +108,11 @@ body {
     .hero_section .hero_section-div .txt_content h1 {
         font-size: 20px;
     }
-
+    .carrykar_steps img {
+        height: auto;
+        margin-top: 0px;
+        width: 100%;
+    }
     /* .hero_section .hero_section-div .img_content img {
         width: 70%;
         height: auto;
@@ -174,7 +179,7 @@ ul {
     margin-right: 0rem;
 }
 
-.menu .desktop-links ul li:last-child .dropdown-toggle {
+.menu .desktop-links ul li:last-child a{
     background-color: #fff;
     color: #0747A9;
     border: 1px solid #fff;
@@ -182,9 +187,10 @@ ul {
     border-radius: 5px;
 }
 
-.menu .desktop-links ul li:last-child .dropdown-toggle:hover {
+.menu .desktop-links ul li:last-child a:hover{
     background: transparent;
     color: #fff;
+    text-decoration: none;
     cursor: pointer;
 }
 
@@ -403,10 +409,8 @@ ul {
 .trip_search .card {
     width: 100%;
     padding: 0;
-    box-shadow: -4px 1px 29px -5px rgba(0, 0, 0, 0.75);
-    -webkit-box-shadow: -4px 1px 29px -5px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: -4px 1px 29px -5px rgba(0, 0, 0, 0.75);
-    border-radius: 20px;
+    box-shadow: 0px 0px 15px -1px rgb(181 179 181);
+    border-radius: 10px;
 }
 
 
@@ -449,11 +453,11 @@ ul {
     margin-bottom: 0;
     margin-left: 2.6rem;
 }
-
+/* 
 .active {
     background: #1057B3;
     color: #fff;
-}
+} */
 
 .fswTabs button:active {
     background: #1057B3;
@@ -657,9 +661,7 @@ ul {
 }
 
 .carrier_section .card {
-    -webkit-box-shadow: 0px 1px 10px 5px rgba(163, 163, 163, 1);
-    -moz-box-shadow: 0px 1px 10px 5px rgba(163, 163, 163, 1);
-    box-shadow: 0px 1px 10px 5px rgba(163, 163, 163, 1);
+    box-shadow: 0px 0px 15px -1px rgb(181 179 181);
     border-radius: 10px;
 }
 
@@ -1241,7 +1243,18 @@ ul {
 }
 
 @media screen and (max-width: 767px) {
-
+    .about_section {
+        -webkit-clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 2%);
+        clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 2%);
+    }
+    .operational {
+        -webkit-clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 2%);
+        clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 2%);
+    }
+    .quetion-section {
+        -webkit-clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 2%);
+        clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 2%);
+    }
     .carrier_section .card-deck {
         display: grid;
         grid-template-columns: auto;
