@@ -6,24 +6,51 @@
   body{
     font-family: "Poppins", sans-serif;
   }
-  .responsiveTable{
-    border: 1px solid #333;
+  .table-responsive-lg{
+    border: 0px;
+    max-height: 300px;
+    overflow: scroll;
   }
-  .responsiveTable thead tr th ,tbody tr th , tbody tr td{
+  .table-responsive-lg table{
+    width: 100%;
+  }
+  .table-responsive-lg thead tr th{
+    position:sticky;
     text-align: left;
-    font-size: 10px;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 3px;
-    padding-bottom: 3px;
+    padding:0.4rem;
+    font-style: normal;
+    font-size: 12px;
+    color: #000000;
+    background-color: rgb(255, 251, 251);
   }
-
-  .responsiveTable tr{
+  .table-responsive-lg tbody tr td{
+    text-align: left;
+    padding: 0.8rem 0.4rem;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    color: #0e54b2;
+  }
+  .table-responsive-lg tbody tr th{
+    padding: 1.6rem 0.8rem;
+    border: none;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    color: #000000;
+  }
+.table-responsive-lg tbody tr{
+  background: #FFFFFF;
+  box-shadow: 0px 0px 12px rgb(0 0 0 / 10%);
+  border-radius: 4px;
+  border-bottom: 2px solid #EAEAEA;
+}
+  /* .table-responsive-lg tr{
     border-bottom: 1px solid #333;
     border-top: 1px solid #333;
     padding-left: 2px;
     vertical-align: center;
-  }
+  } */
   /* .table-section .add-partner{
     color: #fff;
     background-color: rgb(9, 7 ,173);
@@ -46,7 +73,7 @@
     /* border: 1px solid #dadada; */
     color: #888;
 }
-.responsiveTable .delete-btn{
+ .delete-btn{
   padding:1px 6px;
   font-size: 10px;
   text-transform: capitalize;
@@ -67,6 +94,7 @@
 }
 .filter_partner .form-row{
   display: flex;
+  width: 100%;
   align-items:end;
 }
 .filter_partner label{

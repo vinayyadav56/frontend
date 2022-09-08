@@ -29,7 +29,7 @@ const Adminlogin = ({ addUserLocal }) => {
         if (result.data.success === true) {
           alert.success(result.data.message);
           // console.log("result.data.loginData " + result.data.loginData);
-          addUserLocal(result.data.loginData);
+          // addUserLocal(result.data.loginData);
           history.push("/admindashboard");
         } else if (result.data.success === false) {
           alert.success(result.data.message);

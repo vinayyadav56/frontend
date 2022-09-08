@@ -108,11 +108,13 @@ body {
     .hero_section .hero_section-div .txt_content h1 {
         font-size: 20px;
     }
+
     .carrykar_steps img {
         height: auto;
         margin-top: 0px;
         width: 100%;
     }
+
     /* .hero_section .hero_section-div .img_content img {
         width: 70%;
         height: auto;
@@ -179,7 +181,7 @@ ul {
     margin-right: 0rem;
 }
 
-.menu .desktop-links ul li:last-child a{
+.menu .desktop-links ul li:last-child a {
     background-color: #fff;
     color: #0747A9;
     border: 1px solid #fff;
@@ -187,7 +189,7 @@ ul {
     border-radius: 5px;
 }
 
-.menu .desktop-links ul li:last-child a:hover{
+.menu .desktop-links ul li:last-child a:hover {
     background: transparent;
     color: #fff;
     text-decoration: none;
@@ -222,7 +224,7 @@ ul {
     text-decoration: none;
 }
 
-.menu a:hover {
+.menu .desktop-links a:hover {
     color: aqua;
     border-bottom: 1px solid #fff;
 }
@@ -453,6 +455,7 @@ ul {
     margin-bottom: 0;
     margin-left: 2.6rem;
 }
+
 /* 
 .active {
     background: #1057B3;
@@ -475,15 +478,17 @@ ul {
 }
 
 
-.trip_search .card .btn_icn{
+.trip_search .card .btn_icn {
     border-radius: 50%;
     padding: 2px;
     margin-right: 2rem !important;
 }
-.trip_search_form .fswTabs button:hover .btn_icn{
+
+.trip_search_form .fswTabs button:hover .btn_icn {
     background-color: #fff;
     color: #0747A9;
 }
+
 .trip_search .card button.active .btn_icn {
     background-color: #fff;
     color: #0747A9;
@@ -636,11 +641,13 @@ ul {
 /* carrier_about_services css start */
 .carrier_about_services {
     background: #E7F0F9;
+    margin-top: -22rem;
 }
 
 .carrier_section {
     text-align: center;
     padding: 5rem;
+    padding-top: 24rem;
 }
 
 .carrier_section h2 {
@@ -663,6 +670,10 @@ ul {
 .carrier_section .card {
     box-shadow: 0px 0px 15px -1px rgb(181 179 181);
     border-radius: 10px;
+}
+
+.carrier_section .card .card-body {
+    padding-top: 4rem;
 }
 
 .carrier_section .card p {
@@ -872,6 +883,72 @@ ul {
     background: #fff;
 }
 
+.home_footer .modal {
+    border-radius: 10px;
+}
+
+.home_footer button.close {
+    font-size: 2.5rem;
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    position: absolute;
+    right: 7px;
+    z-index: 9999;
+}
+.become-part_btn{
+    background: transparent;
+    color: #fff;
+    font-size: 14px;
+}
+.become-part_btn:hover{
+    color: aqua;
+}
+.become_partner_form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.become-partner-modal .modal-content{
+    background-color: none;
+    border-radius: 10px;
+}
+.card-registration{
+    border: 1px solid #E9E9E9;
+    box-shadow: 0px 0px 15px -1px rgb(181 179 181);
+    border-radius: 10px;
+}
+.card-registration h3{
+    font-weight: bold;
+    font-size: 18px;
+    color: #0747A9;
+}
+.card-registration input{
+    border: none;
+    border-bottom: 1px solid #ababab;
+    border-radius: 0px;
+    padding: 0.5rem 0rem;
+}
+.card-registration input:focus{
+    outline: none;
+    box-shadow: none;
+}
+.card-registration input::placeholder{
+    font-size: 14px;
+    font-weight: lighter;
+}
+.card-registration .become_form_save{
+    background:#0747A9;
+    border: 1px solid #0747A9;
+    padding: 4px 16px;
+    color: #fff;
+    border-radius: 5px;
+}
+.card-registration .become_form_save:hover{
+    color: #0747A9;
+    background-color: #fff;
+}
+/* become partner form css ends */
 .operational {
     background: #1B6BC1;
     padding-top: 6rem;
@@ -1194,7 +1271,25 @@ ul {
 @media screen and (max-width: 991px) {
     .trip_section {
         margin-top: 0;
-        margin: 4rem 0;
+        margin: 0;
+        padding: 4rem 0rem;
+        background-color: #e7f0f9;
+    }
+
+    .main_section .hero_section {
+        position: relative;
+        padding-bottom: 0rem;
+    }
+
+    .carrier_about_services {
+        background: #E7F0F9;
+        margin-top: 0rem;
+    }
+
+    .carrier_section {
+        text-align: center;
+        padding: 5rem;
+        padding-top: 0rem;
     }
 
     .trip_search .form-inline .form-group:nth-child(2) {
@@ -1247,14 +1342,17 @@ ul {
         -webkit-clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 2%);
         clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 2%);
     }
+
     .operational {
         -webkit-clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 2%);
         clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 2%);
     }
+
     .quetion-section {
         -webkit-clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 2%);
         clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 2%);
     }
+
     .carrier_section .card-deck {
         display: grid;
         grid-template-columns: auto;

@@ -16,30 +16,24 @@ import HelpCenterRoundedIcon from '@mui/icons-material/HelpCenterRounded';
 const navArray = [
     {
         id: 1,
-        nav: 'Partner',
-        icon: <GroupWorkRoundedIcon />,
-        link: '/partner/dashboard'
-    },
-    {
-        id: 2,
         nav: 'Order',
         icon: <StarBorderRoundedIcon />,
         link: '/admin/dashboard'
     },
     {
-        id: 3,
+        id: 2,
         nav: 'Recent Order',
         icon: <BorderColorRoundedIcon />,
         link: '/admin/dashboard'
     },
     {
-        id: 4,
+        id: 3,
         nav: 'Setting',
         icon: <SettingsIcon />,
         link: '/admin/dashboard'
     },
     {
-        id: 5,
+        id: 4,
         nav: 'Help Center',
         icon: <HelpCenterRoundedIcon />,
         link: '/admin/dashboard'

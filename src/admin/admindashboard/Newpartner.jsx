@@ -49,14 +49,13 @@ const Newpartner = () => {
       axios
         .post("http://35.91.35.188/api/partners", partnerregister)
         .then((response) => {
-          if(response.data.success === true){
+          if (response.data.success === true) {
             alert.success(response.data.message);
             console.log(response.data);
             history.push("/admindashboard");
-          } else if(response.data.success === false){
+          } else if (response.data.success === false) {
             alert.error(response.data.message);
           }
-         
         });
     } else {
       alert.error("Invalid Inputs");
@@ -68,7 +67,7 @@ const Newpartner = () => {
         <input
           type="text"
           className="form-control"
-          placeholder="name"
+          placeholder="Name"
           name="partner_name"
           onChange={handleInput}
           value={partnerregister.partner_name}
@@ -77,7 +76,7 @@ const Newpartner = () => {
           type="text"
           className="form-control"
           name="partner_email"
-          placeholder="email"
+          placeholder="Email"
           onChange={handleInput}
           value={partnerregister.partner_email}
         ></input>
@@ -86,7 +85,7 @@ const Newpartner = () => {
           className="form-control"
           name="partner_password"
           onChange={handleInput}
-          placeholder="password"
+          placeholder="Password"
           value={partnerregister.partner_password}
         ></input>
         <input
@@ -94,7 +93,7 @@ const Newpartner = () => {
           className="form-control"
           name="partner_phone"
           onChange={handleInput}
-          placeholder="phone"
+          placeholder="Phone"
           value={partnerregister.partner_phone}
         ></input>
         <input
@@ -102,7 +101,7 @@ const Newpartner = () => {
           className="form-control"
           name="partner_pincode"
           onChange={handleInput}
-          placeholder="pincode"
+          placeholder="Pincode"
           value={partnerregister.partner_pincode}
         ></input>
         <input
@@ -110,7 +109,7 @@ const Newpartner = () => {
           className="form-control"
           name="partner_state"
           onChange={handleInput}
-          placeholder="state"
+          placeholder="State"
           value={partnerregister.partner_state}
         ></input>
         <input
@@ -118,7 +117,7 @@ const Newpartner = () => {
           name="partner_city"
           className="form-control"
           onChange={handleInput}
-          placeholder="city"
+          placeholder="City"
           value={partnerregister.partner_city}
         ></input>
         <input
@@ -126,10 +125,12 @@ const Newpartner = () => {
           className="form-control"
           name="partner_address"
           onChange={handleInput}
-          placeholder="address"
+          placeholder="Address"
           value={partnerregister.partner_address}
         ></input>
-        <button className="btn btn-primary my-5">Save Partner</button>
+        <div className="d-flex justify-content-between">
+          <button className="btn btn-primary">Save Partner</button>
+        </div>
       </form>
     </div>
   );

@@ -30,9 +30,9 @@ const Managereffrals = ({addUserLocal, userActive }) => {
   return (
     <div>
       <section className="user-dashboard">
-        <Sidebar userActive={userActive}/>
+        <Sidebar/>
         <section className="main-content">
-          <Header userActive={userActive} addUserLocal={addUserLocal}/>
+          <Header/>
           <div className="refer_earn">
             <div className="container-fluid refer_content">
               <div className="row">

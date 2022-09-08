@@ -223,6 +223,7 @@ main aside .sidebar a:hover span {
 
     main {
         grid-template-columns: 1fr;
+        width: 100%;
     }
 
     main aside {

@@ -251,6 +251,11 @@ ul{
     overflow: scroll;
     height: 470px;
 }
+.per_form{
+    background-color:#fff;
+    padding: 1.2rem 1rem;
+    border-radius: 8px;
+}
 ::-webkit-scrollbar {
     width: 8px; 
     height: 8px;  

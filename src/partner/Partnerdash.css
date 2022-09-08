@@ -145,6 +145,7 @@ main {
     grid-template-columns: 18rem auto;
     gap: 1rem;
     width: 96%;
+    height: 100%;
     /* margin: 0rem auto 4rem; */
     background: var(--color-light);
 }
@@ -231,6 +232,7 @@ main aside .sidebar a:hover span {
 
     main {
         grid-template-columns: 1fr;
+        width: 100%;
     }
 
     main aside {
@@ -297,7 +299,9 @@ main aside .sidebar a:hover span {
 
 /* oder form css */
 .right{
-    margin-top: 4rem !important;
+    margin-top: 2rem !important;
+    width: 100%;
+    overflow: scroll;
 }
 .order-cont {
     width: 100%;

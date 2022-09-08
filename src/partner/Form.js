@@ -361,9 +361,9 @@ const Form = () => {
               
             </div>
           </form>
-          <button type="click" className="btn btn-danger" onClick={handlalert}>
+          <button type="click"  className="btn btn-danger mx-auto" onClick={handlalert}>
                 Create Order
-              </button>
+          </button>
         </div>
       </div>
     </div>

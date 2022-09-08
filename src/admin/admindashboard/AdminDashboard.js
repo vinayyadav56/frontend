@@ -8,6 +8,7 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import Table from "./Table";
+import UserData from "./UserData";
 
 const PartnerDashboard = () => {
   return (
@@ -60,7 +61,6 @@ const PartnerDashboard = () => {
           </div>
         </div>
       </nav>
-
       <main>
         <aside>
           <div className="sidebar">
@@ -68,7 +68,7 @@ const PartnerDashboard = () => {
               <CloseRoundedIcon />
             </button>
             <div className="responsive-sidebar">
-              <Link to="" className="active">
+              <Link to="/admindashboard" className="active">
                 <span className="icon">
                   <GridViewRoundedIcon />
                 </span>
@@ -89,8 +89,13 @@ const PartnerDashboard = () => {
           </div>
         </aside>
 
-        <section className="right mt-3">
+        <section className="right">
+          <div className="partner_table">
           <Table />
+          </div>
+          <div className="userr_table">
+          <UserData />
+          </div>
         </section>
       </main>
     </>

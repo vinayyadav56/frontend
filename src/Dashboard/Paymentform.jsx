@@ -5,7 +5,7 @@ import emailicon from "../images/emailicon.png";
 const Paymentform = () => {
   return (
     <>
-      <form>
+      <div className="per_form">
         <div className="row">
           <div className="form-group col-6">
             <label>Account holder Name*</label>
@@ -59,7 +59,7 @@ const Paymentform = () => {
         <div className="persnl-detail-btns">
           <button className="btn">Save</button>
         </div>
-      </form>
+      </div>
     </>
   );
 };

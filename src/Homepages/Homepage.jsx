@@ -254,7 +254,7 @@ const Homepage = () => {
                   stuff to the desired location with 24hrs delivery.
                 </p>
               </div>
-              <div className="col-lg-4 col-md-6 about_card">
+              <div className="col-lg-4 col-md-6 mb-5 about_card">
                 <div className="d-flex align-items-center">
                   <img src={about4} alt="about4" />
                   <h3>Quick service</h3>
@@ -392,7 +392,11 @@ const Homepage = () => {
               </div>
             </div>
             <div className="d-flex justify-content-center">
-              <button className="btn become-btn">Become a Commuter</button>
+              <button
+                className="btn become-btn">
+                Become a Commuter
+              </button>
+
             </div>
           </div>
         </div>

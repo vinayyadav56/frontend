@@ -2,101 +2,125 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import emailicon from "../images/emailicon.png";
 import axios from "axios";
+import { useAlert } from "react-alert";
 const Profileform = ({ userActive }) => {
-  const [user_id, setUser_id] = useState({
-    userid : userActive.id,
-    first_name:userActive.first_name ,
-    phone_no:userActive.phone_no,
-    email:userActive.email,
-    last_name:userActive.last_name,
-    password: userActive.password,
-    reEnterPass: userActive.reEnterPass,
-    dob:userActive.dob,
-    address: userActive.address,
-    city: userActive.city,
-    state: userActive.state,
-    pincode:userActive.pincode,
+  const alert = useAlert();
+  const [activeData, setActiveData] = useState({
+    first_name: "",
+    phone_no: "",
+    email: "",
+    last_name: "",
+    password: "6",
+    dob:"" ,
+    address: "",
+    pincode: "",
+    pan_no: "",
+    aadhar_no: "",
+    state:"",
+    city:"",
   });
 
-  const handleUpdate = (e) => {
+  // console.log("response userdata static " + JSON.stringify(activeData));
+
+  // function for dynamic input and type in input
+  const handleInput = (e) => {
+    let newData = activeData;
+    newData[e.target.name] = e.target.value;
+    setActiveData(newData);
+  };
+
+  const handleUpdate = async (e) => {
     e.preventDefault();
+    const userId = userActive.id;
+    const URL = `http://35.91.35.188/api/profile-update/${userId}`;
+
     const {
       first_name,
-      last_name,
       phone_no,
       email,
+      last_name,
+      password,
+      dob,
       address,
       pincode,
-    } = user_id;
-    if (
-      first_name &&
-      last_name &&
-      phone_no &&
-      email &&
-      pincode &&
-      address
-    ) {
-      axios.put(`http://35.91.35.188/api/profile-update/${user_id}`, user_id).then((result) => {
-        if (result.data.success === true) {
-          alert.success(result.data.message);
-          history.push("/carrier/dashboard");
-        } else if (result.data.success === false) {
-          alert.success(result.data.message);
-        }
-      });
-    } else {
-      alert("Invalid inputs");
-    }
-  };
-
-
-
-  const handleEdit = (e) => {
-    const { name, value } = e.target;
-    setUser_id({
-      ...user_id,
-      [name]: value,
+      pan_no,
+      aadhar_no,
+      state,
+      city,
+    } = activeData;
+    const response = await axios.put(URL, {
+      first_name,
+      phone_no,
+      email,
+      last_name,
+      password,
+      dob,
+      address,
+      pincode,
+      pan_no,
+      aadhar_no,
+      state,
+      city,
     });
-  };
-  const history = useHistory();
-  const fetchProfileuser = async () => {
-    const response = await axios.post(
-      'http://35.91.35.188/api/user-detail-byid',user_id
-    );
-    console.log(response);
+    // console.log("editable response " + JSON.stringify(response));
     try {
-      setUser_id(response.data);
-    } catch (error){
-      console.error(error);
+      if (response.data.success === true) {
+        alert.success(response.data.message);
+      } else {
+        alert.error("Something Went Wrong!");
+      }
+    } catch {
+      alert.error("User Not Updated");
     }
-
   };
-  useEffect(() => {
-    fetchProfileuser();
-  }, []);
- 
+
+  // const [fetch, setFetch] = useState({
+  //   userId: 13,
+  // });
+
+  // fetch user by id
+  // const fetchUser = async () => {
+  //   const response = await axios.post(
+  //     "http://35.91.35.188/api/user-detail-byid",
+  //     fetch.userId
+  //   );
+  //   try {
+  //     console.log(
+  //       "fetch user response " + JSON.stringify(response.data.userDetails)
+  //     );
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchUser();
+  // }, []);
+
   return (
     <>
-      <form>
+      {/* <form> */}
+      <div className="per_form">
         <div className="row">
           <div className="form-group col-6">
             <label>First Name*</label>
             <input
+              name="first_name"
+              onChange={handleInput}
+              
               className="form-control"
               type="text"
               id="fnameid"
-              onChange={handleEdit}
-              value={user_id.first_name}
             />
           </div>
           <div className="form-group col-6">
             <label>Last Name*</label>
             <input
+              name="last_name"
+              onChange={handleInput}
               className="form-control"
               type="text"
               id="lnameid"
-              onChange={handleEdit}
-              value={user_id.last_name}
             />
           </div>
         </div>
@@ -113,9 +137,9 @@ const Profileform = ({ userActive }) => {
               </div>
               <div className="col-8 pl-1">
                 <input
+                  name="phone_no"
+                  onChange={handleInput}
                   className="form-control"
-                  value={user_id.phone_no}
-                  onChange={handleEdit}
                   type="text"
                   id="phnid"
                 />
@@ -131,9 +155,9 @@ const Profileform = ({ userActive }) => {
                 </span>
               </div>
               <input
+                name="email"
+                onChange={handleInput}
                 type="text"
-                value={user_id.email}
-                onChange={handleEdit}
                 className="form-control"
               />
             </div>
@@ -142,44 +166,43 @@ const Profileform = ({ userActive }) => {
         <div className="form-group">
           <label>Address*</label>
           <input
+            name="address"
+            onChange={handleInput}
             className="form-control"
             type="text"
             id="addid"
-            value={user_id.address}
-            onChange={handleEdit}
           />
         </div>
         <div className="row">
           <div className="form-group col-6">
             <label>PAN Number*</label>
             <input
+              name="pan_no"
+              onChange={handleInput}
               className="form-control"
               type="text"
               id="pnoid"
-              value={user_id.pincode}
-              onChange={handleEdit}
             />
           </div>
           <div className="form-group col-6">
             <label>Aadhar Number*</label>
             <input
+              name="aadhar_no"
+              onChange={handleInput}
               className="form-control"
               type="text"
               id="adnid"
-              value={user_id.pincode}
-              onChange={handleEdit}
             />
           </div>
         </div>
         <div className="form-group">
           <label>Alternate Number</label>
           <input
+            name="alt_number"
             className="form-control optional"
             placeholder="Optional"
             type="text"
             id="altnoid"
-            value={user_id.phone_no}
-            onChange={handleEdit}
           />
         </div>
         <div className="persnl-detail-btns">
@@ -187,7 +210,8 @@ const Profileform = ({ userActive }) => {
             Save
           </button>
         </div>
-      </form>
+      </div>
+      {/* </form> */}
     </>
   );
 };

@@ -6,10 +6,10 @@ const Userdashboard = ({ addUserLocal, userActive }) => {
   return (
     <div>
       <section className="user-dashboard">
-        <Sidebar userActive={userActive}/>
+        <Sidebar />
         <section className="main-content">
-          <Header userActive={userActive} addUserLocal={addUserLocal}/> 
-          {console.log("MY USER" + JSON.stringify(userActive))} 
+          <Header /> 
+          {/* {console.log("MY USER" + JSON.stringify(userActive))}  */}
         </section>
       </section>
     </div>

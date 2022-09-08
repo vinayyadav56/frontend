@@ -24,7 +24,7 @@ const UserProfile = ({ addUserLocal, userActive }) => {
       <section className="user-dashboard">
         <Sidebar userActive={userActive} />
         <section className="main-content">
-          <Header userActive={userActive} addUserLocal={addUserLocal} />
+          <Header />
           <div className="container-fluid personal-info-form">
             <div className="row">
               <div className="col-lg-6 mt-4">
@@ -32,7 +32,7 @@ const UserProfile = ({ addUserLocal, userActive }) => {
                     <h3>Personal Info</h3>
                     <p>Update your personal detail here</p>
                   </div>
-                  <Profileform userActive={userActive} addUserLocal={addUserLocal} />
+                  <Profileform />
               </div>
               <div className="col-lg-6 mt-4">
                   <div className="headings">

@@ -27,7 +27,7 @@ const Header = ({ addUserLocal, userActive }) => {
               <li>
                 <img src={bellicon} alt="bell" />
               </li>
-              <button className="header-btn d-flex" onClick={()=>addUserLocal({})}>
+              <button className="header-btn d-flex">
                 {/* <ExitToAppIcon className="mr-2" /> */}
                 <img src={logout} alt="logoutimg" />
                 Logout

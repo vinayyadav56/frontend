@@ -14,9 +14,9 @@ const Paymenthistory = ({addUserLocal, userActive }) => {
   return (
     <>
       <section className="user-dashboard">
-        <Sidebar userActive={userActive}/>
+        <Sidebar/>
         <section className="main-content">
-          <Header userActive={userActive} addUserLocal={addUserLocal}/>
+          <Header/>
           <div className="payment-cards">
             <div className="card">
               <div className="card-body">

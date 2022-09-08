@@ -1,4 +1,3 @@
-import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
 import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
 import BorderColorRoundedIcon from '@mui/icons-material/BorderColorRounded';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -14,32 +13,27 @@ import HelpCenterRoundedIcon from '@mui/icons-material/HelpCenterRounded';
 //     sidebar.style.display = 'none';
 // })
 const partnerArray = [
+   
     {
         id: 1,
-        navitem: 'Dashboard',
-        icon: <GridViewRoundedIcon />,
-        link: '/admin/dashboard'
-    },
-    {
-        id: 2,
         navitem: 'Order',
         icon: <StarBorderRoundedIcon />,
         link: '/admin/dashboard'
     },
     {
-        id: 3,
+        id: 2,
         navitem: 'Recent Order',
         icon: <BorderColorRoundedIcon />,
         link: '/admin/dashboard'
     },
     {
-        id: 4,
+        id: 3,
         navitem: 'Setting',
         icon: <SettingsIcon />,
         link: '/admin/dashboard'
     },
     {
-        id: 5,
+        id: 4,
         navitem: 'Help Center',
         icon: <HelpCenterRoundedIcon />,
         link: '/admin/dashboard'

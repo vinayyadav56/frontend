@@ -7,8 +7,7 @@ import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
-import GroupWorkRoundedIcon from "@mui/icons-material/GroupWorkRounded";
-
+import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
 const PartnerDashboard = () => {
   return (
     <>
@@ -69,9 +68,9 @@ const PartnerDashboard = () => {
             <div className="responsive-sidebar">
               <Link to="/partner/dashboard" className="active">
                 <span className="icon">
-                  <GroupWorkRoundedIcon />{" "}
+                <GridViewRoundedIcon />
                 </span>
-                <h4 className="title">Partner</h4>
+                <h4 className="title">Dashboard</h4>
               </Link>
 
               {partnerArray.map((data, id) => {
