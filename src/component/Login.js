@@ -26,9 +26,9 @@ const Login = ({ addUserLocal }) => {
       axios.post("http://35.91.35.188/api/login", loginuser).then((result) => {
         if (result.data.success === true) {
           alert.success(result.data.message);
-          console.log("result.data.loginData " + result.data.loginData);
-          addUserLocal(result.data.loginData);
-          history.push("/carrier/dashboard");
+          // console.log("result.data.loginData " + result.data.loginData);
+          // addUserLocal(result.data.loginData);
+          history.push("/carrier/dashboard/postavailabilty");
         } else if (result.data.success === false) {
           alert.success(result.data.message);
         }

@@ -1,26 +1,54 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import "./styles.css";
-import tabArray from "./tabArray";
+// import tabArray from "./tabArray";
 
 export default function FromSuggestion() {
-  const [data, setData] = useState(tabArray);
+  // const [data, setData] = useState(tabArray);
+  // const [data, setData] = useState(tabArray);
 
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState();
 
   const onChange = (event) => {
     setValue(event.target.value);
   };
 
-  const onSearch = (searchTerm) => {
-    setValue(searchTerm);
-    // our api to fetch the search result
-    console.log("search ", searchTerm);
+  // const onSearch = (searchTerm) => {
+  //   setValue(searchTerm);
+  //   // our api to fetch the search result
+  //   console.log("search ", searchTerm);
+  // };
+
+  // fetch from and to locations
+  const fetchLocation = async () => {
+    const res = await axios.post(
+      "http://35.91.35.188/api/user-availability-fetch",
+      {}
+    );
+    console.log(res);
+    try {
+      var myArray = [];
+      console.log("myArray " + myArray);
+      for (let i = 0; i <= res.data.userAvailability.length; i++) {
+        var myData = [res.data.userAvailability[i].fromlocation];
+        myArray.push(...myData)
+        console.log("myArray " + myArray);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
+  // console.log("from " + JSON.stringify(from));
+
+  useEffect(() => {
+    fetchLocation();
+  }, []);
+
   return (
-    <div className="App">
-      <div className="search-container">
-        <div className="search-inner">
+    <p className="App">
+      <p className="search-container">
+        <p className="search-inner">
           <input
             name="input1"
             type="text"
@@ -31,8 +59,8 @@ export default function FromSuggestion() {
             onChange={onChange}
           />
           {/* <button onClick={() => onSearch(value)}> Search </button> */}
-        </div>
-        <div className="dropdown">
+        </p>
+        {/* <p className="dropdown">
           {data
             .filter((item) => {
               const searchTerm = value.toLowerCase();
@@ -46,16 +74,16 @@ export default function FromSuggestion() {
             })
             .slice(0, 3)
             .map((item) => (
-              <div
+              <p
                 onClick={() => onSearch(item.full_name)}
                 className="dropdown-row"
                 key={item.full_name}
               >
                 {item.full_name}
-              </div>
+              </p>
             ))}
-        </div>
-      </div>
-    </div>
+        </p> */}
+      </p>
+    </p>
   );
 }

@@ -95,7 +95,7 @@
 .filter_partner .form-row{
   display: flex;
   width: 100%;
-  align-items:end;
+  align-items:flex-end;
 }
 .filter_partner label{
   font-weight: 500;

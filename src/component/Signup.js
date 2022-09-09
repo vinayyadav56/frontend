@@ -61,7 +61,8 @@ const Signup = () => {
       axios.post("http://35.91.35.188/api/register-user", user).then((result) => {
         if (result.data.success === true) {
           alert.success(result.data.message);
-          history.push("/carrier/dashboard");
+          
+          history.push("/carrier/dashboard/postavailabilty");
         } else if (result.data.success === false) {
           alert.success(result.data.message);
         }
@@ -231,7 +232,7 @@ const Signup = () => {
                       Already have an account?
                       <button
                         type="button"
-                        onClick={() => history.push("/carrier/login")}
+                        onClick={() => history.push("/login")}
                       >
                         Login Here
                       </button>

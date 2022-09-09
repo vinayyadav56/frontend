@@ -28,18 +28,17 @@ const HomeFoooter = () => {
                     </button>
 
                     <div
-                      class="modal fade become-partner-modal"
+                      className="modal fade become-partner-modal"
                       id="commuterform"
-                      tabindex="-1"
                       role="dialog"
                       aria-labelledby="commuterform"
                       aria-hidden="true"
                     >
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
+                      <div className="modal-dialog" role="document">
+                        <div className="modal-content">
                           <button
                             type="button"
-                            class="close"
+                            className="close"
                             data-dismiss="modal"
                             aria-label="Close"
                           >

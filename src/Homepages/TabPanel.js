@@ -61,17 +61,17 @@ export default function BasicTabs() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <p className="row">
-          <p className="form-group col-sm-12 col-md-5  mb-sm-4 px-2  col-lg-5">
+        <span className="row">
+          <span className="form-group col-sm-12 col-md-5  mb-sm-4 px-2  col-lg-5">
             <FromSuggestion />
-          </p>
-          <p className="form-group col-sm-12 col-md-2  mb-sm-4 px-0  col-lg-2 d-flex justify-content-center">
+          </span>
+          <span className="form-group col-sm-12 col-md-2  mb-sm-4 px-0  col-lg-2 d-flex justify-content-center">
             <img src={trip} alt="triploc" />
-          </p>
-          <p className="form-group col-sm-12 col-md-5  mb-sm-4 px-2  col-lg-5">
+          </span>
+          <span className="form-group col-sm-12 col-md-5  mb-sm-4 px-2  col-lg-5">
             <ToSugestion />
-          </p>
-          <p className="form-group col-sm-6 col-md-6  mb-sm-4 px-2  col-lg-3">
+          </span>
+          <span className="form-group col-sm-6 col-md-6  mb-sm-4 px-2  col-lg-3">
             <label htmlFor="#depdate">Journey Date</label>
             <input
               type="date"
@@ -80,9 +80,9 @@ export default function BasicTabs() {
               id="depdate"
               required
             />
-          </p>
-          <p className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-3">
-            <p className="input-box">
+          </span>
+          <span className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-3">
+            <span className="input-box">
               <label htmlFor="#lsp">Luggage Space</label>
               <input
                 type="number"
@@ -93,13 +93,13 @@ export default function BasicTabs() {
                 required
               />
               <span className="unit">Kg</span>
-            </p>
-          </p>
-          <p className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-3">
+            </span>
+          </span>
+          <span className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-3">
             <label htmlFor="#put">Pickup Time</label>
             <input type="time" id="put" className="form-control" required />
-          </p>
-          <p className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-3">
+          </span>
+          <span className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-3">
             <label htmlFor="#tno">Ticket No.</label>
             <input
               type="text"
@@ -107,30 +107,30 @@ export default function BasicTabs() {
               className="form-control"
               required
             />
-          </p>
-        </p>
+          </span>
+        </span>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <p className="row">
-          <p className="form-group col-sm-12 col-md-5  mb-sm-4 px-2  col-lg-5">
+        <span className="row">
+          <span className="form-group col-sm-12 col-md-5  mb-sm-4 px-2  col-lg-5">
             <FromSuggestion />
-          </p>
-          <p className="form-group col-sm-12 col-md-2  mb-sm-4 px-0  col-lg-2 d-flex justify-content-center">
+          </span>
+          <span className="form-group col-sm-12 col-md-2  mb-sm-4 px-0  col-lg-2 d-flex justify-content-center">
             <img src={trip} alt="triploc" />
-          </p>
-          <p className="form-group col-sm-12 col-md-5  mb-sm-4 px-2  col-lg-5">
+          </span>
+          <span className="form-group col-sm-12 col-md-5  mb-sm-4 px-2  col-lg-5">
             <ToSugestion />
-          </p>
-          <p className="form-group col-sm-6 col-md-6  mb-sm-4 px-2  col-lg-3">
+          </span>
+          <span className="form-group col-sm-6 col-md-6  mb-sm-4 px-2  col-lg-3">
             <label htmlFor="#depdate">Departure Date</label>
             <input type="date" className="form-control" id="depdate" required />
-          </p>
-          <p className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-3">
+          </span>
+          <span className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-3">
             <label htmlFor="#retdate">Return Date</label>
             <input type="date" id="retdate" className="form-control" required />
-          </p>
-          <p className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-2">
-            <p className="input-box">
+          </span>
+          <span className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-2">
+            <span className="input-box">
               <label htmlFor="#lsp">Luggage Space</label>
               <input
                 type="number"
@@ -141,9 +141,9 @@ export default function BasicTabs() {
                 required
               />
               <span class="unit">Kg</span>
-            </p>
-          </p>
-          <p className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-2">
+            </span>
+          </span>
+          <span className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-2">
             <label htmlFor="#put">Pickup Time</label>
             <input
               type="time"
@@ -152,8 +152,8 @@ export default function BasicTabs() {
               // placeholder="Enter time"
               required
             />
-          </p>
-          <p className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-2">
+          </span>
+          <span className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-2">
             <label htmlFor="#tno">Ticket No.</label>
             <input
               type="text"
@@ -162,8 +162,8 @@ export default function BasicTabs() {
               // placeholder="Enter number"
               required
             />
-          </p>
-        </p>
+          </span>
+        </span>
       </TabPanel>
     </Box>
   );

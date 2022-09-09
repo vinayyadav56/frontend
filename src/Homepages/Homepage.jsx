@@ -48,20 +48,9 @@ const Homepage = () => {
                     <ul>
                       <li className="dropdown">
                         <Link
-                          exact
-                          to="/"
-                          className="dropdown-toggle"
-                          data-toggle="dropdown"
+                          to="/services"
                         >
                           Services
-                          <div className="dropdown-menu">
-                            <Link to="/express" className="dropdown-item">
-                              Express Delivery
-                            </Link>
-                            <Link to="/express" className="dropdown-item">
-                              Premium Delivery
-                            </Link>
-                          </div>
                         </Link>
                       </li>
                       <li>
@@ -396,7 +385,6 @@ const Homepage = () => {
                 className="btn become-btn">
                 Become a Commuter
               </button>
-
             </div>
           </div>
         </div>
@@ -415,7 +403,7 @@ const Homepage = () => {
                   <div className="card-body">
                     <div id="accordion">
                       <div id="headingOne" className="que-heading">
-                        <Link
+                        <p
                           className="que-link"
                           data-toggle="collapse"
                           data-target="#collapseOne"
@@ -424,7 +412,7 @@ const Homepage = () => {
                         >
                           Why doesn't my tracking number work?
                           <AddIcon className="que-add" />
-                        </Link>
+                        </p>
                       </div>
 
                       <div
@@ -448,7 +436,7 @@ const Homepage = () => {
                   <div className="card-body">
                     <div id="accordion2">
                       <div id="heading2" className="que-heading">
-                        <Link
+                        <p
                           className="que-link btn-link"
                           data-toggle="collapse"
                           data-target="#collapse2"
@@ -457,7 +445,7 @@ const Homepage = () => {
                         >
                           On Sundays, do you offer pick-up and delivery?
                           <AddIcon className="que-add" />
-                        </Link>
+                        </p>
                       </div>
 
                       <div
@@ -479,7 +467,7 @@ const Homepage = () => {
                   <div className="card-body">
                     <div id="accordion3">
                       <div id="heading3" className="que-heading">
-                        <Link
+                        <p
                           className="que-link btn-link"
                           data-toggle="collapse"
                           data-target="#collapse3"
@@ -488,7 +476,7 @@ const Homepage = () => {
                         >
                           Where did I will get the luggage??
                           <AddIcon className="que-add" />
-                        </Link>
+                        </p>
                       </div>
 
                       <div
@@ -511,7 +499,7 @@ const Homepage = () => {
                   <div className="card-body">
                     <div id="accordion5">
                       <div id="heading5" className="que-heading">
-                        <Link
+                        <p
                           className="que-link btn-link"
                           data-toggle="collapse"
                           data-target="#collapse5"
@@ -520,7 +508,7 @@ const Homepage = () => {
                         >
                           Who should I contact if I have any problems?
                           <AddIcon className="que-add" />
-                        </Link>
+                        </p>
                       </div>
                       <div
                         id="collapse5"
@@ -543,7 +531,7 @@ const Homepage = () => {
                   <div className="card-body">
                     <div id="accordion">
                       <div id="heading5" className="que-heading">
-                        <Link
+                        <p
                           className="que-link btn-link"
                           data-toggle="collapse"
                           data-target="#collapse4"
@@ -552,7 +540,7 @@ const Homepage = () => {
                         >
                           Who should I contact if I have any problems?
                           <AddIcon className="que-add" />
-                        </Link>
+                        </p>
                       </div>
 
                       <div
@@ -574,24 +562,24 @@ const Homepage = () => {
               <div className="col-md-6">
                 <div className="card">
                   <div className="card-body">
-                    <div id="accordion5">
-                      <div id="heading5" className="que-heading">
-                        <Link
+                    <div id="accordion6">
+                      <div id="heading6" className="que-heading">
+                        <p
                           className="que-link btn-link"
                           data-toggle="collapse"
-                          data-target="#collapse5"
+                          data-target="#collapse6"
                           aria-expanded="true"
-                          aria-controls="collapse5"
+                          aria-controls="collapse6"
                         >
                           Who should I contact if I have any problems?
                           <AddIcon className="que-add" />
-                        </Link>
+                        </p>
                       </div>
                       <div
-                        id="collapse5"
+                        id="collapse6"
                         className="collapse"
-                        aria-labelledby="heading5"
-                        data-parent="#accordion5"
+                        aria-labelledby="heading6"
+                        data-parent="#accordion6"
                       >
                         <p className="mb-0">
                           You can email us at carrykar@gmail.com or speak with a

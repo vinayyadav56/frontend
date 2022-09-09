@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./App.css";
 import { positions, Provider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
@@ -30,24 +30,25 @@ import CustomerTrack from "./CustomerDashboard/CustomerTrack";
 import CustomerPaymenthistory from "./CustomerDashboard/CustomerPaymenthistory";
 import Managereffrals from "./Dashboard/Managereffrals";
 import Postavailablity from "./Dashboard/Postavailablity";
+import Order from "./admin/admindashboard/Order";
 const App = () => {
   const options = {
     timeout: 5000,
     position: positions.TOP_RIGHT,
   };
 
-  const [user, setLoginUser] = useState({});
+  // const [user, setLoginUser] = useState({});
 
   // GET USER FROM LOCAL STORAGE
-  useEffect(() => {
-    // setLoginUser(JSON.parse(localStorage.getItem("myUser")));
-  }, []);
+  // useEffect(() => {
+  //   setLoginUser(JSON.parse(localStorage.getItem("myUser")));
+  // }, []);
 
   // ADD USER IN LOCAL STORAGE
-  const addUserLocal = (user) => {
-    localStorage.setItem("myUser", JSON.stringify(user));
-    setLoginUser(user);
-  };
+  // const addUserLocal = (user) => {
+  //   localStorage.setItem("myUser", JSON.stringify(user));
+  //   setLoginUser(user);
+  // };
 
   return (
     <>
@@ -58,7 +59,7 @@ const App = () => {
             <Route exact path="/" component={Homepage} />
             <Route path="/forgetpassword" component={Forgetpassword} />
             <Route path="/login">
-              <Login addUserLocal={addUserLocal} />
+              <Login />
             </Route>
             <Route path="/about" component={About} />
             <Route path="/contact" component={Contact} />
@@ -89,6 +90,13 @@ const App = () => {
             <Route path="/admindashboard">
               {/* {user && user.id ? ( */}
                 <AdminDashboard />
+              {/* ) : (
+                <Login addUserLocal={addUserLocal} />
+              )} */}
+            </Route>
+            <Route exact path="/admindashboard/order">
+              {/* {user && user.id ? ( */}
+                <Order/>
               {/* ) : (
                 <Login addUserLocal={addUserLocal} />
               )} */}

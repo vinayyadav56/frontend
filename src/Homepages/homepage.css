@@ -448,7 +448,7 @@ ul {
     margin-right: 1rem;
     cursor: pointer;
     padding: 4px 8px;
-    justify-content: start;
+    justify-content: flex-start;
 }
 
 .trip_search_form .fswTabs button p {
@@ -528,7 +528,7 @@ ul {
 
 .trip_search .form-inline label {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     margin-bottom: 0;
     font-family: 'Poppins';
     font-style: normal;
@@ -599,45 +599,6 @@ ul {
     width: 40%;
     justify-content: space-between;
 }
-
-/* .fswTabs li.selected {
-    background: #e7e7e7;
-    color: #000000;
-} */
-/* .fswTabs li {
-    display: flex;
-    align-items: center;
-    text-transform: uppercase;
-    cursor: pointer;
-    margin: 0 10px;
-    text-align: center;
-    padding: 2px 6px;
-    border-radius: 20px;
-} */
-/* .fswTabs li.selected .tabsCircle {
-    border: solid 1px #000;
-    background: #000;
-} */
-/* .fswTabs li .tabsCircle {
-    width: 12px;
-    height: 12px;
-    border-radius: 100%;
-    margin-right: 5px;
-    border: solid 1px #9b9b9b;
-} */
-/* .tabsCircle:after {
-    content: '';
-    display: block;
-    width: 3px;
-    height: 6px;
-    border: solid #fff;
-    border-width: 0 1px 1px 0;
-    transform: rotate(45deg);
-    margin-top: 1px;
-    margin-left: 3px;
-} */
-/* Slide bottom Ends */
-
 /* carrier_about_services css start */
 .carrier_about_services {
     background: #E7F0F9;
@@ -793,86 +754,6 @@ ul {
     font-weight: bold;
     font-size: 48px;
 }
-
-/* .carrykar_steps .container .box {
-    height: 80px;
-    width: 100%;
-    border-radius: 100px;
-    border: 1px dotted #0849AA;
-    border-bottom: 1px dashed #0849AA;
-    position: relative;
-} */
-/* 
-.carrykar_steps .container .box div.main_box-h {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-}
-
-.carrykar_steps .container .box div.main_box-h p {
-    text-align: center;
-    font-size: 28px;
-    color: #0849AA;
-    margin-bottom: 0rem;
-    font-weight: bold;
-}
-
-.carrykar_steps .container .box .carry_step-common {
-    position: absolute;
-}
-
-.carrykar_steps .container .box .carry_step-common>div {
-    margin-left: -50px;
-    width: 180px;
-}
-
-.carrykar_steps .container .box .carry_step-common h4 {
-    font-size: 14px;
-    font-weight: 500;
-    padding-bottom: 0;
-}
-
-.carrykar_steps .container .box .carry_step-common p {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: #0849AA;
-}
-
-.carrykar_steps .container .box .step_1 {
-    top: -28px;
-    left: 48px;
-}
-
-.carrykar_steps .container .box .step_2 {
-    top: -28px;
-    left: 45%;
-}
-
-.carrykar_steps .container .box .step_3 {
-    top: -28px;
-    right: -6px;
-}
-
-.carrykar_steps .container .box .step_4 {
-    bottom: -41px;
-    right: 20px;
-}
-
-.carrykar_steps .container .box .step_5 {
-    bottom: -74px;
-    left: 35%;
-}
-
-
-.carrykar_steps .container .box .step_6 {
-    bottom: -41px;
-    left: 57px;
-} */
-
-/* carrykarsteps css ends */
-
 
 /* operational css start */
 .step_section {
@@ -1146,7 +1027,7 @@ ul {
 
 .footer_logo {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 .footer_logo img {
@@ -1157,7 +1038,7 @@ ul {
 
 .social_icons {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 .social_icons p {
@@ -1332,7 +1213,7 @@ ul {
     .home_footer .footer_logo {
         color: #fff;
         display: flex;
-        justify-content: start;
+        justify-content:flex-start;
     }
 
 }
@@ -1377,6 +1258,9 @@ ul {
 
     .trip_search .card .select_btn {
         width: 100%;
+    }
+    .about_section .container .abt_img {
+        opacity: 0.5;
     }
 }
 

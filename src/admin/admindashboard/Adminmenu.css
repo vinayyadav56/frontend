@@ -181,13 +181,7 @@ main aside .sidebar a h4 {
     font-size: 14px;
 }
 
-main aside .sidebar a.active {
-    /* background: var(--color-white);
-    color: var(--color-primary); */
-    background-color: #35404d;
-    color: #ff6c60;
-    letter-spacing:0.8px;
-}
+
 
 main aside .sidebar a.active::before {
     content: "";
@@ -196,9 +190,20 @@ main aside .sidebar a.active::before {
     position: absolute;
     background: rgb(248 2 2);
 }
+main aside .sidebar a.active{
+    background: #35404d;
+}
 
 main aside .sidebar a:hover {
     color: #ff6c60;
+    background-color: #35404d;
+}
+main aside .sidebar a:hover::before{
+    content: "";
+    height: 100%;
+    width: 3px;
+    position: absolute;
+    background: rgb(248 2 2);
 }
 
 main aside .sidebar a:hover span {

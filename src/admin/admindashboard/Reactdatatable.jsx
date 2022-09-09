@@ -120,7 +120,7 @@ const Reactdatatable = () => {
           </tbody>
         </table>
       </div>
-
+ 
       {/* <div className="mt-4">
         <Newpartner />
       </div> */}

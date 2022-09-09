@@ -1,5 +1,5 @@
 import React from "react";
-import { Link , NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Adminmenu.css";
 import navArray from "./navArray";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
@@ -7,13 +7,10 @@ import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
-import Table from "./Table";
-import UserData from "./UserData";
 import UserOrder from "./UserOrder";
-
-const PartnerDashboard = () => {
+const Order = () => {
   return (
-    <>
+    <div>
       <nav className="sticky-top partnerdash-nav">
         <div className="partner-sidebar">
           <span className="top-name">Carry Kar</span>
@@ -62,48 +59,39 @@ const PartnerDashboard = () => {
           </div>
         </div>
       </nav>
-      <main>
+      {/* <main>
         <aside>
           <div className="sidebar">
             <button id="close-btn">
               <CloseRoundedIcon />
             </button>
             <div className="responsive-sidebar">
-              <NavLink to="/admindashboard" className="active">
+              <Link to="/admindashboard" className="active">
                 <span className="icon">
                   <GridViewRoundedIcon />
                 </span>
                 <h4 className="title">Dashboard</h4>
-              </NavLink>
+              </Link>
 
               {navArray.map((data, id) => {
                 return (
                   <li key={id}>
-                    <NavLink to={data.link}>
+                    <Link to={data.link}>
                       <span className="icon">{data.icon}</span>
                       <h4 className="title">{data.nav}</h4>
-                    </NavLink>
+                    </Link>
                   </li>
                 );
               })}
             </div>
           </div>
         </aside>
-
         <section className="right">
-          <div className="partner_table">
-          <Table />
-          </div>
-          <div className="userr_table">
-          <UserData />
-          </div>
-          <div className="user_order">
-            <UserOrder />
-          </div>
+            <UserOrder/>
         </section>
-      </main>
-    </>
+      </main> */}
+    </div>
   );
 };
 
-export default PartnerDashboard;
+export default Order;

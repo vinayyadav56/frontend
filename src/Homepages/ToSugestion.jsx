@@ -18,9 +18,9 @@ export default function ToSugestion() {
   };
 
   return (
-    <div className="App">
-      <div className="search-container">
-        <div className="search-inner">
+    <p className="App">
+      <p className="search-container">
+        <p className="search-inner">
           <input
             name="input1"
             type="text"
@@ -31,8 +31,8 @@ export default function ToSugestion() {
             onChange={onHandleinput}
           />
           {/* <button onClick={() => onSearchTo(value)}> Search </button> */}
-        </div>
-        <div className="dropdown">
+        </p>
+        <p className="dropdown">
           {tabArray
             .filter((item) => {
               const searchTermTo = value.toLowerCase();
@@ -46,16 +46,16 @@ export default function ToSugestion() {
             })
             .slice(0, 3)
             .map((item) => (
-              <div
+              <p
                 onClick={() => onSearchTo(item.full_name)}
                 className="dropdown-row"
                 key={item.full_name}
               >
                 {item.full_name}
-              </div>
+              </p>
             ))}
-        </div>
-      </div>
-    </div>
+        </p>
+      </p>
+    </p>
   );
 }
