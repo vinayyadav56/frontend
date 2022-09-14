@@ -19,18 +19,19 @@ const Login = ({ addUserLocal }) => {
       [name]: value,
     });
   };
-  const handleLogin = (e) => {
+  const handleLogin =  async(e) => {
     e.preventDefault();
     const { email, password } = loginuser;
     if (email && password) {
-      axios.post("http://35.91.35.188/api/login", loginuser).then((result) => {
-        if (result.data.success === true) {
-          alert.success(result.data.message);
-          // console.log("result.data.loginData " + result.data.loginData);
-          // addUserLocal(result.data.loginData);
+    await axios.post("http://35.91.35.188/api/login", loginuser)
+    .then((response) => {
+        if (response.data.success === true) {
+          alert.success(response.data.message);
+          // console.log("response.data.loginData " + response.data.loginData);
+          addUserLocal(response.data.userDetails);;
           history.push("/carrier/dashboard/postavailabilty");
-        } else if (result.data.success === false) {
-          alert.success(result.data.message);
+        } else if (response.data.success === false) {
+          alert.success(response.data.message);
         }
       });
     } else {

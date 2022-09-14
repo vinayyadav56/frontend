@@ -4,35 +4,35 @@ import { useAlert } from "react-alert";
 // import Additem from "./Additem";
 import { useHistory } from "react-router-dom";
 const Form = () => {
-  
   let alert = useAlert();
   let history = useHistory();
-  const [createorder, setCreateorder] = useState({
-    order_description: "",
-    quantity: "",
-    order_dimension: "",
-    from_location: "",
-    to_location: "",
-    file:"",
-    sender_name: "",
-    sender_email: "",
-    sender_phone: "",
-    sender_city: "",
-    sender_state: "",
-    sender_pin: "",
-    sender_address: "",
-    receiver_name: "",
-    receiver_email: " ",
-    receiver_phone: "",
-    receiver_city: "",
-    receiver_state: "",
-    receiver_pin: "",
-    receiver_address: "",
-  });
-  const handlalert = (createorder) =>{
-    alert.success("Submit")
-    console.log(createorder.quantity);
-  }
+  const [createorder, setCreateorder] = useState(
+    {
+      order_description: "",
+      quantity: "",
+      order_dimension: "",
+      from_location: "",
+      to_location: "",
+    },
+    {
+      sender_name: "",
+      sender_email: "",
+      sender_phone: "",
+      sender_city: "",
+      sender_state: "",
+      sender_pin: "",
+      sender_address: "",
+    },
+    {
+      receiver_name: "",
+      receiver_email: " ",
+      receiver_phone: "",
+      receiver_city: "",
+      receiver_state: "",
+      receiver_pin: "",
+      receiver_address: "",
+    }
+  );
   const handleCreateinput = (e) => {
     const { name, value } = e.target;
     setCreateorder({
@@ -48,7 +48,6 @@ const Form = () => {
       order_dimension,
       from_location,
       to_location,
-      file,
       sender_name,
       sender_email,
       sender_phone,
@@ -70,7 +69,6 @@ const Form = () => {
       order_dimension &&
       from_location &&
       to_location &&
-      file&&
       sender_name &&
       sender_email &&
       sender_phone &&
@@ -84,7 +82,8 @@ const Form = () => {
       receiver_city &&
       receiver_state &&
       receiver_pin &&
-      receiver_address
+      receiver_address 
+     
     ) {
       axios
         .post("http://35.91.35.188/api/partner-order", createorder)
@@ -102,12 +101,10 @@ const Form = () => {
         <div className="form-title">
           <h2>Create Order</h2>
         </div>
-        <div className="order-sum" onSubmit={handleOrder}>
-          <form className="order-dis" >
+        <div className="order-sum">
+          <form className="order-dis" onSubmit={handleOrder}>
             <div className="form-group mt-2">
-              <label for="Textarea1">
-                Order Description :
-              </label>
+              <label htmlFor="Textarea1">Order Description :</label>
               <textarea
                 className="form-control"
                 placeholder="Enter Description"
@@ -120,7 +117,7 @@ const Form = () => {
             </div>
             <div className="form-group row">
               <div className="col-md-6">
-                <label for="inputsize">Size</label>
+                <label htmlFor="inputsize">Size</label>
                 <input
                   size="dimension"
                   className="form-control"
@@ -132,7 +129,7 @@ const Form = () => {
                 />
               </div>
               <div className="col-md-6">
-                <label for="inputquantity">Quantity</label>
+                <label htmlFor="inputquantity">Quantity</label>
                 <input
                   type="number"
                   className="form-control"
@@ -145,7 +142,7 @@ const Form = () => {
               </div>
 
               <div className="col-md-6">
-                <label for="inputAddress">From :</label>
+                <label htmlFor="inputAddress">From :</label>
                 <select
                   id="inputfrom"
                   className="form-control"
@@ -153,14 +150,13 @@ const Form = () => {
                   value={createorder.from_location}
                   onChange={handleCreateinput}
                 >
-                  <option select>Select Location</option>
                   <option>Delhi</option>
                   <option>Goa</option>
                   <option>Mumbai</option>
                 </select>
               </div>
               <div className="col-md-6">
-                <label for="inputto">To :</label>
+                <label htmlFor="inputto">To :</label>
                 <select
                   id="inputto"
                   name="to_location"
@@ -168,21 +164,25 @@ const Form = () => {
                   onChange={handleCreateinput}
                   className="form-control"
                 >
-                  <option selected>Select Location</option>
+                
                   <option>Delhi</option>
                   <option>Goa</option>
                   <option>Mumbai</option>
                 </select>
               </div>
               <div className="col-md-6 img-upload">
-                <label for="inputimage">Upload Order Packing Image</label>
-                <input type="file" value={createorder.file} className="form-control" />
+                <label htmlFor="inputimage">Upload Order Packing Image</label>
+                <input
+                  type="file"
+                  value={createorder.file}
+                  className="form-control"
+                />
               </div>
             </div>
             <h2 className="sender-info">Sender Details :</h2>
             <div className="form-group row">
               <div className="col-md-4">
-                <label for="inputname">Sender Name</label>
+                <label htmlFor="inputname">Sender Name</label>
                 <input
                   type="text"
                   className="form-control"
@@ -194,7 +194,7 @@ const Form = () => {
                 />
               </div>
               <div className="col-md-4">
-                <label for="inputemail">Email</label>
+                <label htmlFor="inputemail">Email</label>
                 <input
                   type="email"
                   className="form-control"
@@ -206,7 +206,7 @@ const Form = () => {
                 />
               </div>
               <div className="col-md-4">
-                <label for="inputphone">Mobile No.</label>
+                <label htmlFor="inputphone">Mobile No.</label>
                 <input
                   type="text"
                   className="form-control"
@@ -218,7 +218,7 @@ const Form = () => {
                 />
               </div>
               <div className="col-md-4">
-                <label for="inputCity">City</label>
+                <label htmlFor="inputCity">City</label>
                 <input
                   type="text"
                   className="form-control"
@@ -230,7 +230,7 @@ const Form = () => {
                 />
               </div>
               <div className="col-md-4">
-                <label for="inputCity">State</label>
+                <label htmlFor="inputCity">State</label>
                 <input
                   type="text"
                   className="form-control"
@@ -242,7 +242,7 @@ const Form = () => {
                 />
               </div>
               <div className="col-md-4">
-                <label for="inputpin">PIN</label>
+                <label htmlFor="inputpin">PIN</label>
                 <input
                   type="text"
                   className="form-control"
@@ -254,7 +254,7 @@ const Form = () => {
                 />
               </div>
               <div className="col-md-12">
-                <label for="inputaddress" className="mt-2">
+                <label htmlFor="inputaddress" className="mt-2">
                   Full Address
                 </label>
                 <input
@@ -271,7 +271,7 @@ const Form = () => {
             <h2 className="sender-info">Receiver Details :</h2>
             <div className="form-group row">
               <div className="col-md-4">
-                <label for="inputname">Reciever Name</label>
+                <label htmlFor="inputname">Reciever Name</label>
                 <input
                   type="text"
                   className="form-control"
@@ -283,7 +283,7 @@ const Form = () => {
                 />
               </div>
               <div className="col-md-4">
-                <label for="inputemail">Email</label>
+                <label htmlFor="inputemail">Email</label>
                 <input
                   type="email"
                   className="form-control"
@@ -295,7 +295,7 @@ const Form = () => {
                 />
               </div>
               <div className="col-md-4">
-                <label for="inputphone">Mobile No.</label>
+                <label htmlFor="inputphone">Mobile No.</label>
                 <input
                   type="phone"
                   className="form-control"
@@ -307,7 +307,7 @@ const Form = () => {
                 />
               </div>
               <div className="col-md-4">
-                <label for="inputCity">City</label>
+                <label htmlFor="inputCity">City</label>
                 <input
                   type="text"
                   className="form-control"
@@ -319,7 +319,7 @@ const Form = () => {
                 />
               </div>
               <div className="col-md-4">
-                <label for="inputCity">State</label>
+                <label htmlFor="inputCity">State</label>
                 <input
                   type="text"
                   className="form-control"
@@ -331,7 +331,7 @@ const Form = () => {
                 />
               </div>
               <div className="col-md-4">
-                <label for="inputpin">PIN</label>
+                <label htmlFor="inputpin">PIN</label>
                 <input
                   type="text"
                   className="form-control"
@@ -343,7 +343,7 @@ const Form = () => {
                 />
               </div>
               <div className="col-md-12">
-                <label for="inputaddress" className="mt-2">
+                <label htmlFor="inputaddress" className="mt-2">
                   Full Address
                 </label>
                 <input
@@ -358,12 +358,39 @@ const Form = () => {
               </div>
             </div>
             <div className="partner-order">
-              
+            <div className="col-md-4">
+                <label htmlFor="inputCity">Image</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="inputstate"
+                  name="image_url"
+                  value={createorder.image_url}
+                  onChange={handleCreateinput}
+                  placeholder="Enter state"
+                />
+              </div>
+              <div className="col-md-4">
+                <label htmlFor="inputpin">Weight</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="inputpin"
+                  name="weight"
+                  value={createorder.weight}
+                  onChange={handleCreateinput}
+                  placeholder="Enter PIN"
+                />
+              </div>
             </div>
-          </form>
-          <button type="click"  className="btn btn-danger mx-auto" onClick={handlalert}>
-                Create Order
+            <button
+            type="submit"
+            className="btn btn-danger mx-auto"
+          >
+            Create Order
           </button>
+          </form>
+         
         </div>
       </div>
     </div>

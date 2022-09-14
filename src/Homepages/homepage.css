@@ -438,56 +438,14 @@ ul {
     margin-right: 2rem;
 }
 
-.trip_search_form .fswTabs button {
-    text-align: center;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    border: 1px solid #ababab;
-    border-radius: 20px;
-    margin-right: 1rem;
-    cursor: pointer;
-    padding: 4px 8px;
-    justify-content: flex-start;
-}
 
-.trip_search_form .fswTabs button p {
-    margin-bottom: 0;
-    margin-left: 2.6rem;
-}
-
-/* 
-.active {
-    background: #1057B3;
-    color: #fff;
-} */
-
-.fswTabs button:active {
-    background: #1057B3;
-    color: #fff;
-}
 
 /* .trip_search_form .fswTabs button:focus {
     box-shadow: none;
     background-color: #1057B3;
 } */
 
-.trip_search_form .fswTabs button:hover {
-    background-color: #1057B3;
-    color: #fff;
-}
 
-
-.trip_search .card .btn_icn {
-    border-radius: 50%;
-    padding: 2px;
-    margin-right: 2rem !important;
-}
-
-.trip_search_form .fswTabs button:hover .btn_icn {
-    background-color: #fff;
-    color: #0747A9;
-}
 
 .trip_search .card button.active .btn_icn {
     background-color: #fff;
@@ -602,13 +560,13 @@ ul {
 /* carrier_about_services css start */
 .carrier_about_services {
     background: #E7F0F9;
-    margin-top: -22rem;
+    margin-top: -26rem;
 }
 
 .carrier_section {
     text-align: center;
     padding: 5rem;
-    padding-top: 24rem;
+    padding-top: 27rem;
 }
 
 .carrier_section h2 {
@@ -625,7 +583,7 @@ ul {
 
 .carrier_section .card-deck {
     padding-top: 3rem;
-    width: 55%;
+    width: 70%;
 }
 
 .carrier_section .card {

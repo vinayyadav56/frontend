@@ -2,7 +2,6 @@ import axios from 'axios'
 import React from 'react'
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 const UserOrder = () => {
     const id = useParams;
@@ -19,7 +18,7 @@ const UserOrder = () => {
     }
     useEffect(() => {
         fetchOrder();
-      }, []);
+      }, );
   return (
     <>
     <div className='order_all_list mt-5'>
@@ -38,19 +37,19 @@ const UserOrder = () => {
               <th>Action</th>
             </tr>
           </thead>
-          {/* <tbody>
-            {tdata
-              .filter((val) => {
-                if (searchTerm === "") {
-                  return val;
-                } else if (
-                  val.partner_name
-                    .toLocaleLowerCase()
-                    .includes(searchTerm.toLocaleLowerCase()) 
-                ) {
-                  return val;
-                }
-              })
+          <tbody>
+            {order
+              // .filter((val) => {
+              //   if (searchTerm === "") {
+              //     return val;
+              //   } else if (
+              //     val.partner_name
+              //       .toLocaleLowerCase()
+              //       .includes(searchTerm.toLocaleLowerCase()) 
+              //   ) {
+              //     return val;
+              //   }
+              // })
               .map((item, id) => {
                 return (
                   <tr key={id} style={{ margin: "10px 0 10px 0" }}>
@@ -65,7 +64,7 @@ const UserOrder = () => {
                     <td>
                       <button
                         className="btn delete-btn"
-                        onClick={(id) => deleteData(id)}
+                        // onClick={(id) => deleteData(id)}
                       >
                         DELETE
                       </button>
@@ -73,7 +72,7 @@ const UserOrder = () => {
                   </tr>
                 );
               })}
-          </tbody> */}
+          </tbody>
         </table>
       </div>
     </div>

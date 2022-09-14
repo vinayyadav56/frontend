@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import Header from "./Dashboardheader";
 import Sidebar from "./Dashboardsidebar";
 import refral from '../images/referearn1.png';
@@ -11,7 +10,7 @@ const Managereffrals = ({addUserLocal, userActive }) => {
     color:'black',
   });
   const handleCopy = () => {
-    if(myStyle.color == 'white'){
+    if(myStyle.color === 'white'){
       setMyStyle({
         color:'black',
         backgroundColor:'#fff',
@@ -30,9 +29,9 @@ const Managereffrals = ({addUserLocal, userActive }) => {
   return (
     <div>
       <section className="user-dashboard">
-        <Sidebar/>
+        <Sidebar userActive={userActive}/>
         <section className="main-content">
-          <Header/>
+          <Header addUserLocal={addUserLocal}/>
           <div className="refer_earn">
             <div className="container-fluid refer_content">
               <div className="row">

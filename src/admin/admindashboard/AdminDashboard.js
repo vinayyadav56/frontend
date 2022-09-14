@@ -9,7 +9,7 @@ import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import Table from "./Table";
 import UserData from "./UserData";
-import UserOrder from "./UserOrder";
+// import UserOrder from "./UserOrder";
 
 const PartnerDashboard = () => {
   return (
@@ -97,9 +97,9 @@ const PartnerDashboard = () => {
           <div className="userr_table">
           <UserData />
           </div>
-          <div className="user_order">
+          {/* <div className="user_order">
             <UserOrder />
-          </div>
+          </div> */}
         </section>
       </main>
     </>

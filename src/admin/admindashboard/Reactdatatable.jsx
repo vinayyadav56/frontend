@@ -7,7 +7,7 @@ import "./Table.css";
 import Addpartner from "./Addpartner";
 const Reactdatatable = () => {
   const [filterVal, setFilterVal] = useState([]);
-  const [tdata, settdata] = useState([]);
+  const [tdata, setTdata] = useState([]);
   const [searchapiData, setSearchapiData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -15,9 +15,9 @@ const Reactdatatable = () => {
     const response = await axios.get("http://35.91.35.188/api/partner-list");
     const partnerList = Object.values(response.data);
     const list = partnerList[0];
-    console.log(list);
+
     try {
-      settdata(list);
+      tdata(list);
       setSearchapiData(list);
     } catch (error) {
       console.log(error);
@@ -27,12 +27,16 @@ const Reactdatatable = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
-  //   delet function
-  const deleteData = (id) => {
+  const deleteData = (id, e) => {
     let newdata = tdata;
-    tdata.splice(id, 1);
-    settdata([...newdata]);
+    axios
+      .delete(`http://35.91.35.188/api/delete-user/${id}`)
+      .then((response) => {
+        tdata.splice(id);
+        setTdata([...newdata]);
+        console.log("deleted", response);
+      })
+      .catch((err) => console.log(err));
   };
   // searchfuntion
   const handleSearch = (e) => {
@@ -43,10 +47,18 @@ const Reactdatatable = () => {
       const filterResult = searchapiData.filter((item) =>
         item.partner_name.toLowerCase().includes(e.target.value.toLowerCase())
       );
-      settdata(filterResult);
+      setTdata(filterResult);
     }
     setFilterVal(e.target.value);
   };
+
+  // delete function start
+  // const handleDelete = async (id) => {
+  //   const response = await axios
+  //     .delete(`http://35.91.35.188/api/delete-user/${id}`)
+  //     .then(console.log("deleted", response))
+  //     .catch((err) => console.log(err));
+  // };
   return (
     <div>
       <div className="filter_partner">
@@ -90,7 +102,7 @@ const Reactdatatable = () => {
                 } else if (
                   val.partner_name
                     .toLocaleLowerCase()
-                    .includes(searchTerm.toLocaleLowerCase()) 
+                    .includes(searchTerm.toLocaleLowerCase())
                 ) {
                   return val;
                 }
@@ -109,7 +121,7 @@ const Reactdatatable = () => {
                     <td>
                       <button
                         className="btn delete-btn"
-                        onClick={(id) => deleteData(id)}
+                        onClick={() => deleteData(id)}
                       >
                         DELETE
                       </button>
@@ -120,7 +132,7 @@ const Reactdatatable = () => {
           </tbody>
         </table>
       </div>
- 
+
       {/* <div className="mt-4">
         <Newpartner />
       </div> */}

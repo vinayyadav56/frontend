@@ -4,7 +4,7 @@ import "../component/Login.css";
 import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { useHistory } from "react-router-dom";
-const Adminlogin = ({ addUserLocal }) => {
+const Adminlogin = () => {
   let alert = useAlert();
   let history = useHistory();
  const [adminlogin , setAdminlogin] = useState({
@@ -18,17 +18,16 @@ const Adminlogin = ({ addUserLocal }) => {
     [name] : value,
   });
  };
-  const handleLogin = (e) => {
+  const handleLogin = async(e) => {
     e.preventDefault();
     const{admin_username , admin_password} = adminlogin ;
     if(admin_username && admin_password){
-      axios
-      .post("http://35.91.35.188/api/admin-login", adminlogin)
+      await axios.post("http://35.91.35.188/api/admin-login", adminlogin)
       .then((result) =>{
         
         if (result.data.success === true) {
           alert.success(result.data.message);
-          // console.log("result.data.loginData " + result.data.loginData);
+          console.log("result.data.loginData " + result.data.loginData);
           // addUserLocal(result.data.loginData);
           history.push("/admindashboard");
         } else if (result.data.success === false) {

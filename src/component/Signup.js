@@ -61,7 +61,6 @@ const Signup = () => {
       axios.post("http://35.91.35.188/api/register-user", user).then((result) => {
         if (result.data.success === true) {
           alert.success(result.data.message);
-          
           history.push("/carrier/dashboard/postavailabilty");
         } else if (result.data.success === false) {
           alert.success(result.data.message);
@@ -116,7 +115,9 @@ const Signup = () => {
                     </div>
                     <div className="form-group">
                       <input
-                        type="text"
+                        type="tel"
+                        required
+                        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                         name="phone_no"
                         className="myInput"
                         id="pHone"

@@ -8,9 +8,9 @@ const Postavailablity = ({addUserLocal,  userActive }) => {
   return (
     <div>
       <section className="user-dashboard">
-        <Sidebar />
+        <Sidebar userActive={userActive}/>
         <section className="main-content">
-          <Header/>
+          <Header addUserLocal={addUserLocal}/>
           <div className="mt-5 trip_form">
             <Tripsearch />
           </div>

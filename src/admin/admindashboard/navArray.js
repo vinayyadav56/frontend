@@ -1,4 +1,3 @@
-import GroupWorkRoundedIcon from "@mui/icons-material/GroupWorkRounded";
 import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
 import BorderColorRoundedIcon from '@mui/icons-material/BorderColorRounded';
 import SettingsIcon from '@mui/icons-material/Settings';

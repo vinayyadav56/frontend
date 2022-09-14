@@ -1,11 +1,11 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink , Link} from "react-router-dom";
 // import {InstagramIcon,FacebookIcon,LinkedInIcon} from '@mui/icons-material';
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import footerlogo from "../images/footerlogo.png";
-import CommuterForm from "./CommuterForm";
+import CommuterForm from "./BecomePartner";
 import "./homepage.css";
 const HomeFoooter = () => {
   return (
@@ -23,9 +23,9 @@ const HomeFoooter = () => {
                     <NavLink to="/location">Locations</NavLink>
                   </li>
                   <li>
-                    <button data-toggle="modal" className="become-part_btn" data-target="#commuterform">
+                    <Link data-toggle="modal" className="become-part_btn" data-target="#commuterform">
                       Become a Partner
-                    </button>
+                    </Link>
 
                     <div
                       className="modal fade become-partner-modal"

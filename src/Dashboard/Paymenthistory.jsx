@@ -14,9 +14,9 @@ const Paymenthistory = ({addUserLocal, userActive }) => {
   return (
     <>
       <section className="user-dashboard">
-        <Sidebar/>
+        <Sidebar userActive={userActive}/>
         <section className="main-content">
-          <Header/>
+          <Header addUserLocal={addUserLocal} />
           <div className="payment-cards">
             <div className="card">
               <div className="card-body">
@@ -61,7 +61,7 @@ const Paymenthistory = ({addUserLocal, userActive }) => {
               <div className="filter">
                 <p className="mb-0">Sort By :-</p>
                 <div className="dropdown">
-                  <a
+                  <Link
                     className="dropdown-toggle"
                     type="button"
                     id="dropdownMenuButton"
@@ -70,7 +70,7 @@ const Paymenthistory = ({addUserLocal, userActive }) => {
                     aria-expanded="false"
                   >
                     Date
-                  </a>
+                  </Link>
                   <div
                     className="dropdown-menu"
                     aria-labelledby="dropdownMenuButton"
