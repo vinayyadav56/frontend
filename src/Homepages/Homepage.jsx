@@ -28,7 +28,6 @@ import commuter3 from "../images/commuter3.png";
 import quetion from "../images/quetion.png";
 import "./homepage.css";
 import Tripsearch from "./Tripsearch";
-
 const Homepage = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
   return (

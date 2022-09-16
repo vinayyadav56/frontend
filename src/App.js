@@ -94,7 +94,7 @@ const App = () => {
                 <Login addUserLocal={addUserLocal} />
               )} */}
             </Route>
-            <Route exact path="/admindashboard/order">
+            <Route exact path="/admindashboardorder">
               {user && user.id ? (
               <Order />
                ) : (

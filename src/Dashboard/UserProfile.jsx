@@ -12,22 +12,8 @@ const UserProfile = ({ addUserLocal, userActive }) => {
     });
   };
 
-  const [userDatas, setuserDatas] = useState({
-    // first_name: "",
-    // phone_no: "",
-    // email: "",
-    // last_name: "",
-    // password: "",
-    // reEnterPass: "",
-    // dob: "",
-    // address: "",
-    // city: "",
-    // state: "",
-    // pincode: "",
-  });
+  const [userDatas, setuserDatas] = useState({});
 
-  // console.log("userActive.id " + userActive.id);
-  // console.log("userDatas "+ JSON.stringify(userDatas));
 
   const fetchUser = async () => {
     const userId = userActive.tokenable_id;
@@ -42,7 +28,7 @@ const UserProfile = ({ addUserLocal, userActive }) => {
   };
   useEffect(() => {
     fetchUser();
-  });
+  },[]);
 
   // update user
   const handleUpdate = async () => {

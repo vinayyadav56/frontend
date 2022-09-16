@@ -6,18 +6,17 @@ import axios from "axios";
 import "./Table.css";
 const UserData = () => {
   const [filterVal, setFilterVal] = useState([]);
-  const [tdata, setTdata] = useState([]);
-  const [searchapiData, setSearchapiData] = useState([]);
+  const [userData, setUserData] = useState([]);
+  const [searchUserData, setSearchUserData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
   const fetchData = async () => {
     const response = await axios.get("http://35.91.35.188/api/user-all-list");
     const partnerList = Object.values(response.data);
     const list = partnerList[0];
-    console.log(list);
     try {
-      setTdata(list);
-      setSearchapiData(list);
+      setUserData(list);
+      setSearchUserData(list);
     } catch (error) {
       console.log(error);
     }
@@ -30,14 +29,13 @@ const UserData = () => {
   // delete function start
   const handleDelete = (id, e) => {
     e.preventDefault();
-    let newdata = tdata;
+    let newdata = userData;
 
     axios
       .delete(`http://35.91.35.188/api/delete-user/${id}`)
       .then((response) => {
-        console.log("deleted", response);
-        tdata.splice(id, 1);
-        setTdata([...newdata]);
+        userData.splice(id, 1);
+        setUserData([...newdata]);
       })
       .catch((err) => console.log(err));
   };
@@ -46,12 +44,12 @@ const UserData = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (e.target.value === "") {
-      tdata(searchapiData);
+      userData(searchUserData);
     } else {
-      const filterResult = searchapiData.filter((item) =>
+      const filterResult = searchUserData.filter((item) =>
         item.first_name.toLowerCase().includes(e.target.value.toLowerCase())
       );
-      setTdata(filterResult);
+      setUserData(filterResult);
     }
     setFilterVal(e.target.value);
   };
@@ -63,18 +61,18 @@ const UserData = () => {
         </div>
         <div className="form-row">
           <div className="col">
-            <label for="#pname">Search User :-</label>
+            <label htmlFor="#pname">Search User :-</label>
             <input
               type="text"
               className="form-control"
               placeholder="Filter"
-              onInput={handleSearch}
+              onChange={handleSearch}
             />
           </div>
         </div>
       </div>
       <div className="table-responsive-lg">
-        <table striped hovered>
+        <table>
           <thead>
             <tr>
               <th>Id</th>
@@ -90,7 +88,7 @@ const UserData = () => {
             </tr>
           </thead>
           <tbody>
-            {tdata
+            {userData
               .filter((val) => {
                 if (searchTerm === "") {
                   return val;

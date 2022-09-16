@@ -17,7 +17,7 @@ const navArray = [
         id: 1,
         nav: 'Order',
         icon: <StarBorderRoundedIcon />,
-        link: '/admindashboard/order'
+        link: '/admindashboardorder'
     },
     {
         id: 2,
