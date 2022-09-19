@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./Table.css";
 import Addpartner from "./Addpartner";
+import EditPartner from "../partner/EditPartner";
+import PartnerOrder from "./PartnerOrderList";
 const Reactdatatable = (userActive) => {
   const [filterVal, setFilterVal] = useState([]);
   const [partnerData, setPartnerData] = useState([]);
@@ -52,6 +54,11 @@ const Reactdatatable = (userActive) => {
     }
     setFilterVal(e.target.value);
   };
+
+  //edit data
+
+  const viewData = () => {};
+
   return (
     <div>
       <div className="filter_partner">
@@ -102,7 +109,11 @@ const Reactdatatable = (userActive) => {
               })
               .map((item, id) => {
                 return (
-                  <tr key={id} style={{ margin: "10px 0 10px 0" }}>
+                  <tr
+                    partner-id={item.id}
+                    key={id}
+                    style={{ margin: "10px 0 10px 0" }}
+                  >
                     <td>{id + 1}</td>
                     <td>{item.partner_name}</td>
                     <td>{item.partner_email}</td>
@@ -111,13 +122,15 @@ const Reactdatatable = (userActive) => {
                     <td>{item.partner_state} </td>
                     <td>{item.partner_city} </td>
                     <td>{item.partner_address} </td>
-                    <td>
+                    <td className="d-flex">
+                      <EditPartner/>
                       <button
-                        className="btn delete-btn"
+                        className="btn delete-btn mr-1"
                         onClick={() => deleteData(id)}
                       >
                         DELETE
                       </button>
+                      <PartnerOrder/>
                     </td>
                   </tr>
                 );

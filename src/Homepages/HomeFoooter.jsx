@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink , Link} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 // import {InstagramIcon,FacebookIcon,LinkedInIcon} from '@mui/icons-material';
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
@@ -10,7 +10,9 @@ import "./homepage.css";
 const HomeFoooter = () => {
   return (
     <>
+
       <section className="homemainfooter">
+
         <div className="home_footer">
           <div className="container-fluid">
             <div className="row">
@@ -23,10 +25,9 @@ const HomeFoooter = () => {
                     <NavLink to="/location">Locations</NavLink>
                   </li>
                   <li>
-                    <Link data-toggle="modal" className="become-part_btn" data-target="#commuterform">
+                    <p  data-toggle="modal" className="become-part_btn" data-target="#commuterform">
                       Become a Partner
-                    </Link>
-
+                    </p>
                     <div
                       className="modal fade become-partner-modal"
                       id="commuterform"
@@ -91,6 +92,7 @@ const HomeFoooter = () => {
             </div>
           </div>
         </div>
+
         <div className="social_icons">
           <div>
             <p>Follow Us On</p>
@@ -101,10 +103,13 @@ const HomeFoooter = () => {
             </div>
           </div>
         </div>
+
         <div className="d-flex justify-content-center copyright">
           <p>© Carrykar 2022 All Rights Reserved</p>
         </div>
+
       </section>
+      
     </>
   );
 };

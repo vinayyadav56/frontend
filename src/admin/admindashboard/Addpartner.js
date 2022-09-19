@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
-import { useAlert } from "react-alert";
-import { useHistory } from "react-router-dom";
 import Newpartner from "./Newpartner";
-import axios from "axios";
 const Addpartner = () => {
   return (
     <div>

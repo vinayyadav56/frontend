@@ -101,6 +101,7 @@ const UserAvalibiltyCheck = () => {
               <th>Journey Medium</th>
               <th>From Date</th>
               <th>To Date</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -117,6 +118,11 @@ const UserAvalibiltyCheck = () => {
                 <td>{item.journey_medium}</td>
                 <td>{item.from_date}</td>
                 <td>{item.to_date}</td>
+                <td>
+                  <button className="btn btn-success py-0">
+                    ASSIGN ORDER
+                  </button>
+                </td>
               </tr>
             );
           })}

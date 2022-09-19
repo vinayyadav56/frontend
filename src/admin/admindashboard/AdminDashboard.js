@@ -10,7 +10,6 @@ import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import Table from "./Table";
 import UserData from "./UserData";
 import UserAvalibiltyCheck from "./UserAvalibiltyCheck";
-import PartnerOrder from "./PartnerOrder";
 // import UserOrder from "./UserOrder";
 
 const PartnerDashboard = () => {
@@ -99,9 +98,9 @@ const PartnerDashboard = () => {
           <div className="user_table">
           <UserData />
           </div>
-          <div className="user_availbility">
+          {/* <div className="user_availbility">
             <PartnerOrder/>
-          </div>
+          </div> */}
           <div className="user_availbility">
             <UserAvalibiltyCheck />
           </div>

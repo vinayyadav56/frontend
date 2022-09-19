@@ -55,7 +55,6 @@ export default function BasicTabs() {
     cityName: "",
   });
 
-  console.log("sarch values  " + JSON.stringify(inputValue));
 
   // const handleRadio = (e) => {
   //   const { name, value } = e.target;
@@ -91,12 +90,10 @@ export default function BasicTabs() {
       console.log(`Please Select searchType`);
     }
   };
-  useEffect(() => {
-    fetchLocation();
-  });
+ 
   return (
     <>
-      <form className="form-inline trip_search_form">
+      <form className="form-inline trip_search_form"> 
         <div className="btn-group-toggle" data-toggle="buttons">
           <label className="btn top_select_btns">
             <input
@@ -120,16 +117,6 @@ export default function BasicTabs() {
             <DirectionsTransitFilledIcon className="btn_icn mr-2" />
             Train
           </label>
-          {/* <label className="btn top_select_btns">
-            <input
-              type="radio"
-              name="searchType"
-              // value={inputValue.searchType}
-              id="option3"
-            />
-            <DirectionsCarIcon className="btn_icn mr-2" />
-            Car
-          </label> */}
         </div>
         <Box sx={{ width: "100%" }}>
           <Box sx={{ borderColor: "divider" }}>
@@ -154,37 +141,14 @@ export default function BasicTabs() {
                       placeholder="From"
                       id="from"
                       value={inputValue.cityName}
-                      onChange={onChange}
+                      onClick={fetchLocation}
                     />
 
                     {console.log(
                       "city name " + JSON.stringify(inputValue.cityName)
                     )}
-                    {/* <button onClick={() => onSearch(value)}> Search </button> */}
                   </p>
-                  {/* <p className="dropdown">
-          {data
-            .filter((item) => {
-              const searchTerm = value.toLowerCase();
-              const fullName = item.full_name.toLowerCase();
-
-              return (
-                searchTerm &&
-                fullName.startsWith(searchTerm) &&
-                fullName !== searchTerm
-              );
-            })
-            .slice(0, 3)
-            .map((item) => (
-              <p
-                onClick={() => onSearch(item.full_name)}
-                className="dropdown-row"
-                key={item.full_name}
-              >
-                {item.full_name}
-              </p>
-            ))}
-        </p> */}
+                 
                 </p>
               </span>
               <span className="form-group col-sm-12 col-md-2  mb-sm-4 px-0  col-lg-2 d-flex justify-content-center">
@@ -200,7 +164,7 @@ export default function BasicTabs() {
                       placeholder="To"
                       id="from"
                       value={inputValue.cityName}
-                      onChange={onChange}
+                      onClick={fetchLocation}
                     />
                     {/* <button onClick={() => onSearchTo(value)}> Search </button> */}
                   </p>
@@ -275,7 +239,7 @@ export default function BasicTabs() {
                       placeholder="From"
                       id="from"
                       value={inputValue.cityName}
-                      onChange={onChange}
+                      onClick={fetchLocation}
                     />
                     {/* <button onClick={() => onSearchTo(value)}> Search </button> */}
                   </p>
@@ -317,7 +281,7 @@ export default function BasicTabs() {
                       placeholder="To"
                       id="from"
                       value={inputValue.cityName}
-                      onChange={onChange}
+                      onClick={fetchLocation}
                     />
                     {/* <button onClick={() => onSearchTo(value)}> Search </button> */}
                   </p>

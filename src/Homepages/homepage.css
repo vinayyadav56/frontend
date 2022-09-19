@@ -739,6 +739,7 @@ ul {
     background: transparent;
     color: #fff;
     font-size: 14px;
+    cursor: pointer;
 }
 .become-part_btn:hover{
     color: aqua;

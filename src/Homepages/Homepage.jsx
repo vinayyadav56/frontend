@@ -46,11 +46,7 @@ const Homepage = () => {
                   <div className="desktop-links">
                     <ul>
                       <li className="dropdown">
-                        <Link
-                          to="/services"
-                        >
-                          Services
-                        </Link>
+                        <Link to="/services">Services</Link>
                       </li>
                       <li>
                         <NavLink to="/latestjob">Daily Commuter</NavLink>
@@ -151,13 +147,6 @@ const Homepage = () => {
               <div className="txt_content">
                 <h3>Befikar</h3>
                 <h4>Carrykar!</h4>
-                {/* <div className="card">
-                  <div className="card-body">
-                    <div className="head-btns">
-                       <a href="" className=""/>
-                    </div>
-                  </div>
-                </div> */}
               </div>
               <div className="img_content">
                 <img src={homgbg} alt="homgpagebanner" />
@@ -380,10 +369,7 @@ const Homepage = () => {
               </div>
             </div>
             <div className="d-flex justify-content-center">
-              <button
-                className="btn become-btn">
-                Become a Commuter
-              </button>
+              <button className="btn become-btn">Become a Commuter</button>
             </div>
           </div>
         </div>
@@ -537,7 +523,7 @@ const Homepage = () => {
                           aria-expanded="true"
                           aria-controls="collapse4"
                         >
-                          Who should I contact if I have any problems?
+                          How do I start shipping with CarryKar?
                           <AddIcon className="que-add" />
                         </p>
                       </div>
@@ -549,9 +535,10 @@ const Homepage = () => {
                         data-parent="#accordion"
                       >
                         <p className="mb-0">
-                          You can email us at carrykar@gmail.com or speak with a
-                          member of our dedicated customer care staff, who will
-                          respond to your questions as soon as possible.
+                          Simply register your email, sign up, and start placing
+                          orders right away. Go to our website select the cities
+                          where you want to travel select the slot and timing
+                          for the package.
                         </p>
                       </div>
                     </div>
@@ -570,7 +557,7 @@ const Homepage = () => {
                           aria-expanded="true"
                           aria-controls="collapse6"
                         >
-                          Who should I contact if I have any problems?
+                          Are there any additional pick-up fees?
                           <AddIcon className="que-add" />
                         </p>
                       </div>
@@ -581,9 +568,8 @@ const Homepage = () => {
                         data-parent="#accordion6"
                       >
                         <p className="mb-0">
-                          You can email us at carrykar@gmail.com or speak with a
-                          member of our dedicated customer care staff, who will
-                          respond to your questions as soon as possible.
+                          No, the price that was disclosed to you covers
+                          delivery to and pick up from your doorstep.
                         </p>
                       </div>
                     </div>
