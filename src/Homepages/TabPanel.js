@@ -101,7 +101,7 @@ export default function BasicTabs() {
               name="searchType"
               value="flight"
               id="option1"
-              onChange={onChange}
+              onChange={fetchLocation}
             />
             <AirplanemodeActiveSharpIcon className="btn_icn mr-2" />
             Flight
@@ -112,7 +112,7 @@ export default function BasicTabs() {
               name="searchType"
               value="station"
               id="option2"
-              onChange={onChange}
+              onChange={fetchLocation}
             />
             <DirectionsTransitFilledIcon className="btn_icn mr-2" />
             Train
@@ -141,7 +141,7 @@ export default function BasicTabs() {
                       placeholder="From"
                       id="from"
                       value={inputValue.cityName}
-                      onClick={fetchLocation}
+                      onClick={onChange}
                     />
 
                     {console.log(
@@ -164,7 +164,7 @@ export default function BasicTabs() {
                       placeholder="To"
                       id="from"
                       value={inputValue.cityName}
-                      onClick={fetchLocation}
+                      onClick={onChange}
                     />
                     {/* <button onClick={() => onSearchTo(value)}> Search </button> */}
                   </p>
