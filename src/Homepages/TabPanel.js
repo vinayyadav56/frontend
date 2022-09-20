@@ -11,7 +11,6 @@ import Box from "@mui/material/Box";
 import trip from "../images/triplocation.png";
 import AirplanemodeActiveSharpIcon from "@mui/icons-material/AirplanemodeActiveSharp";
 import DirectionsTransitFilledIcon from "@mui/icons-material/DirectionsTransitFilled";
-import { useEffect } from "react";
 // import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -46,7 +45,7 @@ function a11yProps(index) {
 }
 export default function BasicTabs() {
   const [chooseValue, setChooseValue] = React.useState(0);
-  const handleChange = (event, newValue) => {
+  const handleChange = ( newValue) => {
     setChooseValue(newValue);
   };
 
@@ -63,19 +62,19 @@ export default function BasicTabs() {
     });
   };
   // fetch from and to locations
-  const fetchLocation = async (e) => {
-    const {searchType , cityName} = inputValue;
-      const res = await axios.post(
-        "http://35.91.35.188/api/city-airport-train-search",
-        inputValue
-      );
-      try {
-        console.log(res.data.data);
-        setInputValue(res.data.data);
-      } catch (error) {
-        console.log(error);
-      }
-  };
+  // const fetchLocation = async (e) => {
+  //   const {searchType , cityName} = inputValue;
+  //     const res = await axios.post(
+  //       "http://35.91.35.188/api/city-airport-train-search",
+  //       inputValue
+  //     );
+  //     try {
+  //       console.log(res.data.data);
+  //       setInputValue(res.data.data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  // };
 
   return (
     <>

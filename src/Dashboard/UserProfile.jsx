@@ -26,10 +26,10 @@ const UserProfile = ({ addUserLocal, userActive }) => {
       console.log(error);
     }
   };
+
   useEffect(() => {
     fetchUser();
-  },[]);
-
+  }, []);
   // update user
   const handleUpdate = async () => {
     const userId = userActive.tokenable_id;

@@ -4,7 +4,6 @@ import SearchIcon from "@mui/icons-material/Search";
 // import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import bellicon from "../images/bellicon.png";
 import logout from "../images/logout.png";
-import { Link } from "react-router-dom";
 const Header = ({addUserLocal}) => {
   return (
     <div>

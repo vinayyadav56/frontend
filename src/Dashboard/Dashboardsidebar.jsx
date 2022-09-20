@@ -1,7 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
-import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
 import profilelogo from "../images/profilelogo.png";
 import prlogo from "../images/pr-img.png";
 import paymenticon from "../images/paymenthistory.png";
@@ -11,7 +9,6 @@ import vector from "../images/Vector.png";
 import moblogo from "../images/moblogo1.png";
 
 const Sidebar = ({ userActive }) => {
-  const [toggleMenu, setToggleMenu] = useState();
   return (
     <div>
       <section className="user-sidebar">
