@@ -1,6 +1,6 @@
 import * as React from "react";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./styles.css";
 import PropTypes from "prop-types";
 import "./tabpanel.css";
@@ -11,6 +11,7 @@ import Box from "@mui/material/Box";
 import trip from "../images/triplocation.png";
 import AirplanemodeActiveSharpIcon from "@mui/icons-material/AirplanemodeActiveSharp";
 import DirectionsTransitFilledIcon from "@mui/icons-material/DirectionsTransitFilled";
+import { useEffect } from "react";
 // import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -54,16 +55,6 @@ export default function BasicTabs() {
     searchType: "",
     cityName: "",
   });
-
-
-  // const handleRadio = (e) => {
-  //   const { name, value } = e.target;
-
-  //   setInputValue({
-  //     [name]: value
-  //   });
-  // };
-
   const onChange = (e) => {
     const { name, value } = e.target;
     setInputValue({
@@ -71,26 +62,21 @@ export default function BasicTabs() {
       [name]: value,
     });
   };
-
   // fetch from and to locations
   const fetchLocation = async (e) => {
-    const { searchType } = inputValue;
-    if (searchType) {
+    const {searchType , cityName} = inputValue;
       const res = await axios.post(
         "http://35.91.35.188/api/city-airport-train-search",
         inputValue
       );
       try {
         console.log(res.data.data);
-        // setInputValue(res.data.data);
+        setInputValue(res.data.data);
       } catch (error) {
         console.log(error);
       }
-    } else {
-      console.log(`Please Select searchType`);
-    }
   };
- 
+
   return (
     <>
       <form className="form-inline trip_search_form"> 
@@ -112,7 +98,7 @@ export default function BasicTabs() {
               name="searchType"
               value="station"
               id="option2"
-              onChange={fetchLocation}
+              onClick={fetchLocation}
             />
             <DirectionsTransitFilledIcon className="btn_icn mr-2" />
             Train
@@ -132,8 +118,8 @@ export default function BasicTabs() {
           <TabPanel value={chooseValue} index={0}>
             <span className="row">
               <span className="form-group col-sm-12 col-md-5  mb-sm-4 px-2  col-lg-5">
-                <p className="search-container">
-                  <p className="search-inner">
+                <span className="search-container">
+                  <span className="search-inner">
                     <input
                       name="cityName"
                       type="text"
@@ -141,22 +127,17 @@ export default function BasicTabs() {
                       placeholder="From"
                       id="from"
                       value={inputValue.cityName}
-                      onClick={onChange}
+                      onChange={onChange}
                     />
-
-                    {console.log(
-                      "city name " + JSON.stringify(inputValue.cityName)
-                    )}
-                  </p>
-                 
-                </p>
+                  </span>
+                </span>
               </span>
               <span className="form-group col-sm-12 col-md-2  mb-sm-4 px-0  col-lg-2 d-flex justify-content-center">
                 <img src={trip} alt="triploc" />
               </span>
               <span className="form-group col-sm-12 col-md-5  mb-sm-4 px-2  col-lg-5">
-                <p className="search-container">
-                  <p className="search-inner">
+                <span className="search-container">
+                  <span className="search-inner">
                     <input
                       name="cityName"
                       type="text"
@@ -164,11 +145,11 @@ export default function BasicTabs() {
                       placeholder="To"
                       id="from"
                       value={inputValue.cityName}
-                      onClick={onChange}
+                      onChange={onChange}
                     />
                     {/* <button onClick={() => onSearchTo(value)}> Search </button> */}
-                  </p>
-                  {/* <p className="dropdown">
+                  </span>
+                  {/* <span className="dropdown">
                 {tabArray
                   .filter((item) => {
                     const searchTermTo = value.toLowerCase();
@@ -182,16 +163,16 @@ export default function BasicTabs() {
                   })
                   .slice(0, 3)
                   .map((item) => (
-                    <p
+                    <span
                       onClick={() => onSearchTo(item.full_name)}
                       className="dropdown-row"
                       key={item.full_name}
                     >
                       {item.full_name}
-                    </p>
+                    </span>
                   ))}
-              </p> */}
-                </p>
+              </span> */}
+                </span>
               </span>
               <span className="form-group col-sm-6 col-md-6  mb-sm-4 px-2  col-lg-3">
                 <label htmlFor="#depdate">Journey Date</label>
@@ -230,8 +211,8 @@ export default function BasicTabs() {
           <TabPanel value={chooseValue} index={1}>
             <span className="row">
               <span className="form-group col-sm-12 col-md-5  mb-sm-4 px-2  col-lg-5">
-                <p className="search-container">
-                  <p className="search-inner">
+                <span className="search-container">
+                  <span className="search-inner">
                     <input
                       name="cityName"
                       type="text"
@@ -239,11 +220,11 @@ export default function BasicTabs() {
                       placeholder="From"
                       id="from"
                       value={inputValue.cityName}
-                      onClick={fetchLocation}
+                      onChange={onChange}
                     />
                     {/* <button onClick={() => onSearchTo(value)}> Search </button> */}
-                  </p>
-                  {/* <p className="dropdown">
+                  </span>
+                  {/* <span className="dropdown">
                 {tabArray
                   .filter((item) => {
                     const searchTermTo = value.toLowerCase();
@@ -257,23 +238,23 @@ export default function BasicTabs() {
                   })
                   .slice(0, 3)
                   .map((item) => (
-                    <p
+                    <span
                       onClick={() => onSearchTo(item.full_name)}
                       className="dropdown-row"
                       key={item.full_name}
                     >
                       {item.full_name}
-                    </p>
+                    </span>
                   ))}
-              </p> */}
-                </p>
+              </span> */}
+                </span>
               </span>
               <span className="form-group col-sm-12 col-md-2  mb-sm-4 px-0  col-lg-2 d-flex justify-content-center">
                 <img src={trip} alt="triploc" />
               </span>
               <span className="form-group col-sm-12 col-md-5  mb-sm-4 px-2  col-lg-5">
-                <p className="search-container">
-                  <p className="search-inner">
+                <span className="search-container">
+                  <span className="search-inner">
                     <input
                       name="cityName"
                       type="text"
@@ -281,11 +262,11 @@ export default function BasicTabs() {
                       placeholder="To"
                       id="from"
                       value={inputValue.cityName}
-                      onClick={fetchLocation}
+                      onChange={onChange}
                     />
                     {/* <button onClick={() => onSearchTo(value)}> Search </button> */}
-                  </p>
-                  {/* <p className="dropdown">
+                  </span>
+                  {/* <span className="dropdown">
                 {tabArray
                   .filter((item) => {
                     const searchTermTo = value.toLowerCase();
@@ -299,16 +280,16 @@ export default function BasicTabs() {
                   })
                   .slice(0, 3)
                   .map((item) => (
-                    <p
+                    <span
                       onClick={() => onSearchTo(item.full_name)}
                       className="dropdown-row"
                       key={item.full_name}
                     >
                       {item.full_name}
-                    </p>
+                    </span>
                   ))}
-              </p> */}
-                </p>
+              </span> */}
+                </span>
               </span>
               <span className="form-group col-sm-6 col-md-6  mb-sm-4 px-2  col-lg-3">
                 <label htmlFor="#depdate">Departure Date</label>

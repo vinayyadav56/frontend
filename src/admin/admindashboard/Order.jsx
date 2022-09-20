@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./Adminmenu.css";
 import navArray from "./navArray";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
@@ -7,6 +7,7 @@ import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
+import UserAvalibiltyCheck from "./UserAvalibiltyCheck";
 // import UserOrder from "./UserOrder";
 const Order = () => {
   return (
@@ -25,9 +26,9 @@ const Order = () => {
               </div>
 
               <div className="dropdown show">
-                <Link
+               <Link
                   className="btn dropdown-toggle"
-                  href="#"
+                  to="#"
                   role="button"
                   id="dropdownMenuLink"
                   data-toggle="dropdown"
@@ -59,27 +60,27 @@ const Order = () => {
           </div>
         </div>
       </nav>
-      {/* <main>
+      <main>
         <aside>
           <div className="sidebar">
             <button id="close-btn">
               <CloseRoundedIcon />
             </button>
             <div className="responsive-sidebar">
-              <Link to="/admindashboard" className="active">
+             <NavLink to="/admindashboard">
                 <span className="icon">
                   <GridViewRoundedIcon />
                 </span>
                 <h4 className="title">Dashboard</h4>
-              </Link>
+              </NavLink>
 
               {navArray.map((data, id) => {
                 return (
                   <li key={id}>
-                    <Link to={data.link}>
+                   <NavLink to={data.link}>
                       <span className="icon">{data.icon}</span>
                       <h4 className="title">{data.nav}</h4>
-                    </Link>
+                    </NavLink>
                   </li>
                 );
               })}
@@ -87,9 +88,11 @@ const Order = () => {
           </div>
         </aside>
         <section className="right">
-            <UserOrder/>
+          <div className="user_availbility">
+            <UserAvalibiltyCheck />
+          </div>
         </section>
-      </main> */}
+      </main>
     </div>
   );
 };

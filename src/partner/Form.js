@@ -5,40 +5,36 @@ import React, { useState } from "react";
 const Form = () => {
   // let alert = useAlert();
   // let history = useHistory();
-  const [createorder, setCreateorder] = useState(
-    {
-      partner_id: 5,
-       
-      order_description: "",
-      quantity:"",
-      order_dimension: "",
-      from_location: "",
-      to_location: "",
-      sender_info: {
-        sender_name: "",
-        sender_email: "",
-        sender_phone: "",
-        sender_city: "",
-        sender_state: "",
-        sender_pin: "",
-        sender_address: ""
-      },
-      receiver_info: {
-        receiver_name: "",
-        receiver_email: "",
-        receiver_phone: "",
-        receiver_city: "",
-        receiver_state: "",
-        receiver_pin: "",
-        receiver_address: ""
-      },
-      weight: 200,
-      order_image:{img: ""},
-      items: {
-       
-        
-      }
-    });
+  const [createorder, setCreateorder] = useState({
+    partner_id: 5,
+
+    order_description: "",
+    quantity: "",
+    order_dimension: "",
+    from_location: "",
+    to_location: "",
+    sender_info: {
+      sender_name: "",
+      sender_email: "",
+      sender_phone: "",
+      sender_city: "",
+      sender_state: "",
+      sender_pin: "",
+      sender_address: "",
+    },
+    receiver_info: {
+      receiver_name: "",
+      receiver_email: "",
+      receiver_phone: "",
+      receiver_city: "",
+      receiver_state: "",
+      receiver_pin: "",
+      receiver_address: "",
+    },
+    weight: 200,
+    order_image: { img: "" },
+    items: {},
+  });
   const handleCreateinput = (e) => {
     const { name, value } = e.target;
     setCreateorder({
@@ -46,66 +42,19 @@ const Form = () => {
       [name]: value,
     });
   };
-  const handleOrder = async(e) => {
+
+  // PARTNER ORDER API FUNCTION
+  const handleOrder = async (e) => {
     e.preventDefault();
-    // const {
-    //   order_description,
-    //   quantity,
-    //   order_dimension,
-    //   from_location,
-    //   to_location,
-    //   sender_name,
-    //   sender_email,
-    //   sender_phone,
-    //   sender_city,
-    //   sender_state,
-    //   sender_pin,
-    //   sender_address,
-    //   receiver_name,
-    //   receiver_email,
-    //   receiver_phone,
-    //   receiver_city,
-    //   receiver_state,
-    //   receiver_pin,
-    //   receiver_address,
-    // } = createorder;
-    // if (
-    //   order_description &&
-    //   quantity &&
-    //   order_dimension &&
-    //   from_location &&
-    //   to_location &&
-    //   sender_name &&
-    //   sender_email &&
-    //   sender_phone &&
-    //   sender_city &&
-    //   sender_state &&
-    //   sender_pin &&
-    //   sender_address &&
-    //   receiver_name &&
-    //   receiver_email &&
-    //   receiver_phone &&
-    //   receiver_city &&
-    //   receiver_state &&
-    //   receiver_pin &&
-    //   receiver_address 
-     
-    // ) {
-  // {axios
-  //       .post("http://35.91.35.188/api/partner-order", createorder)
-  //       .then(() => {
-  //         alert.success("Order succesfully");
-  //         history.push("/partner/dashboard");
-  //       });
-  //   } else {
-  //     alert.error("Please fill all fields");
-  //   }
-  const res = await axios.post("http://35.91.35.188/api/partner-order", createorder)
-  try {
-    console.log(res);
-  } catch (error) {
-    console.log(error);
-  }
+    const res = await axios.post(
+      "http://35.91.35.188/api/partner-order",
+      createorder
+    );
+    try {
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div>
@@ -175,8 +124,6 @@ const Form = () => {
                   onChange={handleCreateinput}
                   className="form-control"
                 />
-                
-  
               </div>
               {/* <div className="col-md-6 img-upload">
                 <label htmlFor="inputimage">Upload Order Packing Image</label>
@@ -196,7 +143,7 @@ const Form = () => {
                   className="form-control"
                   name="sender_name"
                   placeholder="Enter Name"
-                  value={createorder.sender_info.sender_name}
+                  value={createorder.sender_name}
                   onChange={handleCreateinput}
                   autoComplete="off"
                 />
@@ -207,7 +154,7 @@ const Form = () => {
                   type="email"
                   className="form-control"
                   name="sender_email"
-                  value={createorder.sender_info.sender_email}
+                  value={createorder.sender_email}
                   onChange={handleCreateinput}
                   autoComplete="off"
                   placeholder="Enter email"
@@ -220,7 +167,7 @@ const Form = () => {
                   className="form-control"
                   id="inputphone"
                   onChange={handleCreateinput}
-                  value={createorder.sender_info.sender_phone}
+                  value={createorder.sender_phone}
                   name="sender_phone"
                   placeholder="Enter mobile number"
                 />
@@ -232,7 +179,7 @@ const Form = () => {
                   className="form-control"
                   id="inputCity"
                   name="sender_city"
-                  value={createorder.sender_info.sender_city}
+                  value={createorder.sender_city}
                   onChange={handleCreateinput}
                   placeholder="Enter city"
                 />
@@ -245,7 +192,7 @@ const Form = () => {
                   id="inputstate"
                   placeholder="Enter state"
                   name="sender_state"
-                  value={createorder.sender_info.sender_state}
+                  value={createorder.sender_state}
                   onChange={handleCreateinput}
                 />
               </div>
@@ -256,7 +203,7 @@ const Form = () => {
                   className="form-control"
                   id="inputpin"
                   name="sender_pin"
-                  value={createorder.sender_info.sender_pin}
+                  value={createorder.sender_pin}
                   onChange={handleCreateinput}
                   placeholder="Enter PIN"
                 />
@@ -271,7 +218,7 @@ const Form = () => {
                   id="inputaddress"
                   placeholder="Enter full address"
                   name="sender_address"
-                  value={createorder.sender_info.sender_address}
+                  value={createorder.sender_address}
                   onChange={handleCreateinput}
                 />
               </div>
@@ -391,14 +338,12 @@ const Form = () => {
                 />
               </div>
             </div> */}
-            <button
-            type="submit"
-            className="btn btn-danger mx-auto"
-          >
-            Create Order
-          </button>
+            <div className="d-flex jutify-content-center">
+              <button type="submit" className="btn btn-danger mx-auto">
+                Create Order
+              </button>
+            </div>
           </form>
-         
         </div>
       </div>
     </div>

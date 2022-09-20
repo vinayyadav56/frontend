@@ -29,9 +29,12 @@ import quetion from "../images/quetion.png";
 import "./homepage.css";
 import Tripsearch from "./Tripsearch";
 const Homepage = () => {
+
   const [toggleMenu, setToggleMenu] = useState(false);
+
   return (
     <>
+
       <section className="main_section">
         <div className="container">
           <div className="navbar_section">
@@ -64,7 +67,7 @@ const Homepage = () => {
                         <NavLink to="/login">Login</NavLink>
                       </li>
                       <li>
-                        <NavLink to="/carrier/signup">SignUp</NavLink>
+                        <NavLink to="/signup">SignUp</NavLink>
                       </li>
                     </ul>
                   </div>
@@ -76,7 +79,6 @@ const Homepage = () => {
                   >
                     <MenuIcon />
                   </button>
-
                   {toggleMenu && (
                     <div className="nav-mobile-div slide-bottom">
                       <button
@@ -155,6 +157,7 @@ const Homepage = () => {
           </div>
         </div>
       </section>
+
       <section className="trip_section">
         <div className="trip_section-bgc">
           <div className="container">
@@ -582,6 +585,7 @@ const Homepage = () => {
       </section>
 
       <HomeFoooter />
+
     </>
   );
 };

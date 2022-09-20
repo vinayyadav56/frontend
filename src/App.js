@@ -58,7 +58,7 @@ const App = () => {
       <Provider template={AlertTemplate} {...options}>
         <Router>
           <Switch>
-            <Route exact path="/carrier/signup" component={Signup} />
+            <Route exact path="/signup" component={Signup} />
             <Route exact path="/" component={Homepage} />
             <Route path="/services" component={Services} />
             <Route path="/forgetpassword" component={Forgetpassword} />

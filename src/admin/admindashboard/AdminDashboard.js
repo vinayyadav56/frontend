@@ -9,7 +9,6 @@ import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import Table from "./Table";
 import UserData from "./UserData";
-import UserAvalibiltyCheck from "./UserAvalibiltyCheck";
 // import UserOrder from "./UserOrder";
 
 const PartnerDashboard = () => {
@@ -31,7 +30,7 @@ const PartnerDashboard = () => {
               <div className="dropdown show">
                 <Link
                   className="btn dropdown-toggle"
-                  href="#"
+                  to="#"
                   role="button"
                   id="dropdownMenuLink"
                   data-toggle="dropdown"
@@ -97,12 +96,6 @@ const PartnerDashboard = () => {
           </div>
           <div className="user_table">
           <UserData />
-          </div>
-          {/* <div className="user_availbility">
-            <PartnerOrder/>
-          </div> */}
-          <div className="user_availbility">
-            <UserAvalibiltyCheck />
           </div>
         </section>
       </main>
