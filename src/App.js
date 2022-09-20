@@ -43,7 +43,7 @@ const App = () => {
 
   const [user, setLogin] = useState({});
 
-  console.log("user login data " + JSON.stringify(user));
+  // console.log("user login data " + JSON.stringify(user));
 
   // GET USER FROM LOCAL STORAGE
   useEffect(() => {

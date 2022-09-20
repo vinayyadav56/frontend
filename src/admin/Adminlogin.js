@@ -18,21 +18,22 @@ const Adminlogin = () => {
     [name] : value,
   });
  };
-  const handleLogin = async(e) => {
+  const handleAdminLogin = async(e) => {
     e.preventDefault();
     const{admin_username , admin_password} = adminlogin ;
     if(admin_username && admin_password){
       await axios.post("http://35.91.35.188/api/admin-login", adminlogin)
       .then((result) =>{
-        
-        if (result.data.success === true) {
-          alert.success(result.data.message);
-          console.log("result.data.loginData " + result.data.loginData);
-          // addUserLocal(result.data.loginData);
-          history.push("/admindashboard");
-        } else if (result.data.success === false) {
-          alert.success(result.data.message);
-        }
+        alert.success(result.data.message);
+        history.push("/admindashboard");
+        // if (result.data.success === true) {
+        //   alert.success(result.data.message);
+        //   console.log("result.data.loginData " + result.data.loginData);
+        //   // addUserLocal(result.data.loginData);
+        //   history.push("/admindashboard");
+        // } else if (result.data.success === false) {
+        //   alert.success(result.data.message);
+        // }
       });
       }else{
         alert.error("Invalid inputs please retry");
@@ -43,7 +44,7 @@ const Adminlogin = () => {
       <div className="container-fluid admin-login">
         <div className="row admin-section">
           <div className="col-12 adminleftctn">
-              <form className="my-form" onSubmit={handleLogin}>
+              <form className="my-form" onSubmit={handleAdminLogin}>
                 <span className="wel-msg">Welcome To Carrykar</span>
                 <span className="log-title">Login to continue</span>
                 <div className="login-det mt-2">
