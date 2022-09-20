@@ -34,17 +34,27 @@ import Order from "./admin/admindashboard/Order";
 import { useEffect } from "react";
 import { useState } from "react";
 import Services from "./Homepages/Services";
+
 const App = () => {
   const options = {
     timeout: 5000,
     position: positions.TOP_RIGHT,
   };
 
-  const [user, setLogin] = useState([]);
+  const [user, setLogin] = useState({});
+
+  console.log("user login data " + JSON.stringify(user));
 
   // GET USER FROM LOCAL STORAGE
   useEffect(() => {
-    setLogin(JSON.parse(localStorage.getItem("myUser")));
+    let user = localStorage.getItem("myUser");
+
+    if (user) {
+      return JSON.parse(localStorage.getItem("myUser"));
+    } else {
+      return [];
+    }
+    // setLogin(JSON.parse(localStorage.getItem("myUser")));
   }, []);
 
   // ADD USER IN LOCAL STORAGE
@@ -70,62 +80,50 @@ const App = () => {
             {/* no show before login */}
 
             <Route path="/partner/dashboard">
-              {/* {user && user.id ? ( */}
               <PartnerDashboard />
-              {/* ) : (
-                <Login addUserLocal={addUserLocal} />
-              )} */}
             </Route>
             <Route path="/partner">
-              {/* {user && user.id ? ( */}
               <Partnerlogin />
-              {/* ) : (
-                <Login addUserLocal={addUserLocal} />
-              )} */}
             </Route>
             <Route path="/admin">
               {/* {user && user.id ? ( */}
               <Adminlogin />
             </Route>
             <Route path="/admindashboard">
-              {/* {user && user.id ? ( */}
               <AdminDashboard />
-              {/* ) : (
-                <Login addUserLocal={addUserLocal} />
-              )} */}
             </Route>
             <Route exact path="/admindashboardorder">
-              {user && user.id ? (
               <Order />
-               ) : (
-                 <Login addUserLocal={addUserLocal} />
-               )}
             </Route>
+
             <Route path="/carrier/dashboard/postavailabilty">
               {user && user.id ? (
-              <Postavailablity  addUserLocal={addUserLocal} userActive={user} />
+                <Postavailablity
+                  addUserLocal={addUserLocal}
+                  userActive={user}
+                />
               ) : (
                 <Login addUserLocal={addUserLocal} />
               )}
             </Route>
             <Route path="/carrier/dashboard/profile">
               {user && user.id ? (
-              <UserProfile addUserLocal={addUserLocal} userActive={user}/>
-               ) : (
-                 <Login addUserLocal={addUserLocal} />
-               )}
+                <UserProfile addUserLocal={addUserLocal} userActive={user} />
+              ) : (
+                <Login addUserLocal={addUserLocal} />
+              )}
             </Route>
             <Route path="/carrier/dashboard/paymenthistory">
               {user && user.id ? (
-              <Paymenthistory  addUserLocal={addUserLocal} userActive={user} />
-               ) : (
-                 <Login addUserLocal={addUserLocal} />
-               )} 
+                <Paymenthistory addUserLocal={addUserLocal} userActive={user} />
+              ) : (
+                <Login addUserLocal={addUserLocal} />
+              )}
             </Route>
             <Route path="/carrier/dashboard/managereferals">
               {user && user.id ? (
-              <Managereffrals  addUserLocal={addUserLocal} userActive={user} />
-               ) : (
+                <Managereffrals addUserLocal={addUserLocal} userActive={user} />
+              ) : (
                 <Login addUserLocal={addUserLocal} />
               )}
             </Route>
