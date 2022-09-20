@@ -75,7 +75,9 @@ export default function BasicTabs() {
   //       console.log(error);
   //     }
   // };
-
+const fetchLocation = (error) => {
+  console.log(error)
+}
   return (
     <>
       <form className="form-inline trip_search_form"> 
