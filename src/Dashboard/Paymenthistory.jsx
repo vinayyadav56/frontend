@@ -62,6 +62,7 @@ const Paymenthistory = ({addUserLocal, userActive }) => {
                 <p className="mb-0">Sort By :-</p>
                 <div className="dropdown">
                   <Link
+                   to="#"
                     className="dropdown-toggle"
                     type="button"
                     id="dropdownMenuButton"

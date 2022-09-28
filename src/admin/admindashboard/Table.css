@@ -79,9 +79,42 @@
   text-transform: capitalize;
   background: rgb(243, 3, 3);
   color: #fff;
+  border: 1px solid rgb(243, 3, 3);
+}
+.delete-btn:hover{
+  color: rgb(243, 3, 3);
+  background-color: #fff;
+  border: 1px solid rgb(243, 3, 3);
+}
+.add_partner{
+  background-color: #0747a9;
+  color: #fff;
+  border: 1px solid #0747a9;
+}
+.add_partner:hover{
+  background-color: #fff;
+  color: #0747a9;
+  border: 1px solid #0747a9;
+}
+.add_partner:focus{
+  box-shadow: none;
+  outline: none;
+}
+.partner_order{
+  background-color: green;
+  color: #fff;
+  border: 1px solid green;
+}
+.partner_order:hover{
+  color: green;
+  background-color: #fff;
+}
+.partner_order:focus{
+  box-shadow: none;
+  outline: none;
 }
 .table-heading{
-  background-color: blue;
+  background-color: #0747a9;
   color: #fff;
   display: flex;
   text-align: center;

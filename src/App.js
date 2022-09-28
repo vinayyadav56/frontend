@@ -34,6 +34,7 @@ import Order from "./admin/admindashboard/Order";
 import { useEffect } from "react";
 import { useState } from "react";
 import Services from "./Homepages/Services";
+import CkOrder from "./admin/admindashboard/CkOrder";
 
 const App = () => {
   const options = {
@@ -54,7 +55,6 @@ const App = () => {
     } else {
       return [];
     }
-    // setLogin(JSON.parse(localStorage.getItem("myUser")));
   }, []);
 
   // ADD USER IN LOCAL STORAGE
@@ -94,6 +94,9 @@ const App = () => {
             </Route>
             <Route exact path="/admindashboardorder">
               <Order />
+            </Route>
+            <Route exact path="/admindashboardckorder">
+              <CkOrder />
             </Route>
 
             <Route path="/carrier/dashboard/postavailabilty">

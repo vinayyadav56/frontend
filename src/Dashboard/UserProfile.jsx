@@ -14,8 +14,7 @@ const UserProfile = ({ addUserLocal, userActive }) => {
 
   const [userDatas, setuserDatas] = useState({});
 
-
-  const fetchUser = async () => {
+  const fetchUser  = async() => {
     const userId = userActive.tokenable_id;
     const response = await axios.get(
       `http://35.91.35.188/api/user-detail/${userId}`
@@ -25,12 +24,14 @@ const UserProfile = ({ addUserLocal, userActive }) => {
     } catch (error) {
       console.log(error);
     }
-  };
-
+  }
   useEffect(() => {
-    fetchUser();
-  }, []);
-  // update user
+    fetchUser()
+      // eslint-disable-next-line
+  }, [])
+
+
+  // UPDATE USER START
   const handleUpdate = async () => {
     const userId = userActive.tokenable_id;
     const res = await axios.put(
@@ -42,6 +43,7 @@ const UserProfile = ({ addUserLocal, userActive }) => {
       console.log(error);
     }
   };
+  // UPDATE USERS ENDS
   return (
     <div>
       <section className="user-dashboard">

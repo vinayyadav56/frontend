@@ -11,7 +11,7 @@ const AdminSidebar = () => {
               <CloseRoundedIcon />
             </button>
             <div className="responsive-sidebar">
-              <NavLink to="/admindashboard" className="active">
+              <NavLink to="/admindashboard">
                 <span className="icon">
                   <GridViewRoundedIcon />
                 </span>

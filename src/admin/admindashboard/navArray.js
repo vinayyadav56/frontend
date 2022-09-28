@@ -21,6 +21,12 @@ const navArray = [
     },
     {
         id: 2,
+        nav: 'CK Order',
+        icon: <StarBorderRoundedIcon />,
+        link: '/admindashboardckorder'
+    },
+    {
+        id: 2,
         nav: 'Recent Order',
         icon: <BorderColorRoundedIcon />,
         link: '/admin/dashboard'

@@ -21,9 +21,10 @@ const UserAvalibiltyCheck = () => {
       // console.log("avail " + JSON.stringify(avail.data.userAvailability));
       setFilterUser(avail.data.userAvailability);
     } catch (error) {}
-  };
+  }
   useEffect(() => {
     fetchAvailbility();
+    // eslint-disable-next-line
   }, []);
 
   const handleSearchinput = (e) => {

@@ -6,7 +6,7 @@ const Addpartner = () => {
     <div>
       <button
         type="button"
-        className="btn btn-primary"
+        className="btn add_partner"
         data-toggle="modal"
         data-target="#exampleModalCenter"
       >

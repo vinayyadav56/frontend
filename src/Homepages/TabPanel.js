@@ -45,7 +45,10 @@ function a11yProps(index) {
 }
 export default function BasicTabs() {
   const [chooseValue, setChooseValue] = React.useState(0);
-  const handleChange = ( newValue) => {
+  // const handleChange = ( newValue) => {
+  //   setChooseValue(newValue);
+  // };
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setChooseValue(newValue);
   };
 
@@ -62,22 +65,20 @@ export default function BasicTabs() {
     });
   };
   // fetch from and to locations
-  // const fetchLocation = async (e) => {
-  //   const {searchType , cityName} = inputValue;
-  //     const res = await axios.post(
-  //       "http://35.91.35.188/api/city-airport-train-search",
-  //       inputValue
-  //     );
-  //     try {
-  //       console.log(res.data.data);
-  //       setInputValue(res.data.data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  // };
-const fetchLocation = (error) => {
-  console.log(error)
-}
+  const fetchLocation = async (e) => {
+    // const {searchType , cityName} = inputValue;
+      const res = await axios.post(
+        "http://35.91.35.188/api/city-airport-train-search",
+        inputValue
+      );
+      try {
+        console.log(res.data.data);
+        setInputValue(res.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+  };
+
   return (
     <>
       <form className="form-inline trip_search_form"> 
@@ -112,8 +113,8 @@ const fetchLocation = (error) => {
               onChange={handleChange}
               aria-label="basic tabs example"
             >
-              <Tab label="One Way" {...a11yProps(0)} />
-              <Tab label="Round Trip" {...a11yProps(1)} />
+              <Tab label="One Way" {...a11yProps(0)}  />
+              <Tab label="Round Trip" {...a11yProps(1)}  />
             </Tabs>
           </Box>
           <TabPanel value={chooseValue} index={0}>

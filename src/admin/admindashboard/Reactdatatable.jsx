@@ -8,24 +8,24 @@ import "./partnerorder.css";
 import Addpartner from "./Addpartner";
 const Reactdatatable = () => {
   let alert = useAlert();
-  const [filterVal, setFilterVal] = useState([]);
+  const [setFilterVal] = useState([]);
   const [partnerData, setPartnerData] = useState([]);
   const [searchapiData, setSearchapiData] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm] = useState("");
 
-// PARTNER ORDER LIST START
-    const [partnerOrderData, setPartnerOrderData] = useState([]);
-    const fetchOrderData = async (id) => {
-      const response = await axios.get(`http://35.91.35.188/api/order-all-list/${id}`);
-      const partnerList = Object.values(response.data);
-      const list = partnerList[0];
-      try {
-        setPartnerOrderData(list);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-// PARTNER ORDER LIST ENDS
+  // PARTNER ORDER LIST START
+  const [partnerOrderData, setPartnerOrderData] = useState([]);
+  const fetchOrderData = async (id) => {
+    const response = await axios.get(`http://35.91.35.188/api/partnerOrdersByPartnerId/${id}`);
+    const partnerList = Object.values(response.data);
+    const list = partnerList[0];
+    try {
+      setPartnerOrderData(list);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // PARTNER ORDER LIST ENDS
 
   const fetchData = async () => {
     const response = await axios.get("http://35.91.35.188/api/partner-list");
@@ -42,20 +42,22 @@ const Reactdatatable = () => {
     fetchData();
   }, []);
 
-// DELETE PARTNER START
-  const deleteData = async(id) => {
-    let newdata = partnerData;
-    const response = await axios.delete(`http://35.91.35.188/api/delete-user/${id}`);
+  // DELETE PARTNER START
+  const deleteData = async (id) => {
+    //http://35.91.35.188/api/delete-user/2
+    const res = await axios.delete(`http://35.91.35.188/api/delete-user/${id}`)
     try {
-      console.log(response);
-      partnerData.splice(id);
-      setPartnerData([...newdata]);
+      console.log(res)
+      if (res.data.success === true) {
+        alert.success(res.data.message);
+      } else if (res.data.success === false) {
+        alert.success(res.data.message);
+      }
     } catch (error) {
-      console.log(error);
+      alert.error("Invalid inputs");
     }
- 
   };
-// DELETE PARTNER ENDS
+  // DELETE PARTNER ENDS
 
   // searchfuntion
   const handleSearch = (e) => {
@@ -70,7 +72,7 @@ const Reactdatatable = () => {
     }
     setFilterVal(e.target.value);
   };
-   // searchfuntion ends
+  // searchfuntion ends
   const handleInput = (e) => {
     const { name, value } = e.target;
     setEditData({
@@ -91,7 +93,6 @@ const Reactdatatable = () => {
     partner_city,
     partner_address,
   } = editData;
-
   const handlePartner = async (e, id) => {
     e.preventDefault();
     console.log(id);
@@ -169,6 +170,7 @@ const Reactdatatable = () => {
             </thead>
             <tbody>
               {partnerData
+              // eslint-disable-next-line
                 .filter((val) => {
                   if (searchTerm === "") {
                     return val;
@@ -198,7 +200,7 @@ const Reactdatatable = () => {
                       <td className="d-flex">
                         <button
                           onClick={() => fetchID(item.id)}
-                          className="btn btn-primary py-0 mr-1"
+                          className="btn add_partner py-0 mr-1"
                           data-toggle="modal"
                           data-target="#editPartner"
                         >
@@ -212,12 +214,12 @@ const Reactdatatable = () => {
                           DELETE
                         </button>
                         <button
-                          className="btn btn-success py-0 mr-1"
+                          className="btn partner_order py-0 mr-1"
                           data-toggle="modal"
                           data-target="#orderPartner"
                           onClick={() => fetchOrderData(item.id)}
                         >
-                          Order
+                          ORDER
                         </button>
                       </td>
                     </tr>

@@ -5,10 +5,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./Table.css";
 const UserData = () => {
-  const [filterVal, setFilterVal] = useState([]);
+  const [ setFilterVal] = useState([]);
   const [userData, setUserData] = useState([]);
   const [searchUserData, setSearchUserData] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm] = useState("");
 
   const fetchData = async () => {
     const response = await axios.get("http://35.91.35.188/api/user-all-list");
@@ -29,13 +29,12 @@ const UserData = () => {
   // delete function start
   const handleDelete = (id, e) => {
     e.preventDefault();
-    let newdata = userData;
-
+    // let newdata = userData;
     axios
       .delete(`http://35.91.35.188/api/delete-user/${id}`)
       .then((response) => {
         userData.splice(id, 1);
-        setUserData([...newdata]);
+        setUserData(response.newdata);
       })
       .catch((err) => console.log(err));
   };
@@ -60,7 +59,7 @@ const UserData = () => {
           <h2 className="text-center my-3">All User Data</h2>
         </div>
         <div className="form-row">
-          <div className="col">
+          <div className="col mt-4">
             <label htmlFor="#pname">Search User :-</label>
             <input
               type="text"
@@ -89,6 +88,7 @@ const UserData = () => {
           </thead>
           <tbody>
             {userData
+            // eslint-disable-next-line
               .filter((val) => {
                 if (searchTerm === "") {
                   return val;
@@ -102,6 +102,7 @@ const UserData = () => {
                 ) {
                   return val;
                 }
+          
               })
               .map((item, id) => {
                 return (

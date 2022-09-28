@@ -13,51 +13,15 @@ const CustomerTrack = () => {
         <Sidebar />
         <section className="main-content">
           <Header />
-          {/* <div className="payment-cards">
-            <div className="card">
-              <div className="card-body">
-                <div>
-                  <h4>$500</h4>
-                  <p>Total Earnings</p>
-                </div>
-                <img src={paymentimg1} alt="img1" />
-              </div>
-            </div>
-            <div className="card">
-              <div className="card-body">
-                <div>
-                  <h4>24</h4>
-                  <p>Total Bookings</p>
-                </div>
-                <img src={paymentimg2} alt="img2" />
-              </div>
-            </div>
-            <div className="card">
-              <div className="card-body">
-                <div>
-                  <h4>19kgs</h4>
-                  <p>Total Weight</p>
-                </div>
-                <img src={paymentimg3} alt="img3" />
-              </div>
-            </div>
-            <div className="card">
-              <div className="card-body">
-                <div>
-                  <h4>4</h4>
-                  <p>Upcoming Bookings</p>
-                </div>
-                <img src={paymentimg4} alt="img4" />
-              </div>
-            </div>
-          </div> */}
+
           <div className="payment-history">
             <div className="payment-heading">
               <h3>Track History</h3>
               <div className="filter">
                 <p className="mb-0">Sort By :-</p>
                 <div className="dropdown">
-                  <a
+                  <Link
+                    to="#"
                     className="dropdown-toggle"
                     type="button"
                     id="dropdownMenuButton"
@@ -66,7 +30,7 @@ const CustomerTrack = () => {
                     aria-expanded="false"
                   >
                     Date
-                  </a>
+                  </Link>
                   <div
                     className="dropdown-menu"
                     aria-labelledby="dropdownMenuButton"

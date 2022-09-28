@@ -1,0 +1,30 @@
+.ck_order_form{
+    background-color: #fff;
+    padding: 3rem 1rem;
+}
+.ck_order_form .locasrchbtn{
+    width: 100%;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #fff;
+    background-color: #0747a9;
+    border: 1px solid #0747a9;
+}
+.ck_order_form .locasrchbtn:hover{
+    color: #0747a9;
+    background-color: #fff;
+}
+.ck_order_form .locasrchbtn:focus{
+    outline: none;
+    box-shadow: none;
+}
+.ck_order_form .weight_section label{
+    color: #333;
+    padding-bottom: 0.1rem;
+    font-weight: 600;
+}
+.ck_order_form .weight_section{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3rem;
+}

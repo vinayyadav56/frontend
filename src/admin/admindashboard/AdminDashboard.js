@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Link , NavLink } from "react-router-dom";
 import "./Adminmenu.css";
 import navArray from "./navArray";
@@ -13,7 +13,7 @@ import UserData from "./UserData";
 
 const PartnerDashboard = () => {
   return (
-    <>
+    <Fragment>
       <nav className="sticky-top partnerdash-nav">
         <div className="partner-sidebar">
           <span className="top-name">Carry Kar</span>
@@ -99,7 +99,7 @@ const PartnerDashboard = () => {
           </div>
         </section>
       </main>
-    </>
+    </Fragment>
   );
 };
 
