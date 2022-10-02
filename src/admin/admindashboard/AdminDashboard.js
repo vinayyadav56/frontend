@@ -1,5 +1,5 @@
 import React from "react";
-import { Link , NavLink } from "react-router-dom";
+import { Link , NavLink, Redirect} from "react-router-dom";
 import "./Adminmenu.css";
 import navArray from "./navArray";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
@@ -9,9 +9,16 @@ import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import Table from "./Table";
 import UserData from "./UserData";
+import {useAuth} from "../../Services/auth";
 // import UserOrder from "./UserOrder";
 
 const PartnerDashboard = () => {
+  const auth = useAuth();
+
+  if(!auth.isAuthenticated()){
+    return <Redirect to="/admin" />
+  }
+
   return (
     <>
       <nav className="sticky-top partnerdash-nav">

@@ -4,6 +4,7 @@ import "./Login.css";
 import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { useHistory } from "react-router-dom";
+
 const Login = ({ addUserLocal }) => {
   // const [loader, setLoader] = useState(false)
   let alert = useAlert();

@@ -1,6 +1,5 @@
 import * as React from "react";
-import axios from "axios";
-import { useState } from "react";
+import {useEffect, useRef, useState} from "react";
 import "./styles.css";
 import PropTypes from "prop-types";
 import "./tabpanel.css";
@@ -11,383 +10,465 @@ import Box from "@mui/material/Box";
 import trip from "../images/triplocation.png";
 import AirplanemodeActiveSharpIcon from "@mui/icons-material/AirplanemodeActiveSharp";
 import DirectionsTransitFilledIcon from "@mui/icons-material/DirectionsTransitFilled";
+import {AutoComplete, DatePicker, Input, TimePicker} from "antd";
+import moment from "moment";
+import 'antd/dist/antd.css';
+import {useAlert} from "react-alert";
+import {makeRequest} from "../Services/api";
+import {useAuth} from "../Services/auth";
+
+
 // import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
+    const {children, value, index, ...other} = props;
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+                <Box sx={{p: 3}}>
+                    {children}
+                </Box>
+            )}
+        </div>
+    );
 }
 
 TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
+    children: PropTypes.node,
+    index: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
 };
 
 function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
+    return {
+        id: `simple-tab-${index}`,
+        "aria-controls": `simple-tabpanel-${index}`,
+    };
 }
-export default function BasicTabs() {
-  const [chooseValue, setChooseValue] = React.useState(0);
-  const handleChange = ( newValue) => {
-    setChooseValue(newValue);
-  };
 
-  // from location search js starts
-  const [inputValue, setInputValue] = useState({
-    searchType: "",
-    cityName: "",
-  });
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    setInputValue({
-      ...inputValue,
-      [name]: value,
-    });
-  };
-  // fetch from and to locations
-  // const fetchLocation = async (e) => {
-  //   const {searchType , cityName} = inputValue;
-  //     const res = await axios.post(
-  //       "http://35.91.35.188/api/city-airport-train-search",
-  //       inputValue
-  //     );
-  //     try {
-  //       console.log(res.data.data);
-  //       setInputValue(res.data.data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  // };
-const fetchLocation = (error) => {
-  console.log(error)
-}
-  return (
-    <>
-      <form className="form-inline trip_search_form"> 
-        <div className="btn-group-toggle" data-toggle="buttons">
-          <label className="btn top_select_btns">
-            <input
-              type="radio"
-              name="searchType"
-              value="flight"
-              id="option1"
-              onChange={fetchLocation}
-            />
-            <AirplanemodeActiveSharpIcon className="btn_icn mr-2" />
-            Flight
-          </label>
-          <label className="btn top_select_btns">
-            <input
-              type="radio"
-              name="searchType"
-              value="station"
-              id="option2"
-              onClick={fetchLocation}
-            />
-            <DirectionsTransitFilledIcon className="btn_icn mr-2" />
-            Train
-          </label>
-        </div>
-        <Box sx={{ width: "100%" }}>
-          <Box sx={{ borderColor: "divider" }}>
-            <Tabs
-              value={chooseValue}
-              onChange={handleChange}
-              aria-label="basic tabs example"
-            >
-              <Tab label="One Way" {...a11yProps(0)} />
-              <Tab label="Round Trip" {...a11yProps(1)} />
-            </Tabs>
-          </Box>
-          <TabPanel value={chooseValue} index={0}>
+
+export default function BasicTabs() {
+    const {user, loading, setLoading} = useAuth();
+    const alert = useAlert();
+    const [activeTab, setActiveTab] = React.useState(0);
+    const formRef = useRef();
+
+    const [suggestions, setSuggestion] = useState([
+        {value: 'NDLS railway Station'},
+        {value: 'Hazrat Nizamuddin Station'}
+    ]);
+
+    const handleChange = (e, newValue) => {
+        setActiveTab(newValue);
+    };
+
+    const handleTabClick = (e, type) => {
+        handleFormChange('journey_type', type)
+    };
+
+    const FormDataType = {
+        location_from: '',
+        location_to: '',
+        transport_type: 'station',
+        journey_type: 'one_way',
+        dept_date: '',
+        dept_time: '',
+        return_date: '',
+        return_time: '',
+        dept_luggage: '',
+        return_luggage: '',
+        dept_ticket: '',
+        return_ticket: ''
+    };
+
+    const [formData, setFormData] = useState(FormDataType);
+
+    useEffect(() => {
+        console.log(formData);
+    }, [formData])
+
+    const callCitySearchApi = (reqObj) => {
+        setLoading(true);
+
+        try {
+            return makeRequest('POST', 'city-airport-train-search', reqObj)
+                .then(res => {
+                    return res.data;
+                })
+                .catch(err => {
+                    alert.error(err.message)
+                    return [];
+                }).finally(() => setLoading(false));
+        } catch (e) {
+            alert.error(e);
+            setLoading(false);
+        }
+
+    }
+
+    const handleLocationSearch = (value) => {
+
+        if (value.length > 2) {
+            callCitySearchApi({
+                cityName: value,
+                searchType: formData.transport_type
+            }).then(res => {
+                setSuggestion(res.map(loc => {
+                    return {
+                        value: loc.station_name
+                    }
+                }))
+            })
+        }
+    }
+
+    const handleFormChange = (name, value) => {
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+    }
+
+    const handleFormSubmit = (e) => {
+        e.preventDefault();
+        setLoading(true);
+
+        try{
+            const payload = getPayload(formData.journey_type == 'round_trip');
+            makeRequest('POST', 'userAvailability', payload).then(res => {
+                if(res.success) {
+                    alert.success(res.message)
+                    setFormData(FormDataType);
+                    formRef.current.reset();
+                }else{
+                    alert.error(res.message);
+                }
+            }).catch(err => {
+                alert.error(err);
+            }).finally(() => setLoading(false));
+        }catch(e){
+            alert.error("Please fill all the details")
+            setLoading(false);
+            console.log(e)
+        }
+
+
+        return false;
+    }
+
+    const getPayload = (twoWay = false) => {
+        return {
+            user_id: user.id,
+            order_id: 3,
+            journey_type: formData.journey_type,
+            fromlocation: formData.location_from,
+            tolocation: formData.location_to,
+            Status: "true",
+            available_space: formData.dept_luggage,
+            journey_schedule: {
+                first_way: {
+                    from_date: formData.dept_date.format('DD-MM-YYYY'),
+                    to_date: formData.dept_date.format('DD-MM-YYYY'),
+                    item_receive_timing: formData.dept_time.format('DD-MM-YYYY H:mm:ss'),
+                    ticket_number: formData.dept_ticket,
+                    luggage_space: formData.dept_luggage,
+                    journey_medium: formData.transport_type,
+                    journey_type_way: 'single'
+                },
+                second_way: twoWay ? {
+                    from_date: formData.return_date.format('DD-MM-YYYY'),
+                    to_date: formData.return_date.format('DD-MM-YYYY'),
+                    item_receive_timing: formData.return_time.format('DD-MM-YYYY H:mm:ss'),
+                    ticket_number: formData.return_ticket,
+                    luggage_space: formData.return_luggage,
+                    journey_medium: formData.transport_type,
+                    journey_type_way: "single"
+                } : {}
+            }
+        }
+    }
+
+    return (
+        <>
+            <form className="form-inline trip_search_form" onSubmit={handleFormSubmit} ref={formRef} noValidate>
+                <div className="btn-group-toggle" data-toggle="buttons">
+                    <label className="btn top_select_btns">
+                        <input
+                            type="radio"
+                            name="transport_type"
+                            value="flight"
+                            id="option1"
+                            checked={formData.transport_type === 'flight'}
+                            onChange={(e) => handleFormChange(e.target.name, e.target.value)}
+                        />
+                        <AirplanemodeActiveSharpIcon className="btn_icn mr-2"/>
+                        Flight
+                    </label>
+                    <label className="btn top_select_btns">
+                        <input
+                            type="radio"
+                            name="transport_type"
+                            value="station"
+                            id="option2"
+                            checked={formData.transport_type === 'station'}
+                            onChange={(e) => handleFormChange(e.target.name, e.target.value)}
+                        />
+                        <DirectionsTransitFilledIcon className="btn_icn mr-2"/>
+                        Train
+                    </label>
+                </div>
+                <Box sx={{width: "100%"}}>
+                    <Box sx={{borderColor: "divider"}}>
+                        <Tabs
+                            value={activeTab}
+                            onChange={handleChange}
+                            aria-label="basic tabs example"
+                        >
+                            <Tab label="One Way" {...a11yProps(0)} onClick={e => handleTabClick(e, 'one_way')}/>
+                            <Tab label="Round Trip" {...a11yProps(1)} onClick={e => handleTabClick(e, 'round_trip')}/>
+                        </Tabs>
+                    </Box>
+                    <TabPanel value={activeTab} index={0}>
             <span className="row">
               <span className="form-group col-sm-12 col-md-5  mb-sm-4 px-2  col-lg-5">
                 <span className="search-container">
                   <span className="search-inner">
-                    <input
-                      name="cityName"
-                      type="text"
-                      className="form-control mb-2 mr-sm-2"
-                      placeholder="From"
-                      id="from"
-                      value={inputValue.cityName}
-                      onChange={onChange}
-                    />
+                    <AutoComplete
+                        dropdownMatchSelectWidth={252}
+                        style={{width: "100%"}}
+                        options={suggestions}
+                        onSelect={(value) => handleFormChange('location_from', value)}
+                        onSearch={handleLocationSearch}
+                        placeholder="From"
+                    >
+                      <Input className="form-control mb-2 mr-sm-2"/>
+                    </AutoComplete>
                   </span>
                 </span>
               </span>
               <span className="form-group col-sm-12 col-md-2  mb-sm-4 px-0  col-lg-2 d-flex justify-content-center">
-                <img src={trip} alt="triploc" />
+                <img src={trip} alt="triploc"/>
               </span>
               <span className="form-group col-sm-12 col-md-5  mb-sm-4 px-2  col-lg-5">
                 <span className="search-container">
                   <span className="search-inner">
-                    <input
-                      name="cityName"
-                      type="text"
-                      className="form-control mb-2 mr-sm-2"
-                      placeholder="To"
-                      id="from"
-                      value={inputValue.cityName}
-                      onChange={onChange}
-                    />
-                    {/* <button onClick={() => onSearchTo(value)}> Search </button> */}
-                  </span>
-                  {/* <span className="dropdown">
-                {tabArray
-                  .filter((item) => {
-                    const searchTermTo = value.toLowerCase();
-                    const fullName = item.full_name.toLowerCase();
-
-                    return (
-                      searchTermTo &&
-                      fullName.startsWith(searchTermTo) &&
-                      fullName !== searchTermTo
-                    );
-                  })
-                  .slice(0, 3)
-                  .map((item) => (
-                    <span
-                      onClick={() => onSearchTo(item.full_name)}
-                      className="dropdown-row"
-                      key={item.full_name}
+                    <AutoComplete
+                        dropdownMatchSelectWidth={252}
+                        style={{width: "100%"}}
+                        options={suggestions}
+                        onSelect={value => handleFormChange('location_to', value)}
+                        onSearch={handleLocationSearch}
+                        placeholder="To"
                     >
-                      {item.full_name}
-                    </span>
-                  ))}
-              </span> */}
+                      <Input className="form-control mb-2 mr-sm-2"/>
+                    </AutoComplete>
+                  </span>
                 </span>
               </span>
               <span className="form-group col-sm-6 col-md-6  mb-sm-4 px-2  col-lg-3">
                 <label htmlFor="#depdate">Journey Date</label>
-                <input
-                  type="date"
-                  // placeholder="Date"
-                  className="form-control"
-                  id="depdate"
-                  required
+                <DatePicker
+                    name="dept_date"
+                    selected={() => (new Date())}
+                    disabledDate={(current) => current && current < moment().endOf('day')}
+                    onChange={(date) => handleFormChange('dept_date', date)}
+                    className="form-control"
+                    format="DD/MM/YYYY"
                 />
               </span>
               <span className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-3">
                 <span className="input-box">
                   <label htmlFor="#lsp">Luggage Space</label>
                   <input
-                    type="number"
-                    max="2"
-                    min="1"
-                    id="lsp"
-                    className="form-control"
-                    required
+                      type="text"
+                      max="2"
+                      min="1"
+                      id="lsp"
+                      name="dept_luggage"
+                      className="form-control"
+                      placeholder="only number"
+                      onInput={e => {  e.target.value = e.target.value.replace(/[^0-9]/g, '')}}
+                      onChange={(e) => handleFormChange(e.target.name, e.target.value)}
                   />
                   <span className="unit">Kg</span>
                 </span>
               </span>
               <span className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-3">
                 <label htmlFor="#put">Pickup Time</label>
-                <input type="time" id="put" className="form-control" required />
+                <TimePicker
+                    onChange={(time) => handleFormChange('dept_time', time)}
+                    use12Hours
+                    format="h:mm a"
+                    className="form-control"
+                />
               </span>
               <span className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-3">
                 <label htmlFor="#tno">Ticket No.</label>
-                <input type="text" id="tno" className="form-control" required />
+                <input
+                    type="text"
+                    id="tno"
+                    className="form-control"
+                    required
+                    name="dept_ticket"
+                    placeholder="Enter ticket number"
+                    onChange={(e) => handleFormChange(e.target.name, e.target.value)}
+                />
               </span>
             </span>
-          </TabPanel>
-          <TabPanel value={chooseValue} index={1}>
+                    </TabPanel>
+                    <TabPanel value={activeTab} index={1}>
             <span className="row">
               <span className="form-group col-sm-12 col-md-5  mb-sm-4 px-2  col-lg-5">
                 <span className="search-container">
                   <span className="search-inner">
-                    <input
-                      name="cityName"
-                      type="text"
-                      className="form-control mb-2 mr-sm-2"
-                      placeholder="From"
-                      id="from"
-                      value={inputValue.cityName}
-                      onChange={onChange}
-                    />
-                    {/* <button onClick={() => onSearchTo(value)}> Search </button> */}
-                  </span>
-                  {/* <span className="dropdown">
-                {tabArray
-                  .filter((item) => {
-                    const searchTermTo = value.toLowerCase();
-                    const fullName = item.full_name.toLowerCase();
-
-                    return (
-                      searchTermTo &&
-                      fullName.startsWith(searchTermTo) &&
-                      fullName !== searchTermTo
-                    );
-                  })
-                  .slice(0, 3)
-                  .map((item) => (
-                    <span
-                      onClick={() => onSearchTo(item.full_name)}
-                      className="dropdown-row"
-                      key={item.full_name}
+                    <AutoComplete
+                        dropdownMatchSelectWidth={252}
+                        style={{width: "100%"}}
+                        options={suggestions}
+                        onSelect={value => handleFormChange('location_from', value)}
+                        onSearch={handleLocationSearch}
+                        placeholder="From"
+                        required
                     >
-                      {item.full_name}
-                    </span>
-                  ))}
-              </span> */}
+                      <Input className="form-control mb-2 mr-sm-2"/>
+                    </AutoComplete>
+                      {/* <button onClick={() => onSearchTo(value)}> Search </button> */}
+                  </span>
+
                 </span>
               </span>
               <span className="form-group col-sm-12 col-md-2  mb-sm-4 px-0  col-lg-2 d-flex justify-content-center">
-                <img src={trip} alt="triploc" />
+                <img src={trip} alt="triploc"/>
               </span>
               <span className="form-group col-sm-12 col-md-5  mb-sm-4 px-2  col-lg-5">
                 <span className="search-container">
                   <span className="search-inner">
-                    <input
-                      name="cityName"
-                      type="text"
-                      className="form-control mb-2 mr-sm-2"
-                      placeholder="To"
-                      id="from"
-                      value={inputValue.cityName}
-                      onChange={onChange}
-                    />
-                    {/* <button onClick={() => onSearchTo(value)}> Search </button> */}
-                  </span>
-                  {/* <span className="dropdown">
-                {tabArray
-                  .filter((item) => {
-                    const searchTermTo = value.toLowerCase();
-                    const fullName = item.full_name.toLowerCase();
-
-                    return (
-                      searchTermTo &&
-                      fullName.startsWith(searchTermTo) &&
-                      fullName !== searchTermTo
-                    );
-                  })
-                  .slice(0, 3)
-                  .map((item) => (
-                    <span
-                      onClick={() => onSearchTo(item.full_name)}
-                      className="dropdown-row"
-                      key={item.full_name}
+                    <AutoComplete
+                        dropdownMatchSelectWidth={252}
+                        style={{width: "100%"}}
+                        options={suggestions}
+                        onSelect={value => handleFormChange('location_to', value)}
+                        onSearch={handleLocationSearch}
+                        placeholder="To"
                     >
-                      {item.full_name}
-                    </span>
-                  ))}
-              </span> */}
+                      <Input className="form-control mb-2 mr-sm-2"/>
+                    </AutoComplete>
+                      {/* <button onClick={() => onSearchTo(value)}> Search </button> */}
+                  </span>
+
                 </span>
               </span>
               <span className="form-group col-sm-6 col-md-6  mb-sm-4 px-2  col-lg-3">
                 <label htmlFor="#depdate">Departure Date</label>
-                <input
-                  type="date"
-                  className="form-control"
-                  id="depdate"
-                  required
+                <DatePicker
+                    name="dept_date"
+                    selected={() => (new Date())}
+                    disabledDate={(current) => current && current < moment().endOf('day')}
+                    onChange={(date) => handleFormChange('dept_date', date)}
+                    className="form-control"
+                    format="DD/MM/YYYY"
                 />
               </span>
-              
+
               <span className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-3">
                 <span className="input-box">
                   <label htmlFor="#lsp">Luggage Space</label>
                   <input
-                    type="number"
-                    max="2"
-                    min="1"
-                    id="lsp"
-                    className="form-control"
-                    required
+                      type="text"
+                      max="2"
+                      min="1"
+                      id="lsp"
+                      name="dept_luggage"
+                      className="form-control"
+                      onInput={e => {  e.target.value = e.target.value.replace(/[^0-9]/g, '')}}
+                      onChange={(e) => handleFormChange(e.target.name, e.target.value)}
                   />
                   <span className="unit">Kg</span>
                 </span>
               </span>
               <span className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-3">
                 <label htmlFor="#put">Pickup Time</label>
-                <input
-                  type="time"
-                  id="put"
-                  className="form-control"
-                  // placeholder="Enter time"
-                  required
+                <TimePicker
+                    onChange={(time) => handleFormChange('dept_time', time)}
+                    use12Hours
+                    format="h:mm a"
+                    className="form-control"
                 />
               </span>
               <span className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-3">
                 <label htmlFor="#tno">Ticket No.</label>
-                <input
-                  type="text"
-                  id="tno"
-                  className="form-control"
-                  // placeholder="Enter number"
-                  required
-                />
+               <input
+                   type="text"
+                   id="tno"
+                   className="form-control"
+                   required
+                   name="dept_ticket"
+                   placeholder="Enter ticket number"
+                   onChange={(e) => handleFormChange(e.target.name, e.target.value)}
+               />
               </span>
               <span className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-3">
                 <label htmlFor="#retdate">Return Date</label>
-                <input
-                  type="date"
-                  id="retdate"
-                  className="form-control"
-                  required
+                <DatePicker
+                    name="return_date"
+                    selected={() => (new Date())}
+                    disabledDate={(current) => current && current < (formData.dept_date || moment().endOf('day'))}
+                    onChange={(date) => handleFormChange('return_date', date)}
+                    className="form-control"
+                    format="DD/MM/YYYY"
                 />
               </span>
               <span className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-3">
                 <span className="input-box">
                   <label htmlFor="#lsp">Luggage Space</label>
                   <input
-                    type="number"
-                    max="2"
-                    min="1"
-                    id="lsp"
-                    className="form-control"
-                    required
+                      type="text"
+                      max="2"
+                      min="1"
+                      id="lsp"
+                      name="return_luggage"
+                      className="form-control"
+                      onInput={e => {  e.target.value = e.target.value.replace(/[^0-9]/g, '')}}
+                      onChange={(e) => handleFormChange(e.target.name, e.target.value)}
                   />
                   <span className="unit">Kg</span>
                 </span>
               </span>
               <span className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-3">
                 <label htmlFor="#put">Pickup Time</label>
-                <input
-                  type="time"
-                  id="put"
-                  className="form-control"
-                  // placeholder="Enter time"
-                  required
+                <TimePicker
+                    onChange={(time) => handleFormChange('return_time', time)}
+                    use12Hours
+                    format="h:mm a"
+                    className="form-control"
                 />
               </span>
               <span className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-3">
                 <label htmlFor="#tno">Ticket No.</label>
-                <input
-                  type="text"
-                  id="tno"
-                  className="form-control"
-                  // placeholder="Enter number"
-                  required
-                />
+               <input
+                   type="text"
+                   id="tno"
+                   className="form-control"
+                   required
+                   name="return_ticket"
+                   placeholder="Enter ticket number"
+                   onChange={(e) => handleFormChange(e.target.name, e.target.value)}
+               />
               </span>
             </span>
-          </TabPanel>
-        </Box>
-        <div className="trp_form_submit">
-          <button type="submit" className="btn">
-            Submit
-          </button>
-        </div>
-      </form>
-    </>
-  );
+                    </TabPanel>
+                </Box>
+                <div className="w-100">
+                    <button type="submit" className="btn btn-lg btn-primary w-100" disabled={loading}>
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </>
+    );
 }
