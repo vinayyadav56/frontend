@@ -55,17 +55,17 @@ export default function CkOrder() {
     // import MaterialCheckbox from '@mui/material/Checkbox';
     const columns = [
         {
-            field: 'order_id',
+            field: 'id',
             headerName: 'ID',
         },
         {
-            field: 'partner_name',
-            headerName: 'Partner name',
+            field: 'partner_order_id',
+            headerName: 'Partner Order Id',
             width: 150,
         },
         {
-            field: 'partner_id',
-            headerName: 'Partner Id',
+            field: 'customer_id',
+            headerName: 'Customer Id',
             width: 150,
             // editable: true,
         },
@@ -90,19 +90,15 @@ export default function CkOrder() {
 
     const rows = [];
     //   CKORDER TABLE END
-
-
     orderData && orderData.forEach((item, id) => {
-        return (
-            rows.push({
-                id:item._id,
-                order_id: item.order_id,
-                partner_name: item.partner_name,
-                partner_id: item.partner_id,
-                to_location: item.to_location,
-                from_location: item.from_location,
-                weight: item.weight,
-            })
+        rows.push({
+            id: id+1,
+            partner_order_id: item.partner_order_id,
+            customer_id: item.customer_id,
+            to_location: item.to_location,
+            from_location: item.from_location,
+            weight: item.weight,
+        }
         )
     });
 
@@ -234,14 +230,15 @@ export default function CkOrder() {
                     {/* <TABLE START */}
 
                     <Box sx={{ height: 400, width: '100%', background: '#fff' }}>
-                       
+
                         <DataGrid
                             rows={rows}
+                            // getRowId={(row) => row.internalId}
                             columns={columns}
                             pageSize={5}
                             sx={{ width: '100%' }}
                             rowsPerPageOptions={[5]}
-                            getRowId={(row) => row.no}
+                            // getRowId={(row) => row.no}
                             checkboxSelection
                             disableSelectionOnClick
                             experimentalFeatures={{ newEditingApi: true }}
