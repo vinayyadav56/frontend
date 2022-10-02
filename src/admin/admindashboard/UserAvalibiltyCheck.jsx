@@ -10,7 +10,6 @@ const UserAvalibiltyCheck = () => {
     quantity: "",
   });
   const [filterUser, setFilterUser] = useState({});
-  // console.log("filterUser " + JSON.stringify(Object.values(filterUser)));
 
   const fetchAvailbility = async () => {
     const avail = await axios.post(
@@ -20,7 +19,9 @@ const UserAvalibiltyCheck = () => {
     try {
       // console.log("avail " + JSON.stringify(avail.data.userAvailability));
       setFilterUser(avail.data.userAvailability);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }
   useEffect(() => {
     fetchAvailbility();

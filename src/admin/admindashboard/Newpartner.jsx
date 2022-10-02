@@ -51,7 +51,6 @@ const Newpartner = () => {
         .then((response) => {
           if (response.data.success === true) {
             alert.success(response.data.message);
-            console.log(response.data);
             history.push("/admindashboard");
           } else if (response.data.success === false) {
             alert.error(response.data.message);

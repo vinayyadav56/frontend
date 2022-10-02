@@ -28,7 +28,8 @@ import commuter3 from "../images/commuter3.png";
 import quetion from "../images/quetion.png";
 import "./homepage.css";
 import Tripsearch from "./Tripsearch";
-const Homepage = () => {
+import ModalForm from "./ShipNow/ModalForm";
+const Homepage = (userActive) => {
 
   const [toggleMenu, setToggleMenu] = useState(false);
 
@@ -57,17 +58,19 @@ const Homepage = () => {
                       <li>
                         <NavLink to="/location">Locations</NavLink>
                       </li>
-                      {/* <li>
-                        <NavLink to="/result">About Us</NavLink>
-                      </li> */}
                       <li>
                         <NavLink to="/answerkey">Contact Us</NavLink>
                       </li>
                       <li>
-                        <NavLink to="/login">Login</NavLink>
+                        {/* <ShipNow userActive={userActive} /> */}
+                        {/* <ShipingOrder/> */}
+                        <ModalForm />
                       </li>
-                      <li>
-                        <NavLink to="/signup">SignUp</NavLink>
+                      <li className="home_login">
+                        <NavLink to="/login" >Login</NavLink>
+                      </li>
+                      <li className="home_signup">
+                        <NavLink to="/signup" >SignUp</NavLink>
                       </li>
                     </ul>
                   </div>
@@ -583,8 +586,47 @@ const Homepage = () => {
           </div>
         </div>
       </section>
-
       <HomeFoooter />
+      {/* OTP VERIFY FORM START*/}
+
+      {/* <div className="ship_now_form">
+                                <div className="ship_now_heading">
+                                  <h2>
+                                    Enter Location Details
+                                  </h2>
+                                </div>
+                                <div className="form-group">
+                                  <label>Pickup Pincode</label>
+                                  <input
+                                    name="pick_pincode"
+                                    className="form-control"
+                                    placeholder="Pickup Pincode"
+                                    type="text"
+                                  // onChange={handleInput}
+                                  // value={userDatas.alternate_no}
+                                  />
+                                </div>
+                                <div className="form-group">
+                                  <label>Delivery Pincode</label>
+                                  <input
+                                    name="ship_pincode"
+                                    className="form-control"
+                                    placeholder="Delivery Pincode"
+                                    type="text"
+                                  // onChange={handleInput}
+                                  // value={userDatas.alternate_no}
+                                  />
+                                </div>
+                              </div>
+                              <button
+                                type="button"
+                                className="btn"
+                                data-toggle="modal"
+                                data-target="otp_verify"
+                              >
+                                Ship Now
+                              </button>
+                              <p>Get a free pickup from the comfort of your home</p> */}
 
     </>
   );

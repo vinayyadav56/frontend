@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { Link, NavLink } from "react-router-dom";
 import axios from 'axios';
 import "./Adminmenu.css";
@@ -11,61 +11,25 @@ import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
+// import {
+//     Paper,
+//     Table,
+//     TableBody,
+//     TableCell,
+//     TableContainer,
+//     TableHead,
+//     TableRow
+// } from "@material-ui/core";
+// import { useEffect } from 'react';
 
-
-// import MaterialCheckbox from '@mui/material/Checkbox';
-const columns = [
-    { field: 'id', headerName: 'ID', width: 90 },
-    {
-        field: 'firstName',
-        headerName: 'First name',
-        width: 150,
-        editable: true,
-    },
-    {
-        field: 'lastName',
-        headerName: 'Last name',
-        width: 150,
-        editable: true,
-    },
-    {
-        field: 'age',
-        headerName: 'To Location',
-        width: 150,
-        editable: true,
-    },
-
-    {
-        field: 'To Location',
-        headerName: 'To Location',
-        description: 'This column has a value getter and is not sortable.',
-        sortable: false,
-        width: 160,
-        valueGetter: (params) =>
-            `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-    },
-];
-
-const rows = [
-    { id: 1, lastName: 'Snow', firstName: 'Jon', age: 'delhi' },
-    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 'delhi' },
-    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 'delhi' },
-    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 'delhi' },
-    { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: 'delhi' },
-    { id: 6, lastName: 'Melisandre', firstName: null, age: 'delhi' },
-    { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 'delhi' },
-    { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 'delhi' },
-    { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 'delhi' },
-];
-//   CKORDER TABLE END
-
-// CKORDER JS START 
 
 export default function CkOrder() {
     const [ckOrder, setCkOrder] = useState({
         from_location: "",
         to_location: "",
     });
+    const [orderData, setOrderData] = useState();
+
     const handleLocation = (e) => {
         const { name, value } = e.target;
         setCkOrder({
@@ -73,21 +37,75 @@ export default function CkOrder() {
             [name]: value,
         });
     };
-    const [ setOrderData] = useState({});
+
     const handleApi = async (e) => {
-        // e.preventDefault();
         const response = await axios.post("http://35.91.35.188/api/searchLocationbyFromto", { ckOrder });
         try {
-            console.log("response" + JSON.stringify(response.data))
-            setOrderData(response.data);
+            console.log("response" + JSON.stringify(response.data.fetchOrdersList))
+            setOrderData(response.data.fetchOrdersList)
         } catch (error) {
             console.log(error)
         }
-    }
-    useEffect(() => {
-        handleApi();
-        // eslint-disable-next-line
-    }, []);
+    };
+    // useEffect(() => {
+    //     handleApi();
+    //     // eslint-disable-next-line
+    // }, []);
+
+    // import MaterialCheckbox from '@mui/material/Checkbox';
+    const columns = [
+        {
+            field: 'order_id',
+            headerName: 'ID',
+        },
+        {
+            field: 'partner_name',
+            headerName: 'Partner name',
+            width: 150,
+        },
+        {
+            field: 'partner_id',
+            headerName: 'Partner Id',
+            width: 150,
+            // editable: true,
+        },
+        {
+            field: 'to_location',
+            headerName: 'To Location',
+            width: 150,
+        },
+
+        {
+            field: 'from_location',
+            headerName: 'From Location',
+            width: 150,
+        },
+        {
+            field: 'weight',
+            headerName: 'Weight',
+            width: 150,
+            editable: true,
+        },
+    ];
+
+    const rows = [];
+    //   CKORDER TABLE END
+
+
+    orderData && orderData.forEach((item, id) => {
+        return (
+            rows.push({
+                id:item._id,
+                order_id: item.order_id,
+                partner_name: item.partner_name,
+                partner_id: item.partner_id,
+                to_location: item.to_location,
+                from_location: item.from_location,
+                weight: item.weight,
+            })
+        )
+    });
+
     return (
         <Fragment>
             <nav className="sticky-top partnerdash-nav">
@@ -145,7 +163,7 @@ export default function CkOrder() {
                             <CloseRoundedIcon />
                         </button>
                         <div className="responsive-sidebar">
-                            <NavLink to="/admindashboard" className="active">
+                            <NavLink to="/admindashboard">
                                 <span className="icon">
                                     <GridViewRoundedIcon />
                                 </span>
@@ -213,22 +231,67 @@ export default function CkOrder() {
                             </div>
                         </div>
                     </form>
-
                     {/* <TABLE START */}
 
                     <Box sx={{ height: 400, width: '100%', background: '#fff' }}>
+                       
                         <DataGrid
                             rows={rows}
                             columns={columns}
                             pageSize={5}
                             sx={{ width: '100%' }}
                             rowsPerPageOptions={[5]}
+                            getRowId={(row) => row.no}
                             checkboxSelection
                             disableSelectionOnClick
                             experimentalFeatures={{ newEditingApi: true }}
                         />
                     </Box>
 
+
+                    {/* <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Id</TableCell>
+                                    <TableCell>Order Id</TableCell>
+                                    <TableCell>Partner Id</TableCell>
+                                    <TableCell>From Location</TableCell>
+                                    <TableCell>To Location</TableCell>
+                                    <TableCell>Date</TableCell>
+                                    <TableCell>Weight</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {
+                                    orderData.map((item, id) => {
+                                        return (
+                                            <TableRow
+                                                pageSize={5}
+                                                rowsPerPageOptions={[5]}
+                                                checkboxSelection
+                                                disableSelectionOnClick
+                                                sx={{ '&:last-child td, &:last-child th': { border: 0 } ,width: '100%'}}
+                                            >
+                                                <TableCell>
+                                                    {item.partner_order_id}
+                                                </TableCell>
+                                                <TableCell>
+                                                    {item.customer_id}
+                                                </TableCell>
+                                                <TableCell>{item.from_location}</TableCell>
+                                                <TableCell>{item.to_location}</TableCell>
+                                                <TableCell>{item.date}</TableCell>
+                                                <TableCell>
+                                                    {item.order_weight}
+                                                </TableCell>
+                                            </TableRow>
+                                        )
+                                    })
+                                }
+                            </TableBody>
+                        </Table>
+                    </TableContainer>  */}
                     {/* Table ends */}
                 </section>
             </main>

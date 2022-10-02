@@ -6,7 +6,85 @@ import { useAlert } from "react-alert";
 import "./Table.css";
 import "./partnerorder.css";
 import Addpartner from "./Addpartner";
+// import { 
+//   Paper, 
+//   Table, 
+//   TableBody, 
+//   TableCell, 
+//   TableContainer, 
+//   TableHead, 
+//   TablePagination, 
+//   TableRow 
+// }from "@material-ui/core";
+
+// interface Column {
+//   id: 'name' | 'code' | 'population' | 'size' | 'density';
+//   label: string;
+//   minWidth?: number;
+//   align?: 'right';
+//   format?: (value: number) => string;
+// }
+// const columns = [
+//   { id: 'name', label: 'Name', minWidth: 170 },
+//   { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
+//   {
+//     id: 'population',
+//     label: 'Population',
+//     minWidth: 170,
+//     align: 'right',
+//     format: (value: number) => value.toLocaleString('en-US'),
+//   },
+//   {
+//     id: 'size',
+//     label: 'Size\u00a0(km\u00b2)',
+//     minWidth: 170,
+//     align: 'right',
+//     format: (value: number) => value.toLocaleString('en-US'),
+//   },
+//   {
+//     id: 'density',
+//     label: 'Density',
+//     minWidth: 170,
+//     align: 'right',
+//     format: (value: number) => value.toFixed(2),
+//   },
+// ];
+// interface Data {
+//   name: string;
+//   code: string;
+//   population: number;
+//   size: number;
+//   density: number;
+// }
+
+// function createData(
+//   name: string,
+//   code: string,
+//   population: number,
+//   size: number,
+// ): Data {
+//   const density = population / size;
+//   return { name, code, population, size, density };
+// }
+
 const Reactdatatable = () => {
+
+  // React Table Js START
+  
+  // const [page, setPage] = React.useState(0);
+  // const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  // const handleChangePage = (event: unknown, newPage: number) => {
+  //   setPage(newPage);
+  // };
+
+  // const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setRowsPerPage(+event.target.value);
+  //   setPage(0);
+  // };
+  // REACT TABLE JS ENDS
+
+
   let alert = useAlert();
   const [setFilterVal] = useState([]);
   const [partnerData, setPartnerData] = useState([]);
@@ -70,6 +148,7 @@ const Reactdatatable = () => {
       );
       setPartnerData(filterResult);
     }
+    // eslint-disable-next-line
     setFilterVal(e.target.value);
   };
   // searchfuntion ends
@@ -170,7 +249,7 @@ const Reactdatatable = () => {
             </thead>
             <tbody>
               {partnerData
-              // eslint-disable-next-line
+                // eslint-disable-next-line
                 .filter((val) => {
                   if (searchTerm === "") {
                     return val;
@@ -229,6 +308,58 @@ const Reactdatatable = () => {
           </table>
         </div>
       </div>
+
+
+      {/* React Table start */}
+      {/* <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+        <TableContainer sx={{ maxHeight: 220 }}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth }}
+                  >
+                    {column.label}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {partnerData
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row,id) => {
+                  return (
+                    <TableRow hover role="checkbox" tabIndex={-1} key={id}>
+                      {columns.map((column) => {
+                        const value = row[column.id];
+                        return (
+                          <TableCell key={column.id} align={column.align}>
+                            {column.format && typeof value === 'number'
+                              ? column.format(value)
+                              : value}
+                          </TableCell>
+                        );
+                      })}
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={partnerData.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </Paper> */}
+      {/* React Table ends */}
 
       {/* EDIT MODAL START */}
       <div
@@ -335,14 +466,14 @@ const Reactdatatable = () => {
 
       {/* ORDER DETAILS START */}
       <div
-        className="modal bd-example-modal-xl fade"
+        className="modal bd-example-modal-md fade"
         id="orderPartner"
         role="dialog"
         aria-labelledby="orderPartnerTitle"
         aria-hidden="true"
       >
         <div
-          className="modal-dialog modal-dialog-centered modal-xl add-partner"
+          className="modal-dialog modal-dialog-centered modal-md add-partner"
           role="document"
         >
           <div className="modal-content">
@@ -361,47 +492,45 @@ const Reactdatatable = () => {
                 </span>
               </button>
             </div>
-            <div className="modal-body">
+            <div className="modal-body p-0">
               <div className="table-responsive-lg partner_order_list">
-                <table>
-                  <thead></thead>
+                <table className="table table-striped">
+                  
                   <tbody>
                     {partnerOrderData.map((item, id) => {
                       return (
                         <tr key={id} style={{ margin: "10px 0 10px 0" }}>
-                          <td>
+                          <td className="table_data">
                             <th className="d-block">Sender Info</th>
 
                             <td>{id + 1}</td>
                             <td className="d-block">{item.sender_name} </td>
                             <td className="d-block">{item.sender_email}</td>
                             <td className="d-block">{item.sender_phone}</td>
-                            <td className="d-block">{item.sender_pincode}</td>
+                            {/* <td className="d-block">{item.sender_pincode}</td> */}
                             <td className="d-block">{item.sender_state} </td>
                             <td className="d-block">{item.sender_city} </td>
                             <td className="d-block">{item.sender_address}</td>
                           </td>
-                          <td>
+                          <td className="table_data">
                             <th className="d-block">Receiver Info</th>
 
                             <td>{id + 1}</td>
                             <td className="d-block">{item.receiver_name} </td>
                             <td className="d-block">{item.receiver_email}</td>
                             <td className="d-block">{item.receiver_phone}</td>
-                            <td className="d-block">{item.receiver_pincode}</td>
+                            {/* <td className="d-block">{item.receiver_pincode}</td> */}
                             <td className="d-block">{item.receiver_state}</td>
                             <td className="d-block">{item.receiver_city} </td>
                             <td className="d-block">{item.receiver_address}</td>
                           </td>
-                          <td>
+                          <td className="table_data">
                             <th className="d-block">Order Summary</th>
                             <td>{id + 1}</td>
-                            <td className="d-block">{item.item_id} </td>
-                            <td className="d-block">{item.item_dimension}</td>
+                            <td className="d-block">{item.receiver_name} </td>
+                            <td className="d-block">{item.receiver_email}</td>
                             <td className="d-block">{item.receiver_phone}</td>
-                            <td className="d-block">
-                              {item.receiver_pincode}{" "}
-                            </td>
+                            {/* <td className="d-block">{item.receiver_pincode}</td> */}
                             <td className="d-block">{item.receiver_state}</td>
                             <td className="d-block">{item.receiver_city} </td>
                             <td className="d-block">{item.receiver_address}</td>

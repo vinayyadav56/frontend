@@ -167,6 +167,10 @@ ul {
     list-style: none;
 }
 
+.menu .desktop-links {
+    margin-top: -6px;
+}
+
 .menu .desktop-links ul {
     display: flex;
     align-items: center;
@@ -177,11 +181,11 @@ ul {
     margin-right: 3rem;
 }
 
-.menu .desktop-links ul li:last-child {
+.menu .desktop-links ul .home_signup {
     margin-right: 0rem;
 }
 
-.menu .desktop-links ul li:last-child a {
+.menu .desktop-links ul .home_signup a {
     background-color: #fff;
     color: #0747A9;
     border: 1px solid #fff;
@@ -189,14 +193,14 @@ ul {
     border-radius: 5px;
 }
 
-.menu .desktop-links ul li:last-child a:hover {
+.menu .desktop-links ul .home_signup a:hover {
     background: transparent;
     color: #fff;
     text-decoration: none;
     cursor: pointer;
 }
 
-.menu .desktop-links ul li:nth-child(5) a {
+.menu .desktop-links ul .home_login a {
     background: transparent;
     border: 1px solid #fff;
     padding: 4px 16px;
@@ -204,9 +208,22 @@ ul {
     border-radius: 5px;
 }
 
-.menu .desktop-links ul li:nth-child(5) a:hover {
+.menu .desktop-links ul .home_login a:hover {
     background: #fff;
     color: #0747A9;
+}
+
+.home_shipnow {
+    background-color: #fff !important;
+    color: #2277C9 !important;
+    border: 1px solid #fff !important;
+    padding: 4px 10px !important;
+    border-radius: 5px !important;
+}
+
+.home_shipnow:hover {
+    background-color: #2277C9 !important;
+    color: #fff !important;
 }
 
 .menu a {
@@ -233,6 +250,66 @@ ul {
     color: aqua;
     border-bottom: 1px solid #fff;
 }
+
+/*SHIP  MODAL CSS START */
+.ship_text {
+    font-weight: 500;
+    font-size: 12px;
+    margin-top: 1rem;
+    text-align: center;
+    color: #8C8C8C;
+}
+.package_text{
+    font-weight: 600;
+    font-size: 18px;
+    text-transform: capitalize;
+    color: #000;
+}
+.package_sub_text{
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: capitalize;
+    color: #000;
+}
+.MuiStepper-root {
+    display: flex;
+    padding: 0px !important;
+}
+
+.MuiButton-containedPrimary {
+    color: #fff;
+    background-color: #3f51b5;
+    display: block;
+    width: 100%;
+}
+/* .MuiFormControl-root {
+    display: none ;
+} */
+.address_btn{
+    background-color: #0747A9;
+    border-radius: 40px;
+    padding:5px;
+    color: #fff;
+    margin: auto;
+}
+.address_modal .modal-dialog{
+    margin: 0;
+}
+.address_modal .modal-content{
+    border: none;
+    min-height: 400px;
+    width: auto;
+}
+.address_modal .modal-header h5{
+    font-size: 20px;
+    font-weight: 600;
+}
+.address_modal .modal-body p{
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* SHIP MODAL CSS ENDS */
 
 /* dropdown css start */
 .menu .dropdown {
@@ -557,6 +634,7 @@ ul {
     width: 40%;
     justify-content: space-between;
 }
+
 /* carrier_about_services css start */
 .carrier_about_services {
     background: #E7F0F9;
@@ -735,59 +813,71 @@ ul {
     right: 7px;
     z-index: 9999;
 }
-.become-part_btn{
+
+.become-part_btn {
     background: transparent;
     color: #fff;
     font-size: 14px;
     cursor: pointer;
 }
-.become-part_btn:hover{
+
+.become-part_btn:hover {
     color: aqua;
 }
-.become_partner_form{
+
+.become_partner_form {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.become-partner-modal .modal-content{
+
+.become-partner-modal .modal-content {
     background-color: none;
     border-radius: 10px;
 }
-.card-registration{
+
+.card-registration {
     border: 1px solid #E9E9E9;
     box-shadow: 0px 0px 15px -1px rgb(181 179 181);
     border-radius: 10px;
 }
-.card-registration h3{
+
+.card-registration h3 {
     font-weight: bold;
     font-size: 18px;
     color: #0747A9;
 }
-.card-registration input{
+
+.card-registration input {
     border: none;
     border-bottom: 1px solid #ababab;
     border-radius: 0px;
     padding: 0.5rem 0rem;
 }
-.card-registration input:focus{
+
+.card-registration input:focus {
     outline: none;
     box-shadow: none;
 }
-.card-registration input::placeholder{
+
+.card-registration input::placeholder {
     font-size: 14px;
     font-weight: lighter;
 }
-.card-registration .become_form_save{
-    background:#0747A9;
+
+.card-registration .become_form_save {
+    background: #0747A9;
     border: 1px solid #0747A9;
     padding: 4px 16px;
     color: #fff;
     border-radius: 5px;
 }
-.card-registration .become_form_save:hover{
+
+.card-registration .become_form_save:hover {
     color: #0747A9;
     background-color: #fff;
 }
+
 /* become partner form css ends */
 .operational {
     background: #1B6BC1;
@@ -1172,7 +1262,7 @@ ul {
     .home_footer .footer_logo {
         color: #fff;
         display: flex;
-        justify-content:flex-start;
+        justify-content: flex-start;
     }
 
 }
@@ -1218,6 +1308,7 @@ ul {
     .trip_search .card .select_btn {
         width: 100%;
     }
+
     .about_section .container .abt_img {
         opacity: 0.5;
     }

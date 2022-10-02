@@ -1,8 +1,8 @@
 .partner_order_list tbody tr {
     background: #FFFFFF;
-    box-shadow: 0px 0px 12px rgb(0 0 0 / 10%);
-    border-radius: 4px;
-    border: 10px solid #EAEAEA;
+    /* box-shadow: 0px 0px 12px rgb(0 0 0 / 10%); */
+    /* border-radius: 4px; */
+    /* border: 10px solid #EAEAEA; */
     color: #000 !important;
 }
 .partner_order_list tbody tr td {
@@ -21,8 +21,14 @@
     font-size: 12px;
     color: #000 !important;
 }
-.partner_order_list tbody tr>td{
-    border: 1px solid #E9E9E9;
-    box-shadow: 0px 0px 15px -1px rgb(228, 216, 228);
-    border-radius: 10px;
+.partner_order_list .table td{
+    padding: 0.75rem;
+    vertical-align: top;
+    border:none;
+}
+.partner_order_list .table_data{
+    border:1px solid #dee2e6 !important;
+}
+.partner_order_list .table th{
+    border-bottom: 1px solid #dee2e6;
 }

@@ -69,7 +69,9 @@ const App = () => {
         <Router>
           <Switch>
             <Route exact path="/signup" component={Signup} />
-            <Route exact path="/" component={Homepage} />
+            <Route exact path="/" component={Homepage}>
+              <Homepage userActive={user} />
+            </Route>
             <Route path="/services" component={Services} />
             <Route path="/forgetpassword" component={Forgetpassword} />
             <Route path="/login">
