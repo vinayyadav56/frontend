@@ -253,82 +253,83 @@ ul {
 
 /*SHIP  MODAL CSS START */
 .ship_text {
-    font-weight: 500;
-    font-size: 12px;
+    font-weight: 500 !important;
+    font-size: 12px !important;
     margin-top: 1rem;
     text-align: center;
     color: #8C8C8C;
 }
 .package_text{
     font-weight: 600;
-    font-size: 18px;
-    text-transform: capitalize;
-    color: #000;
+    font-size: 14px;
+    color: #0747A9;
 }
 .package_sub_text{
     font-weight: 600;
     font-size: 14px;
+    margin-top: 2rem;
     text-transform: capitalize;
-    color: #000;
+    color: #0747A9;
 }
-.MuiStepper-root {
+.ship_select_btns{
+    background-color: #fff;
+    color: #0747a9 !important;
+    border: 1px solid #0747a9;
+    border-radius: 20px;
+    padding: 4px 10px;
+    display: flex !important;
+    justify-content: center !important;
+    font-weight: normal !important;
+    align-items: center;
+    margin-right: 1rem;
+  }
+  .ship_select_btns.active{
+  background-color: #0747a9;
+  color: #fff !important;
+  }
+.MuiStepper-root{
     display: flex;
     padding: 0px !important;
 }
-
-.MuiButton-containedPrimary {
+.MuiButton-containedPrimary{
     color: #fff;
     background-color: #3f51b5;
     display: block;
     width: 100%;
 }
-/* .MuiFormControl-root {
-    display: none ;
-} */
+.MuiButton-containedPrimary:hover{
+   color: #fff;
+}
 .address_btn{
-    background-color: #0747A9;
+    background-color: #0747A9 !important;
     border-radius: 40px;
     padding:5px;
-    color: #fff;
+    color: #fff  !important;
     margin: auto;
 }
-.address_modal .modal-dialog{
-    margin: 0;
-}
-.address_modal .modal-content{
-    border: none;
-    min-height: 400px;
-    width: auto;
-}
-.address_modal .modal-header h5{
-    font-size: 20px;
+.address_modal h5{
+    font-size: 18px;
     font-weight: 600;
+    color: #0747A9;
+    border-bottom: 1px solid #0747A9;
+    margin-bottom: 2rem;
 }
-.address_modal .modal-body p{
-    font-size: 14px;
-    font-weight: 600;
-}
-
 /* SHIP MODAL CSS ENDS */
-
 /* dropdown css start */
 .menu .dropdown {
     position: relative;
     display: inline-block;
 }
-
 .menu .dropdown-menu a {
     display: block;
     color: #333;
     padding: 4px 2px;
 }
-
 .menu .dropdown-menu a:hover {
     color: #333;
     background-color: rgb(233, 245, 247);
     padding: 4px 2px;
 }
-
 .menu .dropdown-menu {
     display: none;
     position: absolute;
@@ -340,11 +341,9 @@ ul {
     z-index: 1;
     border-radius: 10px;
 }
-
 .menu .dropdown:hover .dropdown-menu {
     display: block;
 }
-
 .menu .dropleft-menu {
     display: none;
     position: absolute;
@@ -356,21 +355,16 @@ ul {
     z-index: 1;
     border-radius: 10px;
 }
-
 .menu .dropleft:hover .dropdown-menu {
     display: block;
 }
-
 .nav-mobile {
     display: none;
 }
-
 .menu .nav-logo a.active {
     text-decoration: none;
     border: none;
 }
-
-
 .nav-mobile-div {
     position: fixed;
     top: 0;
@@ -582,25 +576,25 @@ ul {
     display: flex;
 }
 
-/* .trip_search .form-inline  input[type="date"]::before {
+.sechdule-date  input[type="date"]::before {
     content: attr(placeholder);
     position: absolute;
     color: #999999;
 }
 
-.trip_search .form-inline  input[type="date"] {
+.sechdule-date  input[type="date"] {
     color: #ffffff;
 }
 
-.trip_search .form-inline  input[type="date"]:focus,
-.trip_search .form-inline  input[type="date"]:valid {
+.sechdule-date  input[type="date"]:focus,
+.sechdule-date  input[type="date"]:valid {
     color: #666666;
 }
 
 .trip_search .form-inline  input[type="date"]:focus::before,
 .trip_search .form-inline  input[type="date"]:valid::before {
     content: "";
-} */
+} 
 .trip_search .form-control {
     border: none;
     border-radius: 0;

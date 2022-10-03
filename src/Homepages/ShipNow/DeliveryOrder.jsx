@@ -1,47 +1,82 @@
-import { RadioGroup, FormControlLabel, Radio, TextField, Button, FormGroup, Typography } from '@material-ui/core';
 import React from 'react';
-import { useState } from 'react';
-import validator from 'validator';
+import {
+  TextField,
+  Button,
+  FormGroup,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem
+} from '@material-ui/core';
+
 const DeliveryOrder = ({ values, handleFormData, nextStep, prevStep }) => {
-  const [error, setError] = useState(false);
+  // const [error, setError] = useState(false);
+
   const submitFormData = (e) => {
     e.preventDefault();
 
     // checking if value of first name and last name is empty show error else take to step 2
-    if (
-      validator.isEmpty(values.category) ||
-      validator.isEmpty(values.sub_category) ||
-      validator.isEmpty(values.package_size)
-    ) {
-      setError(true);
-    } else {
-      nextStep();
-    }
+
   };
   return (
     <div>
       <FormGroup onSubmit={submitFormData}>
-        <p className="package_sub_text">Choose Package Size</p>
-        <RadioGroup
-          row
-          horizontal
-          aria-labelledby="demo-radio-buttons-group-label"
-          defaultValue="Extra Small"
-          className="justify-content-between mt-2"
-          name="row-radio-buttons-group"
-        >
-          <FormControlLabel defaultValue={values.package_size} control={<Radio />} onChange={handleFormData("package_size")} label="Extra Small" />
-          <FormControlLabel control={<Radio />} label="Small" />
-          <FormControlLabel control={<Radio />} label="Medium" />
-          <FormControlLabel control={<Radio />} label="Large" />
-          {error ? (
-            <Typography style={{ color: "red" }}>
-              This is a required field
-            </Typography>
-          ) : (
-            ""
-          )}
-        </RadioGroup>
+        <p className="package_text">Choose Package Size</p>
+        <div className="btn-group-toggle my-4 d-flex" data-toggle="buttons">
+          <label className="btn ship_select_btns">
+            <input
+              type="radio"
+              name="searchType"
+              defaultValue={values.package_size}
+              id="option1"
+              onChange={handleFormData("package_size")}
+            />
+            Extra Small
+          </label>
+          <label className="btn ship_select_btns">
+            <input
+              type="radio"
+              name="searchType"
+              defaultValue={values.package_size}
+              id="option2"
+              onChange={handleFormData("package_size")}
+            />
+            Small
+          </label>
+          <label className="btn ship_select_btns">
+            <input
+              type="radio"
+              name="searchType"
+              defaultValue={values.package_size}
+              id="option1"
+              onChange={handleFormData("package_size")}
+            />
+            Medium
+          </label>
+          <label className="btn ship_select_btns">
+            <input
+              type="radio"
+              name="searchType"
+              defaultValue={values.package_size}
+              id="option2"
+              onChange={handleFormData("package_size")}
+            />
+            Large
+          </label>
+        </div>
+        <FormControl sx={{ m: 1, minWidth: 120 }} size="small" variant="outlined">
+          <InputLabel id="delivery-type">Delivery Type</InputLabel>
+          <Select
+            labelId="delivery-type"
+            id="delivery-type"
+            label='Delivery Type'
+            value={values.delivery_type}
+            onChange={handleFormData("delivery_type")}
+          >
+            <MenuItem value='express'>Express Delivery</MenuItem>
+            <MenuItem value='premium'>Premium Delivery</MenuItem>
+          </Select>
+        </FormControl>
         <p className="package_sub_text">Package Details</p>
         <TextField
           size="small"
@@ -54,13 +89,6 @@ const DeliveryOrder = ({ values, handleFormData, nextStep, prevStep }) => {
           defaultValue={values.category}
           onChange={handleFormData("category")}
         />
-        {error ? (
-          <Typography style={{ color: "red" }}>
-            This is a required field
-          </Typography>
-        ) : (
-          ""
-        )}
         <p className="package_sub_text mt-2">Sub Category</p>
         <TextField
           size="small"
@@ -73,13 +101,6 @@ const DeliveryOrder = ({ values, handleFormData, nextStep, prevStep }) => {
           defaultValue={values.sub_category}
           onChange={handleFormData("sub_category")}
         />
-        {error ? (
-          <Typography style={{ color: "red" }}>
-            This is a required field
-          </Typography>
-        ) : (
-          ""
-        )}
         <TextField
           className=" mt-4 mb-4"
           size="small"
@@ -87,30 +108,24 @@ const DeliveryOrder = ({ values, handleFormData, nextStep, prevStep }) => {
           label="Package Value"
           placeholder="Enter Package Value"
           margin="normal"
-          onChange={handleFormData("package_value")}
+          onChange={handleFormData("delivery_cost")}
           variant="outlined"
-          defaultValue={values.package_value}
+          defaultValue={values.delivery_cost}
         />
-        {error ? (
-          <Typography style={{ color: "red" }}>
-            This is a required field
-          </Typography>
-        ) : (
-          ""
-        )}
-        <div style={{ display: 'flex', justifyContent: 'space-between', pt: 2, flex: '1 auto' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', pt: 2, marginTop: 2, flex: '1 auto' }}>
           <Button
-            color="inherit"
             onClick={prevStep}
             type="submit"
-            
+            className='address_btn'
+
           >
             Prev
           </Button>
           <Button
-            color="primary"
-            onClick={nextStep}
             type="submit"
+            sx={{ mt: 5 }}
+            className='address_btn'
+            onClick={nextStep}
           >
             Next
           </Button>

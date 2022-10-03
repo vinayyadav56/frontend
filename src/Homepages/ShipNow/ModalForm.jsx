@@ -1,14 +1,10 @@
 import React from 'react'
 import {
     Button,
-    // Stepper,
-    // Step,
-    // StepLabel,
     Modal,
     Box
 
 } from "@material-ui/core";
-// import { useState } from 'react';
 import ShipingOrder from './ShipingOrder';
 
 const style = {
@@ -44,7 +40,7 @@ const ModalForm = (label) => {
             >
                 <Box
                     sx={style}
-                    style={{ width: '400px', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', minHeight: '300px', borderRadius: '4px', border: 'none' }}>
+                    style={{  boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', minHeight: '300px', borderRadius: '4px', border: 'none' }}>
                     {/* <Stepper alternativeLabel activeStep={activeStep}>
                         {steps.map((label) => {
                             // const labelProps = {};
@@ -59,9 +55,6 @@ const ModalForm = (label) => {
 
                 
                         <ShipingOrder />
-
-                    
-
                 </Box>
             </Modal>
         </div>

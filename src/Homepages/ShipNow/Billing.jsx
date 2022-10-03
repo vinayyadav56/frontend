@@ -1,13 +1,20 @@
-import { Card, FormGroup } from '@material-ui/core'
+import { Button, Card, CardContent, FormGroup, Typography } from '@material-ui/core'
 import React from 'react'
 
-const Billing = ({ values, handleFormData, nextStep, prevStep }) => {
-    const submitFormData = (e) => {
-        e.preventDefault();
-    };
+const Billing = ({ values, prevStep }) => {
+    // const submitFormData = (e) => {
+    //     e.preventDefault();
+    // };
     const {
-        delivery_pincode,
-        pickup_pincode,
+
+        reciver_name,
+        reciver_phone_no,
+        reciver_email_id,
+        reciver_house_no,
+        reciver_area,
+        reciver_pincode,
+        reciver_state,
+        reciver_city,
         sender_name,
         sender_phone_no,
         sender_email_id,
@@ -15,35 +22,78 @@ const Billing = ({ values, handleFormData, nextStep, prevStep }) => {
         sender_area,
         sender_pincode,
         sender_state,
-        sender_city} = values;
+        sender_city } = values;
     return (
         <div>
-            <FormGroup onSubmit={submitFormData}>
-                <Card style={{ marginTop: 100, textAlign: "left" }}>
-                    <Card.Body>
-                        <strong>Delivery PinCode</strong>
-                        <p>
-                            {delivery_pincode}
-                        </p>
-                        <p>
-                            {pickup_pincode}
-                        </p>
-                        <strong>Sender Details</strong>
-
-
-                        <p>    {sender_name}</p>
-                        <p>{sender_phone_no}</p>
-                        <p>{sender_email_id}</p>
-                        <p>{sender_house_no}</p>
-                        <p>    {sender_area}</p>
-                        <p> {sender_pincode}</p>
-                        <p>   {sender_state}</p>
-                        <p>    {sender_city}</p>
-                    </Card.Body>
+            <FormGroup>
+                <Card sx={{ marginTop: 100, textAlign: "left" }}>
+                    <CardContent>
+                        <p>Pickup Address:</p>
+                        <Typography>
+                            {sender_email_id}
+                        </Typography>
+                        <Typography>
+                            {sender_name}
+                        </Typography>
+                        <Typography>
+                            {sender_phone_no}
+                        </Typography>
+                        <Typography>
+                            {sender_house_no}, {sender_pincode},{sender_city} ,{sender_state}
+                        </Typography>
+                        <Typography>
+                            {sender_area}
+                        </Typography>
+                        
+                        <Button
+                            onClick={prevStep}
+                            type="button"
+                            className='address_btn'
+                        >
+                            Prev
+                        </Button>
+                        <Button
+                            type="button"
+                            className='address_btn'
+                        >
+                            Submit
+                        </Button>
+                    </CardContent>
+                    <CardContent>
+                        <p>Shiping Details:</p>
+                        <Typography>
+                            {reciver_email_id}
+                        </Typography>
+                        <Typography>
+                            {reciver_name}
+                        </Typography>
+                        <Typography>
+                            {reciver_phone_no}
+                        </Typography>
+                        <Typography>
+                            {reciver_house_no}, {reciver_pincode}, {reciver_city},{reciver_state}
+                        </Typography>
+                        <Typography>
+                            {reciver_area}
+                        </Typography>
+                        <Button
+                            onClick={prevStep}
+                            type="button"
+                            className='address_btn'
+                        >
+                            Prev
+                        </Button>
+                        <Button
+                            type="button"
+                            className='address_btn'
+                        >
+                            Submit
+                        </Button>
+                    </CardContent>
                 </Card>
             </FormGroup>
         </div>
     )
 }
 
-export default Billing
+export default Billing;
