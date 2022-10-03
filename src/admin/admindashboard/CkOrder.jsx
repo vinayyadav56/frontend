@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import { Link, NavLink } from "react-router-dom";
 import axios from 'axios';
 import "./Adminmenu.css";
@@ -39,7 +39,7 @@ export default function CkOrder() {
     };
 
     const handleApi = async (e) => {
-        const response = await axios.post("http://35.91.35.188/api/searchLocationbyFromto", { ckOrder });
+        const response = await axios.post("http://35.91.35.188/api/searchLocationbyFromto",ckOrder);
         try {
             console.log("response" + JSON.stringify(response.data.fetchOrdersList))
             setOrderData(response.data.fetchOrdersList)

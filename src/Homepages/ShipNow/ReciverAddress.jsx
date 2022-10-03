@@ -9,12 +9,7 @@ const ReciverAddress = ({ values, handleFormData, nextStep, prevStep}) => {
 
     return (
         <div>
-            <Box
-                sx={{
-                    maxHeight: 300,
-                    overflow: 'scroll',
-                    padding:'0px auto'
-                }}>
+            <Box>
                 <FormGroup onSubmit={submitFormData} sx={{padding:'0px auto'}} className="address_modal">
                     <h5>Reciver Details</h5>
                     <TextField

@@ -259,19 +259,30 @@ ul {
     text-align: center;
     color: #8C8C8C;
 }
-.package_text{
+
+.package_text {
     font-weight: 600;
     font-size: 14px;
     color: #0747A9;
 }
-.package_sub_text{
+
+.package_waring_text {
+    font-weight: 600;
+    font-size: 12px;
+    margin-top: 1rem;
+    color: #8c8c8c;
+    text-align: center;
+}
+
+.package_sub_text {
     font-weight: 600;
     font-size: 14px;
     margin-top: 2rem;
     text-transform: capitalize;
     color: #0747A9;
 }
-.ship_select_btns{
+
+.ship_select_btns {
     background-color: #fff;
     color: #0747a9 !important;
     border: 1px solid #0747a9;
@@ -282,54 +293,85 @@ ul {
     font-weight: normal !important;
     align-items: center;
     margin-right: 1rem;
-  }
-  .ship_select_btns.active{
-  background-color: #0747a9;
-  color: #fff !important;
-  }
-.MuiStepper-root{
+}
+
+.ship_select_btns.active {
+    background-color: #0747a9;
+    color: #fff !important;
+}
+
+.MuiStepper-root {
     display: flex;
     padding: 0px !important;
 }
-.MuiButton-containedPrimary{
+
+.MuiButton-containedPrimary {
     color: #fff;
     background-color: #3f51b5;
     display: block;
     width: 100%;
 }
-.MuiButton-containedPrimary:hover{
-   color: #fff;
+
+.MuiButton-containedPrimary:hover {
+    color: #fff;
 }
-.address_btn{
+
+.address_btn {
     background-color: #0747A9 !important;
     border-radius: 40px;
-    padding:5px;
-    color: #fff  !important;
+    padding: 5px;
+    color: #fff !important;
     margin: auto;
 }
-.address_modal h5{
+
+.address_modal h5 {
     font-size: 18px;
     font-weight: 600;
     color: #0747A9;
+    padding-bottom: 0.6rem;
     border-bottom: 1px solid #0747A9;
     margin-bottom: 2rem;
 }
+/* BILLING DETAILS CSS START */
+.billing_details{
+    border-bottom: 2px dashed #000;
+}
+.billing_details h4 , .shipping_details h4{
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.billing_details h4::after , .shipping_details h4::after{
+    content: '';
+    display: block;
+    width: 40%;
+    border: 1px solid #8C8C8C;
+}
+.billing_details p, .shipping_details p{
+    font-size: 12px;
+    font-weight: 500;
+    color: #8c8c8c;
+}
+
 /* SHIP MODAL CSS ENDS */
 /* dropdown css start */
 .menu .dropdown {
     position: relative;
     display: inline-block;
 }
+
 .menu .dropdown-menu a {
     display: block;
     color: #333;
     padding: 4px 2px;
 }
+
 .menu .dropdown-menu a:hover {
     color: #333;
     background-color: rgb(233, 245, 247);
     padding: 4px 2px;
 }
+
 .menu .dropdown-menu {
     display: none;
     position: absolute;
@@ -341,9 +383,11 @@ ul {
     z-index: 1;
     border-radius: 10px;
 }
+
 .menu .dropdown:hover .dropdown-menu {
     display: block;
 }
+
 .menu .dropleft-menu {
     display: none;
     position: absolute;
@@ -355,16 +399,20 @@ ul {
     z-index: 1;
     border-radius: 10px;
 }
+
 .menu .dropleft:hover .dropdown-menu {
     display: block;
 }
+
 .nav-mobile {
     display: none;
 }
+
 .menu .nav-logo a.active {
     text-decoration: none;
     border: none;
 }
+
 .nav-mobile-div {
     position: fixed;
     top: 0;
@@ -576,25 +624,26 @@ ul {
     display: flex;
 }
 
-.sechdule-date  input[type="date"]::before {
+.sechdule-date input[type="date"]::before {
     content: attr(placeholder);
     position: absolute;
     color: #999999;
 }
 
-.sechdule-date  input[type="date"] {
+.sechdule-date input[type="date"] {
     color: #ffffff;
 }
 
-.sechdule-date  input[type="date"]:focus,
-.sechdule-date  input[type="date"]:valid {
+.sechdule-date input[type="date"]:focus,
+.sechdule-date input[type="date"]:valid {
     color: #666666;
 }
 
-.trip_search .form-inline  input[type="date"]:focus::before,
-.trip_search .form-inline  input[type="date"]:valid::before {
+.trip_search .form-inline input[type="date"]:focus::before,
+.trip_search .form-inline input[type="date"]:valid::before {
     content: "";
-} 
+}
+
 .trip_search .form-control {
     border: none;
     border-radius: 0;
@@ -1193,6 +1242,14 @@ ul {
 }
 
 @media screen and (max-width: 991px) {
+    .carrykar_steps p:nth-child(2) {
+        color: #0849AA;
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: bold;
+        font-size: 24px;
+    }
+
     .trip_section {
         margin-top: 0;
         margin: 0;

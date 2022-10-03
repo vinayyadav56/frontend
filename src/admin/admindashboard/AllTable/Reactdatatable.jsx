@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useAlert } from "react-alert";
 import "./Table.css";
-import "./partnerorder.css";
-import Addpartner from "./Addpartner";
+import "../partnerorder.css";
+import Addpartner from "../Addpartner";
 // import { 
 //   Paper, 
 //   Table, 

@@ -60,7 +60,7 @@ const UserData = () => {
         </div>
         <div className="form-row">
           <div className="col mt-4">
-            <label htmlFor="#pname">Search User :-</label>
+            <label htmlFor="#pname">Search Carrier:-</label>
             <input
               type="text"
               className="form-control"

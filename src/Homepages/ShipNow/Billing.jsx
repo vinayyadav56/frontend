@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, FormGroup, Typography } from '@material-ui/core'
+import { Button, Card, CardContent, FormGroup} from '@material-ui/core'
 import React from 'react'
 
 const Billing = ({ values, prevStep }) => {
@@ -6,7 +6,6 @@ const Billing = ({ values, prevStep }) => {
     //     e.preventDefault();
     // };
     const {
-
         reciver_name,
         reciver_phone_no,
         reciver_email_id,
@@ -27,65 +26,51 @@ const Billing = ({ values, prevStep }) => {
         <div>
             <FormGroup>
                 <Card sx={{ marginTop: 100, textAlign: "left" }}>
-                    <CardContent>
-                        <p>Pickup Address:</p>
-                        <Typography>
+                    <CardContent className='billing_details'>
+                        <h4>Pickup Details:</h4>
+                        <p>
                             {sender_email_id}
-                        </Typography>
-                        <Typography>
+                        </p>
+                        <p>
                             {sender_name}
-                        </Typography>
-                        <Typography>
+                        </p>
+                        <p>
                             {sender_phone_no}
-                        </Typography>
-                        <Typography>
+                        </p>
+                        <p>
                             {sender_house_no}, {sender_pincode},{sender_city} ,{sender_state}
-                        </Typography>
-                        <Typography>
+                        </p>
+                        <p>
                             {sender_area}
-                        </Typography>
-                        
-                        <Button
-                            onClick={prevStep}
-                            type="button"
-                            className='address_btn'
-                        >
-                            Prev
-                        </Button>
-                        <Button
-                            type="button"
-                            className='address_btn'
-                        >
-                            Submit
-                        </Button>
+                        </p>
                     </CardContent>
-                    <CardContent>
-                        <p>Shiping Details:</p>
-                        <Typography>
+                    <CardContent className='shipping_details'>
+                        <h4>Shiping Details:</h4>
+                        <p>
                             {reciver_email_id}
-                        </Typography>
-                        <Typography>
+                        </p>
+                        <p>
                             {reciver_name}
-                        </Typography>
-                        <Typography>
+                        </p>
+                        <p>
                             {reciver_phone_no}
-                        </Typography>
-                        <Typography>
+                        </p>
+                        <p>
                             {reciver_house_no}, {reciver_pincode}, {reciver_city},{reciver_state}
-                        </Typography>
-                        <Typography>
+                        </p>
+                        <p>
                             {reciver_area}
-                        </Typography>
+                        </p>
                         <Button
                             onClick={prevStep}
                             type="button"
-                            className='address_btn'
+                            className='mt-3 address_btn'
                         >
                             Prev
                         </Button>
                         <Button
                             type="button"
-                            className='address_btn'
+                            className='mt-3 address_btn'
                         >
                             Submit
                         </Button>

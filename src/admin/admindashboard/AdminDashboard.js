@@ -7,8 +7,7 @@ import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
-import Table from "./Table";
-import UserData from "./UserData";
+import AllDetails from './UsersTabs'
 // import UserOrder from "./UserOrder";
 
 const PartnerDashboard = () => {
@@ -91,12 +90,7 @@ const PartnerDashboard = () => {
         </aside>
 
         <section className="right">
-          <div className="partner_table">
-          <Table />
-          </div>
-          <div className="user_table">
-          <UserData />
-          </div>
+          <AllDetails />
         </section>
       </main>
     </Fragment>

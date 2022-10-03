@@ -1,4 +1,4 @@
-import { Box, Button, FormGroup, TextField, Typography } from '@material-ui/core'
+import { Box, Button, FormGroup, TextField} from '@material-ui/core'
 import React from 'react'
 const Address = ({ values, handleFormData, nextStep, prevStep }) => {
     const submitFormData = (e) => {
@@ -7,12 +7,7 @@ const Address = ({ values, handleFormData, nextStep, prevStep }) => {
 
     return (
         <div>
-            <Box
-                sx={{
-                    maxHeight: 300,
-                    overflow: 'scroll',
-                    padding: '0px auto'
-                }}>
+            <Box>
                 <FormGroup onSubmit={submitFormData} sx={{ padding: '0px auto' }} className="address_modal">
                     <h5>Sender Details</h5>
                     <TextField

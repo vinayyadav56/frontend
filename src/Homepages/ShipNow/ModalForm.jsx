@@ -6,7 +6,11 @@ import {
 
 } from "@material-ui/core";
 import ShipingOrder from './ShipingOrder';
-
+ const modalStyle = {
+    overflowY:'scroll',
+    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+    border: 'none',
+ }
 const style = {
     position: 'absolute',
     top: '50%',
@@ -14,9 +18,10 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: 'background.paper',
-    border: '2px solid #000',
     boxShadow: 24,
-    p: 4,
+    p:2,
+    height:'unset',
+    borderRadius: '4px'
 };
 const ModalForm = (label) => {
     const [open, setOpen] = React.useState(false);
@@ -33,14 +38,14 @@ const ModalForm = (label) => {
         <div>
             <Button onClick={handleOpen} className="home_shipnow">Ship Now</Button>
             <Modal
+               sx={modalStyle}
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
                 <Box
-                    sx={style}
-                    style={{  boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', minHeight: '300px', borderRadius: '4px', border: 'none' }}>
+                    sx={style}>
                     {/* <Stepper alternativeLabel activeStep={activeStep}>
                         {steps.map((label) => {
                             // const labelProps = {};
