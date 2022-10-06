@@ -23,6 +23,13 @@
     padding-bottom: 0.1rem;
     font-weight: 600;
 }
+.css-1jbbcbn-MuiDataGrid-columnHeaderTitle {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-weight: 600;
+    font-size: 14px;
+}
 .ck_order_form .weight_section{
     display: flex;
     justify-content: space-between;

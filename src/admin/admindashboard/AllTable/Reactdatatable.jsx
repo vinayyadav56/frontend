@@ -6,85 +6,60 @@ import { useAlert } from "react-alert";
 import "./Table.css";
 import "../partnerorder.css";
 import Addpartner from "../Addpartner";
-// import { 
-//   Paper, 
-//   Table, 
-//   TableBody, 
-//   TableCell, 
-//   TableContainer, 
-//   TableHead, 
-//   TablePagination, 
-//   TableRow 
-// }from "@material-ui/core";
-
-// interface Column {
-//   id: 'name' | 'code' | 'population' | 'size' | 'density';
-//   label: string;
-//   minWidth?: number;
-//   align?: 'right';
-//   format?: (value: number) => string;
-// }
-// const columns = [
-//   { id: 'name', label: 'Name', minWidth: 170 },
-//   { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
-//   {
-//     id: 'population',
-//     label: 'Population',
-//     minWidth: 170,
-//     align: 'right',
-//     format: (value: number) => value.toLocaleString('en-US'),
-//   },
-//   {
-//     id: 'size',
-//     label: 'Size\u00a0(km\u00b2)',
-//     minWidth: 170,
-//     align: 'right',
-//     format: (value: number) => value.toLocaleString('en-US'),
-//   },
-//   {
-//     id: 'density',
-//     label: 'Density',
-//     minWidth: 170,
-//     align: 'right',
-//     format: (value: number) => value.toFixed(2),
-//   },
-// ];
-// interface Data {
-//   name: string;
-//   code: string;
-//   population: number;
-//   size: number;
-//   density: number;
-// }
-
-// function createData(
-//   name: string,
-//   code: string,
-//   population: number,
-//   size: number,
-// ): Data {
-//   const density = population / size;
-//   return { name, code, population, size, density };
-// }
+import { styled } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import TableFooter from '@mui/material/TableFooter';
+import TablePagination from '@mui/material/TablePagination';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormGroup, TextField } from "@material-ui/core";
 
 const Reactdatatable = () => {
+  const [open, setopen] = React.useState(false);
 
-  // React Table Js START
-  
-  // const [page, setPage] = React.useState(0);
-  // const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const handleClickOpen = () => {
+    setopen(true);
+  };
 
-  // const handleChangePage = (event: unknown, newPage: number) => {
-  //   setPage(newPage);
-  // };
+  const handleClose = () => {
+    setopen(false);
+  };
 
-  // const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setRowsPerPage(+event.target.value);
-  //   setPage(0);
-  // };
-  // REACT TABLE JS ENDS
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
 
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 5));
+    setPage(0);
+  };
+  // PAGINATION ENDS
+
+  // DATA GRID TABLE START
+  const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: '#0747a9',
+      color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+      fontSize: 12,
+      padding: '10px 14px',
+      border: '1px solid #c8c8c8'
+    },
+  }));
+
+  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    }
+  }));
   let alert = useAlert();
   const [setFilterVal] = useState([]);
   const [partnerData, setPartnerData] = useState([]);
@@ -127,6 +102,7 @@ const Reactdatatable = () => {
     try {
       console.log(res)
       if (res.data.success === true) {
+        setopen(false);
         alert.success(res.data.message);
       } else if (res.data.success === false) {
         alert.success(res.data.message);
@@ -189,7 +165,9 @@ const Reactdatatable = () => {
       }
     );
     try {
-      alert.success(response.data.message);
+      if (alert.success(response.data.message)) {
+        setopen(false);
+      };
     } catch (error) {
       console.log(error);
     }
@@ -202,9 +180,9 @@ const Reactdatatable = () => {
       `http://35.91.35.188/api/partner-fetch-single-record/${id}`
     );
     try {
-      // console.log(
-      //   "response " + JSON.stringify(response.data.partner_single_data)
-      // );
+      console.log(
+        "response " + JSON.stringify(response.data.partner_single_data)
+      );
       setEditData(response.data.partner_single_data);
     } catch (error) {
       console.log(error);
@@ -213,152 +191,138 @@ const Reactdatatable = () => {
   // FETCH PARTNER DETAILS ENDS
   return (
     <Fragment>
-      <div>
-        <div className="filter_partner">
-          <div className="form-row">
-            <div className="col">
-              <label>Search Partner :-</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Filter"
-                onChange={handleSearch}
-              />
-            </div>
-            <div className="col">
-              <div>
-                <Addpartner />
-              </div>
+
+
+      <div className="filter_partner">
+        <div className="form-row">
+          <div className="col">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search Partner"
+              onChange={handleSearch}
+            />
+          </div>
+          <div className="col">
+            <div>
+              <Addpartner />
             </div>
           </div>
         </div>
-        <div className="table-responsive-lg">
-          <table>
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Pincode</th>
-                <th>State</th>
-                <th>City</th>
-                <th>Address</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {partnerData
-                // eslint-disable-next-line
-                .filter((val) => {
-                  if (searchTerm === "") {
-                    return val;
-                  } else if (
-                    val.partner_name
-                      .toLocaleLowerCase()
-                      .includes(searchTerm.toLocaleLowerCase())
-                  ) {
-                    return val;
-                  }
-                })
-                .map((item, id) => {
-                  return (
-                    <tr
-                      partner-id={item.id}
-                      key={id}
-                      style={{ margin: "10px 0 10px 0" }}
-                    >
-                      <td>{id + 1}</td>
-                      <td>{item.partner_name}</td>
-                      <td>{item.partner_email}</td>
-                      <td>{item.partner_phone}</td>
-                      <td>{item.partner_pincode}</td>
-                      <td>{item.partner_state} </td>
-                      <td>{item.partner_city} </td>
-                      <td>{item.partner_address} </td>
-                      <td className="d-flex">
-                        <button
-                          onClick={() => fetchID(item.id)}
-                          className="btn add_partner py-0 mr-1"
-                          data-toggle="modal"
-                          data-target="#editPartner"
-                        >
-                          EDIT
-                        </button>
-
-                        <button
-                          className="btn delete-btn mr-1"
-                          onClick={() => deleteData(item.id)}
-                        >
-                          DELETE
-                        </button>
-                        <button
-                          className="btn partner_order py-0 mr-1"
-                          data-toggle="modal"
-                          data-target="#orderPartner"
-                          onClick={() => fetchOrderData(item.id)}
-                        >
-                          ORDER
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
-        </div>
       </div>
 
-
       {/* React Table start */}
-      {/* <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-        <TableContainer sx={{ maxHeight: 220 }}>
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                {columns.map((column) => (
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                    style={{ minWidth: column.minWidth }}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {partnerData
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row,id) => {
-                  return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={id}>
-                      {columns.map((column) => {
-                        const value = row[column.id];
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === 'number'
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
-                        );
-                      })}
-                    </TableRow>
-                  );
-                })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
-          component="div"
-          count={partnerData.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper> */}
+
+      <TableContainer component={Paper}>
+        <Table stickyHeader striped aria-label="sticky table">
+          <TableHead>
+            <StyledTableRow>
+              <StyledTableCell>Id</StyledTableCell>
+              <StyledTableCell>Name</StyledTableCell>
+              <StyledTableCell>Email</StyledTableCell>
+              <StyledTableCell>Phone</StyledTableCell>
+              <StyledTableCell>Pincode</StyledTableCell>
+              <StyledTableCell>City</StyledTableCell>
+              <StyledTableCell>State</StyledTableCell>
+              <StyledTableCell>Address</StyledTableCell>
+              <StyledTableCell>Action</StyledTableCell>
+            </StyledTableRow>
+          </TableHead>
+          <TableBody>
+            {partnerData
+              // eslint-disable-next-line
+              .filter((val) => {
+                if (searchTerm === "") {
+                  return val;
+                } else if (
+                  val.partner_name
+                    .toLocaleLowerCase()
+                    .includes(searchTerm.toLocaleLowerCase())
+                ) {
+                  return val;
+                }
+              })
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row, id) => (
+                <StyledTableRow hover tabIndex={-1} key={id}>
+                  <StyledTableCell>{row.id}</StyledTableCell>
+                  <StyledTableCell>{row.partner_name}</StyledTableCell>
+                  <StyledTableCell>{row.partner_email}</StyledTableCell>
+                  <StyledTableCell>{row.partner_phone}</StyledTableCell>
+                  <StyledTableCell>{row.partner_pincode}</StyledTableCell>
+                  <StyledTableCell>{row.partner_city}</StyledTableCell>
+                  <StyledTableCell>{row.partner_state}</StyledTableCell>
+                  <StyledTableCell>{row.partner_address}</StyledTableCell>
+                  <StyledTableCell>
+                    <button
+                      onClick={() => fetchID(row.id)}
+                      className="btn add_partner py-0 mr-1"
+                      data-toggle="modal"
+                      variant="contained"
+                      data-target="#editPartner"
+                    >
+                      EDIT
+                    </button>
+                    <button
+                      className="btn delete-btn mr-1"
+                      onClick={handleClickOpen}
+                      variant="outlined" color="error"
+                    >
+                      DELETE
+                    </button>
+                    <Button
+                      className="btn partner_order py-0 mr-1"
+                      data-toggle="modal"
+                      data-target="#orderPartner"
+                      variant="contained"
+                      color='error'
+                      onClick={() => fetchOrderData(row.id)}
+                    >
+                      ORDER
+                    </Button>
+
+                    {/* Delete POPUP START */}
+                    <Dialog
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="alert-dialog-title"
+                      aria-describedby="alert-dialog-description"
+                    >
+                      <DialogTitle id="alert-dialog-title">
+                        {"Are you want to delete partner?"}
+                      </DialogTitle>
+                      <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                          Once You Delete it , never backup it.
+                        </DialogContentText>
+                      </DialogContent>
+                      <DialogActions>
+                        <Button onClick={handleClose}>Disagree</Button>
+                        <Button onClick={() => deleteData(row.id)} autoFocus>
+                          Agree
+                        </Button>
+                      </DialogActions>
+                    </Dialog>
+                    {/* Delete POPUP ENDS */}
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                page={page}
+                onPageChange={handleChangePage}
+                rowsPerPage={rowsPerPage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                rowsPerPageOptions={[10, 25, 100]}
+                count={partnerData.length}
+                rows={10}
+              />
+            </TableRow>
+          </TableFooter>
+        </Table>
+      </TableContainer>
       {/* React Table ends */}
 
       {/* EDIT MODAL START */}
@@ -390,74 +354,89 @@ const Reactdatatable = () => {
               </button>
             </div>
             <div className="modal-body">
-              <form
+              <FormGroup
                 className="partner_add"
               >
-                <input
+                <TextField
                   type="text"
-                  className="form-control"
-                  placeholder="Name"
+                  variant='outlined'
+                  margin="normal"
+                  size='small'
+                  label="Name"
                   name="partner_name"
                   onChange={handleInput}
                   value={editData.partner_name}
-                ></input>
-                <input
+                />
+                <TextField
                   type="text"
-                  className="form-control"
                   name="partner_email"
-                  placeholder="Email"
+                  variant='outlined'
+                  margin="normal"
+                  size='small'
+                  label="Email"
                   onChange={handleInput}
                   value={editData.partner_email}
-                ></input>
-                <input
+                />
+                <TextField
                   type="text"
-                  className="form-control"
                   name="partner_phone"
                   onChange={handleInput}
-                  placeholder="Phone"
+                  variant='outlined'
+                  margin="normal"
+                  size='small'
+                  label="Phone"
                   value={editData.partner_phone}
-                ></input>
-                <input
+                />
+                <TextField
                   type="text"
-                  className="form-control"
                   name="partner_pincode"
                   onChange={handleInput}
-                  placeholder="Pincode"
+                  variant='outlined'
+                  margin="normal"
+                  size='small'
+                  label="Pincode"
                   value={editData.partner_pincode}
-                ></input>
-                <input
+                />
+                <TextField
                   type="text"
-                  className="form-control"
                   name="partner_state"
                   onChange={handleInput}
-                  placeholder="State"
+                  variant='outlined'
+                  margin="normal"
+                  size='small'
+                  label="State"
                   value={editData.partner_state}
-                ></input>
-                <input
+                />
+                <TextField
                   type="text"
                   name="partner_city"
-                  className="form-control"
                   onChange={handleInput}
-                  placeholder="City"
+                  variant='outlined'
+                  margin="normal"
+                  size='small'
+                  label="City"
                   value={editData.partner_city}
-                ></input>
-                <input
+                />
+                <TextField
                   type="text"
-                  className="form-control"
                   name="partner_address"
                   onChange={handleInput}
-                  placeholder="Address"
+                  variant='outlined'
+                  margin='normal'
+                  size='small'
+                  label="Address"
                   value={editData.partner_address}
-                ></input>
+                />
                 <div className="d-flex justify-content-between">
                   <button
                     onClick={(e) => handlePartner(e, editData.id)}
+                    data-dismiss="modal"
                     className="btn btn-primary"
                   >
                     Save Partner
                   </button>
                 </div>
-              </form>
+              </FormGroup>
             </div>
           </div>
         </div>
@@ -495,7 +474,7 @@ const Reactdatatable = () => {
             <div className="modal-body p-0">
               <div className="table-responsive-lg partner_order_list">
                 <table className="table table-striped">
-                  
+
                   <tbody>
                     {partnerOrderData.map((item, id) => {
                       return (
@@ -546,6 +525,7 @@ const Reactdatatable = () => {
         </div>
       </div>
       {/* ORDER DETAILS ENDS */}
+
     </Fragment>
   );
 };

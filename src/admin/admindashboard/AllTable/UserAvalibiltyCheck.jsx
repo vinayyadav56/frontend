@@ -89,9 +89,9 @@ const UserAvalibiltyCheck = () => {
           />
         </div>
       </div>
-      <div className="table-responsive-lg">
-        <table>
-          <thead>
+      <div className="table-responsive">
+          <table id="dtBasicExample" className="table table-striped table-hover table-bordered table-sm" cellspacing="0" width="100%">
+            <thead className="thead-dark sticky-top">
             <tr>
               <th>Id</th>
               <th>Order Id</th>

@@ -6,18 +6,33 @@
   body{
     font-family: "Poppins", sans-serif;
   }
-  .table-responsive-lg{
+  .table-responsive{
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+      height: 300px;
+  }
+  .table-responsive tr th, .table-responsive tr td{
+    padding: 0.6rem 0.2rem;
+    border: 1px solid #c8c8c8;
+    text-align: center;
+    vertical-align: middle;
+  }
+  /* .table-responsive-lg{
     border: 0px;
     max-height: 300px;
     overflow: scroll;
+    scroll-behavior: smooth;
   }
   .table-responsive-lg table{
     width: 100%;
+   
+    scrollbar-width: 10px;
   }
   .table-responsive-lg thead tr th{
     position:sticky;
     text-align: left;
-    padding:0.4rem;
+    padding:1rem 0.8rem;
     font-style: normal;
     font-size: 12px;
     color: #000000;
@@ -25,7 +40,7 @@
   }
   .table-responsive-lg tbody tr td{
     text-align: left;
-    padding: 0.8rem 0.4rem;
+    padding: 0.8rem 0.8rem;
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
@@ -39,12 +54,11 @@
     font-size: 12px;
     color: #000000;
   }
-.table-responsive-lg tbody tr{
+.table-responsive-lg tbody tr td{
   background: #FFFFFF;
-  box-shadow: 0px 0px 12px rgb(0 0 0 / 10%);
-  border-radius: 4px;
-  border-bottom: 2px solid #EAEAEA;
-}
+  /* box-shadow: 0px 0px 12px rgb(0 0 0 / 10%); */
+  /* border-radius: 4px; */
+
   /* .table-responsive-lg tr{
     border-bottom: 1px solid #333;
     border-top: 1px solid #333;
@@ -77,37 +91,37 @@
   padding:1px 6px;
   font-size: 10px;
   text-transform: capitalize;
-  background: rgb(243, 3, 3);
-  color: #fff;
+  background: rgb(243, 3, 3) !important;
+  color: #fff !important;
   border: 1px solid rgb(243, 3, 3);
 }
 .delete-btn:hover{
-  color: rgb(243, 3, 3);
-  background-color: #fff;
+  color: rgb(243, 3, 3) !important;
+  background-color: #fff !important;
   border: 1px solid rgb(243, 3, 3);
 }
 .add_partner{
-  background-color: #0747a9;
-  color: #fff;
-  border: 1px solid #0747a9;
+  background-color: #0747a9 !important;
+  color: #fff !important;
+  border: 1px solid #0747a9 !important;
 }
 .add_partner:hover{
-  background-color: #fff;
-  color: #0747a9;
-  border: 1px solid #0747a9;
+  background-color: #fff !important;
+  color: #0747a9 !important;
+  border: 1px solid #0747a9 !important;
 }
 .add_partner:focus{
   box-shadow: none;
   outline: none;
 }
 .partner_order{
-  background-color: green;
-  color: #fff;
+  background-color: green !important;
+  color: #fff !important;
   border: 1px solid green;
 }
 .partner_order:hover{
-  color: green;
-  background-color: #fff;
+  color: green !important;
+  background-color: #fff !important;
 }
 .partner_order:focus{
   box-shadow: none;
