@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import QrReader from 'reacr-qr-scanner'
+import QrReader from 'react-qr-scanner'
 import { Fragment } from 'react';
 import { data } from 'jquery';
 
@@ -21,15 +21,14 @@ handleError(err){
 }
 render(){
     const prestyle= {
-        height:700,
-        weight:1000,
+        height:200,
+        weight:400,
         display:'flex',
         justifyContent:'center'
     }
     const camera ={
         display:'flex',
         justifyContent:'center',
-        marginTop:'-50px'
     }
     const textStyle={
     }
