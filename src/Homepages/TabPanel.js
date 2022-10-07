@@ -58,10 +58,7 @@ export default function BasicTabs() {
     const [activeTab, setActiveTab] = React.useState(0);
     const formRef = useRef();
 
-    const [suggestions, setSuggestion] = useState([
-        {value: 'NDLS railway Station'},
-        {value: 'Hazrat Nizamuddin Station'}
-    ]);
+    const [suggestions, setSuggestion] = useState([]);
 
     const handleChange = (e, newValue) => {
         setActiveTab(newValue);
@@ -120,7 +117,9 @@ export default function BasicTabs() {
             }).then(res => {
                 setSuggestion(res.map(loc => {
                     return {
-                        value: loc.station_name
+                        value: formData.transport_type == 'station' ? loc.station_name : loc.name,
+                        code: formData.transport_type == 'station' ? loc.station_code : loc.stationCode,
+                        city: formData.transport_type == 'station' ? loc.city_name : loc.cityName
                     }
                 }))
             })
@@ -140,7 +139,7 @@ export default function BasicTabs() {
 
         try{
             const payload = getPayload(formData.journey_type == 'round_trip');
-            makeRequest('POST', 'userAvailability', payload).then(res => {
+            makeRequest('POST', 'createUserAvailability', payload).then(res => {
                 if(res.success) {
                     alert.success(res.message)
                     setFormData(FormDataType);
@@ -149,7 +148,8 @@ export default function BasicTabs() {
                     alert.error(res.message);
                 }
             }).catch(err => {
-                alert.error(err);
+                console.log(err);
+                alert.error(err.message);
             }).finally(() => setLoading(false));
         }catch(e){
             alert.error("Please fill all the details")
@@ -164,30 +164,37 @@ export default function BasicTabs() {
     const getPayload = (twoWay = false) => {
         return {
             user_id: user.id,
-            order_id: 3,
+            from_location: {
+                city: formData.location_from.value,
+                airport_code: formData.location_from.code,
+                station_code: formData.location_from.code,
+                pin_code: ''
+            },
+            to_location: {
+                city: formData.location_to.value,
+                airport_code: formData.location_to.code,
+                station_code: formData.location_to.code,
+                pin_code: ''
+            },
             journey_type: formData.journey_type,
-            fromlocation: formData.location_from,
-            tolocation: formData.location_to,
-            Status: "true",
-            available_space: formData.dept_luggage,
             journey_schedule: {
                 first_way: {
                     from_date: formData.dept_date.format('DD-MM-YYYY'),
                     to_date: formData.dept_date.format('DD-MM-YYYY'),
                     item_receive_timing: formData.dept_time.format('DD-MM-YYYY H:mm:ss'),
                     ticket_number: formData.dept_ticket,
-                    luggage_space: formData.dept_luggage,
+                    available_space_first_way: formData.dept_luggage,
                     journey_medium: formData.transport_type,
-                    journey_type_way: 'single'
+                    journey_way: 'single'
                 },
                 second_way: twoWay ? {
                     from_date: formData.return_date.format('DD-MM-YYYY'),
                     to_date: formData.return_date.format('DD-MM-YYYY'),
                     item_receive_timing: formData.return_time.format('DD-MM-YYYY H:mm:ss'),
                     ticket_number: formData.return_ticket,
-                    luggage_space: formData.return_luggage,
+                    available_space_second_way: formData.return_luggage,
                     journey_medium: formData.transport_type,
-                    journey_type_way: "single"
+                    journey_way: "single"
                 } : {}
             }
         }
@@ -242,7 +249,7 @@ export default function BasicTabs() {
                         dropdownMatchSelectWidth={252}
                         style={{width: "100%"}}
                         options={suggestions}
-                        onSelect={(value) => handleFormChange('location_from', value)}
+                        onSelect={(value, opt) => handleFormChange('location_from', opt)}
                         onSearch={handleLocationSearch}
                         placeholder="From"
                     >
@@ -261,7 +268,7 @@ export default function BasicTabs() {
                         dropdownMatchSelectWidth={252}
                         style={{width: "100%"}}
                         options={suggestions}
-                        onSelect={value => handleFormChange('location_to', value)}
+                        onSelect={(value, opt) => handleFormChange('location_to', opt)}
                         onSearch={handleLocationSearch}
                         placeholder="To"
                     >
@@ -292,7 +299,7 @@ export default function BasicTabs() {
                       name="dept_luggage"
                       className="form-control"
                       placeholder="only number"
-                      onInput={e => {  e.target.value = e.target.value.replace(/[^0-9]/g, '')}}
+                      onInput={e => {  e.target.value = e.target.value.replace(/[\D]/g, '')}}
                       onChange={(e) => handleFormChange(e.target.name, e.target.value)}
                   />
                   <span className="unit">Kg</span>
@@ -330,7 +337,7 @@ export default function BasicTabs() {
                         dropdownMatchSelectWidth={252}
                         style={{width: "100%"}}
                         options={suggestions}
-                        onSelect={value => handleFormChange('location_from', value)}
+                        onSelect={(value, opt) => handleFormChange('location_from', opt)}
                         onSearch={handleLocationSearch}
                         placeholder="From"
                         required
@@ -352,7 +359,7 @@ export default function BasicTabs() {
                         dropdownMatchSelectWidth={252}
                         style={{width: "100%"}}
                         options={suggestions}
-                        onSelect={value => handleFormChange('location_to', value)}
+                        onSelect={(value, opt) => handleFormChange('location_to', opt)}
                         onSearch={handleLocationSearch}
                         placeholder="To"
                     >
@@ -385,7 +392,7 @@ export default function BasicTabs() {
                       id="lsp"
                       name="dept_luggage"
                       className="form-control"
-                      onInput={e => {  e.target.value = e.target.value.replace(/[^0-9]/g, '')}}
+                      onInput={e => {  e.target.value = e.target.value.replace(/[\D]/g, '')}}
                       onChange={(e) => handleFormChange(e.target.name, e.target.value)}
                   />
                   <span className="unit">Kg</span>
@@ -433,7 +440,7 @@ export default function BasicTabs() {
                       id="lsp"
                       name="return_luggage"
                       className="form-control"
-                      onInput={e => {  e.target.value = e.target.value.replace(/[^0-9]/g, '')}}
+                      onInput={e => {  e.target.value = e.target.value.replace(/[\D]/g, '')}}
                       onChange={(e) => handleFormChange(e.target.name, e.target.value)}
                   />
                   <span className="unit">Kg</span>
