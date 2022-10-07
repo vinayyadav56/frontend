@@ -334,7 +334,8 @@ ul {
 }
 /* BILLING DETAILS CSS START */
 .billing_details{
-    border-bottom: 2px dashed #000;
+    border-bottom: 1px dashed #333;
+    padding: 16px 0px !important;
 }
 .billing_details h4 , .shipping_details h4{
     font-size: 14px;
@@ -352,7 +353,9 @@ ul {
     font-weight: 500;
     color: #8c8c8c;
 }
-
+.shipping_details{
+    padding: 16px 0px !important;
+}
 /* SHIP MODAL CSS ENDS */
 /* dropdown css start */
 .menu .dropdown {

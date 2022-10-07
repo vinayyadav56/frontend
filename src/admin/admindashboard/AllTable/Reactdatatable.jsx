@@ -445,14 +445,14 @@ const Reactdatatable = () => {
 
       {/* ORDER DETAILS START */}
       <div
-        className="modal bd-example-modal-md fade"
+        className="modal bd-example-modal-xl fade"
         id="orderPartner"
         role="dialog"
         aria-labelledby="orderPartnerTitle"
         aria-hidden="true"
       >
         <div
-          className="modal-dialog modal-dialog-centered modal-md add-partner"
+          className="modal-dialog modal-dialog-centered modal-xl add-partner"
           role="document"
         >
           <div className="modal-content">

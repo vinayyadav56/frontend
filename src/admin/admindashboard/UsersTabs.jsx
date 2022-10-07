@@ -41,7 +41,7 @@ function a11yProps(index) {
 }
 export default function AllDetails() {
     const [chooseValue, setChooseValue] = React.useState(0);
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    const handleChange = (event,newValue) => {
         setChooseValue(newValue);
     };
 
@@ -57,8 +57,7 @@ export default function AllDetails() {
                         aria-label="basic tabs example"
                     >
                         <Tab label="Partner Data" {...a11yProps(0)} />
-                        <Tab label="Carrier" {...a11yProps(1)} />
-                        <Tab label="Customer" {...a11yProps(2)} />
+                        <Tab label="Users Data" {...a11yProps(1)} />
                     </Tabs>
                 </Box>
                 <TabPanel value={chooseValue} index={0}>

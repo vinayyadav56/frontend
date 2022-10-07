@@ -43,16 +43,15 @@ const PaymentInfo = ({ userActive }) => {
     // UPDATE USERS ENDS
     return (
         <div>
-            <div className="container-fluid personal-info-form">
-
-                <div className="col-lg-6 mt-4">
+            <div className="container-fluid personal-info-form px-0">
+                <div className="col-lg-6 px-0">
                     <div className="headings">
                         <h3>Payment Details</h3>
                         <p>See your payment detail here</p>
                     </div>
                     <div className="per_form">
                         <div className="row">
-                            <div className="form-group col-6">
+                            <div className="form-group col-lg-6">
                                 <label>Account holder Name*</label>
                                 <input
                                     className="form-control"
@@ -61,7 +60,7 @@ const PaymentInfo = ({ userActive }) => {
                                     value={userDatas.first_name}
                                 />
                             </div>
-                            <div className="form-group col-6">
+                            <div className="form-group col-lg-6">
                                 <label>Branch Name*</label>
                                 <input
                                     className="form-control"
@@ -72,7 +71,7 @@ const PaymentInfo = ({ userActive }) => {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="form-group col-5 pr-2">
+                            <div className="form-group col-lg-5 lg-pr-2">
                                 <label>Account Number*</label>
                                 <input
                                     className="form-control"
@@ -81,7 +80,7 @@ const PaymentInfo = ({ userActive }) => {
                                     value={userDatas.acc_no}
                                 />
                             </div>
-                            <div className="form-group col-7">
+                            <div className="form-group col-lg-7">
                                 <label>IFSC Code*</label>
                                 <div className="input-group">
                                     <input
@@ -103,7 +102,7 @@ const PaymentInfo = ({ userActive }) => {
                             />
                         </div>
                         <div className="row">
-                            <div className="form-group col-6">
+                            <div className="form-group col-lg-6">
                                 <label>PAN No:</label>
                                 <input
                                     className="form-control"
@@ -112,7 +111,7 @@ const PaymentInfo = ({ userActive }) => {
                                     type="text"
                                 />
                             </div>
-                            <div className="form-group col-6">
+                            <div className="form-group col-lg-6">
                                 <label>Aadhar No:</label>
                                 <input
                                     className="form-control"
@@ -140,7 +139,6 @@ const PaymentInfo = ({ userActive }) => {
                     </div>
                 </div>
             </div>
-
         </div>
     );
 };

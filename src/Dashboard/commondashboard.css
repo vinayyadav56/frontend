@@ -246,14 +246,14 @@ ul{
     border-radius: 5px;
 }
 .main-content .personal-info-form{
-    margin-top: 1rem;
+    margin-top: 0rem;
     width: 100%;
-    overflow: scroll;
-    height: 470px;
+
 }
 .per_form{
     background-color:#fff;
     padding: 1.2rem 1rem;
+    box-shadow: 0px 0px 15px -1px rgb(181 179 181);
     border-radius: 8px;
 }
 ::-webkit-scrollbar {

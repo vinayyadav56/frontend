@@ -35,6 +35,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import Services from "./Homepages/Services";
 import CkOrder from "./admin/admindashboard/CkOrder";
+import Qrscan from "./Dashboard/Qrscan";
 
 const App = () => {
   const options = {
@@ -80,7 +81,6 @@ const App = () => {
             <Route path="/about" component={About} />
             <Route path="/contact" component={Contact} />
             {/* no show before login */}
-
             <Route path="/partner/dashboard">
               <PartnerDashboard />
             </Route>
@@ -100,72 +100,35 @@ const App = () => {
             <Route exact path="/admindashboardckorder">
               <CkOrder />
             </Route>
-
             <Route path="/carrier/dashboard/postavailabilty">
-              {user && user.id ? (
-                <Postavailablity
-                  addUserLocal={addUserLocal}
-                  userActive={user}
-                />
-              ) : (
-                <Login addUserLocal={addUserLocal} />
-              )}
+                <Postavailablity userActive={user} addUserLocal={addUserLocal} />
             </Route>
             <Route path="/carrier/dashboard/profile">
-              {user && user.id ? (
                 <UserProfile addUserLocal={addUserLocal} userActive={user} />
-              ) : (
-                <Login addUserLocal={addUserLocal} />
-              )}
             </Route>
             <Route path="/carrier/dashboard/paymenthistory">
-              {user && user.id ? (
                 <Paymenthistory addUserLocal={addUserLocal} userActive={user} />
-              ) : (
-                <Login addUserLocal={addUserLocal} />
-              )}
             </Route>
             <Route path="/carrier/dashboard/managereferals">
-              {user && user.id ? (
                 <Managereffrals addUserLocal={addUserLocal} userActive={user} />
-              ) : (
-                <Login addUserLocal={addUserLocal} />
-              )}
+            </Route>
+            <Route path="/carrier/dashboard/qrscan">
+                <Qrscan addUserLocal={addUserLocal} userActive={user} />
             </Route>
             <Route path="/carrier/dashboard">
-              {user && user.id ? (
                 <Userdashboard addUserLocal={addUserLocal} />
-              ) : (
-                <Login addUserLocal={addUserLocal} />
-              )}
             </Route>
             <Route exact path="/customer/dashboard">
-              {/* {user && user.id ? ( */}
               <CustomerDashboard />
-              {/* ) : (
-                <Login addUserLocal={addUserLocal} />
-              )} */}
             </Route>
             <Route exact path="/customer/dashboard/profile">
-              {/* {user && user.id ? ( */}
               <CustomerProfile />
-              {/* ) : (
-                <Login addUserLocal={addUserLocal} />
-              )} */}
             </Route>
             <Route exact path="/customer/dashboard/trackhistory">
-              {/* {user && user.id ? ( */}
               <CustomerTrack />
-              {/* ) : (
-                <Login addUserLocal={addUserLocal} />
-              )} */}
             </Route>
             <Route exact path="/customer/dashboard/paymenthistory">
-              {/* {user && user.id ? ( */}
               <CustomerPaymenthistory />
-              {/* ) : (
-                <Login addUserLocal={addUserLocal} />
-              )} */}
             </Route>
             <Redirect to="/" />
           </Switch>

@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import PaymentInfo from "./PaymentInfo";
 import Profileform from "./Profileform";
+import Docverification from "./Docverification";
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
     return (
@@ -48,17 +49,31 @@ export default function ProfileAllDetails() {
 
     return (
         <>
-
-            <Box sx={{ width: "100%" }}>
-                <Box sx={{ borderColor: "divider" }}>
+            <Box sx={{ width: "100%"  }}>
+                <Box sx={{ borderBottom:'1px solid #0747a9',padding:'0px' }}>
                     <Tabs
                         value={chooseValue}
                         onChange={handleChange}
+                        sx={{display:'felx', justifyContent:'space-between'}}
                         aria-label="basic tabs example"
                     >
-                        <Tab label="Personal Information" {...a11yProps(0)} />
-                        <Tab label="Payment Information" {...a11yProps(1)} />
-                        <Tab label="Profile Information" {...a11yProps(2)} />
+                        <Tab sx={{
+                            padding:'0px',
+                            marginRight:'2rem',
+                            fontWeight:'bold'
+                        }} 
+                        label="Personal Information" {...a11yProps(0)} />
+                        <Tab sx={{
+                            padding:'0px',
+                            marginRight:'2rem',
+                            fontWeight:'bold'
+                        }}
+                        label="Payment Information" {...a11yProps(1)} />
+                        <Tab sx={{
+                            padding:'0px',
+                            fontWeight:'bold'
+                        }}
+                        label="Documents Information" {...a11yProps(2)} />
                     </Tabs>
                 </Box>
                 <TabPanel value={chooseValue} index={0}>
@@ -68,10 +83,9 @@ export default function ProfileAllDetails() {
                     <PaymentInfo />
                 </TabPanel>
                 <TabPanel value={chooseValue} index={2}>
-                    <Profileform />
+                    <Docverification />
                 </TabPanel>
             </Box>
-
         </>
     );
 }

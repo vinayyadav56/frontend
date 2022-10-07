@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import emailicon from "../../images/emailicon.png";
-const Profileform = ({ userActive }) => {
+const Profileform = ({addUserLocal, userActive }) => {
     const handleInput = (e) => {
         const { name, value } = e.target;
         setuserDatas({
@@ -14,6 +14,7 @@ const Profileform = ({ userActive }) => {
 
     const fetchUser = async () => {
         const userId = userActive.tokenable_id;
+        console.log('tokenable_id');
         const response = await axios.get(
             `http://35.91.35.188/api/user-detail/${userId}`
         );
@@ -44,15 +45,15 @@ const Profileform = ({ userActive }) => {
     // UPDATE USERS ENDS
     return (
         <div>
-            <div className="container-fluid personal-info-form">
-                <div className="col-lg-6 mt-4">
+            <div className="container-fluid personal-info-form px-0">
+                <div className="col-lg-6 px-0">
                     <div className="headings">
                         <h3>Personal Info</h3>
                         <p>Update your personal detail here</p>
                     </div>
                     <div className="per_form">
                         <div className="row">
-                            <div className="form-group col-6">
+                            <div className="form-group py-0 col-6">
                                 <label>First Name*</label>
                                 <input
                                     name="first_name"
@@ -62,7 +63,7 @@ const Profileform = ({ userActive }) => {
                                     type="text"
                                 />
                             </div>
-                            <div className="form-group col-6">
+                            <div className="form-group py-0 col-6">
                                 <label>Last Name*</label>
                                 <input
                                     name="last_name"
@@ -74,7 +75,7 @@ const Profileform = ({ userActive }) => {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="form-group col-5 pr-2">
+                            <div className="form-group py-0 col-5 pr-2">
                                 <label>Phone Number*</label>
                                 <div className="row">
                                     <div className="col-4 pr-0">
@@ -95,7 +96,7 @@ const Profileform = ({ userActive }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="form-group col-7">
+                            <div className="form-group py-0 col-7">
                                 <label>Email*</label>
                                 <div className="input-group">
                                     <div className="input-group-append">
@@ -113,7 +114,7 @@ const Profileform = ({ userActive }) => {
                                 </div>
                             </div>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group py-0">
                             <label>Address*</label>
                             <input
                                 name="address"
@@ -124,7 +125,7 @@ const Profileform = ({ userActive }) => {
                             />
                         </div>
                         <div className="row">
-                            <div className="form-group col-6">
+                            <div className="form-group py-0 col-6">
                                 <label>PAN Number*</label>
                                 <input
                                     name="pan_no"
@@ -134,7 +135,7 @@ const Profileform = ({ userActive }) => {
                                     type="text"
                                 />
                             </div>
-                            <div className="form-group col-6">
+                            <div className="form-group py-0 col-6">
                                 <label>Aadhar Number*</label>
                                 <input
                                     name="aadhar_no"
@@ -145,7 +146,7 @@ const Profileform = ({ userActive }) => {
                                 />
                             </div>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group py-0">
                             <label>Alternate Number</label>
                             <input
                                 name="alt_number"

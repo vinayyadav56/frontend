@@ -1,0 +1,17 @@
+.document_form{
+    background-color: #fff;
+    margin-top: 1rem;
+    box-shadow: 0px 0px 15px -1px rgb(181 179 181);
+}
+
+.document_form .doc_footer_btn{
+    display: flex;
+    align-items: center;
+    padding: 1rem 0rem 0rem 0rem;
+    justify-content: center;
+}
+.document_form .doc_footer_btn .btn{
+    background-color: #0747a9;
+    color: #fff;
+    padding: 0.8px 5px;
+}
