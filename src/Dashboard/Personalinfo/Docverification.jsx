@@ -1,7 +1,7 @@
 import React from 'react'
 import { Fragment } from 'react'
 import './profilecomp.css';
-const Docverification = () => {
+const DocVerification = () => {
     return (
         <Fragment>
             <div className='container-fluid'>
@@ -56,4 +56,4 @@ const Docverification = () => {
     )
 }
 
-export default Docverification
+export default DocVerification

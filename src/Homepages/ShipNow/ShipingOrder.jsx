@@ -51,10 +51,15 @@ function ShipingOrder() {
 
   // function for going to next step by increasing step state by 1
   const nextStep = () => {
-    console.log("FORM DATA " + JSON.stringify(formData));
+    if (formData.pickup_pincode === '' || formData.pickup_pincode.length <= 0) {
+      return alert("Please Enter Pickup Pincode")
+    } 
+    else {
+      setstep(step + 1);
+    }
 
-    setstep(step + 1);
   };
+  
 
   // function for going to previous step by decreasing step state by 1
   const prevStep = () => {
@@ -91,7 +96,7 @@ function ShipingOrder() {
           values={formData}
         />
       )
-      case 3:
+    case 3:
       return (
         <ReciverAddress
           label="string"
@@ -112,16 +117,16 @@ function ShipingOrder() {
           values={formData}
         />
       )
-      case 5:
-        return (
-          <Schedule
-            label="string"
-            nextStep={nextStep}
-            prevStep={prevStep}
-            handleFormData={handleInputData}
-            values={formData}
-          />
-        )
+    case 5:
+      return (
+        <Schedule
+          label="string"
+          nextStep={nextStep}
+          prevStep={prevStep}
+          handleFormData={handleInputData}
+          values={formData}
+        />
+      )
     // Pickup timminf form
     case 6:
       return (
@@ -133,7 +138,7 @@ function ShipingOrder() {
           values={formData}
         />
       )
-   
+
 
 
     // default case to show nothing

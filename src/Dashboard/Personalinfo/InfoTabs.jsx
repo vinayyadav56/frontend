@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import PaymentInfo from "./PaymentInfo";
 import Profileform from "./Profileform";
-import Docverification from "./Docverification";
+import DocVerification from "./DocVerification";
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
     return (
@@ -83,7 +83,7 @@ export default function ProfileAllDetails() {
                     <PaymentInfo />
                 </TabPanel>
                 <TabPanel value={chooseValue} index={2}>
-                    <Docverification />
+                    <DocVerification />
                 </TabPanel>
             </Box>
         </>

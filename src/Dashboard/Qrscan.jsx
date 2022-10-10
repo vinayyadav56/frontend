@@ -12,7 +12,6 @@ const Qrscanner = ({ addUserLocal, userActive }) => {
                     <div className='container-fluid'>
                         <Qrmake />
                     </div>
-
                 </section>
             </section>
         </div>
