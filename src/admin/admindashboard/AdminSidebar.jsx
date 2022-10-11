@@ -29,7 +29,7 @@ const AdminSidebar = () => {
                 );
               })}
             </div>
-          </div>
+    </div>
     </>
   )
 }

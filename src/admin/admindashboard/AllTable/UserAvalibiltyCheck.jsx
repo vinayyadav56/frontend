@@ -1,7 +1,16 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
-
+import { styled } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import TableFooter from '@mui/material/TableFooter';
+import TablePagination from '@mui/material/TablePagination';
 const UserAvalibiltyCheck = () => {
   const [searchUser, setSearchUser] = useState({
     from_location: "",
@@ -31,7 +40,37 @@ const UserAvalibiltyCheck = () => {
   const handleSearchinput = (e) => {
     setSearchUser(e.target.value)
   };
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 5));
+    setPage(0);
+  };
+  // PAGINATION ENDS
+
+  // DATA GRID TABLE START
+  const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: '#0747a9',
+      color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+      fontSize: 12,
+      padding: '10px 14px',
+      border: '1px solid #c8c8c8'
+    },
+  }));
+
+  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    }
+  }));
   return (
     <div>
       <div className="form-title mt-5">
@@ -89,48 +128,64 @@ const UserAvalibiltyCheck = () => {
           />
         </div>
       </div>
-      <div className="table-responsive">
-          <table id="dtBasicExample" className="table table-striped table-hover table-bordered table-sm" cellspacing="0" width="100%">
-            <thead className="thead-dark sticky-top">
-            <tr>
-              <th>Id</th>
-              <th>Order Id</th>
-              <th>User Id</th>
-              <th>From Location</th>
-              <th>To Location</th>
-              <th>Journey Type</th>
-              <th>Available Space</th>
-              <th>Journey Medium</th>
-              <th>From Date</th>
-              <th>To Date</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-          {Object.values(filterUser).map((item, id) => {
-            return (
-              <tr key={id} style={{ margin: "10px 0 10px 0" }}>
-                <td>{item.id}</td>
-                <td>{item.order_id}</td>
-                <td>{item.user_id}</td>
-                <td>{item.fromlocation}</td>
-                <td>{item.tolocation}</td>
-                <td>{item.journey_type}</td>
-                <td>{item.available_space}</td>
-                <td>{item.journey_medium}</td>
-                <td>{item.from_date}</td>
-                <td>{item.to_date}</td>
-                <td>
-                  <button className="btn btn-success py-0">
-                    ASSIGN ORDER
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-        </table>
-      </div>
+
+      <TableContainer component={Paper}>
+        <Table stickyHeader striped aria-label="sticky table">
+          <TableHead>
+            <StyledTableRow>
+              <StyledTableCell>Id</StyledTableCell>
+              <StyledTableCell>Order Id</StyledTableCell>
+              <StyledTableCell>User Id</StyledTableCell>
+              <StyledTableCell>From Location</StyledTableCell>
+              <StyledTableCell>To Location</StyledTableCell>
+              <StyledTableCell>Journey Type</StyledTableCell>
+              <StyledTableCell>Available Space</StyledTableCell>
+              <StyledTableCell>Journey Medium</StyledTableCell>
+              <StyledTableCell>From Date</StyledTableCell>
+              <StyledTableCell>To Date</StyledTableCell>
+              <StyledTableCell>Action</StyledTableCell>
+            </StyledTableRow>
+          </TableHead>
+          <TableBody>
+            {Object.values(filterUser)
+              // eslint-disable-next-line
+
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((item, id) => (
+                <StyledTableRow hover tabIndex={-1} key={id}>
+                  <StyledTableCell>{item.id}</StyledTableCell>
+                  <StyledTableCell>{item.order_id}</StyledTableCell>
+                  <StyledTableCell>{item.user_id}</StyledTableCell>
+                  <StyledTableCell>{item.fromlocation}</StyledTableCell>
+                  <StyledTableCell>{item.tolocation}</StyledTableCell>
+                  <StyledTableCell>{item.journey_type}</StyledTableCell>
+                  <StyledTableCell>{item.available_space}</StyledTableCell>
+                  <StyledTableCell>{item.journey_medium}</StyledTableCell>
+                  <StyledTableCell>{item.from_date}</StyledTableCell>
+                  <StyledTableCell>{item.to_date}</StyledTableCell>
+                  <StyledTableCell>
+                    <button className="btn btn-success py-0">
+                      ASSIGN ORDER
+                    </button>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                page={page}
+                onPageChange={handleChangePage}
+                rowsPerPage={rowsPerPage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                rowsPerPageOptions={[10, 25, 100]}
+                count={filterUser.length}
+                rows={10}
+              />
+            </TableRow>
+          </TableFooter>
+        </Table>
+      </TableContainer>
     </div>
   );
 };

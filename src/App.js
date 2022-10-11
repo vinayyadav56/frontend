@@ -36,6 +36,12 @@ import { useState } from "react";
 import Services from "./Homepages/Services";
 import CkOrder from "./admin/admindashboard/CkOrder";
 import Qrscan from "./Dashboard/Qrscan";
+import DeliveryDashboard from "./DeliveryBoyPages/DeliveryDashboard";
+import DeliveryProfile from "./DeliveryBoyPages/DeliveryProfilePages/DeliveryProfile";
+import PickupOrder from "./DeliveryBoyPages/PickupOrder";
+import DeliveryOrder from "./DeliveryBoyPages/DeliveryOrder";
+import DeliveryPartnerDetails from "./admin/admindashboard/DeliveryPartnerDetails";
+import DeliveryQrScan from "./DeliveryBoyPages/DeliveryQrScan";
 
 const App = () => {
   const options = {
@@ -100,23 +106,26 @@ const App = () => {
             <Route exact path="/admindashboardckorder">
               <CkOrder />
             </Route>
+            <Route exact path="/admindashboarddeliverypartnerdetails">
+              <DeliveryPartnerDetails />
+            </Route>
             <Route path="/carrier/dashboard/postavailabilty">
-                <Postavailablity userActive={user} addUserLocal={addUserLocal} />
+              <Postavailablity userActive={user} addUserLocal={addUserLocal} />
             </Route>
             <Route path="/carrier/dashboard/profile">
-                <UserProfile addUserLocal={addUserLocal} userActive={user} />
+              <UserProfile addUserLocal={addUserLocal} userActive={user} />
             </Route>
             <Route path="/carrier/dashboard/paymenthistory">
-                <Paymenthistory addUserLocal={addUserLocal} userActive={user} />
+              <Paymenthistory addUserLocal={addUserLocal} userActive={user} />
             </Route>
             <Route path="/carrier/dashboard/managereferals">
-                <Managereffrals addUserLocal={addUserLocal} userActive={user} />
+              <Managereffrals addUserLocal={addUserLocal} userActive={user} />
             </Route>
             <Route path="/carrier/dashboard/qrscan">
-                <Qrscan addUserLocal={addUserLocal} userActive={user} />
+              <Qrscan addUserLocal={addUserLocal} userActive={user} />
             </Route>
             <Route path="/carrier/dashboard">
-                <Userdashboard addUserLocal={addUserLocal} />
+              <Userdashboard addUserLocal={addUserLocal} />
             </Route>
             <Route exact path="/customer/dashboard">
               <CustomerDashboard />
@@ -130,6 +139,30 @@ const App = () => {
             <Route exact path="/customer/dashboard/paymenthistory">
               <CustomerPaymenthistory />
             </Route>
+            <Router>
+              <Route exact path="/delivery/dashboard">
+                <DeliveryDashboard />
+              </Route>
+              <Switch>
+                <Route exact path='/delivery/dashboard/profile'>
+                  <DeliveryProfile />
+                </Route>
+                <Route exact path='/delivery/dashboard/pickuporders'>
+                  <PickupOrder />
+                </Route>
+                <Route exact path='/delivery/dashboard/deliveryorder'>
+                  <DeliveryOrder />
+                </Route>
+                <Route exact path='/delivery/dashboard/paymenthistory'>
+                  <DeliveryProfile />
+                </Route>
+                <Route exact path='/delivery/dashboard/qrscan'>
+                  <DeliveryQrScan />
+                </Route>
+              </Switch>
+
+            </Router>
+
             <Redirect to="/" />
           </Switch>
         </Router>

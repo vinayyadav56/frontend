@@ -1,0 +1,32 @@
+.qr_scan_section .modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: none;
+    border-radius: 4px;
+    outline: 0;
+}
+.modal-content{
+    background: transparent !important;
+}
+.modal-content .modal-header{
+    background:transparent !important;
+    border: none;
+    padding: 0px;
+}
+.modal-content .modal-header .close .modal-off{
+    color: #062e6b !important;
+    font-size: 24px;
+}
+.qr_scan_section{
+    padding-top: 4.8rem;
+}
+.qr_scan_section .modal-dialog {
+    transform: none;
+    display: flex;
+    justify-content: center;
+}

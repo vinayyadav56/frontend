@@ -129,74 +129,13 @@ const UserData = () => {
     )
   });
   // DATA GRID TABLES ENDS
-
   return (
     <div>
       <div className="filter_partner">
         <div className="table-heading">
-          <h2 className="text-center my-3">All User Data</h2>
+          <h2 className="text-center ">All User Data</h2>
         </div>
       </div>
-      {/* <div className="table-responsive">
-          <table id="dtBasicExample" className="table table-striped table-hover table-bordered table-sm" cellspacing="0" width="100%">
-            <thead className="thead-dark sticky-top">
-            <tr>
-              <th>Id</th>
-              <th>FirstName</th>
-              <th>Last Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Pincode</th>
-              <th>State</th>
-              <th>City</th>
-              <th>Address</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {userData
-            // eslint-disable-next-line
-              .filter((val) => {
-                if (searchTerm === "") {
-                  return val;
-                } else if (
-                  val.first_name
-                    .toLocaleLowerCase()
-                    .includes(searchTerm.toLocaleLowerCase()) ||
-                  val.city
-                    .toLocaleLowerCase()
-                    .includes(searchTerm.toLocaleLowerCase())
-                ) {
-                  return val;
-                }
-          
-              })
-              .map((item, id) => {
-                return (
-                  <tr key={id} style={{ margin: "10px 0 10px 0" }}>
-                    <td>{id + 1}</td>
-                    <td>{item.first_name}</td>
-                    <td>{item.last_name}</td>
-                    <td>{item.email}</td>
-                    <td>{item.phone}</td>
-                    <td>{item.pincode}</td>
-                    <td>{item.state} </td>
-                    <td>{item.city} </td>
-                    <td>{item.address} </td>
-                    <td>
-                      <button
-                        className="btn delete-btn"
-                        onClick={(e) => handleDelete(item.id, e)}
-                      >
-                        DELETE
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        </table>
-      </div> */}
       {/* <Paper sx={{ width: '100%', overflow: 'hidden' }}> */}
       <TableContainer component={Paper}>
         <Table stickyHeader striped aria-label="sticky table">
@@ -278,7 +217,6 @@ const UserData = () => {
         </Table>
       </TableContainer>
       {/* </Paper> */}
-
     </div>
   );
 };

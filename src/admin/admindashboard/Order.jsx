@@ -1,13 +1,11 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Adminmenu.css";
-import navArray from "./navArray";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
-import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import UserAvalibiltyCheck from "./AllTable/UserAvalibiltyCheck";
+import AdminSidebar from "./AdminSidebar";
 // import UserOrder from "./UserOrder";
 const Order = () => {
   return (
@@ -62,30 +60,7 @@ const Order = () => {
       </nav>
       <main>
         <aside>
-          <div className="sidebar">
-            <button id="close-btn">
-              <CloseRoundedIcon />
-            </button>
-            <div className="responsive-sidebar">
-             <NavLink to="/admindashboard">
-                <span className="icon">
-                  <GridViewRoundedIcon />
-                </span>
-                <h4 className="title">Dashboard</h4>
-              </NavLink>
-
-              {navArray.map((data, id) => {
-                return (
-                  <li key={id}>
-                   <NavLink to={data.link}>
-                      <span className="icon">{data.icon}</span>
-                      <h4 className="title">{data.nav}</h4>
-                    </NavLink>
-                  </li>
-                );
-              })}
-            </div>
-          </div>
+          <AdminSidebar />
         </aside>
         <section className="right">
           <div className="user_availbility">

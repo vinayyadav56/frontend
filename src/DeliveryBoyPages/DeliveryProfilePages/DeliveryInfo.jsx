@@ -6,8 +6,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import Table from "./AllTable/Table";
-import UserData from "./AllTable/UserData";
+import DeliveryDocumentVerify from "./DeliveryDocumentVerify";
+import DeliveryPersonalForm from "./DeliveryPersonalForm";
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
     return (
@@ -26,44 +26,55 @@ function TabPanel(props) {
         </div>
     );
 }
+
 TabPanel.propTypes = {
     children: PropTypes.node,
     index: PropTypes.number.isRequired,
     value: PropTypes.number.isRequired,
 };
+
 function a11yProps(index) {
     return {
         id: `simple-tab-${index}`,
         "aria-controls": `simple-tabpanel-${index}`,
     };
 }
-export default function AllDetails() {
-    const [chooseValue, setChooseValue] = React.useState(0);  
-    const handleChange = (event, newValue) => {
+export default function DeliveryAllDetails() {
+    const [chooseValue, setChooseValue] = React.useState(0);
+    const handleChange = (event,newValue) => {
         setChooseValue(newValue);
     };
+
+
     return (
         <>
-            <Box sx={{ width: "100%",padding:'0px' }}>
-                <Box sx={{ borderColor: "divider" }}>
+            <Box sx={{ width: "100%"  }}>
+                <Box sx={{ borderBottom:'1px solid #0747a9',padding:'0px' }}>
                     <Tabs
-                        sx={{padding:'0px'}}
                         value={chooseValue}
                         onChange={handleChange}
+                        sx={{display:'felx', justifyContent:'space-between'}}
                         aria-label="basic tabs example"
                     >
-                        <Tab  sx={{padding:'0px'}} label="Partner Data" {...a11yProps(0)} />
-                        <Tab  sx={{padding:'0px'}} label="Users Data" {...a11yProps(1)} />
+                        <Tab sx={{
+                            padding:'0px',
+                            marginRight:'2rem',
+                            fontWeight:'bold'
+                        }} 
+                        label="Personal Information" {...a11yProps(0)} />
+                       
+                        <Tab sx={{
+                            padding:'0px',
+                            fontWeight:'bold'
+                        }}
+                        label="Documents Information" {...a11yProps(1)} />
                     </Tabs>
                 </Box>
-                <TabPanel  sx={{padding:'0px'}} value={chooseValue} index={0}>
-                    <Table sx={{padding:'0px'}} />
+                <TabPanel value={chooseValue} index={0}>
+                    <DeliveryPersonalForm />
                 </TabPanel>
-                <TabPanel  sx={{padding:'0px'}} value={chooseValue} index={1}>
-                    <UserData sx={{padding:'0px'}}/>
-                </TabPanel>
-                <TabPanel  sx={{padding:'0px'}} value={chooseValue} index={2}>
-                    <UserData sx={{padding:'0px'}}/>
+                <TabPanel value={chooseValue} index={1}>
+                    <DeliveryDocumentVerify />
                 </TabPanel>
             </Box>
         </>

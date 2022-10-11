@@ -191,11 +191,9 @@ const Reactdatatable = () => {
   // FETCH PARTNER DETAILS ENDS
   return (
     <Fragment>
-
-
       <div className="filter_partner">
         <div className="form-row">
-          <div className="col">
+          <div className="col-md-2">
             <input
               type="text"
               className="form-control"
@@ -203,8 +201,8 @@ const Reactdatatable = () => {
               onChange={handleSearch}
             />
           </div>
-          <div className="col">
-            <div>
+          <div className="col-md-10">
+            <div className="d-flex justify-content-end">
               <Addpartner />
             </div>
           </div>
