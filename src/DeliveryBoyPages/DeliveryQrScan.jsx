@@ -1,8 +1,6 @@
 import React from 'react'
 import { Fragment } from 'react'
 import QrReader from 'react-qr-scanner'
-import DeliveryHeader from './DeliveryHeader'
-import DeliverySidebar from './DeliverySidebar'
 import './DeliveryPartner.css'
 // import DeliveryScanDetails from './DeliveryScanDetails'
 class DeliveryQrScan extends React.Component {
@@ -40,62 +38,56 @@ class DeliveryQrScan extends React.Component {
         }
         return (
             <Fragment>
-                <section className="user-dashboard">
-                    <DeliverySidebar />
-                    <section className="main-content">
-                        <DeliveryHeader />
-                        <div className='qr_scan_section'>
-                            <button
-                                type="button"
-                                className="btn add_partner"
-                                data-toggle="modal"
-                                data-target="#scanQrDelivery"
-                            >
+                <div className='qr_scan_section'>
+                    <button
+                        type="button"
+                        className="btn add_partner"
+                        data-toggle="modal"
+                        data-target="#scanQrDelivery"
+                    >
 
-                                Scan Qr
-                            </button>
-                            <div
-                                className="modal fade"
-                                id="scanQrDelivery"
-                                role="dialog"
-                                aria-labelledby="scanQrDeliveryTitle"
-                                aria-hidden="true"
-                            >
-                                <div
-                                    className="modal-dialog modal-dialog-centered add-partner"
-                                    role="document"
-                                >
-                                    
-                                    <div className="modal-content d-flex justify-content-center">
-                                    <div className="modal-header">
-                                        <button
-                                            type="button"
-                                            className="close"
-                                            data-dismiss="modal"
-                                            aria-label="Close"
-                                        >
-                                            <span aria-hidden="true" className="modal-off">
-                                                &times;
-                                            </span>
-                                        </button>
-                                    </div>
-                                        <div style={camera}>
-                                            <div style={qrReader}>
-                                                <QrReader
-                                                    delay={this.state.delay}
-                                                    style={previewStyle}
-                                                    onError={this.handleError}
-                                                    onScan={this.handleScan}
-                                                />
-                                            </div>
-                                        </div>
+                        Scan Qr
+                    </button>
+                    <div
+                        className="modal fade"
+                        id="scanQrDelivery"
+                        role="dialog"
+                        aria-labelledby="scanQrDeliveryTitle"
+                        aria-hidden="true"
+                    >
+                        <div
+                            className="modal-dialog modal-dialog-centered add-partner"
+                            role="document"
+                        >
+
+                            <div className="modal-content d-flex justify-content-center">
+                                <div className="modal-header">
+                                    <button
+                                        type="button"
+                                        className="close"
+                                        data-dismiss="modal"
+                                        aria-label="Close"
+                                    >
+                                        <span aria-hidden="true" className="modal-off">
+                                            &times;
+                                        </span>
+                                    </button>
+                                </div>
+                                <div style={camera}>
+                                    <div style={qrReader}>
+                                        <QrReader
+                                            delay={this.state.delay}
+                                            style={previewStyle}
+                                            onError={this.handleError}
+                                            onScan={this.handleScan}
+                                        />
                                     </div>
                                 </div>
                             </div>
-                            {/* <DeliveryScanDetails props={this.state.result}/> */}
                         </div>
-                    </section>
-                </section>
+                    </div>
+                    {/* <DeliveryScanDetails props={this.state.result}/> */}
+                </div>
             </Fragment>
         )
     }

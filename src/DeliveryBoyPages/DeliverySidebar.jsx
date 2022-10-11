@@ -64,16 +64,6 @@ const DeliverySidebar = ({ userActive }) => {
                                     <span>Payment History</span>
                                 </NavLink>
                             </li>
-
-                            <li className="nav-item">
-                                <NavLink
-                                    className="nav-link"
-                                    to="/delivery/dashboard/qrscan"
-                                >
-                                    <img src={historyicon} alt="manage" />
-                                    <span>QR Code</span>
-                                </NavLink>
-                            </li>
                             <li className="nav-item nav-footer-link mt-auto">
                                 <NavLink className="nav-link" to="/helpandsupport">
                                     <img src={vector} alt="setting" />

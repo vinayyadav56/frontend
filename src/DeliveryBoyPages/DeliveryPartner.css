@@ -10,20 +10,17 @@
     border-radius: 4px;
     outline: 0;
 }
-.modal-content{
+.qr_scan_section .modal-content{
     background: transparent !important;
 }
-.modal-content .modal-header{
-    background:transparent !important;
+.qr_scan_section .modal-content .modal-header{
+    background:transparent;
     border: none;
     padding: 0px;
 }
 .modal-content .modal-header .close .modal-off{
     color: #062e6b !important;
     font-size: 24px;
-}
-.qr_scan_section{
-    padding-top: 4.8rem;
 }
 .qr_scan_section .modal-dialog {
     transform: none;

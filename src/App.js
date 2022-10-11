@@ -41,7 +41,6 @@ import DeliveryProfile from "./DeliveryBoyPages/DeliveryProfilePages/DeliveryPro
 import PickupOrder from "./DeliveryBoyPages/PickupOrder";
 import DeliveryOrder from "./DeliveryBoyPages/DeliveryOrder";
 import DeliveryPartnerDetails from "./admin/admindashboard/DeliveryPartnerDetails";
-import DeliveryQrScan from "./DeliveryBoyPages/DeliveryQrScan";
 
 const App = () => {
   const options = {
@@ -139,29 +138,22 @@ const App = () => {
             <Route exact path="/customer/dashboard/paymenthistory">
               <CustomerPaymenthistory />
             </Route>
-            <Router>
-              <Route exact path="/delivery/dashboard">
-                <DeliveryDashboard />
-              </Route>
-              <Switch>
-                <Route exact path='/delivery/dashboard/profile'>
-                  <DeliveryProfile />
-                </Route>
-                <Route exact path='/delivery/dashboard/pickuporders'>
-                  <PickupOrder />
-                </Route>
-                <Route exact path='/delivery/dashboard/deliveryorder'>
-                  <DeliveryOrder />
-                </Route>
-                <Route exact path='/delivery/dashboard/paymenthistory'>
-                  <DeliveryProfile />
-                </Route>
-                <Route exact path='/delivery/dashboard/qrscan'>
-                  <DeliveryQrScan />
-                </Route>
-              </Switch>
+            <Route exact path="/delivery/dashboard">
+              <DeliveryDashboard />
+            </Route>
+            <Route exact path='/delivery/dashboard/profile'>
+              <DeliveryProfile />
+            </Route>
+            <Route exact path='/delivery/dashboard/pickuporders'>
+              <PickupOrder />
+            </Route>
+            <Route exact path='/delivery/dashboard/deliveryorder'>
+              <DeliveryOrder />
+            </Route>
+            <Route exact path='/delivery/dashboard/paymenthistory'>
+              <DeliveryProfile />
+            </Route>
 
-            </Router>
 
             <Redirect to="/" />
           </Switch>

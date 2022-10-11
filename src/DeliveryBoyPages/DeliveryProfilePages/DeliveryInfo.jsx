@@ -49,11 +49,11 @@ export default function DeliveryAllDetails() {
     return (
         <>
             <Box sx={{ width: "100%"  }}>
-                <Box sx={{ borderBottom:'1px solid #0747a9',padding:'0px' }}>
+                <Box sx={{ padding:'0px' }}>
                     <Tabs
                         value={chooseValue}
                         onChange={handleChange}
-                        sx={{display:'felx', justifyContent:'space-between'}}
+                        sx={{display:'felx', justifyContent:'space-between',borderBottom:'1px solid #0747a9'}}
                         aria-label="basic tabs example"
                     >
                         <Tab sx={{

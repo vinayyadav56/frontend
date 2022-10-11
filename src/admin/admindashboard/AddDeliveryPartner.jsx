@@ -72,7 +72,7 @@ const AddDeliveryPartner = () => {
                 data-target="#deliverypartner"
             >
                 <AddIcon />
-                Add Delivery Partner
+                Add Delivery Details Details
             </button>
             <div
                 className="modal fade"
@@ -88,7 +88,7 @@ const AddDeliveryPartner = () => {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title" id="deliverypartnerTitle">
-                                Add Delivery Partner Details
+                                Add Delivery Details Details
                             </h5>
                             <button
                                 type="button"
@@ -108,23 +108,23 @@ const AddDeliveryPartner = () => {
                             >
                                 <TextField
                                     type="text"
-                                    variant='outlined'
+                                    
                                     margin="normal"
                                     size='small'
-                                    label="Delivery Partner Name"
+                                    label=" Name"
                                     name="partner_name"
-                                    placeholder="Delivery Partner Name"
+                                    placeholder=" Name"
                                     onChange={handleInput}
                                     value={partnerregister.partner_name}
                                 ></TextField>
                                 <TextField
                                     type="text"
                                     name="partner_email"
-                                    variant='outlined'
+                                    
                                     margin="normal"
                                     size='small'
-                                    placeholder="Delivery Partner Email"
-                                    label="Delivery Partner Email"
+                                    placeholder=" Email"
+                                    label=" Email"
                                     onChange={handleInput}
                                     value={partnerregister.partner_email}
                                 ></TextField>
@@ -132,59 +132,59 @@ const AddDeliveryPartner = () => {
                                     type="text"
                                     name="partner_phone"
                                     onChange={handleInput}
-                                    variant='outlined'
+                                    
                                     margin="normal"
                                     size='small'
-                                    placeholder="Delivery Partner Name"
-                                    label="Delivery Phone"
+                                    placeholder=" Name"
+                                    label=" Phone"
                                     value={partnerregister.partner_phone}
                                 ></TextField>
                                 <TextField
                                     type="text"
                                     name="partner_pincode"
                                     onChange={handleInput}
-                                    variant='outlined'
+                                    
                                     margin="normal"
                                     size='small'
-                                    placeholder="Delivery Partner Pincode"
-                                    label="Delivery Partner Pincode"
+                                    placeholder=" Pincode"
+                                    label=" Pincode"
                                     value={partnerregister.partner_pincode}
                                 ></TextField>
                                 <TextField
                                     type="text"
                                     name="partner_state"
                                     onChange={handleInput}
-                                    variant='outlined'
+                                    
                                     margin="normal"
                                     size='small'
-                                    placeholder="Delivery Partner Name"
-                                    label="Delivery State"
+                                    placeholder=" Name"
+                                    label=" State"
                                     value={partnerregister.partner_state}
                                 ></TextField>
                                 <TextField
                                     type="text"
                                     name="partner_city"
                                     onChange={handleInput}
-                                    variant='outlined'
+                                    
                                     margin="normal"
                                     size='small'
-                                    placeholder="Delivery Partner City"
-                                    label="Delivery Partner City"
+                                    placeholder=" City"
+                                    label=" City"
                                     value={partnerregister.partner_city}
                                 ></TextField>
                                 <TextField
                                     type="text"
                                     name="partner_address"
                                     onChange={handleInput}
-                                    variant='outlined'
+                                    
                                     margin='normal'
                                     size='small'
-                                    placeholder="Delivery Partner Address"
-                                    label="Delivery Partner Address"
+                                    placeholder=" Address"
+                                    label=" Address"
                                     value={partnerregister.partner_address}
                                 ></TextField>
                                 <div className="d-flex justify-content-between">
-                                    <button className="btn btn-primary">Save Partner</button>
+                                    <button className="btn btn-primary">Save </button>
                                 </div>
                             </FormGroup>
                         </div>

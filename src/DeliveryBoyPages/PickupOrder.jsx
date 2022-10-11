@@ -15,6 +15,7 @@ import TablePagination from '@mui/material/TablePagination';
 import { useState } from 'react';
 import DeliveryHeader from './DeliveryHeader';
 import DeliverySidebar from './DeliverySidebar';
+import DeliveryQrScan from './DeliveryQrScan';
 
 const PickupOrder = ({ userActive, addUserLocal }) => {
     const [page, setPage] = React.useState(0);
@@ -70,22 +71,21 @@ const PickupOrder = ({ userActive, addUserLocal }) => {
                                     </StyledTableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {partnerData
-                                        // eslint-disable-next-line
-                                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                        .map((row, id) => (
-                                            <StyledTableRow hover tabIndex={-1} key={id}>
-                                                <StyledTableCell>{row.id}</StyledTableCell>
-                                                <StyledTableCell>{row.partner_name}</StyledTableCell>
-                                                <StyledTableCell>{row.partner_email}</StyledTableCell>
-                                                <StyledTableCell>{row.partner_phone}</StyledTableCell>
-                                                <StyledTableCell>{row.partner_pincode}</StyledTableCell>
-                                                <StyledTableCell>{row.partner_city}</StyledTableCell>
-                                                <StyledTableCell>{row.partner_state}</StyledTableCell>
-                                                <StyledTableCell>{row.partner_address}</StyledTableCell>
 
-                                            </StyledTableRow>
-                                        ))}
+                                    <StyledTableRow hover tabIndex={-1}>
+                                        <StyledTableCell>04/06/2022</StyledTableCell>
+                                        <StyledTableCell>Delhi</StyledTableCell>
+                                        <StyledTableCell>Mumbai</StyledTableCell>
+                                        <StyledTableCell>Mumbai</StyledTableCell>
+                                        <StyledTableCell>Mumbai</StyledTableCell>
+                                        <StyledTableCell>Mumbai</StyledTableCell>
+                                        <StyledTableCell>Mumbai</StyledTableCell>
+                                        <StyledTableCell>Mumbai</StyledTableCell>
+                                        <StyledTableCell>
+                                            <DeliveryQrScan />
+                                        </StyledTableCell>
+                                    </StyledTableRow>
+
                                 </TableBody>
                                 <TableFooter>
                                     <TableRow>

@@ -50,11 +50,11 @@ export default function ProfileAllDetails() {
     return (
         <>
             <Box sx={{ width: "100%"  }}>
-                <Box sx={{ borderBottom:'1px solid #0747a9',padding:'0px' }}>
+                <Box sx={{ padding:'0px' }}>
                     <Tabs
                         value={chooseValue}
                         onChange={handleChange}
-                        sx={{display:'felx', justifyContent:'space-between'}}
+                        sx={{display:'felx',borderBottom:'1px solid #0747a9', justifyContent:'space-between'}}
                         aria-label="basic tabs example"
                     >
                         <Tab sx={{

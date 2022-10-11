@@ -125,17 +125,14 @@ const DeliveryPartnerDetails = () => {
                         <Table stickyHeader striped aria-label="sticky table">
                             <TableHead>
                                 <StyledTableRow>
-                                    <StyledTableCell>Id</StyledTableCell>
-                                    <StyledTableCell>Order Id</StyledTableCell>
-                                    <StyledTableCell>User Id</StyledTableCell>
-                                    <StyledTableCell>From Location</StyledTableCell>
-                                    <StyledTableCell>To Location</StyledTableCell>
-                                    <StyledTableCell>Journey Type</StyledTableCell>
-                                    <StyledTableCell>Available Space</StyledTableCell>
-                                    <StyledTableCell>Journey Medium</StyledTableCell>
-                                    <StyledTableCell>From Date</StyledTableCell>
-                                    <StyledTableCell>To Date</StyledTableCell>
-                                    <StyledTableCell>Action</StyledTableCell>
+                                    <StyledTableCell>Name </StyledTableCell>
+                                    <StyledTableCell>Email </StyledTableCell>
+                                    <StyledTableCell>Phone No.</StyledTableCell>
+                                    <StyledTableCell>City</StyledTableCell>
+                                    <StyledTableCell>State</StyledTableCell>
+                                    <StyledTableCell>Pincode</StyledTableCell>
+                                    <StyledTableCell>Address</StyledTableCell>
+                                    <StyledTableCell>Actions</StyledTableCell>
                                 </StyledTableRow>
                             </TableHead>
                             <TableBody>
@@ -148,12 +145,10 @@ const DeliveryPartnerDetails = () => {
                                     <StyledTableCell>Delhi</StyledTableCell>
                                     <StyledTableCell>Delhi</StyledTableCell>
                                     <StyledTableCell>Delhi</StyledTableCell>
-                                    <StyledTableCell>Delhi</StyledTableCell>
-                                    <StyledTableCell>Delhi</StyledTableCell>
-                                    <StyledTableCell>Delhi</StyledTableCell>
+                                    
                                     <StyledTableCell>
                                         <button className="btn btn-success py-0">
-                                            ASSIGN ORDER
+                                            See Details
                                         </button>
                                     </StyledTableCell>
                                 </StyledTableRow>

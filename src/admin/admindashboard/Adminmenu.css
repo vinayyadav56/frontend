@@ -389,12 +389,11 @@ select {
 /* partner-form css start */
 .add-partner .modal-content {
     border: none;
-    border-radius: 2.3rem;
+    border-radius: 2px;
 }
 
 .add-partner .modal-header {
     background: #0747a9;
-    border-top-left-radius: 2.3rem;
 }
 
 .add-partner .modal-title {
