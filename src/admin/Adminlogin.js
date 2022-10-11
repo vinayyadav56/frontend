@@ -1,87 +1,94 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import axios from "axios";
 import "../component/Login.css";
-import { Link } from "react-router-dom";
-import { useAlert } from "react-alert";
-import { useHistory } from "react-router-dom";
+import {Link} from "react-router-dom";
+import {useAlert} from "react-alert";
+import {useHistory} from "react-router-dom";
+import * as API from '../Services/api';
+import {useAuth} from "../Services/auth";
+
 const Adminlogin = () => {
-  let alert = useAlert();
-  let history = useHistory();
- const [adminlogin , setAdminlogin] = useState({
-  admin_username:"",
-  admin_password:"",
- });
- const  handleLoginInput = (e) =>{
-  const{ name , value } = e.target;
-  setAdminlogin({
-    ...adminlogin,
-    [name] : value,
-  });
- };
-  const handleAdminLogin = async(e) => {
-    e.preventDefault();
-    const{admin_username , admin_password} = adminlogin ;
-    if(admin_username && admin_password){
-      await axios.post("http://35.91.35.188/api/admin-login", adminlogin)
-      .then((result) =>{
-        alert.success(result.data.message);
-        history.push("/admindashboard");
-        // if (result.data.success === true) {
-        //   alert.success(result.data.message);
-        //   console.log("result.data.loginData " + result.data.loginData);
-        //   // addUserLocal(result.data.loginData);
-        //   history.push("/admindashboard");
-        // } else if (result.data.success === false) {
-        //   alert.success(result.data.message);
-        // }
-      });
-      }else{
-        alert.error("Invalid inputs please retry");
-      }
+    let alert = useAlert();
+    let history = useHistory();
+    const { setLoading, handleUser} = useAuth();
+
+    const [adminlogin, setAdminlogin] = useState({
+        admin_username: "",
+        admin_password: "",
+    });
+
+    const handleLoginInput = (e) => {
+        const {name, value} = e.target;
+        setAdminlogin({
+            ...adminlogin,
+            [name]: value,
+        });
     };
-  return (
-    <>
-      <div className="container-fluid admin-login">
-        <div className="row admin-section">
-          <div className="col-12 adminleftctn">
-              <form className="my-form" onSubmit={handleAdminLogin}>
-                <span className="wel-msg">Welcome To Carrykar</span>
-                <span className="log-title">Login to continue</span>
-                <div className="login-det mt-2">
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      name="admin_username"
-                      placeholder="Email Address"
-                      value={adminlogin.admin_username}
-                      onChange={handleLoginInput}
-                      autoComplete="off"
-                    />
-                  </div>
-                  <div className="form-group">
-                    <input
-                      type="password"
-                      name="admin_password"
-                      placeholder="Enter Password"
-                      value={adminlogin.admin_password}
-                      onChange={handleLoginInput}
-                    />
-                  </div>
+
+    const handleAdminLogin = async (e) => {
+        e.preventDefault();
+        const {admin_username, admin_password} = adminlogin;
+
+        setLoading(true);
+
+        if (admin_username && admin_password) {
+            const login = await API.postRequest('admin-login', adminlogin).then(result => {
+                alert.success(result.data.message);
+                handleUser(result.data.success);
+                result.data.success && history.push("/admindashboard")
+            }).catch(error => {
+                alert.error(error);
+            }).finally(() => {
+                setLoading(false);
+            });
+        } else {
+            alert.error("Invalid inputs please retry");
+        }
+    };
+
+    return (
+        <>
+            <div className="container-fluid admin-login">
+                <div className="row admin-section">
+                    <div className="col-12 adminleftctn">
+                        <form className="my-form" onSubmit={handleAdminLogin}>
+                            <span className="wel-msg">Welcome To Carrykar</span>
+                            <span className="log-title">Login to continue</span>
+                            <div className="login-det mt-2">
+                                <div className="form-group">
+                                    <input
+                                        type="text"
+                                        name="admin_username"
+                                        placeholder="Email Address"
+                                        value={adminlogin.admin_username}
+                                        onChange={handleLoginInput}
+                                        autoComplete="off"
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <input
+                                        type="password"
+                                        name="admin_password"
+                                        placeholder="Enter Password"
+                                        value={adminlogin.admin_password}
+                                        onChange={handleLoginInput}
+                                    />
+                                </div>
+                            </div>
+                            <div className="admin-footer">
+                                <div className="forget-btn">
+                                    <Link to="/forgetpassword">Forget Password ?</Link>
+                                </div>
+                                <button type="submit" className="login-btn">
+                                    Login
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div className="admin-footer">
-                  <div className="forget-btn">
-                    <Link to="/forgetpassword">Forget Password ?</Link>
-                  </div>
-                  <button type="submit" className="login-btn">
-                    Login
-                  </button>
-                </div>
-              </form>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+            </div>
+        </>
+    );
 };
 
 export default Adminlogin;

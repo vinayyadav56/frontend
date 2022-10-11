@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import PaymentInfo from "./PaymentInfo";
 import Profileform from "./Profileform";
-import DocVerification from "./DocVerification";
+import DocVerification from "./Docverification";
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
     return (
@@ -61,7 +61,7 @@ export default function ProfileAllDetails() {
                             padding:'0px',
                             marginRight:'2rem',
                             fontWeight:'bold'
-                        }} 
+                        }}
                         label="Personal Information" {...a11yProps(0)} />
                         <Tab sx={{
                             padding:'0px',

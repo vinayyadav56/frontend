@@ -1,10 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
-// ReactDOM.render(<App />, document.getElementById("root"));
+import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
+import "bootstrap/dist/js/bootstrap.bundle";
+
+import App from "./App";
+import {AuthProvider} from "./Services/auth";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<App />);
+root.render(
+    <AuthProvider >
+            <App />
+    </AuthProvider>
+);

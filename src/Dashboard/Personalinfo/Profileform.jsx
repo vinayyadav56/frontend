@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import emailicon from "../../images/emailicon.png";
-const Profileform = ({addUserLocal, userActive }) => {
+import {useAuth} from "../../Services/auth";
+import {makeRequest} from "../../Services/api";
+import {useAlert} from "react-alert";
+
+const Profileform = () => {
+    const {user, setLoading} = useAuth();
+    const alert = useAlert();
+
     const handleInput = (e) => {
         const { name, value } = e.target;
         setuserDatas({
@@ -12,36 +18,28 @@ const Profileform = ({addUserLocal, userActive }) => {
 
     const [userDatas, setuserDatas] = useState({});
 
-    const fetchUser = async () => {
-        const userId = userActive.tokenable_id;
-        console.log('tokenable_id');
-        const response = await axios.get(
-            `http://35.91.35.188/api/user-detail/${userId}`
-        );
-        try {
-            setuserDatas(response.data.userDetails[0]);
-        } catch (error) {
-            console.log(error);
-        }
-    }
     useEffect(() => {
-        fetchUser()
-        // eslint-disable-next-line
+        setuserDatas(user)
     }, [])
 
 
     // UPDATE USER START
     const handleUpdate = async () => {
-        const userId = userActive.tokenable_id;
-        const res = await axios.put(
-            `http://35.91.35.188/api/profile-update/${userId}`
-        );
-        try {
-            setuserDatas(res.data.userDetails[0]);
-        } catch (error) {
-            console.log(error);
-        }
+        const userId = user.tokenable_id;
+
+        setLoading(true);
+
+        makeRequest('PUT', `profile-update/${userId}`).then(result => {
+            alert.success(result.message);
+            setuserDatas(result.userDetails[0]);
+        }).catch(err => {
+            alert.error(err.message);
+        }).finally(() => {
+            setLoading(false);
+        })
     };
+
+
     // UPDATE USERS ENDS
     return (
         <div>

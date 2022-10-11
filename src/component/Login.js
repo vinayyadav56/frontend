@@ -4,14 +4,19 @@ import "./Login.css";
 import { Link } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { useHistory } from "react-router-dom";
-const Login = ({ addUserLocal }) => {
-  // const [loader, setLoader] = useState(false)
+import { useAuth } from '../Services/auth';
+import { postRequest } from '../Services/api';
+
+const Login = () => {
+  const { setLoading, handleUser} = useAuth();
   let alert = useAlert();
   let history = useHistory();
+
   const [loginuser, setLoginuser] = useState({
     email: "",
     password: "",
   });
+
   const handleLoginInput = (e) => {
     const { name, value } = e.target;
     setLoginuser({
@@ -19,25 +24,30 @@ const Login = ({ addUserLocal }) => {
       [name]: value,
     });
   };
+
   const handleLogin =  async(e) => {
     e.preventDefault();
     const { email, password } = loginuser;
+
     if (email && password) {
-    await axios.post("http://35.91.35.188/api/login", loginuser)
-    .then((response) => {
-        if (response.data.success === true) {
-          alert.success(response.data.message);
-          // console.log("response.data.loginData " + response.data.loginData);
-          addUserLocal(response.data.userDetails);;
-          history.push("/carrier/dashboard/postavailabilty");
-        } else if (response.data.success === false) {
-          alert.success(response.data.message);
-        }
+      setLoading(true);
+
+      postRequest('login', loginuser).then(result => {
+        console.log(result);
+        alert.success(result.message);
+        handleUser(result.userDetails);
+        result.success && history.push("/carrier/dashboard/postavailabilty")
+      }).catch(error => {
+        alert.error(error.message);
+      }).finally(() => {
+        setLoading(false);
       });
     } else {
-      alert.error("Invalid Inputs");
+      alert.error("Invalid inputs please retry");
     }
+
   };
+
   return (
     <>
       <div className="container-fluid admin-login">

@@ -2,13 +2,14 @@ import React from 'react'
 import Sidebar from "./Dashboardsidebar";
 import Header from "./Dashboardheader";
 import Qrmake from './Qrmake';
-const Qrscanner = ({ addUserLocal, userActive }) => {
+
+const Qrscanner = () => {
     return (
         <div>
             <section className="user-dashboard">
-                <Sidebar userActive={userActive} />
+                <Sidebar />
                 <section className="main-content">
-                    <Header addUserLocal={addUserLocal} />
+                    <Header />
                     <div className='container-fluid'>
                         <Qrmake />
                     </div>
