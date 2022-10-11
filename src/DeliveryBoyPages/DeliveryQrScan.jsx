@@ -4,7 +4,7 @@ import QrReader from 'react-qr-scanner'
 import DeliveryHeader from './DeliveryHeader'
 import DeliverySidebar from './DeliverySidebar'
 import './DeliveryPartner.css'
-import DeliveryScanDetails from './DeliveryScanDetails'
+// import DeliveryScanDetails from './DeliveryScanDetails'
 class DeliveryQrScan extends React.Component {
     state = {
         delay: 100,
@@ -31,7 +31,7 @@ class DeliveryQrScan extends React.Component {
         const qrReader = {
             height: '200px',
             borderRadius: '4px',
-            border: '3px solid #0747a9'
+            border: '3px solid green'
         }
         const previewStyle = {
             height: '100%',
@@ -92,7 +92,7 @@ class DeliveryQrScan extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <DeliveryScanDetails props={this.state.result}/>
+                            {/* <DeliveryScanDetails props={this.state.result}/> */}
                         </div>
                     </section>
                 </section>

@@ -19,19 +19,14 @@ import DeliverySidebar from './DeliverySidebar';
 const PickupOrder = ({ userActive, addUserLocal }) => {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-
-
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
-
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(parseInt(event.target.value, 5));
         setPage(0);
     };
     // PAGINATION ENDS
-
     // DATA GRID TABLE START
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
@@ -44,7 +39,6 @@ const PickupOrder = ({ userActive, addUserLocal }) => {
             border: '1px solid #c8c8c8'
         },
     }));
-
     const StyledTableRow = styled(TableRow)(({ theme }) => ({
         '&:nth-of-type(odd)': {
             backgroundColor: theme.palette.action.hover,
