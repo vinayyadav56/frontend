@@ -7,8 +7,11 @@ import Frame from "../images/Frame.png";
 import historyicon from "../images/refral.png";
 import vector from "../images/Vector.png";
 import moblogo from "../images/moblogo1.png";
+import {useAuth} from "../Services/auth";
 
-const Sidebar = ({ userActive }) => {
+const Sidebar = () => {
+  const { user } = useAuth();
+
   return (
     <div>
       <section className="user-sidebar">
@@ -24,9 +27,9 @@ const Sidebar = ({ userActive }) => {
                   <img src={profilelogo} alt="profilelogo" />
                   <p>
                     <span>Welcome Back!</span>
-                    {userActive && userActive.id ? (
+                    {user && user.id ? (
                       <span>
-                        {userActive.first_name} {userActive.last_name}
+                        {user.first_name} {user.last_name}
                       </span>
                     ) : (
                       "Guest"
@@ -77,7 +80,7 @@ const Sidebar = ({ userActive }) => {
               <li className="nav-item">
                 <NavLink
                   className="nav-link"
-                  to="/carrier/dashboard/qrscan"
+                  to="/carrier/dashboard/qr-scan"
                 >
                   <img src={historyicon} alt="manage" />
                   <span>QR Code</span>

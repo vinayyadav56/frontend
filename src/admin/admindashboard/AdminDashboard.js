@@ -1,14 +1,24 @@
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link , Redirect} from "react-router-dom";
 import "./Adminmenu.css";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
+// import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
+// import Table from "./Table";
+// import UserData from "./UserData";
+import {useAuth} from "../../Services/auth";
 import AllDetails from './UsersTabs'
 import AdminSidebar from "./AdminSidebar";
 // import UserOrder from "./UserOrder";
 
 const PartnerDashboard = () => {
+  const auth = useAuth();
+
+  if(!auth.isAuthenticated()){
+    return <Redirect to="/admin" />
+  }
+
   return (
     <Fragment>
       <nav className="sticky-top partnerdash-nav">
