@@ -6,8 +6,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import DeliveryDocumentVerify from "./DeliveryDocumentVerify";
-import DeliveryPersonalForm from "./DeliveryPersonalForm";
+import AllOrder from "./AllOrder";
+import NewOrder from "./NewOrder";
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
     return (
@@ -39,44 +39,44 @@ function a11yProps(index) {
         "aria-controls": `simple-tabpanel-${index}`,
     };
 }
-export default function DeliveryAllDetails() {
+export default function HubOrderDetails() {
     const [chooseValue, setChooseValue] = React.useState(0);
-    const handleChange = (event,newValue) => {
+    const handleChange = (event, newValue) => {
         setChooseValue(newValue);
     };
 
 
     return (
         <>
-            <Box sx={{ width: "100%"  }}>
-                <Box sx={{ padding:'0px' }}>
+            <Box sx={{ width: "100%" }}>
+                <Box sx={{ padding: '0px' }}>
                     <Tabs
                         value={chooseValue}
                         onChange={handleChange}
-                        sx={{display:'felx', justifyContent:'space-between',borderBottom:'1px solid #0747a9'}}
+                        sx={{ display: 'felx', justifyContent: 'space-between', borderBottom: '1px solid #0747a9' }}
                         aria-label="basic tabs example"
                     >
                         <Tab sx={{
-                            padding:'0px',
-                            marginRight:'2rem',
-                            fontWeight:'bold',
-                            marginBottom:'-5px'
-                        }} 
-                        label="Personal Information" {...a11yProps(0)} />
-                       
-                        <Tab sx={{
-                            padding:'0px',
-                            marginBottom:'-5px',
-                            fontWeight:'bold'
+                            padding: '0px',
+                            marginRight: '2rem',
+                            fontWeight: 'bold',
+                            marginBottom: '-5px'
                         }}
-                        label="Documents Information" {...a11yProps(1)} />
+                            label="All Order" {...a11yProps(0)} />
+
+                        <Tab sx={{
+                            padding: '0px',
+                            marginBottom: '-5px',
+                            fontWeight: 'bold'
+                        }}
+                            label="New Order" {...a11yProps(1)} />
                     </Tabs>
                 </Box>
                 <TabPanel value={chooseValue} index={0}>
-                    <DeliveryPersonalForm />
+                    <AllOrder />
                 </TabPanel>
                 <TabPanel value={chooseValue} index={1}>
-                    <DeliveryDocumentVerify />
+                    <NewOrder />
                 </TabPanel>
             </Box>
         </>

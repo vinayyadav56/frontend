@@ -163,8 +163,8 @@
 }
 .filter_partner label{
   font-weight: 500;
-  font-size: 14px;
-  color: #ababab;
+  font-size: 12px;
+  color: #333;
 }
 .filter_partner .form-control{
   color: #ababab;

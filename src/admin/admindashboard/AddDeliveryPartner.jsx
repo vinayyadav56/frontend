@@ -5,52 +5,83 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import { useAlert } from 'react-alert';
-import { FormGroup, TextField } from "@material-ui/core";
+import { FormGroup } from "@material-ui/core";
+import '../admindashboard/Adminmenu.css'
 const AddDeliveryPartner = () => {
     let alert = useAlert();
     let history = useHistory();
-    const [partnerregister, setPartnerregister] = useState({
-        partner_name: "",
-        partner_email: "",
-        partner_password: "",
-        partner_phone: "",
-        partner_pincode: "",
-        partner_state: "",
-        partner_city: "",
-        partner_address: "",
+    const [agent, setAgent] = useState({
+        first_name: "",
+        last_name: "",
+        email_id: "",
+        dob: "",
+        alter_phone_no: "",
+        phone_no: "",
+        pin: "",
+        state: "",
+        city: "",
+        linked_hub_id:"",
+        current_address: "",
+        permanent_address: "",
+        pan_card_no: "",
+        aadhar_card_no: "",
+        driving_license_no: "",
+        pan_card_image_link: "",
+        aadhar_card_image_link: "",
+        driving_license_image_link: "",
     });
     const handleInput = (e) => {
         const { name, value } = e.target;
-        setPartnerregister({
-            ...partnerregister,
+        setAgent({
+            ...agent,
             [name]: value,
         });
     };
     const handlePartner = (e) => {
         e.preventDefault();
         const {
-            partner_name,
-            partner_email,
-            partner_password,
-            partner_phone,
-            partner_pincode,
-            partner_state,
-            partner_city,
-            partner_address,
-        } = partnerregister;
+            first_name,
+            last_name,
+            email_id,
+            dob,
+            phone_no,
+            alter_phone_no,
+            pin,
+            state,
+            city,
+            current_address,
+            permanent_address,
+            pan_card_no,
+            aadhar_card_no,
+            driving_license_no,
+            pan_card_image_link,
+            aadhar_card_image_link,
+            linked_hub_id,
+            driving_license_image_link,
+        } = agent;
         // console.log(handlePartner);
         if (
-            partner_name &&
-            partner_email &&
-            partner_password &&
-            partner_phone &&
-            partner_pincode &&
-            partner_state &&
-            partner_city &&
-            partner_address
+            first_name &&
+            last_name &&
+            email_id &&
+            dob &&
+            alter_phone_no &&
+            phone_no &&
+            pin &&
+            state &&
+            city && 
+            current_address&&
+            permanent_address&&
+            pan_card_no&&
+            aadhar_card_no&&
+            driving_license_no&&
+            pan_card_image_link&&
+            aadhar_card_image_link&&
+            linked_hub_id&&
+            driving_license_image_link
         ) {
             axios
-                .post("http://35.91.35.188/api/partners", partnerregister)
+                .post("http://35.91.35.188/api/partners", agent)
                 .then((response) => {
                     if (response.data.success === true) {
                         alert.success(response.data.message);
@@ -72,7 +103,7 @@ const AddDeliveryPartner = () => {
                 data-target="#deliverypartner"
             >
                 <AddIcon />
-                Add Delivery Details Details
+                Add Delivery Details
             </button>
             <div
                 className="modal fade"
@@ -88,7 +119,7 @@ const AddDeliveryPartner = () => {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title" id="deliverypartnerTitle">
-                                Add Delivery Details Details
+                                Add Delivery Partner Details
                             </h5>
                             <button
                                 type="button"
@@ -104,87 +135,103 @@ const AddDeliveryPartner = () => {
                         <div className="modal-body">
                             <FormGroup
                                 onSubmit={(e) => handlePartner(e)}
-                                className="partner_add"
-                            >
-                                <TextField
-                                    type="text"
-                                    
-                                    margin="normal"
-                                    size='small'
-                                    label=" Name"
-                                    name="partner_name"
-                                    placeholder=" Name"
-                                    onChange={handleInput}
-                                    value={partnerregister.partner_name}
-                                ></TextField>
-                                <TextField
-                                    type="text"
-                                    name="partner_email"
-                                    
-                                    margin="normal"
-                                    size='small'
-                                    placeholder=" Email"
-                                    label=" Email"
-                                    onChange={handleInput}
-                                    value={partnerregister.partner_email}
-                                ></TextField>
-                                <TextField
-                                    type="text"
-                                    name="partner_phone"
-                                    onChange={handleInput}
-                                    
-                                    margin="normal"
-                                    size='small'
-                                    placeholder=" Name"
-                                    label=" Phone"
-                                    value={partnerregister.partner_phone}
-                                ></TextField>
-                                <TextField
-                                    type="text"
-                                    name="partner_pincode"
-                                    onChange={handleInput}
-                                    
-                                    margin="normal"
-                                    size='small'
-                                    placeholder=" Pincode"
-                                    label=" Pincode"
-                                    value={partnerregister.partner_pincode}
-                                ></TextField>
-                                <TextField
-                                    type="text"
-                                    name="partner_state"
-                                    onChange={handleInput}
-                                    
-                                    margin="normal"
-                                    size='small'
-                                    placeholder=" Name"
-                                    label=" State"
-                                    value={partnerregister.partner_state}
-                                ></TextField>
-                                <TextField
-                                    type="text"
-                                    name="partner_city"
-                                    onChange={handleInput}
-                                    
-                                    margin="normal"
-                                    size='small'
-                                    placeholder=" City"
-                                    label=" City"
-                                    value={partnerregister.partner_city}
-                                ></TextField>
-                                <TextField
-                                    type="text"
-                                    name="partner_address"
-                                    onChange={handleInput}
-                                    
-                                    margin='normal'
-                                    size='small'
-                                    placeholder=" Address"
-                                    label=" Address"
-                                    value={partnerregister.partner_address}
-                                ></TextField>
+                                className="agent_add"
+                            > 
+                                <label for="#hubid">HUB ID</label>
+                                <select id='hubid' name='linked_hub_id' className="custom-select" onChange={handleInput} value={agent.linked_hub_id}>
+                                    <option selected>Choose hub id</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                                <div className="row mb-3">
+                                    <div className="col">
+                                    <label for="#firstname">FirstName</label>
+                                        <input id='firstname' name='first_name' type="text" onChange={handleInput} value={agent.first_name} className="form-control" placeholder="First name" />
+                                    </div>
+                                    <div className="col">
+                                    <label for="#lastname">LastName</label>
+                                        <input id='lastname' name='last_name' type="text" onChange={handleInput} value={agent.last_name} className="form-control" placeholder="Last name" />
+                                    </div>
+                                </div>
+                                <div className="row mb-3">
+                                    <div className="col">
+                                        <label for="#dob">DOB</label>
+                                        <input id='dob' type="date" name='dob' onChange={handleInput} value={agent.dob} className="form-control" placeholder="DOB" />
+                                    </div>
+                                    <div className="col">
+                                    <label for="#email">Email ID</label>
+                                        <input id='email' type="email" name='email_id' onChange={handleInput} value={agent.email_id} className="form-control" placeholder="Email Id" />
+                                    </div>
+                                </div>
+                                <div className="row mb-3">
+                                    <div className="col">
+                                    <label for="#phoneno">Phone No*</label>
+                                        <input id='phoneno' name='phone_no' type="number" onChange={handleInput} value={agent.phone_no} className="form-control" placeholder="Phone No" />
+                                    </div>
+                                    <div className="col">
+                                    <label for="#altnumber">Alternate Number</label>
+                                        <input type="number" name='alter_phone_no' id="altnumber" onChange={handleInput} value={agent.alter_phone_no} className="form-control" placeholder="Alternate Phone No" />
+                                    </div>
+                                </div>
+                                <div className="row mb-3">
+                                    <div className="col">
+                                    <label for="#pin">Pincode</label>
+                                        <input id='pin' name='pin' type="number" onChange={handleInput} value={agent.pincode} className="form-control" placeholder="Pincode" />
+                                    </div>
+                                    <div className="col">
+                                    <label for="#dlno">Driving License No.</label>
+                                        <input id='dlno' name=' driving_license_no' type="number" onChange={handleInput} value={agent.driving_license_no} className="form-control" placeholder="Pincode" />
+                                    </div>
+                                </div>
+                                <div className="row mb-3">
+                                    <div className="col">
+                                    <label for="#city">City</label>
+                                        <input id='city' name='city' type="text" onChange={handleInput} value={agent.city} className="form-control" placeholder="City" />
+                                    </div>
+                                    <div className="col">
+                                    <label for="#state">State</label>
+                                        <input type="text" name='state' id="state" onChange={handleInput} value={agent.state} className="form-control" placeholder="State" />
+                                    </div>
+                                </div>
+                                <div className="row mb-3">
+                                    <div className="col">
+                                    <label for="#currentaddress">Current Address</label>
+                                        <input name='current_address' id='currentaddress' type="text" onChange={handleInput} value={agent.current_address} className="form-control" placeholder="Current Address" />
+                                    </div>
+                                    <div className="col">
+                                    <label for="#paddress">Permanent Address</label>
+                                        <input name='permanent_address' type="text" id="paddress" onChange={handleInput} value={agent.permanent_address} className="form-control" placeholder="Permanent Address" />
+                                    </div>
+                                </div>
+                                <div className="row mb-3">
+                                    <div className="col">
+                                    <label for="#panno">Pan No.</label>
+                                        <input id='panno' name='pan_card_no' type="text" onChange={handleInput} value={agent.pan_card_no} className="form-control" placeholder="Pan No" />
+                                    </div>
+                                    <div className="col">
+                                    <label for="#addno">Aadhar No.</label>
+                                        <input type="number" id="addno" name='aadhar_card_no'  onChange={handleInput} value={agent.aadhar_card_no} className="form-control" placeholder="Aadhar No" />
+                                    </div>
+                                </div>
+                                <div className="row mb-3">
+                                    <div className="col">
+                                    <label for="#panimg">Pan Card Image</label>
+                                        <input name='current_address' id='panimg' type="file" onChange={handleInput} value={agent.pan_card_image_link} className="form-control" placeholder="Current Address" />
+                                    </div>
+                                    <div className="col">
+                                    <label for="#acardimg">Aadhar Card Image</label>
+                                        <input name='aadhar_card_image_link' type="file" id="acardimg" onChange={handleInput} value={agent.aadhar_card_image_link} className="form-control" placeholder="Permanent Address" />
+                                    </div>
+                                </div>
+                                <div className="row mb-3">
+                                    <div className="col">
+                                    <label for="#dliimg">Driving License Image</label>
+                                        <input id='dliimg' name='driving_license_image_link' type="file" onChange={handleInput} value={agent.driving_license_image_link} className="form-control" placeholder="Pan No" />
+                                    </div>
+                                </div>
                                 <div className="d-flex justify-content-between">
-                                    <button className="btn btn-primary">Save </button>
+                                    <button className="btn btn-primary">Save Agent</button>
                                 </div>
                             </FormGroup>
                         </div>
@@ -194,5 +241,4 @@ const AddDeliveryPartner = () => {
         </Fragment>
     )
 }
-
 export default AddDeliveryPartner

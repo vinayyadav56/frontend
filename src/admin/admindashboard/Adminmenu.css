@@ -133,8 +133,8 @@
 /* aside css start */
 main {
     display: grid !important;
-    grid-template-columns: 15rem auto;
-    gap: 0rem;
+    grid-template-columns: 18rem auto;
+    gap: 2rem;
     width:100%;
     /* margin: 0rem auto 4rem; */
     background: var(--color-light);
@@ -179,8 +179,9 @@ main aside .sidebar a span {
 main aside .sidebar a h4 {
     line-height: 0px !important;
     margin-bottom: 0px !important;
-    font-weight: 200;
+    font-weight: 600;
     margin-right: 2rem;
+    color: #fff;
     font-size: 14px;
 }
 main aside .sidebar a.active::before {
@@ -195,7 +196,9 @@ main aside .sidebar a.active {
     background: #fff;
     color: #0747a9;
 }
-
+main aside .sidebar a.active h4,main aside .sidebar a:hover h4{
+    color: #0747a9;
+}
 main aside .sidebar a:hover {
     color: #0747a9;
     background-color: #fff;
@@ -328,16 +331,22 @@ main aside .sidebar a:hover span {
 }
 
 .form-title {
-    background-color: #333;
+    background-color: #0747a9;
     border-radius: 5px 5px 0 0;
     padding: 6px 20px;
-    color: #f6f6f6;
+    color: #fff;
 }
 
 .form-title h2 {
     margin-bottom: 0;
+    color: #fff;
 }
-
+.user_availbility{
+    background-color: #fff;
+}
+.user_availbility .form-group{
+    padding: 0px 10px;
+}
 .sender-info input[type="text"],
 input[type="tel"],
 input[type="email"],
@@ -413,4 +422,9 @@ select {
     margin-left: auto;
     display: block;
     margin-right: auto;
+}
+.agent_add label{
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    color: #000;
 }

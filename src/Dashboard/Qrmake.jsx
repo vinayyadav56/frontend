@@ -2,8 +2,6 @@ import React from 'react';
 import { Fragment } from 'react';
 import QrReader from 'react-qr-scanner'
 import QrScanTrackDetailsForm from './QrScanTrackDetailsForm';
-import {useAlert} from "react-alert";
-
 class Qrmake extends React.Component {
 
     state = {
@@ -26,7 +24,6 @@ class Qrmake extends React.Component {
     };
 
     handleError = (err) => {
-        alert = useAlert();
         alert.error(err);
     };
 

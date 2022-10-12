@@ -2,6 +2,7 @@ import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
 import BorderColorRoundedIcon from '@mui/icons-material/BorderColorRounded';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HelpCenterRoundedIcon from '@mui/icons-material/HelpCenterRounded';
+import HubIcon from '@mui/icons-material/Hub';
 const navArray = [
     {
         id: 1,
@@ -23,12 +24,18 @@ const navArray = [
     },
     {
         id: 3,
-        nav: 'Delivery Partner',
+        nav: 'Agents',
         icon: <HelpCenterRoundedIcon />,
         link: '/admindashboarddeliverypartnerdetails'
     },
     {
         id: 4,
+        nav: 'Hub',
+        icon: <HubIcon />,
+        link: '/admindashboardhub'
+    },
+    {
+        id: 5,
         nav: 'Setting',
         icon: <SettingsIcon />,
         link: '/admin/dashboard'

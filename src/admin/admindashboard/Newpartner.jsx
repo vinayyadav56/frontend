@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useAlert } from "react-alert";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import { FormGroup, TextField } from "@material-ui/core";
+import { FormGroup, FormLabel , TextField } from "@material-ui/core";
 const Newpartner = () => {
   let alert = useAlert();
   let history = useHistory();
@@ -63,93 +63,114 @@ const Newpartner = () => {
   };
   return (
     <div>
-        <FormGroup
-          onSubmit={(e) => handlePartner(e)}
-          className="partner_add"
-        >
-          <TextField
-            type="text"
-            variant='outlined'
-            margin="normal"
-            size='small'
-            label="Partner Name"
-            name="partner_name"
-            placeholder="Partner Name"
-            onChange={handleInput}
-            value={partnerregister.partner_name}
-          ></TextField>
-          <TextField
-            type="text"
-            name="partner_email"
-            variant='outlined'
-            margin="normal"
-            size='small'
-            placeholder="Partner Email"
-            label="Partner Email"
-            onChange={handleInput}
-            value={partnerregister.partner_email}
-          ></TextField>
-          <TextField
-            type="text"
-            name="partner_phone"
-            onChange={handleInput}
-            variant='outlined'
-            margin="normal"
-            size='small'
-            placeholder="Partner Name"
-            label="Phone"
-            value={partnerregister.partner_phone}
-          ></TextField>
-          <TextField
-            type="text"
-            name="partner_pincode"
-            onChange={handleInput}
-            variant='outlined'
-            margin="normal"
-            size='small'
-            placeholder="Partner Pincode"
-            label="Partner Pincode"
-            value={partnerregister.partner_pincode}
-          ></TextField>
-          <TextField
-            type="text"
-            name="partner_state"
-            onChange={handleInput}
-            variant='outlined'
-            margin="normal"
-            size='small'
-            placeholder="Partner Name"
-            label="State"
-            value={partnerregister.partner_state}
-          ></TextField>
-          <TextField
-            type="text"
-            name="partner_city"
-            onChange={handleInput}
-            variant='outlined'
-            margin="normal"
-            size='small'
-            placeholder="Partner City"
-            label="Partner City"
-            value={partnerregister.partner_city}
-          ></TextField>
-          <TextField
-            type="text"
-            name="partner_address"
-            onChange={handleInput}
-            variant='outlined'
-            margin='normal'
-            size='small'
-            placeholder="Partner Address"
-            label="Partner Address"
-            value={partnerregister.partner_address}
-          ></TextField>
-          <div className="d-flex justify-content-between">
+      <FormGroup
+        onSubmit={(e) => handlePartner(e)}
+        className="partner_add"
+      >
+        <FormLabel sx={{marginTop:'10px'}}  htmlFor='#pname'>Partner Name</FormLabel >
+        <TextField
+          sx={{ marginTop:'0px' }}
+          id="pname"
+          type="text"
+          variant='outlined'
+          margin='none'
+        
+          size='small'
+          name="partner_name"
+          placeholder="Partner Name"
+          onChange={handleInput}
+          value={partnerregister.partner_name}
+        ></TextField>
+        <FormLabel sx={{marginTop:'10px'}}  htmlFor='#pemail'>Partner Email</FormLabel >
+        <TextField
+          sx={{ marginTop:'0px' }}
+          type="text"
+          id="pemail"
+          name="partner_email"
+          variant='outlined'
+          margin='none'
+        
+          size='small'
+          placeholder="Partner Email"
+          onChange={handleInput}
+          value={partnerregister.partner_email}
+        ></TextField>
+        <FormLabel sx={{margintop:'10px'}}  htmlFor='#phone'>Partner Phone</FormLabel >
+        <TextField
+          sx={{ marginTop:'0px' }}
+          id="phone"
+          type="text"
+          name="partner_phone"
+          onChange={handleInput}
+          variant='outlined'
+          margin='none'
+        
+          size='small'
+          placeholder="Partner Name"
+          value={partnerregister.partner_phone}
+        ></TextField>
+        <FormLabel sx={{marginTop:'10px'}}  htmlFor='#pincode'>Partner Pincode</FormLabel >
+        <TextField
+          sx={{ marginTop:'0px' }}
+          id="pincode"
+          type="text"
+          name="partner_pincode"
+          onChange={handleInput}
+          variant='outlined'
+          margin='none'
+        
+          size='small'
+          placeholder="Partner Pincode"
+
+          value={partnerregister.partner_pincode}
+        ></TextField>
+        <FormLabel sx={{marginTop:'10px'}}  htmlFor='#state'>Partner State</FormLabel >
+        <TextField
+          sx={{ marginTop:'0px' }}
+          id="state"
+          type="text"
+          name="partner_state"
+          onChange={handleInput}
+          variant='outlined'
+          margin='none'
+        
+          size='small'
+          placeholder="Partner State"
+          value={partnerregister.partner_state}
+        ></TextField>
+        <FormLabel sx={{marginTop:'10px'}}  htmlFor='#pcity'>Partner City</FormLabel >
+        <TextField
+          sx={{ marginTop:'0px' }}
+          id="pcity"
+          type="text"
+          name="partner_city"
+          onChange={handleInput}
+          variant='outlined'
+          margin='none'
+        
+          size='small'
+          placeholder="Partner City"
+          value={partnerregister.partner_city}
+        ></TextField>
+        <FormLabel sx={{marginTop:'10px'}}  htmlFor='#paddress'>Partner Address</FormLabel >
+        <TextField
+          sx={{ marginTop:'0px' }}
+          id="paddress"
+          type="text"
+          name="partner_address"
+          onChange={handleInput}
+          variant='outlined'
+          margin='none'
+          size='small'
+          placeholder="Partner Address"
+          value={partnerregister.partner_address}
+        ></TextField>
+        <div className="d-flex justify-content-between">
           <button className="btn btn-primary">Save Partner</button>
         </div>
-        </FormGroup>
-        
-    </div>
+      </FormGroup >
+
+    </div >
   );
 };
 

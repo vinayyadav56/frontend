@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { Link , Redirect} from "react-router-dom";
 import "./Adminmenu.css";
+import "../../partner/Partnerdash.css"
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
