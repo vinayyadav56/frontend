@@ -125,6 +125,9 @@ const Homepage = (userActive) => {
                           </NavLink>
                         </li>
                         <li>
+                        <ModalForm  onClick={() => setToggleMenu(false)} />
+                      </li>
+                        <li>
                           <NavLink
                             onClick={() => setToggleMenu(false)}
                             to="/login"

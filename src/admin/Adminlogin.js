@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import axios from "axios";
 import "../component/Login.css";
 import {Link} from "react-router-dom";
 import {useAlert} from "react-alert";
@@ -32,10 +31,10 @@ const Adminlogin = () => {
         setLoading(true);
 
         if (admin_username && admin_password) {
-            const login = await API.postRequest('admin-login', adminlogin).then(result => {
-                alert.success(result.data.message);
-                handleUser(result.data.success);
-                result.data.success && history.push("/admindashboard")
+             API.postRequest('admin-login', adminlogin).then(result => {
+                alert.success(result.message);
+                handleUser(result.success);
+                result.success && history.push("/admindashboard")
             }).catch(error => {
                 alert.error(error);
             }).finally(() => {
@@ -53,7 +52,7 @@ const Adminlogin = () => {
                     <div className="col-12 adminleftctn">
                         <form className="my-form" onSubmit={handleAdminLogin}>
                             <span className="wel-msg">Welcome To Carrykar</span>
-                            <span className="log-title">Login to continue</span>
+                            <span className="log-title">Login As Admin</span>
                             <div className="login-det mt-2">
                                 <div className="form-group">
                                     <input

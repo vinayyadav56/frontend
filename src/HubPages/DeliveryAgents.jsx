@@ -40,22 +40,22 @@ const DeliveryAgents = () => {
                                         <p>9804062001</p>
                                     </span>
                                 </div>
-                                <div className='col-lg-6 col-md-12 agent_details_col'>
+                                <div className='col-lg-6 col-md-12 agent_verify_col'>
                                     <div className='row'>
-                                        <div className='col-md-4 pr-0 text-center'>
-                                            <img src={agent1} alt='agnt' />
+                                        <div className='col-md-4 pr-0 '>
+                                            <span><p>Aadhar no:</p><p>375791818496</p></span>
                                             <button className='btn btn_unverify' type='button'>
                                                 Unverified
                                             </button>
                                         </div>
-                                        <div className='col-md-4 px-0 text-center'>
-                                            <img src={agent1} alt='agnt' />
+                                        <div className='col-md-4 col-lg-px-0 '>
+                                            <span><p>License no:</p><p>3757918186</p></span>
                                             <button className='btn btn_verify' type='button'>
                                                 Verified
                                             </button>
                                         </div>
-                                        <div className='col-md-4 pr-0 text-center'>
-                                            <img src={agent1} alt='agnt' />
+                                        <div className='col-md-4 pr-0 '>
+                                            <span><p>RC no:</p><p>31818496</p></span>
                                             <button className='btn btn_unverify' type='button'>
                                                 Unverified
                                             </button>
@@ -64,22 +64,21 @@ const DeliveryAgents = () => {
                                     <div className='row mt-2'>
                                         <div className='col address_detail_col'>
                                             <h2>Address Details :</h2>
-                                            <span>
-                                                <p>
-                                                    House No :
-                                                </p>
-                                                <p>
-                                                    52
-                                                </p>
-                                            </span>
-                                            <span>
-                                                <p>
-                                                    City :
-                                                </p>
-                                                <p>
-                                                    Kanina
-                                                </p>
-                                            </span>
+                                            <div>
+                                                <span>
+                                                    <p>Permanent Address -</p>
+                                                    <p>
+                                                        87, Block A, Mayur Vihar Extension,122192, Delhi, New-Delhi
+                                                    </p>
+                                                </span>
+                                                <span>
+                                                    <p>Current  Address -</p>
+                                                    <p>
+                                                        87, Block A, Mayur Vihar Extension,122192, Delhi, New-Delhi
+                                                    </p>
+                                                </span>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>

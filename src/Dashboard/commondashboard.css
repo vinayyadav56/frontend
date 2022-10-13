@@ -286,6 +286,7 @@ ul {
     background-color: #0E54B2;
     color: #fff;
     padding: 6px 16px;
+    align-items: center;
     border-radius: 5px;
 }
 

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-// import AddIcon from "@mui/icons-material/Add";
 import { useAlert } from "react-alert";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
+import { postRequest } from '../../../Services/api';
 import AddIcon from "@mui/icons-material/Add";
-import { FormGroup, TextField } from "@material-ui/core";
+import { useAuth } from "../../../Services/auth";
 const Newpartner = () => {
+    const { setLoading, handleUser } = useAuth();
     let alert = useAlert();
     let history = useHistory();
     const [hub, setHub] = useState({
+        hub_name: "",
         state: "",
-        partner_password: "",
         city: "",
         pin: "",
         contact_number: "",
@@ -24,41 +24,37 @@ const Newpartner = () => {
             [name]: value,
         });
     };
-    const handlePartner = (e) => {
+    const handlePartner = async (e) => {
         e.preventDefault();
-        const {
+        const { hub_name,
             state,
-            partner_password,
             city,
             pin,
             contact_number,
             alternate_contact_number,
-            hub_full_address,
+            hub_full_address, 
         } = hub;
-        // console.log(handlePartner);
-        if (
-            state &&
-            partner_password &&
-            city &&
-            pin &&
-            contact_number &&
-            alternate_contact_number &&
+        if(
+            hub_name && 
+            state && 
+            city && 
+            pin && 
+            contact_number && 
+            alternate_contact_number && 
             hub_full_address
-        ) {
-            axios
-                .post("http://35.91.35.188/api/partners", hub)
-                .then((response) => {
-                    if (response.data.success === true) {
-                        alert.success(response.data.message);
-                        history.push("/admindashboard");
-                    } else if (response.data.success === false) {
-                        alert.error(response.data.message);
-                    }
-                });
-        } else {
-            alert.error("Invalid Inputs");
+            ){setLoading(true);
+                postRequest('createNewHub', hub).then(result => {
+                    console.log(result);
+                    alert.success(result.message);
+                    handleUser(result.userDetails);
+                    result.success && history.push("/admindashboardhub")
+                  }).catch(error => {
+                    alert.error(error.message);
+                  }).finally(() => {
+                    setLoading(false);
+                  });
         }
-    };
+    }
     return (
         <div>
             <button
@@ -98,91 +94,98 @@ const Newpartner = () => {
                             </button>
                         </div>
                         <div className="modal-body">
-                            <FormGroup
+                            <form
                                 onSubmit={(e) => handlePartner(e)}
                                 className="partner_add"
                             >
-                                 <TextField
+                                <label htmlFor="#hubname">Hub Name</label>
+                                <input
+                                    className="form-control"
                                     type="text"
-                                    name="state"
-                                    variant='outlined'
+                                    name="hub_name"
+                                    id="hubname"
                                     margin="normal"
                                     size='small'
                                     placeholder="Hub Name"
-                                    label="Hub Name"
                                     onChange={handleInput}
-                                    value={hub.state}
-                                ></TextField>
-                                <TextField
+                                    value={hub.hub_name}
+                                ></input>
+                                <label htmlFor="#hubst">State</label>
+                                <input
+                                    className="form-control"
                                     type="text"
+                                    id="hubst"
                                     name="state"
-                                    variant='outlined'
                                     margin="normal"
                                     size='small'
                                     placeholder="State"
-                                    label="State"
                                     onChange={handleInput}
                                     value={hub.state}
-                                ></TextField>
-                                <TextField
+                                ></input>
+                                <label htmlFor="#hubct">City</label>
+                                <input
+                                    className="form-control"
                                     type="text"
+                                    id="hubct"
                                     name="city"
                                     onChange={handleInput}
-                                    variant='outlined'
                                     margin="normal"
                                     size='small'
                                     placeholder="City"
-                                    label="City"
                                     value={hub.city}
-                                ></TextField>
-                                <TextField
+                                ></input>
+                                <label htmlFor="#hupinc">Pincode</label>
+                                <input
+                                    className="form-control"
                                     type="text"
+                                    id="hubpinc"
                                     name="pin"
                                     onChange={handleInput}
-                                    variant='outlined'
                                     margin="normal"
                                     size='small'
                                     placeholder="Pincode"
-                                    label="Pincode"
                                     value={hub.pin}
-                                ></TextField>
-                                <TextField
+                                ></input>
+                                <label htmlFor="#hubcn">Contact Number</label>
+                                <input
+                                    className="form-control"
                                     type="text"
+                                    id="hubcn"
                                     name="contact_number"
                                     onChange={handleInput}
-                                    variant='outlined'
                                     margin="normal"
                                     size='small'
                                     placeholder="Contact Number"
-                                    label="Contact Number"
                                     value={hub.contact_number}
-                                ></TextField>
-                                <TextField
+                                ></input>
+                                <label htmlFor="#huban">Alternate Number</label>
+                                <input
+                                    className="form-control"
                                     type="text"
+                                    id="huban"
                                     name="alternate_contact_number"
                                     onChange={handleInput}
-                                    variant='outlined'
                                     margin="normal"
                                     size='small'
                                     placeholder="Alternate Number"
-                                    label="Alternate Number"
                                     value={hub.alternate_contact_number}
-                                ></TextField>
-                                <TextField
+                                ></input>
+                                <label htmlFor="#hubadd">Address</label>
+                                <input
+                                    className="form-control"
                                     type="text"
+                                    id="hubadd"
                                     name="hub_full_address"
                                     onChange={handleInput}
-                                    variant='outlined'
                                     margin='normal'
                                     size='small'
                                     placeholder="Full Address"
-                                    label="Full Address"
                                     value={hub.hub_full_address}
-                                ></TextField>
+                                ></input>
                                 <div className="d-flex justify-content-between">
-                                    <button className="btn btn-primary">Add Hub</button>
+                                    <button type="submit" className="btn btn-primary">Add Hub</button>
                                 </div>
-                            </FormGroup>
+                            </form>
                         </div>
                     </div>
                 </div>

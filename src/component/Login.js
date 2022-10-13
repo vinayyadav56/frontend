@@ -7,7 +7,7 @@ import { useAuth } from '../Services/auth';
 import { postRequest } from '../Services/api';
 
 const Login = () => {
-  const { setLoading, handleUser} = useAuth();
+  const { setLoading, handleUser } = useAuth();
   let alert = useAlert();
   let history = useHistory();
 
@@ -24,7 +24,7 @@ const Login = () => {
     });
   };
 
-  const handleLogin =  async(e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     const { email, password } = loginuser;
 
@@ -50,8 +50,9 @@ const Login = () => {
   return (
     <>
       <div className="container-fluid admin-login">
-        <div className="row user-login-section">
-          <div className="col-12 adminleftctn">
+      <div className="d-flex user-login-section">
+        <div className="row signup_form_cs ">
+          <div className="col-md-6 adminleftctn">
             <form className="my-form" onSubmit={handleLogin}>
               <span className="wel-msg">Welcome To Carrykar</span>
               <span className="log-title">Login to continue</span>
@@ -89,14 +90,23 @@ const Login = () => {
                 <Link
                   to="/signup"
                   className="signup-btn"
-                  // onClick={handleApi}
+                // onClick={handleApi}
                 >
                   SIGNUP
                 </Link>
               </div>
             </form>
           </div>
+          <div className="col-md-6 adminrightctn">
+            <div className="text_section">
+              <div>
+                <h2>Hello! ,Friends</h2>
+                <button className="btn go_back_btn">Go Back</button>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
       </div>
     </>
   );

@@ -1,73 +1,113 @@
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
-p{
+
+p {
     margin-bottom: 0;
 }
+
 .agent_details {
     padding: 2rem 5px 0px 5px;
 
 }
+
 .agent_details .container-fluid {
     border: 1px solid #000;
     background-color: #e6eff4;
     border-radius: 5px;
-    height: 240px;
+    /* height: 170px; */
+    padding-bottom: 1rem;
+    box-shadow: 0px 0px 20px 0px rgba(186, 186, 186, 0.34);
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(186, 186, 186, 0.34);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(186, 186, 186, 0.34);
 }
-.agent_details_col img{
+
+.agent_details_col img {
     width: 120px;
     height: 80px;
     padding-top: 1rem;
     padding-left: 1rem;
     margin-bottom: 2rem;
 }
-.agent_details_col span{
+
+.agent_details_col span {
     display: flex;
     padding-left: 1rem;
 }
-.agent_details_col span p:first-child{
+
+.agent_details_col span p:first-child {
     font-weight: 600;
     padding-right: 5px;
 }
 
 /* COL SECOND START */
-.agent_personal_col{
+.agent_personal_col {
     background-color: #fff;
     border: 1px solid #000;
     border-radius: 8px;
+    padding-top: 0.8rem;
     margin-top: 2rem;
 }
-.agent_personal_col h2,.agent_details_col h2{
+
+.agent_personal_col h2,
+.agent_details_col h2,
+.agent_verify_col h2 {
     font-weight: bold;
     font-size: 16px;
 }
-.agent_personal_col span{
+
+.agent_personal_col span {
     display: flex;
 }
-.agent_personal_col span p:first-child{
+
+.agent_personal_col p,
+.agent_details_col p {
+    font-size: 12px;
+}
+
+.agent_personal_col span p:first-child {
     font-weight: 600;
     padding-right: 5px;
 }
+
 /* THIRS COL CSS START */
-.agent_details_col .btn_unverify{
+.agent_verify_col {
+    margin-top: 2rem;
+}
+
+.agent_verify_col .btn_unverify {
     color: #fff;
     background: red;
-    padding: 1px 10px;
+    padding: 0px 10px;
     border-radius: 20px;
+    font-size: 10px;
 }
-.agent_details_col .btn_verify{
+
+.agent_verify_col .btn_verify {
     color: #fff;
     background: green;
-    padding: 1px 15px;
+    padding: 0px 15px;
     border-radius: 20px;
+    font-size: 10px;
 }
-.agent_details_col .address_detail_col{
+
+.agent_verify_col .address_detail_col {
     background-color: #fff;
     border: 1px solid #000;
     border-radius: 8px;
-    margin: 0rem 4rem;
+    margin: 0rem 1rem;
 }
 
+.agent_verify_col span {
+    display: flex;
+}
 
+.agent_verify_col span p {
+    font-size: 12px;
+}
+
+.agent_verify_col span p:first-child {
+    font-weight: 600;
+}

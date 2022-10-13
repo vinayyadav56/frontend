@@ -22,54 +22,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import "./Hub.css"
 import HubDetails from "./HubTabs";
+import { useEffect } from "react";
+import { getRequest } from '../../../Services/api';
 // HUB DATA START
-const hubData = [
-    {
-        id: 1,
-        hub_name: 'HUB1',
-        hub_code: 'QR2DUV90',
-        state: 'Haryana',
-        city: 'Gurgaon',
-        pin: 122002,
-        contact_number: 876543212,
-        alternate_contact_number: 876543212,
-        hub_full_address: 'Saraswati Vihar, New-Delhi'
-    },
-    {
-        id: 2,
-        hub_name: 'HUB1',
-        hub_code: 'QR2DUV90',
-        state: 'Haryana',
-        city: 'Gurgaon',
-        pin: 122002,
-        contact_number: 876543212,
-        alternate_contact_number: 876543212,
-        hub_full_address: 'Saraswati Vihar, New-Delhi'
-    },
-    {
-        id: 3,
-        hub_name: 'HUB1',
-        hub_code: 'QR2DUV90',
-        state: 'Haryana',
-        city: 'Gurgaon',
-        pin: 122002,
-        contact_number: 876543212,
-        alternate_contact_number: 876543212,
-        hub_full_address: 'Saraswati Vihar, New-Delhi'
-    },
-    {
-        id: 4,
-        hub_name: 'HUB1',
-        hub_code: 'QR2DUV90',
-        state: 'Haryana',
-        city: 'Gurgaon',
-        pin: 122002,
-        contact_number: 876543212,
-        alternate_contact_number: 876543212,
-        hub_full_address: 'Saraswati Vihar, New-Delhi'
-    }
-]
+
 const AdminHub = () => {
+    const [hubData, setHubData] =useState([]);
+
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -101,6 +60,21 @@ const AdminHub = () => {
             backgroundColor: theme.palette.action.hover,
         }
     }));
+
+    // HUBLIST FROM GET API JS START
+    const hubListData = async () =>{
+      getRequest('hubsList')
+      .then(response => {
+        setHubData(response.data)
+        console.log(response)
+       })
+    };
+    useEffect(() => {
+        hubListData();     
+    }, [])
+    
+         // HUBLIST FROM GET API JS ENDS
+    
     return (
         <Fragment>
             <nav className="sticky-top partnerdash-nav">
@@ -177,6 +151,7 @@ const AdminHub = () => {
                         <Table stickyHeader striped aria-label="sticky table">
                             <TableHead>
                                 <StyledTableRow>
+                                <StyledTableCell>Id </StyledTableCell>
                                     <StyledTableCell>Hub Name </StyledTableCell>
                                     <StyledTableCell>Hub Code </StyledTableCell>
                                     <StyledTableCell>State</StyledTableCell>
@@ -189,8 +164,11 @@ const AdminHub = () => {
                                 </StyledTableRow>
                             </TableHead>
                             <TableBody>
-                                {hubData.map((item, id) => (
+                                {Object.values(hubData)
+                                  // eslint-disable-next-line
+                                .map((item, id) => (
                                     <StyledTableRow hover tabIndex={-1} key={id}>
+                                        <StyledTableCell>{item.id} </StyledTableCell>
                                         <StyledTableCell>{item.hub_name}</StyledTableCell>
                                         <StyledTableCell>{item.hub_code}</StyledTableCell>
                                         <StyledTableCell>{item.state}</StyledTableCell>

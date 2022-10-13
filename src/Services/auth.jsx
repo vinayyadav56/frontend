@@ -38,9 +38,11 @@ function useProvideAuth() {
     const isAuthenticated = () => {
         return user ? true : false;
     }
-
+    const isHub = () => {
+        return user && user.type === 'hub';
+    }
     const isAdmin = () => {
-        return user && user.type == 'admin';
+        return user && user.type === 'admin';
     }
 
     const isPartner = () => {
@@ -62,6 +64,7 @@ function useProvideAuth() {
         setLoading,
         isAuthenticated,
         isAdmin,
+        isHub,
         isPartner,
         isUser,
         signout,

@@ -44,7 +44,7 @@ const Adminlogin = () => {
               <span className="wel-msg">
                 Welcome To Carrykar
               </span>
-              <span className="log-title">Login to your account</span>
+              <span className="log-title">Login As Partner</span>
               <div className="login-det mt-2">
                 <div className="form-group">
                   <input

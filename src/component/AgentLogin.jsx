@@ -51,7 +51,7 @@ const AgentLogin = () => {
                     <div className="col-12 adminleftctn">
                         <form className="my-form" onSubmit={handleLogin}>
                             <span className="wel-msg">Welcome To Carrykar</span>
-                            <span className="log-title">Login to continue</span>
+                            <span className="log-title">Login As Agent</span>
                             <div className="login-det mt-2">
                                 <div className="form-group">
                                     <input
