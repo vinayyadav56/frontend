@@ -16,7 +16,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormGroup, TextField } from "@material-ui/core";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormGroup, input } from "@material-ui/core";
 
 const Reactdatatable = () => {
   const [open, setopen] = React.useState(false);
@@ -79,9 +79,8 @@ const Reactdatatable = () => {
     }
   };
   // PARTNER ORDER LIST ENDS
-
   const fetchData = async () => {
-    const response = await axios.get("http://35.91.35.188/api/partner-list");
+    const response = await axios.get("http://35.91.35.188/api/partners-list");
     const partnerList = Object.values(response.data);
     const list = partnerList[0];
     try {
@@ -195,8 +194,8 @@ const Reactdatatable = () => {
         <div className="form-row">
           <div className="col-md-2">
             <input
-              type="text"
               className="form-control"
+              type="text"
               placeholder="Search Partner"
               onChange={handleSearch}
             />
@@ -208,9 +207,6 @@ const Reactdatatable = () => {
           </div>
         </div>
       </div>
-
-      {/* React Table start */}
-
       <TableContainer component={Paper}>
         <Table stickyHeader striped aria-label="sticky table">
           <TableHead>
@@ -254,7 +250,7 @@ const Reactdatatable = () => {
                   <StyledTableCell>
                     <button
                       onClick={() => fetchID(row.id)}
-                      className="btn add_partner py-0 mr-1"
+                      className="btn edit_partner py-0 mr-1"
                       data-toggle="modal"
                       variant="contained"
                       data-target="#editPartner"
@@ -273,7 +269,6 @@ const Reactdatatable = () => {
                       data-toggle="modal"
                       data-target="#orderPartner"
                       variant="contained"
-                      color='error'
                       onClick={() => fetchOrderData(row.id)}
                     >
                       ORDER
@@ -355,74 +350,67 @@ const Reactdatatable = () => {
               <FormGroup
                 className="partner_add"
               >
-                <TextField
+                <label htmlFor="#name">Name</label>
+                <input
+                  id='name'
+                  className="form-control"
                   type="text"
-                  variant='outlined'
-                  margin="normal"
-                  size='small'
-                  label="Name"
                   name="partner_name"
                   onChange={handleInput}
                   value={editData.partner_name}
                 />
-                <TextField
+                <label htmlFor="#email">Email</label>
+                <input
+                  id="email"
+                  className="form-control"
                   type="text"
                   name="partner_email"
-                  variant='outlined'
-                  margin="normal"
-                  size='small'
-                  label="Email"
                   onChange={handleInput}
                   value={editData.partner_email}
                 />
-                <TextField
+                <label htmlFor="#phone">Phone No</label>
+                <input
+                  className="form-control"
                   type="text"
+                  id='phone'
                   name="partner_phone"
                   onChange={handleInput}
-                  variant='outlined'
-                  margin="normal"
-                  size='small'
-                  label="Phone"
                   value={editData.partner_phone}
                 />
-                <TextField
+                <label htmlFor="//#endregionpincode">Pincode</label>
+                <input
+                  id='pincode'
+                  className="form-control"
                   type="text"
                   name="partner_pincode"
                   onChange={handleInput}
-                  variant='outlined'
-                  margin="normal"
-                  size='small'
-                  label="Pincode"
                   value={editData.partner_pincode}
                 />
-                <TextField
+                <label htmlFor="#state">State</label>
+                <input
+                  id="state"
+                  className="form-control"
                   type="text"
                   name="partner_state"
                   onChange={handleInput}
-                  variant='outlined'
-                  margin="normal"
-                  size='small'
-                  label="State"
                   value={editData.partner_state}
                 />
-                <TextField
+                <label htmlFor="#city">City</label>
+                <input
+                  id="city"
+                  className="form-control"
                   type="text"
                   name="partner_city"
                   onChange={handleInput}
-                  variant='outlined'
-                  margin="normal"
-                  size='small'
-                  label="City"
                   value={editData.partner_city}
                 />
-                <TextField
+                <label htmlFor="#address">Address</label>
+                <input
+                  id="address"
+                  className="form-control"
                   type="text"
                   name="partner_address"
                   onChange={handleInput}
-                  variant='outlined'
-                  margin='normal'
-                  size='small'
-                  label="Address"
                   value={editData.partner_address}
                 />
                 <div className="d-flex justify-content-between">

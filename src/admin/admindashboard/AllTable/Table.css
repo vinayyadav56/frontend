@@ -65,20 +65,7 @@
     padding-left: 2px;
     vertical-align: center;
   } */
-  /* .table-section .add-partner{
-    color: #fff;
-    background-color: rgb(9, 7 ,173);
-    border-radius: 0px;
-    border: 1px solid rgb(9, 7 ,173);
-    margin-bottom: 0.01rem;
-  } */
-  /* .table-section .add-partner:hover{
-    color: #fff;
-    background-color: rgb(10, 7 , 173 , 0.442);
-    border-radius: 0px;
-    border: 1px solid rgb(10, 7 , 173 , 0.442);
-  } */
- 
+
   .modal-body  input[type="email"] {
     width: 100%;
     height: 30px;
@@ -114,10 +101,21 @@
   box-shadow: none;
   outline: none;
 }
+.edit_partner{
+  background-color: #0747a9;
+  color: #fff;
+  border: 1px solid #0747a9;
+}
+.edit_partner:focus{
+  box-shadow: none;
+  outline: none;
+  background-color: #fff;
+  color: #0747a9;
+}
 .partner_order{
-  background-color: #ec2d2d!important;
+  background-color: green!important;
   color: #fff !important;
-  border: 1px solid #ec2d2d;
+  border: 1px solid green;
 }
 .partner_order:hover{
   color: green !important;

@@ -13,7 +13,7 @@ import AllDetails from './UsersTabs'
 import AdminSidebar from "./AdminSidebar";
 // import UserOrder from "./UserOrder";
 
-const PartnerDashboard = () => {
+const AdminDashboard = () => {
   const auth = useAuth();
 
   if(!auth.isAuthenticated()){
@@ -83,4 +83,4 @@ const PartnerDashboard = () => {
   );
 };
 
-export default PartnerDashboard;
+export default AdminDashboard;

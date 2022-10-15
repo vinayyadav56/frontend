@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import ".././Adminmenu.css";
 import { useState } from "react";
 import { styled } from '@mui/material/styles';
@@ -24,14 +24,16 @@ import "./Hub.css"
 import HubDetails from "./HubTabs";
 import { useEffect } from "react";
 import { getRequest } from '../../../Services/api';
+import { useAuth } from "../../../Services/auth";
 // HUB DATA START
 
 const AdminHub = () => {
-    const [hubData, setHubData] =useState([]);
+    const [hubData, setHubData] = useState([]);
 
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
+  
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -62,19 +64,23 @@ const AdminHub = () => {
     }));
 
     // HUBLIST FROM GET API JS START
-    const hubListData = async () =>{
-      getRequest('hubsList')
-      .then(response => {
-        setHubData(response.data)
-        console.log(response)
-       })
+    const hubListData = async () => {
+        getRequest('hubsList')
+            .then(response => {
+                setHubData(response.data)
+                console.log(response)
+            })
     };
     useEffect(() => {
-        hubListData();     
-    }, [])
+        hubListData();
+    }, []);
     
-         // HUBLIST FROM GET API JS ENDS
-    
+    const auth = useAuth();
+    if (!auth.isAuthenticated()) {
+        return <Redirect to="/admin" />
+    };
+    // HUBLIST FROM GET API JS ENDS
+
     return (
         <Fragment>
             <nav className="sticky-top partnerdash-nav">
@@ -151,7 +157,7 @@ const AdminHub = () => {
                         <Table stickyHeader striped aria-label="sticky table">
                             <TableHead>
                                 <StyledTableRow>
-                                <StyledTableCell>Id </StyledTableCell>
+                                    <StyledTableCell>Id </StyledTableCell>
                                     <StyledTableCell>Hub Name </StyledTableCell>
                                     <StyledTableCell>Hub Code </StyledTableCell>
                                     <StyledTableCell>State</StyledTableCell>
@@ -165,109 +171,109 @@ const AdminHub = () => {
                             </TableHead>
                             <TableBody>
                                 {Object.values(hubData)
-                                  // eslint-disable-next-line
-                                .map((item, id) => (
-                                    <StyledTableRow hover tabIndex={-1} key={id}>
-                                        <StyledTableCell>{item.id} </StyledTableCell>
-                                        <StyledTableCell>{item.hub_name}</StyledTableCell>
-                                        <StyledTableCell>{item.hub_code}</StyledTableCell>
-                                        <StyledTableCell>{item.state}</StyledTableCell>
-                                        <StyledTableCell>{item.city}</StyledTableCell>
-                                        <StyledTableCell>{item.pin}</StyledTableCell>
-                                        <StyledTableCell>{item.contact_number}</StyledTableCell>
-                                        <StyledTableCell>{item.alternate_contact_number}</StyledTableCell>
-                                        <StyledTableCell>{item.hub_full_address}</StyledTableCell>
-                                        <StyledTableCell>
-                                            <div className="d-flex">
-                                                <button
-                                                    type="button"
-                                                    className="btn hub_order"
-                                                    data-toggle="modal" data-target=".see_hub-lg"
-                                                >
-                                                    <RemoveRedEyeIcon />
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    className="btn hub_edit"
-                                                    data-toggle="modal"
-                                                    data-target="#edithub"
-                                                >
-                                                    <EditIcon />
-                                                </button>
-                                                <div
-                                                    className="modal fade"
-                                                    id="seehub"
-                                                    role="dialog"
-                                                    aria-labelledby="edithubTitle"
-                                                    aria-hidden="true"
-                                                >
-                                                    <div
-                                                        className="modal-dialog modal-dialog-centered add-partner"
-                                                        role="document"
+                                    // eslint-disable-next-line
+                                    .map((item, id) => (
+                                        <StyledTableRow hover tabIndex={-1} key={id}>
+                                            <StyledTableCell>{item.id} </StyledTableCell>
+                                            <StyledTableCell>{item.hub_name}</StyledTableCell>
+                                            <StyledTableCell>{item.hub_code}</StyledTableCell>
+                                            <StyledTableCell>{item.state}</StyledTableCell>
+                                            <StyledTableCell>{item.city}</StyledTableCell>
+                                            <StyledTableCell>{item.pin}</StyledTableCell>
+                                            <StyledTableCell>{item.contact_number}</StyledTableCell>
+                                            <StyledTableCell>{item.alternate_contact_number}</StyledTableCell>
+                                            <StyledTableCell>{item.hub_full_address}</StyledTableCell>
+                                            <StyledTableCell>
+                                                <div className="d-flex">
+                                                    <button
+                                                        type="button"
+                                                        className="btn hub_order"
+                                                        data-toggle="modal" data-target=".see_hub-lg"
                                                     >
-                                                        <div className="modal-content">
-                                                            <div className="modal-header">
-                                                                <h5 className="modal-title" id="edithubTitle">
-                                                                    Add Hub Details
-                                                                </h5>
-                                                                <button
-                                                                    type="button"
-                                                                    className="close"
-                                                                    data-dismiss="modal"
-                                                                    aria-label="Delivery Close"
-                                                                >
-                                                                    <span aria-hidden="true" className="modal-off">
-                                                                        &times;
-                                                                    </span>
-                                                                </button>
+                                                        <RemoveRedEyeIcon />
+                                                    </button>
+                                                    <button
+                                                        type="button"
+                                                        className="btn hub_edit"
+                                                        data-toggle="modal"
+                                                        data-target="#edithub"
+                                                    >
+                                                        <EditIcon />
+                                                    </button>
+                                                    <div
+                                                        className="modal fade"
+                                                        id="seehub"
+                                                        role="dialog"
+                                                        aria-labelledby="edithubTitle"
+                                                        aria-hidden="true"
+                                                    >
+                                                        <div
+                                                            className="modal-dialog modal-dialog-centered add-partner"
+                                                            role="document"
+                                                        >
+                                                            <div className="modal-content">
+                                                                <div className="modal-header">
+                                                                    <h5 className="modal-title" id="edithubTitle">
+                                                                        Add Hub Details
+                                                                    </h5>
+                                                                    <button
+                                                                        type="button"
+                                                                        className="close"
+                                                                        data-dismiss="modal"
+                                                                        aria-label="Delivery Close"
+                                                                    >
+                                                                        <span aria-hidden="true" className="modal-off">
+                                                                            &times;
+                                                                        </span>
+                                                                    </button>
+                                                                </div>
+                                                                <div className="modal-body">
+                                                                </div>
                                                             </div>
-                                                            <div className="modal-body">
+                                                        </div>
+                                                    </div>
+                                                    <button type="button"
+                                                        className="btn hub_delete"
+                                                        data-toggle="modal"
+                                                        data-target="#deletehub"
+                                                    >
+                                                        <DeleteIcon />
+                                                    </button>
+                                                    <div
+                                                        className="modal fade"
+                                                        id="deletehub"
+                                                        role="dialog"
+                                                        aria-labelledby="deletehubTitle"
+                                                        aria-hidden="true">
+                                                        <div
+                                                            className="modal-dialog modal-dialog-centered add-partner"
+                                                            role="document"
+                                                        >
+                                                            <div className="modal-content">
+                                                                <div className="modal-header">
+                                                                    <h5 className="modal-title" id="deletehubTitle">
+                                                                        Are You Want To Delete This Hub
+                                                                    </h5>
+                                                                    <button
+                                                                        type="button"
+                                                                        className="close"
+                                                                        data-dismiss="modal"
+                                                                        aria-label="Delivery Close"
+                                                                    >
+                                                                        <span aria-hidden="true" className="modal-off">
+                                                                            &times;
+                                                                        </span>
+                                                                    </button>
+                                                                </div>
+                                                                <div className="modal-body">
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <button type="button"
-                                                    className="btn hub_delete"
-                                                    data-toggle="modal"
-                                                    data-target="#deletehub"
-                                                >
-                                                    <DeleteIcon />
-                                                </button>
-                                                <div
-                                                    className="modal fade"
-                                                    id="deletehub"
-                                                    role="dialog"
-                                                    aria-labelledby="deletehubTitle"
-                                                    aria-hidden="true">
-                                                    <div
-                                                        className="modal-dialog modal-dialog-centered add-partner"
-                                                        role="document"
-                                                    >
-                                                        <div className="modal-content">
-                                                            <div className="modal-header">
-                                                                <h5 className="modal-title" id="deletehubTitle">
-                                                                    Are You Want To Delete This Hub
-                                                                </h5>
-                                                                <button
-                                                                    type="button"
-                                                                    className="close"
-                                                                    data-dismiss="modal"
-                                                                    aria-label="Delivery Close"
-                                                                >
-                                                                    <span aria-hidden="true" className="modal-off">
-                                                                        &times;
-                                                                    </span>
-                                                                </button>
-                                                            </div>
-                                                            <div className="modal-body">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </StyledTableCell>
-                                    </StyledTableRow>
-                                ))}
+                                            </StyledTableCell>
+                                        </StyledTableRow>
+                                    ))}
 
                             </TableBody>
                             <TableFooter>
@@ -307,7 +313,7 @@ const AdminHub = () => {
                             </button>
                         </div>
                         <div className="modal-body">
-                            <HubDetails/>
+                            <HubDetails />
                         </div>
                     </div>
                 </div>

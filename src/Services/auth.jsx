@@ -71,12 +71,12 @@ function useProvideAuth() {
     }
 }
 
-const formatUser = (user) => {
-    return {
-        uid: user.id,
-        email: user.email,
-        name: user.displayName,
-        provider: user.providerData[0].providerId,
-        photoUrl: user.photoURL,
-    }
-}
+// const formatUser = (user) => {
+//     return {
+//         uid: user.id,
+//         email: user.email,
+//         name: user.displayName,
+//         provider: user.providerData[0].providerId,
+//         photoUrl: user.photoURL,
+//     }
+// }

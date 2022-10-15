@@ -6,7 +6,7 @@ import HubIcon from '@mui/icons-material/Hub';
 const navArray = [
     {
         id: 1,
-        nav: 'Order',
+        nav: 'User Availability',
         icon: <StarBorderRoundedIcon />,
         link: '/admindashboardorder'
     },

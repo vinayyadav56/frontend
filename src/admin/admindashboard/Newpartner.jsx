@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useAlert } from "react-alert";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import { FormGroup, FormLabel , TextField } from "@material-ui/core";
+import { FormGroup, FormLabel, TextField } from "@material-ui/core";
 const Newpartner = () => {
   let alert = useAlert();
   let history = useHistory();
@@ -67,104 +67,77 @@ const Newpartner = () => {
         onSubmit={(e) => handlePartner(e)}
         className="partner_add"
       >
-        <FormLabel sx={{marginTop:'10px'}}  htmlFor='#pname'>Partner Name</FormLabel >
-        <TextField
-          sx={{ marginTop:'0px' }}
-          id="pname"
-          type="text"
-          variant='outlined'
-          margin='none'
-        
-          size='small'
-          name="partner_name"
+
+        <label htmlFor="#name">Name</label>
+        <input
+          id='name'
+          className="form-control"
           placeholder="Partner Name"
+          type="text"
+          name="partner_name"
           onChange={handleInput}
           value={partnerregister.partner_name}
-        ></TextField>
-        <FormLabel sx={{marginTop:'10px'}}  htmlFor='#pemail'>Partner Email</FormLabel >
-        <TextField
-          sx={{ marginTop:'0px' }}
-          type="text"
-          id="pemail"
-          name="partner_email"
-          variant='outlined'
-          margin='none'
-        
-          size='small'
+        />
+        <label htmlFor="#email">Email</label>
+        <input
+          id="email"
+          className="form-control"
           placeholder="Partner Email"
+          type="text"
+          name="partner_email"
           onChange={handleInput}
           value={partnerregister.partner_email}
-        ></TextField>
-        <FormLabel sx={{margintop:'10px'}}  htmlFor='#phone'>Partner Phone</FormLabel >
-        <TextField
-          sx={{ marginTop:'0px' }}
-          id="phone"
+        />
+        <label htmlFor="#phone">Phone No</label>
+        <input
+          className="form-control"
+          placeholder="Partner Phone Number"
           type="text"
+          id='phone'
           name="partner_phone"
           onChange={handleInput}
-          variant='outlined'
-          margin='none'
-        
-          size='small'
-          placeholder="Partner Name"
           value={partnerregister.partner_phone}
-        ></TextField>
-        <FormLabel sx={{marginTop:'10px'}}  htmlFor='#pincode'>Partner Pincode</FormLabel >
-        <TextField
-          sx={{ marginTop:'0px' }}
-          id="pincode"
+        />
+        <label htmlFor="#pincode">Pincode</label>
+        <input
+          id='pincode'
+          className="form-control"
+          placeholder="Partner Pincode"
           type="text"
           name="partner_pincode"
           onChange={handleInput}
-          variant='outlined'
-          margin='none'
-        
-          size='small'
-          placeholder="Partner Pincode"
-
           value={partnerregister.partner_pincode}
-        ></TextField>
-        <FormLabel sx={{marginTop:'10px'}}  htmlFor='#state'>Partner State</FormLabel >
-        <TextField
-          sx={{ marginTop:'0px' }}
+        />
+        <label htmlFor="#state">State</label>
+        <input
           id="state"
+          className="form-control"
+          placeholder="Partner State"
           type="text"
           name="partner_state"
           onChange={handleInput}
-          variant='outlined'
-          margin='none'
-        
-          size='small'
-          placeholder="Partner State"
           value={partnerregister.partner_state}
-        ></TextField>
-        <FormLabel sx={{marginTop:'10px'}}  htmlFor='#pcity'>Partner City</FormLabel >
-        <TextField
-          sx={{ marginTop:'0px' }}
-          id="pcity"
+        />
+        <label htmlFor="#city">City</label>
+        <input
+          id="city"
+          className="form-control"
+          placeholder="Partner City"
           type="text"
           name="partner_city"
           onChange={handleInput}
-          variant='outlined'
-          margin='none'
-        
-          size='small'
-          placeholder="Partner City"
           value={partnerregister.partner_city}
-        ></TextField>
-        <FormLabel sx={{marginTop:'10px'}}  htmlFor='#paddress'>Partner Address</FormLabel >
-        <TextField
-          sx={{ marginTop:'0px' }}
-          id="paddress"
+        />
+        <label htmlFor="#address">Address</label>
+        <input
+          id="address"
+          className="form-control"
+          placeholder="Partner Address"
           type="text"
           name="partner_address"
           onChange={handleInput}
-          variant='outlined'
-          margin='none'
-          size='small'
-          placeholder="Partner Address"
           value={partnerregister.partner_address}
-        ></TextField>
+        />
         <div className="d-flex justify-content-between">
           <button className="btn btn-primary">Save Partner</button>
         </div>

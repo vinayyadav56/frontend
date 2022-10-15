@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { useAlert } from 'react-alert';
 import { FormGroup } from "@material-ui/core";
 import '../admindashboard/Adminmenu.css'
-import DeliveryImageSelector from './DeliveryImageSelector';
+import Previews from './DeliveryImageSelector';
 const AddDeliveryPartner = () => {
     let alert = useAlert();
     let history = useHistory();
@@ -158,7 +158,7 @@ const AddDeliveryPartner = () => {
                                         <input id='email' type="email" name='email_id' onChange={handleInput} value={agent.email_id} className="form-control" placeholder="Email Id" />
                                     </div>
                                     <div className="col-6 d-flex align-items-center">
-                                        <DeliveryImageSelector />
+                                        <Previews />
                                     </div>
                                 </div>
                                 <div className="row mb-3">
