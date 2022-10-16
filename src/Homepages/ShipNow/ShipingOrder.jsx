@@ -6,7 +6,7 @@ import Pincode from './Pincode';
 import Schedule from './Schedule';
 import ReciverAddress from './ReciverAddress';
 
-function ShipingOrder() {
+const ShipingOrder = (props) => {
   //state for steps
   const [step, setstep] = useState(1);
 
@@ -53,13 +53,13 @@ function ShipingOrder() {
   const nextStep = () => {
     if (formData.pickup_pincode === '' || formData.pickup_pincode.length <= 0) {
       return alert("Please Enter Pickup Pincode")
-    } 
+    }
     else {
       setstep(step + 1);
     }
 
   };
-  
+
 
   // function for going to previous step by decreasing step state by 1
   const prevStep = () => {
@@ -136,6 +136,7 @@ function ShipingOrder() {
           prevStep={prevStep}
           handleFormData={handleInputData}
           values={formData}
+          handleModalClose={props.modalHandleClode}
         />
       )
 
