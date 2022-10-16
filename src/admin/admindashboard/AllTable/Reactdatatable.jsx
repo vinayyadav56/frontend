@@ -16,7 +16,10 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormGroup, input } from "@material-ui/core";
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormGroup } from "@material-ui/core";
 
 const Reactdatatable = () => {
   const [open, setopen] = React.useState(false);
@@ -255,24 +258,24 @@ const Reactdatatable = () => {
                       variant="contained"
                       data-target="#editPartner"
                     >
-                      EDIT
+                      <ModeEditOutlineIcon />
                     </button>
                     <button
                       className="btn delete-btn mr-1"
                       onClick={handleClickOpen}
                       variant="outlined" color="error"
                     >
-                      DELETE
+                      <DeleteIcon />
                     </button>
-                    <Button
+                    <button
                       className="btn partner_order py-0 mr-1"
                       data-toggle="modal"
                       data-target="#orderPartner"
                       variant="contained"
                       onClick={() => fetchOrderData(row.id)}
                     >
-                      ORDER
-                    </Button>
+                      <BookmarkBorderIcon />
+                    </button>
 
                     {/* Delete POPUP START */}
                     <Dialog
@@ -437,10 +440,7 @@ const Reactdatatable = () => {
         aria-labelledby="orderPartnerTitle"
         aria-hidden="true"
       >
-        <div
-          className="modal-dialog modal-dialog-centered modal-xl add-partner"
-          role="document"
-        >
+        <div className="modal-dialog modal-dialog-centered modal-xl add-partner" role="document">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="orderPartnerTitle">
@@ -460,50 +460,16 @@ const Reactdatatable = () => {
             <div className="modal-body p-0">
               <div className="table-responsive-lg partner_order_list">
                 <table className="table table-striped">
-
                   <tbody>
                     {partnerOrderData.map((item, id) => {
                       return (
-                        <tr key={id} style={{ margin: "10px 0 10px 0" }}>
-                          <td className="table_data">
-                            <th className="d-block">Sender Info</th>
-
-                            <td>{id + 1}</td>
-                            <td className="d-block">{item.sender_name} </td>
-                            <td className="d-block">{item.sender_email}</td>
-                            <td className="d-block">{item.sender_phone}</td>
-                            {/* <td className="d-block">{item.sender_pincode}</td> */}
-                            <td className="d-block">{item.sender_state} </td>
-                            <td className="d-block">{item.sender_city} </td>
-                            <td className="d-block">{item.sender_address}</td>
-                          </td>
-                          <td className="table_data">
-                            <th className="d-block">Receiver Info</th>
-
-                            <td>{id + 1}</td>
-                            <td className="d-block">{item.receiver_name} </td>
-                            <td className="d-block">{item.receiver_email}</td>
-                            <td className="d-block">{item.receiver_phone}</td>
-                            {/* <td className="d-block">{item.receiver_pincode}</td> */}
-                            <td className="d-block">{item.receiver_state}</td>
-                            <td className="d-block">{item.receiver_city} </td>
-                            <td className="d-block">{item.receiver_address}</td>
-                          </td>
-                          <td className="table_data">
-                            <th className="d-block">Order Summary</th>
-                            <td>{id + 1}</td>
-                            <td className="d-block">{item.receiver_name} </td>
-                            <td className="d-block">{item.receiver_email}</td>
-                            <td className="d-block">{item.receiver_phone}</td>
-                            {/* <td className="d-block">{item.receiver_pincode}</td> */}
-                            <td className="d-block">{item.receiver_state}</td>
-                            <td className="d-block">{item.receiver_city} </td>
-                            <td className="d-block">{item.receiver_address}</td>
-                          </td>
-                        </tr>
+                        <></>
                       );
                     })}
                   </tbody>
+
+
+
                 </table>
               </div>
             </div>

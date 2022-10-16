@@ -47,7 +47,7 @@ const NewOrder = () => {
     const [hubOrderData] = useState([]);
     return (
         <Fragment>
-            <div className='pickup_table_section mt-5'>
+            <div className='pickup_table_section'>
                 <p>Pickup Orders</p>
                 <TableContainer component={Paper}>
                     <Table stickyHeader striped aria-label="sticky table">

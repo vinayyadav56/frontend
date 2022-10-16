@@ -17,8 +17,49 @@ export default function CkOrder() {
         from_location: "",
         to_location: "",
     });
-    // const [orderData, setOrderData] = useState([]);
+    const tableData = [
+        {
+            id: '1',
+            partner_order_id: '12',
+            customer_id: '21',
+            to_location: 'Delhi',
+            from_location: 'Kanpur',
+            weight: '20kg',
+            ordertype: 'PO'
+        },
+        {
+            id: '2',
+            partner_order_id: '12',
+            customer_id: '21',
+            to_location: 'Delhi',
+            from_location: 'Kanpur',
+            weight: '20kg',
+            ordertype: 'PO'
 
+        },
+        {
+            id: '3',
+            partner_order_id: '12',
+            customer_id: '21',
+            to_location: 'Delhi',
+            from_location: 'Kolkata',
+            weight: '20kg',
+            ordertype: 'CO'
+
+        },
+        {
+            id: '4',
+            partner_order_id: '12',
+            customer_id: '21',
+            to_location: 'Mumbai',
+            from_location: 'Kanpur',
+            weight: '20kg',
+            ordertype: 'CO'
+
+        },
+    ];
+    const [orderData] = useState(tableData);
+    console.log(orderData)
     const handleLocation = (e) => {
         const { name, value } = e.target;
         setCkOrder({
@@ -79,47 +120,7 @@ export default function CkOrder() {
         },
     ];
 
-    const tableData = [
-        {
-            id: '1',
-            partner_order_id: '12',
-            customer_id: '21',
-            to_location: 'Delhi',
-            from_location: 'Kanpur',
-            weight: '20kg',
-            ordertype: 'PO'
-        },
-        {
-            id: '2',
-            partner_order_id: '12',
-            customer_id: '21',
-            to_location: 'Delhi',
-            from_location: 'Kanpur',
-            weight: '20kg',
-            ordertype: 'PO'
 
-        },
-        {
-            id: '3',
-            partner_order_id: '12',
-            customer_id: '21',
-            to_location: 'Delhi',
-            from_location: 'Kolkata',
-            weight: '20kg',
-            ordertype: 'CO'
-
-        },
-        {
-            id: '4',
-            partner_order_id: '12',
-            customer_id: '21',
-            to_location: 'Mumbai',
-            from_location: 'Kanpur',
-            weight: '20kg',
-            ordertype: 'CO'
-
-        },
-    ];
     return (
         <Fragment>
             <nav className="sticky-top partnerdash-nav">
@@ -272,6 +273,9 @@ export default function CkOrder() {
                             columns={columns}
                             pageSize={5}
                             sx={{ width: '100%' }}
+                            onSelectionModelChange={(orderData) => {
+                                console.log(orderData)
+                            }}
                             rowsPerPageOptions={[5]}
                             checkboxSelection
                             disableSelectionOnClick

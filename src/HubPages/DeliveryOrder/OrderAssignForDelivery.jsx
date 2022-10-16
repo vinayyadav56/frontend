@@ -1,4 +1,5 @@
 import React from 'react'
+import { Fragment } from 'react'
 import "../../admin/admindashboard/AllTable/Table.css";
 import "../../admin/admindashboard/partnerorder.css";
 import { styled } from '@mui/material/styles';
@@ -11,10 +12,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
-import { useState } from 'react';
-import { Fragment } from 'react';
-
-const AllOrder = ({ userActive, addUserLocal }) => {
+const OrderAssignForDelivery = () => {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const handleChangePage = (event, newPage) => {
@@ -35,7 +33,8 @@ const AllOrder = ({ userActive, addUserLocal }) => {
         [`&.${tableCellClasses.body}`]: {
             fontSize: 12,
             padding: '10px 14px',
-            border: '1px solid #c8c8c8'
+            border: '1px solid #c8c8c8',
+            maxWidth: '160px'
         },
     }));
 
@@ -44,42 +43,71 @@ const AllOrder = ({ userActive, addUserLocal }) => {
             backgroundColor: theme.palette.action.hover,
         }
     }));
-    const [partnerData] = useState([]);
+    // const [hubOrderData] = useState([]);
+    const hubOrderData = [
+        {
+            id: '1',
+            deliver_name: 'Rupesh Jangid',
+            deliver_phone: '04/11/2022',
+            available_time: '12:30 AM',
+            cost: '₹614'
+        },
+        {
+            id: '2',
+            deliver_name: 'Naveen Rohilla',
+            deliver_phone: '04/11/2022',
+            available_time: '12:30 AM',
+            cost: '₹614'
+        },
+        {
+            id: '3',
+            deliver_name: 'Deepak Yadav',
+            deliver_phone: '04/11/2022',
+            available_time: '12:30 AM',
+            cost: '₹614'
+        },
+        {
+            id: '4',
+            deliver_name: 'Ramesh Srivastav',
+            deliver_phone: '04/11/2022',
+            available_time: '12:30 AM',
+            cost: '₹614'
+        }
+    ]
     return (
         <Fragment>
-            <div className='pickup_table_section'>
-                <p>Pickup Orders</p>
                 <TableContainer component={Paper}>
                     <Table stickyHeader striped aria-label="sticky table">
                         <TableHead>
                             <StyledTableRow>
                                 <StyledTableCell>Id</StyledTableCell>
-                                <StyledTableCell>Customer Name</StyledTableCell>
-                                <StyledTableCell>Pickup Date</StyledTableCell>
-                                <StyledTableCell>Pickup Time</StyledTableCell>
+                                <StyledTableCell>Delivery Boy Name</StyledTableCell>
+                                <StyledTableCell>Phone Number</StyledTableCell>
+                                <StyledTableCell>Availabiltiy Time</StyledTableCell>
                                 <StyledTableCell>Cost</StyledTableCell>
-                                <StyledTableCell>Pincode</StyledTableCell>
-                                <StyledTableCell>City</StyledTableCell>
-                                <StyledTableCell>State</StyledTableCell>
-                                <StyledTableCell>Address</StyledTableCell>
-                                <StyledTableCell>Details</StyledTableCell>
+                                <StyledTableCell>Action</StyledTableCell>
                             </StyledTableRow>
                         </TableHead>
                         <TableBody>
-                            {partnerData
+                            {hubOrderData
                                 // eslint-disable-next-line
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, id) => (
                                     <StyledTableRow hover tabIndex={-1} key={id}>
                                         <StyledTableCell>{row.id}</StyledTableCell>
-                                        <StyledTableCell>{row.partner_name}</StyledTableCell>
-                                        <StyledTableCell>{row.partner_email}</StyledTableCell>
-                                        <StyledTableCell>{row.partner_phone}</StyledTableCell>
-                                        <StyledTableCell>{row.partner_pincode}</StyledTableCell>
-                                        <StyledTableCell>{row.partner_city}</StyledTableCell>
-                                        <StyledTableCell>{row.partner_state}</StyledTableCell>
-                                        <StyledTableCell>{row.partner_address}</StyledTableCell>
-
+                                        <StyledTableCell>{row.deliver_name}</StyledTableCell>
+                                        <StyledTableCell>{row.deliver_phone}</StyledTableCell>
+                                        <StyledTableCell>{row.available_time}</StyledTableCell>
+                                        <StyledTableCell>{row.cost}</StyledTableCell>
+                                        <StyledTableCell>
+                                            <button
+                                                type="button"
+                                                className="btn btn-secondary"
+                                                data-toggle="modal" data-target=".assign_order_to_delivery_boy"
+                                            >
+                                                Assign
+                                            </button>
+                                        </StyledTableCell>
                                     </StyledTableRow>
                                 ))}
                         </TableBody>
@@ -91,17 +119,16 @@ const AllOrder = ({ userActive, addUserLocal }) => {
                                     rowsPerPage={rowsPerPage}
                                     onRowsPerPageChange={handleChangeRowsPerPage}
                                     rowsPerPageOptions={[10, 25, 100]}
-                                    count={partnerData.length}
+                                    count={hubOrderData.length}
                                     rows={10}
                                 />
                             </TableRow>
                         </TableFooter>
                     </Table>
                 </TableContainer>
-            </div>
-
         </Fragment>
+
     )
 }
 
-export default AllOrder
+export default OrderAssignForDelivery

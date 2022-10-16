@@ -11,6 +11,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
+import HubAssignOrder from "./HubAssignOrder";
 const UserAvalibiltyCheck = () => {
   const [searchUser, setSearchUser] = useState({
     from_location: "",
@@ -164,8 +165,12 @@ const UserAvalibiltyCheck = () => {
                   <StyledTableCell>{item.from_date}</StyledTableCell>
                   <StyledTableCell>{item.to_date}</StyledTableCell>
                   <StyledTableCell>
-                    <button className="btn btn-success py-0">
-                      ASSIGN ORDER
+                    <button
+                      type="button"
+                      className="btn hub_order"
+                      data-toggle="modal" data-target=".see_hub-lg"
+                    >
+                      Assign Order
                     </button>
                   </StyledTableCell>
                 </StyledTableRow>
@@ -186,6 +191,33 @@ const UserAvalibiltyCheck = () => {
           </TableFooter>
         </Table>
       </TableContainer>
+
+
+      {/* ASSIGN DETAILS MODAL TO AGENT HUB TABLE */}
+      <div className="modal fade see_hub-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div className="modal-dialog  add-partner modal-lg">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="editPartnerTitle">
+               Available Hub 
+              </h5>
+              <button
+                type="button"
+                className="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true" className="modal-off">
+                  &times;
+                </span>
+              </button>
+            </div>
+            <div className="modal-body">
+             <HubAssignOrder />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

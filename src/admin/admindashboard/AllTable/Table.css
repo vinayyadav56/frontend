@@ -141,7 +141,7 @@
   border-bottom: 5px solid #0747a9;
 }
 .pickup_table_section{
-  padding-top: 1.6rem;
+  padding-top:0rem;
 }
 .pickup_table_section p:first-child{
   font-size: 20px;
@@ -172,4 +172,38 @@
 }
 .partner_add  .form-control{
   margin-bottom: 1rem;
+}
+
+/* INVOICE CSS START */
+.invoice_header h2{
+  font-weight: 600;
+  font-size: 20px;
+  text-align: center;
+}
+.invoice_body h4{
+  font-weight: 600;
+  font-size: 16px;
+}
+.invoice_body h4:first-child:after{
+  content: "";
+  display: block;
+  border: 2px solid #0747a9;
+  border-radius: 20px;
+  width: 27%;
+}
+.invoice_body ul:first-child{
+  border-bottom: 1px solid #e5e5e5;
+}
+.invoice_body ul li {
+  display: flex;
+  align-items: center;
+}
+.invoice_body ul li span{
+  font-size: 14px;
+  font-weight: 500;
+}
+.invoice_body ul li p{
+  margin-bottom: 0;
+  font-weight: 600;
+  text-transform: capitalize;
 }

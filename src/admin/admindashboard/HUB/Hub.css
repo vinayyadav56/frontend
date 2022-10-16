@@ -1,7 +1,10 @@
 .hub_order{
-    color: green;
+    color: #fff;
+    background-color: green;
+    border: 1px solid green;
 }
 .hub_order:hover{
+    background-color: #fff;
     color: green;
 }
 .hub_edit{

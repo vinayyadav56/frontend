@@ -23,8 +23,8 @@ class Qrmake extends React.Component {
 
     };
 
-    handleError = (err) => {
-        alert.error(err);
+    handleError = () => {
+        alert();
     };
 
     render() {

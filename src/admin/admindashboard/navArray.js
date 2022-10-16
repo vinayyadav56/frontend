@@ -18,9 +18,9 @@ const navArray = [
     },
     {
         id: 2,
-        nav: 'Recent Order',
+        nav: 'Order',
         icon: <BorderColorRoundedIcon />,
-        link: '/admin/dashboard'
+        link: '/admindashboardallorder'
     },
     {
         id: 3,

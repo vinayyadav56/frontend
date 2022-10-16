@@ -9,6 +9,7 @@ import Order from "../admin/admindashboard/Order";
 import CkOrder from "../admin/admindashboard/CkOrder";
 import DeliveryPartnerDetails from "../admin/admindashboard/DeliveryPartnerDetails";
 import AdminHub from '../admin/admindashboard/HUB/AdminHub';
+import RecenteOrder from '../admin/admindashboard/RecentOrder/RecentOrder';
 
 export const AdminRoutes = () => {
     return (
@@ -27,6 +28,9 @@ export const AdminRoutes = () => {
             </Route>
             <Route exact path="/admindashboardorder">
                 <Order />
+            </Route>
+            <Route exact path="/admindashboardallorder">
+                <RecenteOrder />
             </Route>
             <Route exact path="/admindashboardckorder">
                 <CkOrder />

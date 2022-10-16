@@ -1,6 +1,4 @@
-import React from 'react'
-import "../../admin/admindashboard/AllTable/Table.css";
-import "../../admin/admindashboard/partnerorder.css";
+import React, { Fragment } from 'react'
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -12,14 +10,25 @@ import Paper from '@mui/material/Paper';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
 import { useState } from 'react';
-import { Fragment } from 'react';
 
-const AllOrder = ({ userActive, addUserLocal }) => {
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+const HubDetails = [
+    {
+        id: 1,
+        ck_order_id: 'CK001',
+        from_location: 'Delhi',
+        to_location: 'Mumbai',
+        to_date: '04/12/2022',
+        from_date: '9/12/2022',
+    }
+]
+const HubAssignOrder = () => {
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
+
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
+
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(parseInt(event.target.value, 5));
         setPage(0);
@@ -44,42 +53,43 @@ const AllOrder = ({ userActive, addUserLocal }) => {
             backgroundColor: theme.palette.action.hover,
         }
     }));
-    const [partnerData] = useState([]);
     return (
         <Fragment>
-            <div className='pickup_table_section'>
-                <p>Pickup Orders</p>
                 <TableContainer component={Paper}>
                     <Table stickyHeader striped aria-label="sticky table">
                         <TableHead>
                             <StyledTableRow>
                                 <StyledTableCell>Id</StyledTableCell>
-                                <StyledTableCell>Customer Name</StyledTableCell>
-                                <StyledTableCell>Pickup Date</StyledTableCell>
-                                <StyledTableCell>Pickup Time</StyledTableCell>
-                                <StyledTableCell>Cost</StyledTableCell>
-                                <StyledTableCell>Pincode</StyledTableCell>
-                                <StyledTableCell>City</StyledTableCell>
-                                <StyledTableCell>State</StyledTableCell>
-                                <StyledTableCell>Address</StyledTableCell>
-                                <StyledTableCell>Details</StyledTableCell>
+                                <StyledTableCell>CK Order Id</StyledTableCell>
+                                <StyledTableCell>From Location</StyledTableCell>
+                                <StyledTableCell>To Location</StyledTableCell>
+                                <StyledTableCell>From Date</StyledTableCell>
+                                <StyledTableCell>To Date</StyledTableCell>
+                                <StyledTableCell>Action</StyledTableCell>
                             </StyledTableRow>
                         </TableHead>
                         <TableBody>
-                            {partnerData
+                            {HubDetails
                                 // eslint-disable-next-line
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                .map((row, id) => (
-                                    <StyledTableRow hover tabIndex={-1} key={id}>
-                                        <StyledTableCell>{row.id}</StyledTableCell>
-                                        <StyledTableCell>{row.partner_name}</StyledTableCell>
-                                        <StyledTableCell>{row.partner_email}</StyledTableCell>
-                                        <StyledTableCell>{row.partner_phone}</StyledTableCell>
-                                        <StyledTableCell>{row.partner_pincode}</StyledTableCell>
-                                        <StyledTableCell>{row.partner_city}</StyledTableCell>
-                                        <StyledTableCell>{row.partner_state}</StyledTableCell>
-                                        <StyledTableCell>{row.partner_address}</StyledTableCell>
 
+                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                .map((item, id) => (
+                                    <StyledTableRow hover tabIndex={-1} key={id}>
+                                        <StyledTableCell>{item.id}</StyledTableCell>
+                                        <StyledTableCell>{item.ck_order_id}</StyledTableCell>
+                                        <StyledTableCell>{item.from_location}</StyledTableCell>
+                                        <StyledTableCell>{item.to_location}</StyledTableCell>
+                                        <StyledTableCell>{item.from_date}</StyledTableCell>
+                                        <StyledTableCell>{item.to_date}</StyledTableCell>
+                                        <StyledTableCell>
+                                            <button
+                                                type="button"
+                                                className="btn hub_order"
+                                                data-toggle="modal" data-target=".see_hub-lg"
+                                            >
+                                                Assign Order
+                                            </button>
+                                        </StyledTableCell>
                                     </StyledTableRow>
                                 ))}
                         </TableBody>
@@ -91,17 +101,15 @@ const AllOrder = ({ userActive, addUserLocal }) => {
                                     rowsPerPage={rowsPerPage}
                                     onRowsPerPageChange={handleChangeRowsPerPage}
                                     rowsPerPageOptions={[10, 25, 100]}
-                                    count={partnerData.length}
+                                    count={HubDetails.length}
                                     rows={10}
                                 />
                             </TableRow>
                         </TableFooter>
                     </Table>
                 </TableContainer>
-            </div>
-
         </Fragment>
     )
 }
 
-export default AllOrder
+export default HubAssignOrder

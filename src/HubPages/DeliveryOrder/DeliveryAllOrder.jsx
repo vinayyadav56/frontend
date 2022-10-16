@@ -14,7 +14,7 @@ import TablePagination from '@mui/material/TablePagination';
 import { useState } from 'react';
 import { Fragment } from 'react';
 
-const AllOrder = ({ userActive, addUserLocal }) => {
+const DeliveryAllOrder = ({ userActive, addUserLocal }) => {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const handleChangePage = (event, newPage) => {
@@ -48,7 +48,7 @@ const AllOrder = ({ userActive, addUserLocal }) => {
     return (
         <Fragment>
             <div className='pickup_table_section'>
-                <p>Pickup Orders</p>
+                <p>Delivery Orders</p>
                 <TableContainer component={Paper}>
                     <Table stickyHeader striped aria-label="sticky table">
                         <TableHead>
@@ -99,9 +99,8 @@ const AllOrder = ({ userActive, addUserLocal }) => {
                     </Table>
                 </TableContainer>
             </div>
-
         </Fragment>
     )
 }
 
-export default AllOrder
+export default DeliveryAllOrder

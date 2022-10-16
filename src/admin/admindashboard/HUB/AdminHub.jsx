@@ -68,7 +68,6 @@ const AdminHub = () => {
         getRequest('hubsList')
             .then(response => {
                 setHubData(response.data)
-                console.log(response)
             })
     };
     useEffect(() => {

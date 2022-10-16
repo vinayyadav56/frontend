@@ -189,7 +189,7 @@ ul {
     background-color: #fff;
     color: #0747A9;
     border: 1px solid #fff;
-    padding: 3px 8px;
+    padding: 2px 8px 4px 8px;
     border-radius: 5px;
 }
 
@@ -203,7 +203,7 @@ ul {
 .menu .desktop-links ul .home_login a {
     background: transparent;
     border: 1px solid #fff;
-    padding: 4px 16px;
+    padding: 2px 16px 4px 16px;
     color: #fff;
     border-radius: 5px;
 }
