@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import { useAlert } from "react-alert";
 // import { myUserContext } from "./UserContext";
-
+import newLogo from '../images/newlogo1.png'
 const Signup = () => {
   let alert = useAlert();
   let history = useHistory();
@@ -31,7 +31,7 @@ const Signup = () => {
 
   const Register = (e) => {
     e.preventDefault();
-   
+
     const {
       first_name,
       last_name,
@@ -220,7 +220,7 @@ const Signup = () => {
                           <div className="form-group">
                             <label htmlFor="#pcode">Pincode</label>
                             <input
-                              type="text"
+                              type="number"
                               name="pincode"
                               id="pcode"
                               className="form-control"
@@ -301,8 +301,11 @@ const Signup = () => {
             <div className="col-md-6 adminrightctn">
               <div className="text_section">
                 <div>
-                  <h2>WelCome To CarryKar</h2>
-                  <button className="btn go_back_btn">Go Back</button>
+                  <Link to='/'>
+                    <img src={newLogo} style={{ width: '100px', height: 'auto' }} alt='newalg' />
+                  </Link>
+                  <h2>Welcome To CarryKar</h2>
+                  <Link to='/login' className="btn go_back_btn">Log In</Link>
                 </div>
               </div>
             </div>

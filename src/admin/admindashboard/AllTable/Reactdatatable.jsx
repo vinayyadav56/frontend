@@ -463,13 +463,12 @@ const Reactdatatable = () => {
                   <tbody>
                     {partnerOrderData.map((item, id) => {
                       return (
-                        <></>
+                        <>
+                          
+                        </>
                       );
                     })}
                   </tbody>
-
-
-
                 </table>
               </div>
             </div>
