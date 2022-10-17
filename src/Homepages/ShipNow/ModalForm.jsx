@@ -58,8 +58,8 @@ const ModalForm = (label) => {
                         })}
                     </Stepper> */}
 
-                
-                        <ShipingOrder />
+
+                        <ShipingOrder modalHandleClode={handleClose}/>
                 </Box>
             </Modal>
         </div>

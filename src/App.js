@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./App.css";
 import { positions, Provider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
@@ -18,7 +18,6 @@ const App = () => {
   };
 
   return (
-
         <Provider template={AlertTemplate} {...options}>
           { auth.loading && <Loader />}
           <Router>
