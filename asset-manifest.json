@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/static/css/main.4d0c880a.css",
+    "main.js": "/static/js/main.805a201a.js",
+    "static/media/homebg.png": "/static/media/homebg.da9731536e0863760e86.png",
+    "static/media/commuter.png": "/static/media/commuter.02f6414b0b602ec61833.png",
+    "static/media/step_carrykar1.png": "/static/media/step_carrykar1.d81bba8a39e8b7d2084c.png",
+    "static/media/referearn1.png": "/static/media/referearn1.67f45b2f599d42d1deaf.png",
+    "static/media/aboutimg.png": "/static/media/aboutimg.08062993c624061aa84b.png",
+    "static/media/serviceban.png": "/static/media/serviceban.035a21173f0926de2df8.png",
+    "static/media/quetion.png": "/static/media/quetion.a59185a1d101751bde62.png",
+    "static/media/expressimg.png": "/static/media/expressimg.629196cd65cbb229df60.png",
+    "static/media/qrimageadmin.jpg": "/static/media/qrimageadmin.e71dc763e4fb562bbed9.jpg",
+    "static/media/pltserimg.png": "/static/media/pltserimg.0a2a2ac4f0b092a4dc9a.png",
+    "static/media/newlogo1.png": "/static/media/newlogo1.35e666de85a2d466aa6c.png",
+    "static/media/newlogo.png": "/static/media/newlogo.d39366c47910c2881a10.png",
+    "static/media/befikar2.png": "/static/media/befikar2.405bf7bbd8005b26fdf9.png",
+    "static/media/footerlogo.png": "/static/media/footerlogo.5c285837229d5fb60de9.png",
+    "static/media/befikar3.png": "/static/media/befikar3.5183d7cd8794bf40e6ad.png",
+    "index.html": "/index.html",
+    "main.4d0c880a.css.map": "/static/css/main.4d0c880a.css.map",
+    "main.805a201a.js.map": "/static/js/main.805a201a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4d0c880a.css",
+    "static/js/main.805a201a.js"
+  ]
+}
