@@ -1,12 +1,15 @@
-FROM node:14-alpine AS development
+FROM node:16-alpine AS development
 ENV NODE_ENV development
 # Add a work directory
 WORKDIR /app
 # Cache and Install dependencies
-COPY package.json .
+COPY package*.json .
+
+RUN npm config set legacy-peer-deps true
 RUN npm install
+
 # Copy app files
-COPY . .
+#COPY . .
 # Expose port
 EXPOSE 3000
 # Start the app

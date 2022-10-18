@@ -2,7 +2,6 @@ import React from "react";
 // import { Table, thead, tbody, tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 import {useEffect, useState} from "react";
-import axios from "axios";
 import "./Table.css";
 import {styled} from '@mui/material/styles';
 import Table from '@mui/material/Table';

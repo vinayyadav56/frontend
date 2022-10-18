@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {useState} from 'react';
 import {useAlert} from "react-alert";
 import {useHistory} from 'react-router-dom';

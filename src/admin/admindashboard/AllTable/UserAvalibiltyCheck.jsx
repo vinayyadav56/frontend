@@ -15,8 +15,10 @@ import {makeRequest} from "../../../Services/api";
 import {useAuth} from "../../../Services/auth";
 
 import HubAssignOrder from "./HubAssignOrder";
+import {useAlert} from "react-alert";
 const UserAvalibiltyCheck = () => {
     const {setLoading} = useAuth();
+    const alert = useAlert();
 
     const [searchUser, setSearchUser] = useState({
         from_location: "",
@@ -31,7 +33,7 @@ const UserAvalibiltyCheck = () => {
 
         makeRequest('POST', `user-availability-fetch`, searchUser).then(result => {
             alert.success(result.message);
-            result.success && setFilterUser(result.userAvailability);
+            result.userAvailability && setFilterUser(result.userAvailability);
         }).catch(err => {
             alert.error(err.message);
         }).finally(() => {

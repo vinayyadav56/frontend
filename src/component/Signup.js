@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import axios from "axios";
 import {useAlert} from "react-alert";
 import {makeRequest} from "../Services/api";
 import {useAuth} from "../Services/auth";

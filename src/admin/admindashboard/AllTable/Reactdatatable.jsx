@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useAlert } from "react-alert";
 import "./Table.css";
 import "../partnerorder.css";
@@ -148,16 +147,6 @@ const Reactdatatable = () => {
 
     // UPDATE PARTNER DATA
     const [editData, setEditData] = useState({});
-    const {
-        partner_name,
-        partner_email,
-        partner_password,
-        partner_phone,
-        partner_pincode,
-        partner_state,
-        partner_city,
-        partner_address,
-    } = editData;
 
     const handlePartner = async (e, id) => {
         e.preventDefault();
