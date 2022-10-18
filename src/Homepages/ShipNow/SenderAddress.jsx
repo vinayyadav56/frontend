@@ -1,5 +1,6 @@
 import { Box, Button, FormGroup, TextField} from '@material-ui/core'
 import React from 'react'
+import UserLocation from './UserLocation';
 const Address = ({ values, handleFormData, nextStep, prevStep }) => {
     const submitFormData = (e) => {
         e.preventDefault();
@@ -56,6 +57,7 @@ const Address = ({ values, handleFormData, nextStep, prevStep }) => {
                         onChange={handleFormData("sender_house_no")}
                         defaultValue={values.sender_house_no}
                     />
+                    <UserLocation/>
                     <TextField
                         size="small"
                         id="phone"

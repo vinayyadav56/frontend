@@ -2,12 +2,13 @@ import React from 'react'
 import { Fragment } from 'react'
 import { NavLink } from "react-router-dom";
 import profilelogo from "../images/profilelogo.png";
-import prlogo from "../images/pr-img.png";
-import paymenticon from "../images/paymenthistory.png";
 import Frame from "../images/Frame.png";
-import historyicon from "../images/refral.png";
+import PersonPinIcon from '@mui/icons-material/PersonPin';
 import vector from "../images/Vector.png";
 import moblogo from "../images/moblogo1.png";
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 const DeliverySidebar = ({ userActive }) => {
     return (
         <Fragment>
@@ -37,20 +38,20 @@ const DeliverySidebar = ({ userActive }) => {
                             
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/delivery/dashboard/profile">
-                                    <img src={prlogo} alt="pr" />
+                                    <PersonPinIcon className='mr-3' />
                                     <span>Profile</span>
                                 </NavLink>
                             </li>
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/delivery/dashboard/pickuporders">
-                                    <img src={prlogo} alt="pr" />
+                                    <BorderColorIcon className='mr-3' />
                                     <span>Pick up Orders</span>
                                 </NavLink>
                             </li>
 
                             <li className="nav-item">
                                 <NavLink className="nav-link" to="/delivery/dashboard/deliveryorder">
-                                    <img src={prlogo} alt="pr" />
+                                    <StarBorderIcon className='mr-3' />
                                     <span>Delivery Orders</span>
                                 </NavLink>
                             </li>
@@ -60,7 +61,7 @@ const DeliverySidebar = ({ userActive }) => {
                                     className="nav-link"
                                     to="/delivery/dashboard/paymenthistory"
                                 >
-                                    <img src={paymenticon} alt="payment" />
+                                    <AccountBalanceWalletIcon className='mr-3' />
                                     <span>Payment History</span>
                                 </NavLink>
                             </li>

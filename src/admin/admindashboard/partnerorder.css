@@ -22,7 +22,6 @@
     color: #000 !important;
 }
 .partner_order_list .table td{
-    padding: 0.75rem;
     vertical-align: top;
     border:none;
 }
@@ -31,4 +30,9 @@
 }
 .partner_order_list .table th{
     border-bottom: 1px solid #dee2e6;
+}
+.btn_choose_agnt{
+    background-color: #0747a9;
+    color: #fff !important;
+    padding: 2px 5px;
 }

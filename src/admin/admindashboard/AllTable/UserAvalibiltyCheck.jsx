@@ -1,10 +1,10 @@
 import axios from "axios";
-import {useEffect} from "react";
-import {useState} from "react";
-import {styled} from '@mui/material/styles';
+import { useEffect } from "react";
+import { useState } from "react";
+import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell, {tableCellClasses} from '@mui/material/TableCell';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
@@ -14,6 +14,7 @@ import TablePagination from '@mui/material/TablePagination';
 import {makeRequest} from "../../../Services/api";
 import {useAuth} from "../../../Services/auth";
 
+import HubAssignOrder from "./HubAssignOrder";
 const UserAvalibiltyCheck = () => {
     const {setLoading} = useAuth();
 
@@ -156,44 +157,75 @@ const UserAvalibiltyCheck = () => {
                         {Object.values(filterUser)
                             // eslint-disable-next-line
 
-                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((item, id) => (
-                                <StyledTableRow hover tabIndex={-1} key={id}>
-                                    <StyledTableCell>{item.id}</StyledTableCell>
-                                    <StyledTableCell>{item.order_id}</StyledTableCell>
-                                    <StyledTableCell>{item.user_id}</StyledTableCell>
-                                    <StyledTableCell>{item.fromlocation}</StyledTableCell>
-                                    <StyledTableCell>{item.tolocation}</StyledTableCell>
-                                    <StyledTableCell>{item.journey_type}</StyledTableCell>
-                                    <StyledTableCell>{item.available_space}</StyledTableCell>
-                                    <StyledTableCell>{item.journey_medium}</StyledTableCell>
-                                    <StyledTableCell>{item.from_date}</StyledTableCell>
-                                    <StyledTableCell>{item.to_date}</StyledTableCell>
-                                    <StyledTableCell>
-                                        <button className="btn btn-success py-0">
-                                            ASSIGN ORDER
-                                        </button>
-                                    </StyledTableCell>
-                                </StyledTableRow>
-                            ))}
-                    </TableBody>
-                    <TableFooter>
-                        <TableRow>
-                            <TablePagination
-                                page={page}
-                                onPageChange={handleChangePage}
-                                rowsPerPage={rowsPerPage}
-                                onRowsPerPageChange={handleChangeRowsPerPage}
-                                rowsPerPageOptions={[10, 25, 100]}
-                                count={filterUser.length}
-                                rows={10}
-                            />
-                        </TableRow>
-                    </TableFooter>
-                </Table>
-            </TableContainer>
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((item, id) => (
+                <StyledTableRow hover tabIndex={-1} key={id}>
+                  <StyledTableCell>{item.id}</StyledTableCell>
+                  <StyledTableCell>{item.order_id}</StyledTableCell>
+                  <StyledTableCell>{item.user_id}</StyledTableCell>
+                  <StyledTableCell>{item.fromlocation}</StyledTableCell>
+                  <StyledTableCell>{item.tolocation}</StyledTableCell>
+                  <StyledTableCell>{item.journey_type}</StyledTableCell>
+                  <StyledTableCell>{item.available_space}</StyledTableCell>
+                  <StyledTableCell>{item.journey_medium}</StyledTableCell>
+                  <StyledTableCell>{item.from_date}</StyledTableCell>
+                  <StyledTableCell>{item.to_date}</StyledTableCell>
+                  <StyledTableCell>
+                    <button
+                      type="button"
+                      className="btn hub_order"
+                      data-toggle="modal" data-target=".see_hub-lg"
+                    >
+                      Assign Order
+                    </button>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                page={page}
+                onPageChange={handleChangePage}
+                rowsPerPage={rowsPerPage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                rowsPerPageOptions={[10, 25, 100]}
+                count={filterUser.length}
+                rows={10}
+              />
+            </TableRow>
+          </TableFooter>
+        </Table>
+      </TableContainer>
+
+
+      {/* ASSIGN DETAILS MODAL TO AGENT HUB TABLE */}
+      <div className="modal fade see_hub-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div className="modal-dialog  add-partner modal-lg">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="editPartnerTitle">
+               Available Hub
+              </h5>
+              <button
+                type="button"
+                className="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true" className="modal-off">
+                  &times;
+                </span>
+              </button>
+            </div>
+            <div className="modal-body">
+             <HubAssignOrder />
+            </div>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default UserAvalibiltyCheck;

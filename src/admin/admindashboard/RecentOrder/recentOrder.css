@@ -1,0 +1,17 @@
+.all_order_table {
+    background: #fff;
+    padding:0px  14px 14px 14px;
+    height:75vh;
+}
+
+.all_order_table .container-fluid {
+    height: 100%;
+    overflow: scroll;
+}
+
+.all_order_table .container-fluid .table_box {
+    border: 1px solid #000;
+    border-radius: 5px;
+    background-color: azure;
+    margin-bottom: 1rem;
+}

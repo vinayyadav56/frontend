@@ -1,31 +1,25 @@
-import React, {Fragment} from "react";
+import React, { Fragment } from "react";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import {useAlert} from "react-alert";
+import { useAlert } from "react-alert";
 import "./Table.css";
 import "../partnerorder.css";
 import Addpartner from "../Addpartner";
-import {styled} from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell, {tableCellClasses} from '@mui/material/TableCell';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
-import {
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-    FormGroup,
-    TextField
-} from "@material-ui/core";
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormGroup } from "@material-ui/core";
 import {makeRequest} from "../../../Services/api";
 import {useAuth} from "../../../Services/auth";
 
@@ -195,96 +189,92 @@ const Reactdatatable = () => {
         })
     };
 
-    // FETCH PARTNER DETAILS ENDS
-    return (
-        <Fragment>
-            <div className="filter_partner">
-                <div className="form-row">
-                    <div className="col-md-2">
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Search Partner"
-                            onChange={handleSearch}
-                        />
-                    </div>
-                    <div className="col-md-10">
-                        <div className="d-flex justify-content-end">
-                            <Addpartner/>
-                        </div>
-                    </div>
-                </div>
+  // FETCH PARTNER DETAILS ENDS
+  return (
+    <Fragment>
+      <div className="filter_partner">
+        <div className="form-row">
+          <div className="col-md-2">
+            <input
+              className="form-control"
+              type="text"
+              placeholder="Search Partner"
+              onChange={handleSearch}
+            />
+          </div>
+          <div className="col-md-10">
+            <div className="d-flex justify-content-end">
+              <Addpartner />
             </div>
-
-            {/* React Table start */}
-
-            <TableContainer component={Paper}>
-                <Table stickyHeader striped aria-label="sticky table">
-                    <TableHead>
-                        <StyledTableRow>
-                            <StyledTableCell>Id</StyledTableCell>
-                            <StyledTableCell>Name</StyledTableCell>
-                            <StyledTableCell>Email</StyledTableCell>
-                            <StyledTableCell>Phone</StyledTableCell>
-                            <StyledTableCell>Pincode</StyledTableCell>
-                            <StyledTableCell>City</StyledTableCell>
-                            <StyledTableCell>State</StyledTableCell>
-                            <StyledTableCell>Address</StyledTableCell>
-                            <StyledTableCell>Action</StyledTableCell>
-                        </StyledTableRow>
-                    </TableHead>
-                    <TableBody>
-                        {partnerData
-                            // eslint-disable-next-line
-                            .filter((val) => {
-                                if (searchTerm === "") {
-                                    return val;
-                                } else if (
-                                    val.partner_name
-                                        .toLocaleLowerCase()
-                                        .includes(searchTerm.toLocaleLowerCase())
-                                ) {
-                                    return val;
-                                }
-                            })
-                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((row, id) => (
-                                <StyledTableRow hover tabIndex={-1} key={id}>
-                                    <StyledTableCell>{row.id}</StyledTableCell>
-                                    <StyledTableCell>{row.partner_name}</StyledTableCell>
-                                    <StyledTableCell>{row.partner_email}</StyledTableCell>
-                                    <StyledTableCell>{row.partner_phone}</StyledTableCell>
-                                    <StyledTableCell>{row.partner_pincode}</StyledTableCell>
-                                    <StyledTableCell>{row.partner_city}</StyledTableCell>
-                                    <StyledTableCell>{row.partner_state}</StyledTableCell>
-                                    <StyledTableCell>{row.partner_address}</StyledTableCell>
-                                    <StyledTableCell>
-                                        <button
-                                            onClick={() => fetchID(row.id)}
-                                            className="btn add_partner py-0 mr-1"
-                                            data-toggle="modal"
-                                            variant="contained"
-                                            data-target="#editPartner"
-                                        >
-                                            EDIT
-                                        </button>
-                                        <button
-                                            className="btn delete-btn mr-1"
-                                            onClick={handleClickOpen}
-                                            variant="outlined" color="error"
-                                        >
-                                            DELETE
-                                        </button>
-                                        <Button
-                                            className="btn partner_order py-0 mr-1"
-                                            data-toggle="modal"
-                                            data-target="#orderPartner"
-                                            variant="contained"
-                                            color='error'
-                                            onClick={() => fetchOrderData(row.id)}
-                                        >
-                                            ORDER
-                                        </Button>
+          </div>
+        </div>
+      </div>
+      <TableContainer component={Paper}>
+        <Table stickyHeader striped aria-label="sticky table">
+          <TableHead>
+            <StyledTableRow>
+              <StyledTableCell>Id</StyledTableCell>
+              <StyledTableCell>Name</StyledTableCell>
+              <StyledTableCell>Email</StyledTableCell>
+              <StyledTableCell>Phone</StyledTableCell>
+              <StyledTableCell>Pincode</StyledTableCell>
+              <StyledTableCell>City</StyledTableCell>
+              <StyledTableCell>State</StyledTableCell>
+              <StyledTableCell>Address</StyledTableCell>
+              <StyledTableCell>Action</StyledTableCell>
+            </StyledTableRow>
+          </TableHead>
+          <TableBody>
+            {partnerData
+              // eslint-disable-next-line
+              .filter((val) => {
+                if (searchTerm === "") {
+                  return val;
+                } else if (
+                  val.partner_name
+                    .toLocaleLowerCase()
+                    .includes(searchTerm.toLocaleLowerCase())
+                ) {
+                  return val;
+                }
+              })
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row, id) => (
+                <StyledTableRow hover tabIndex={-1} key={id}>
+                  <StyledTableCell>{row.id}</StyledTableCell>
+                  <StyledTableCell>{row.partner_name}</StyledTableCell>
+                  <StyledTableCell>{row.partner_email}</StyledTableCell>
+                  <StyledTableCell>{row.partner_phone}</StyledTableCell>
+                  <StyledTableCell>{row.partner_pincode}</StyledTableCell>
+                  <StyledTableCell>{row.partner_city}</StyledTableCell>
+                  <StyledTableCell>{row.partner_state}</StyledTableCell>
+                  <StyledTableCell>{row.partner_address}</StyledTableCell>
+                  <StyledTableCell>
+                    <button
+                      onClick={() => fetchID(row.id)}
+                      className="btn edit_partner py-0 mr-1"
+                      data-toggle="modal"
+                      variant="contained"
+                      data-target="#editPartner"
+                    >
+                      <ModeEditOutlineIcon />
+                    </button>
+                    <button
+                      className="btn delete-btn mr-1"
+                      onClick={handleClickOpen}
+                      variant="outlined" color="error"
+                    >
+                      <DeleteIcon />
+                    </button>
+                    <button
+                      className="btn partner_order py-0 mr-1"
+                      data-toggle="modal"
+                      data-target="#orderPartner"
+                      variant="contained"
+                      onClick={() => fetchOrderData(row.id)}
+                    >
+                      <BookmarkBorderIcon />
+                    </button>
 
                                         {/* Delete POPUP START */}
                                         <Dialog
@@ -356,183 +346,138 @@ const Reactdatatable = () => {
                 <span aria-hidden="true" className="modal-off">
                   &times;
                 </span>
-                            </button>
-                        </div>
-                        <div className="modal-body">
-                            <FormGroup
-                                className="partner_add"
-                            >
-                                <TextField
-                                    type="text"
-                                    variant='outlined'
-                                    margin="normal"
-                                    size='small'
-                                    label="Name"
-                                    name="partner_name"
-                                    onChange={handleInput}
-                                    value={editData.partner_name}
-                                />
-                                <TextField
-                                    type="text"
-                                    name="partner_email"
-                                    variant='outlined'
-                                    margin="normal"
-                                    size='small'
-                                    label="Email"
-                                    onChange={handleInput}
-                                    value={editData.partner_email}
-                                />
-                                <TextField
-                                    type="text"
-                                    name="partner_phone"
-                                    onChange={handleInput}
-                                    variant='outlined'
-                                    margin="normal"
-                                    size='small'
-                                    label="Phone"
-                                    value={editData.partner_phone}
-                                />
-                                <TextField
-                                    type="text"
-                                    name="partner_pincode"
-                                    onChange={handleInput}
-                                    variant='outlined'
-                                    margin="normal"
-                                    size='small'
-                                    label="Pincode"
-                                    value={editData.partner_pincode}
-                                />
-                                <TextField
-                                    type="text"
-                                    name="partner_state"
-                                    onChange={handleInput}
-                                    variant='outlined'
-                                    margin="normal"
-                                    size='small'
-                                    label="State"
-                                    value={editData.partner_state}
-                                />
-                                <TextField
-                                    type="text"
-                                    name="partner_city"
-                                    onChange={handleInput}
-                                    variant='outlined'
-                                    margin="normal"
-                                    size='small'
-                                    label="City"
-                                    value={editData.partner_city}
-                                />
-                                <TextField
-                                    type="text"
-                                    name="partner_address"
-                                    onChange={handleInput}
-                                    variant='outlined'
-                                    margin='normal'
-                                    size='small'
-                                    label="Address"
-                                    value={editData.partner_address}
-                                />
-                                <div className="d-flex justify-content-between">
-                                    <button
-                                        onClick={(e) => handlePartner(e, editData.id)}
-                                        data-dismiss="modal"
-                                        className="btn btn-primary"
-                                    >
-                                        Save Partner
-                                    </button>
-                                </div>
-                            </FormGroup>
-                        </div>
-                    </div>
-                </div>
+              </button>
             </div>
-            {/* EDIT MODAL ENDS */}
+            <div className="modal-body">
+              <FormGroup
+                className="partner_add"
+              >
+                <label htmlFor="#name">Name</label>
+                <input
+                  id='name'
+                  className="form-control"
+                  type="text"
+                  name="partner_name"
+                  onChange={handleInput}
+                  value={editData.partner_name}
+                />
+                <label htmlFor="#email">Email</label>
+                <input
+                  id="email"
+                  className="form-control"
+                  type="text"
+                  name="partner_email"
+                  onChange={handleInput}
+                  value={editData.partner_email}
+                />
+                <label htmlFor="#phone">Phone No</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  id='phone'
+                  name="partner_phone"
+                  onChange={handleInput}
+                  value={editData.partner_phone}
+                />
+                <label htmlFor="//#endregionpincode">Pincode</label>
+                <input
+                  id='pincode'
+                  className="form-control"
+                  type="text"
+                  name="partner_pincode"
+                  onChange={handleInput}
+                  value={editData.partner_pincode}
+                />
+                <label htmlFor="#state">State</label>
+                <input
+                  id="state"
+                  className="form-control"
+                  type="text"
+                  name="partner_state"
+                  onChange={handleInput}
+                  value={editData.partner_state}
+                />
+                <label htmlFor="#city">City</label>
+                <input
+                  id="city"
+                  className="form-control"
+                  type="text"
+                  name="partner_city"
+                  onChange={handleInput}
+                  value={editData.partner_city}
+                />
+                <label htmlFor="#address">Address</label>
+                <input
+                  id="address"
+                  className="form-control"
+                  type="text"
+                  name="partner_address"
+                  onChange={handleInput}
+                  value={editData.partner_address}
+                />
+                <div className="d-flex justify-content-between">
+                  <button
+                    onClick={(e) => handlePartner(e, editData.id)}
+                    data-dismiss="modal"
+                    className="btn btn-primary"
+                  >
+                    Save Partner
+                  </button>
+                </div>
+              </FormGroup>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* EDIT MODAL ENDS */}
 
-            {/* ORDER DETAILS START */}
-            <div
-                className="modal bd-example-modal-xl fade"
-                id="orderPartner"
-                role="dialog"
-                aria-labelledby="orderPartnerTitle"
-                aria-hidden="true"
-            >
-                <div
-                    className="modal-dialog modal-dialog-centered modal-xl add-partner"
-                    role="document"
-                >
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title" id="orderPartnerTitle">
-                                Order Details
-                            </h5>
-                            <button
-                                type="button"
-                                className="close"
-                                data-dismiss="modal"
-                                aria-label="Close"
-                            >
+      {/* ORDER DETAILS START */}
+      <div
+        className="modal bd-example-modal-xl fade"
+        id="orderPartner"
+        role="dialog"
+        aria-labelledby="orderPartnerTitle"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered modal-xl add-partner" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="orderPartnerTitle">
+                Order Details
+              </h5>
+              <button
+                type="button"
+                className="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
                 <span aria-hidden="true" className="modal-off">
                   &times;
                 </span>
-                            </button>
-                        </div>
-                        <div className="modal-body p-0">
-                            <div className="table-responsive-lg partner_order_list">
-                                <table className="table table-striped">
-
-                                    <tbody>
-                                    {partnerOrderData.map((item, id) => {
-                                        return (
-                                            <tr key={id} style={{margin: "10px 0 10px 0"}}>
-                                                <td className="table_data">
-                                                    <th className="d-block">Sender Info</th>
-
-                                                    <td>{id + 1}</td>
-                                                    <td className="d-block">{item.sender_name} </td>
-                                                    <td className="d-block">{item.sender_email}</td>
-                                                    <td className="d-block">{item.sender_phone}</td>
-                                                    {/* <td className="d-block">{item.sender_pincode}</td> */}
-                                                    <td className="d-block">{item.sender_state} </td>
-                                                    <td className="d-block">{item.sender_city} </td>
-                                                    <td className="d-block">{item.sender_address}</td>
-                                                </td>
-                                                <td className="table_data">
-                                                    <th className="d-block">Receiver Info</th>
-
-                                                    <td>{id + 1}</td>
-                                                    <td className="d-block">{item.receiver_name} </td>
-                                                    <td className="d-block">{item.receiver_email}</td>
-                                                    <td className="d-block">{item.receiver_phone}</td>
-                                                    {/* <td className="d-block">{item.receiver_pincode}</td> */}
-                                                    <td className="d-block">{item.receiver_state}</td>
-                                                    <td className="d-block">{item.receiver_city} </td>
-                                                    <td className="d-block">{item.receiver_address}</td>
-                                                </td>
-                                                <td className="table_data">
-                                                    <th className="d-block">Order Summary</th>
-                                                    <td>{id + 1}</td>
-                                                    <td className="d-block">{item.receiver_name} </td>
-                                                    <td className="d-block">{item.receiver_email}</td>
-                                                    <td className="d-block">{item.receiver_phone}</td>
-                                                    {/* <td className="d-block">{item.receiver_pincode}</td> */}
-                                                    <td className="d-block">{item.receiver_state}</td>
-                                                    <td className="d-block">{item.receiver_city} </td>
-                                                    <td className="d-block">{item.receiver_address}</td>
-                                                </td>
-                                            </tr>
-                                        );
-                                    })}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              </button>
             </div>
-            {/* ORDER DETAILS ENDS */}
+            <div className="modal-body p-0">
+              <div className="table-responsive-lg partner_order_list">
+                <table className="table table-striped">
+                  <tbody>
+                    {partnerOrderData.map((item, id) => {
+                      return (
+                        <>
 
-        </Fragment>
-    );
+                        </>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* ORDER DETAILS ENDS */}
+
+    </Fragment>
+  );
 };
 
 export default Reactdatatable;

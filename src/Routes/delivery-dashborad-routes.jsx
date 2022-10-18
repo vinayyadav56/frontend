@@ -4,10 +4,14 @@ import DeliveryDashboard from "../DeliveryBoyPages/DeliveryDashboard";
 import DeliveryProfile from "../DeliveryBoyPages/DeliveryProfilePages/DeliveryProfile";
 import PickupOrder from "../DeliveryBoyPages/PickupOrder";
 import DeliveryOrder from "../DeliveryBoyPages/DeliveryOrder";
+import AgentLogin from '../component/AgentLogin';
 
 export const DeliveryDashboardRoutes = () => {
     return (
         <Switch>
+            <Route exact path='/delivery'>
+                <AgentLogin />
+            </Route>
             <Route exact path="/delivery/dashboard">
                 <DeliveryDashboard />
             </Route>

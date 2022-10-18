@@ -54,45 +54,45 @@ const Adminlogin = () => {
               <span className="wel-msg">
                 Welcome To Carrykar
               </span>
-                            <span className="log-title">Login to your account</span>
-                            <div className="login-det mt-2">
-                                <div className="form-group">
-                                    <input
-                                        type="email"
-                                        name="partner_email"
-                                        placeholder="Email"
-                                        value={login_partner.partner_email}
-                                        onChange={handlePartner}
-                                        autoComplete="off"
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <input
-                                        type="password"
-                                        name="partner_password"
-                                        placeholder="Password"
-                                        value={login_partner.partner_password}
-                                        onChange={handlePartner}
-                                    />
-                                </div>
-                            </div>
-                            <div className="admin-footer">
-                                <div className="forget-btn">
-                                    <Link to="/forget">Forget Password ?</Link>
-                                </div>
-                                <Link
-                                    to="/partner/dashboard"
-                                    className="login-btn"
-                                    onClick={handleApipartner}
-                                >
-                                    Login
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
+              <span className="log-title">Login As Partner</span>
+              <div className="login-det mt-2">
+                <div className="form-group">
+                  <input
+                    type="email"
+                    name="partner_email"
+                    placeholder="Email"
+                    value={login_partner.partner_email}
+                    onChange={handlePartner}
+                    autoComplete="off"
+                  />
                 </div>
+                <div className="form-group">
+                  <input
+                    type="password"
+                    name="partner_password"
+                    placeholder="Password"
+                    value={login_partner.partner_password}
+                    onChange={handlePartner}
+                  />
+                </div>
+              </div>
+              <div className="admin-footer">
+                <div className="forget-btn">
+                  <Link to="/forget">Forget Password ?</Link>
+                </div>
+                <Link
+                  to="/partner/dashboard"
+                  className="login-btn"
+                  onClick={handleApipartner}
+                >
+                  Login
+                </Link>
+              </div>
             </div>
-        </>
-    );
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
 export default Adminlogin;

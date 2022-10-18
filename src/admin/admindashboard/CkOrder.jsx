@@ -1,7 +1,7 @@
-import React, {Fragment, useState} from 'react'
-import {Link, NavLink} from "react-router-dom";
-import axios from 'axios';
+import React, { Fragment, useState } from 'react'
+import { Link, NavLink, Redirect } from "react-router-dom";
 import "./Adminmenu.css";
+import clsx from 'clsx';
 import "./ckorder.css";
 import navArray from "./navArray";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
@@ -10,57 +10,67 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import Box from '@mui/material/Box';
-import {DataGrid} from '@mui/x-data-grid';
-import {makeRequest} from "../../Services/api";
-import {useAuth} from "../../Services/auth";
-// import {
-//     Paper,
-//     Table,
-//     TableBody,
-//     TableCell,
-//     TableContainer,
-//     TableHead,
-//     TableRow
-// } from "@material-ui/core";
-// import { useEffect } from 'react';
-
-
+import { DataGrid } from '@mui/x-data-grid';
+import { useAuth } from '../../Services/auth';
 export default function CkOrder() {
-    const {setLoading} = useAuth();
-
     const [ckOrder, setCkOrder] = useState({
         from_location: "",
         to_location: "",
     });
-    const [orderData, setOrderData] = useState();
+    const tableData = [
+        {
+            id: '1',
+            partner_order_id: '12',
+            customer_id: '21',
+            to_location: 'Delhi',
+            from_location: 'Kanpur',
+            weight: '20kg',
+            ordertype: 'PO'
+        },
+        {
+            id: '2',
+            partner_order_id: '12',
+            customer_id: '21',
+            to_location: 'Delhi',
+            from_location: 'Kanpur',
+            weight: '20kg',
+            ordertype: 'PO'
 
+        },
+        {
+            id: '3',
+            partner_order_id: '12',
+            customer_id: '21',
+            to_location: 'Delhi',
+            from_location: 'Kolkata',
+            weight: '20kg',
+            ordertype: 'CO'
+
+        },
+        {
+            id: '4',
+            partner_order_id: '12',
+            customer_id: '21',
+            to_location: 'Mumbai',
+            from_location: 'Kanpur',
+            weight: '20kg',
+            ordertype: 'CO'
+
+        },
+    ];
+    const [orderData] = useState(tableData);
+    console.log(orderData)
     const handleLocation = (e) => {
-        const {name, value} = e.target;
+        const { name, value } = e.target;
         setCkOrder({
             ...ckOrder,
             [name]: value,
         });
     };
-
-    const handleApi = async (e) => {
-        setLoading(true);
-
-        makeRequest('POST', `searchLocationbyFromto`, ckOrder).then(result => {
-            alert.success(result.message);
-            result.success && setOrderData(result.fetchOrdersList)
-        }).catch(err => {
-            alert.error(err.message);
-        }).finally(() => {
-            setLoading(false);
-        })
+    const auth = useAuth();
+    if (!auth.isAuthenticated()) {
+        return <Redirect to="/admin" />
     };
-
-    // useEffect(() => {
-    //     handleApi();
-    //     // eslint-disable-next-line
-    // }, []);
-
-    // import MaterialCheckbox from '@mui/material/Checkbox';
     const columns = [
         {
             field: 'id',
@@ -92,23 +102,24 @@ export default function CkOrder() {
             field: 'weight',
             headerName: 'Weight',
             width: 150,
-            editable: true,
+        },
+        {
+            field: 'ordertype',
+            headerName: 'Order Type',
+            width: 150,
+            cellClassName: (params) => {
+                if (params.value == null) {
+                    return '';
+                }
+
+                return clsx('super-app', {
+                    negative: params.value === "PO",
+                    positive: params.value === "CO",
+                });
+            },
         },
     ];
 
-    const rows = [];
-    //   CKORDER TABLE END
-    orderData && orderData.forEach((item, id) => {
-        rows.push({
-                id: id + 1,
-                partner_order_id: item.partner_order_id,
-                customer_id: item.customer_id,
-                to_location: item.to_location,
-                from_location: item.from_location,
-                weight: item.weight,
-            }
-        )
-    });
 
     return (
         <Fragment>
@@ -116,13 +127,13 @@ export default function CkOrder() {
                 <div className="partner-sidebar">
                     <span className="top-name">Carry Kar</span>
                     <div className="search-bar">
-                        <SearchSharpIcon/>
-                        <input type="search" placeholder="Search"/>
+                        <SearchSharpIcon />
+                        <input type="search" placeholder="Search" />
                     </div>
                     <div className="profile-area">
                         <div className="profile">
                             <div className="profile-photo">
-                                <AccountCircleRoundedIcon/>
+                                <AccountCircleRoundedIcon />
                             </div>
 
                             <div className="dropdown show">
@@ -155,7 +166,7 @@ export default function CkOrder() {
                             </div>
                         </div>
                         <button id="menu-btn">
-                            <MenuRoundedIcon/>
+                            <MenuRoundedIcon />
                         </button>
                     </div>
                 </div>
@@ -164,12 +175,12 @@ export default function CkOrder() {
                 <aside>
                     <div className="sidebar">
                         <button id="close-btn">
-                            <CloseRoundedIcon/>
+                            <CloseRoundedIcon />
                         </button>
                         <div className="responsive-sidebar">
                             <NavLink to="/admindashboard">
                                 <span className="icon">
-                                    <GridViewRoundedIcon/>
+                                    <GridViewRoundedIcon />
                                 </span>
                                 <h4 className="title">Dashboard</h4>
                             </NavLink>
@@ -211,7 +222,7 @@ export default function CkOrder() {
                                 />
                             </div>
                             <div className='col-sm-2 pr-0'>
-                                <button type='button' className='btn locasrchbtn' onClick={handleApi}>Search</button>
+                                <button type='button' className='btn locasrchbtn'>Search</button>
                             </div>
                         </div>
                         <div className="form-row weight_section">
@@ -231,73 +242,46 @@ export default function CkOrder() {
                             </div>
                             <div>
                                 <label htmlFor="colFormLabel2" className="col-form-label-sm">SuitCase Weight</label>
-                                <input type="number" className="form-control" id="colFormLabel2"/>
+                                <input type="number" className="form-control" id="colFormLabel2" />
                             </div>
                         </div>
                     </form>
                     {/* <TABLE START */}
-
-                    <Box sx={{height: 400, width: '100%', background: '#fff'}}>
-
+                    <Box sx={{
+                        height: 400,
+                        width: '100%',
+                        background: '#fff',
+                        '& .super-app.negative': {
+                            backgroundColor: 'green',
+                            color: '#fff',
+                            border: '1px solid #fff',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            fontWeight: '600',
+                        },
+                        '& .super-app.positive': {
+                            backgroundColor: 'red',
+                            color: '#fff',
+                            display: 'flex',
+                            border: '1px solid #fff',
+                            justifyContent: 'center',
+                            fontWeight: '600',
+                        },
+                    }}>
                         <DataGrid
-                            rows={rows}
-                            // getRowId={(row) => row.internalId}
+                            rows={tableData}
                             columns={columns}
                             pageSize={5}
-                            sx={{width: '100%'}}
+                            sx={{ width: '100%' }}
+                            onSelectionModelChange={(orderData) => {
+                                console.log(orderData)
+                            }}
                             rowsPerPageOptions={[5]}
-                            // getRowId={(row) => row.no}
                             checkboxSelection
                             disableSelectionOnClick
-                            experimentalFeatures={{newEditingApi: true}}
+                            experimentalFeatures={{ newEditingApi: true }}
                         />
                     </Box>
-
-
-                    {/* <TableContainer component={Paper}>
-                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Id</TableCell>
-                                    <TableCell>Order Id</TableCell>
-                                    <TableCell>Partner Id</TableCell>
-                                    <TableCell>From Location</TableCell>
-                                    <TableCell>To Location</TableCell>
-                                    <TableCell>Date</TableCell>
-                                    <TableCell>Weight</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {
-                                    orderData.map((item, id) => {
-                                        return (
-                                            <TableRow
-                                                pageSize={5}
-                                                rowsPerPageOptions={[5]}
-                                                checkboxSelection
-                                                disableSelectionOnClick
-                                                sx={{ '&:last-child td, &:last-child th': { border: 0 } ,width: '100%'}}
-                                            >
-                                                <TableCell>
-                                                    {item.partner_order_id}
-                                                </TableCell>
-                                                <TableCell>
-                                                    {item.customer_id}
-                                                </TableCell>
-                                                <TableCell>{item.from_location}</TableCell>
-                                                <TableCell>{item.to_location}</TableCell>
-                                                <TableCell>{item.date}</TableCell>
-                                                <TableCell>
-                                                    {item.order_weight}
-                                                </TableCell>
-                                            </TableRow>
-                                        )
-                                    })
-                                }
-                            </TableBody>
-                        </Table>
-                    </TableContainer>  */}
-                    {/* Table ends */}
                 </section>
             </main>
         </Fragment>
