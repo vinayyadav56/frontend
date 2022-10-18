@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import "./Adminmenu.css";
 import { useState } from "react";
 import { styled } from '@mui/material/styles';
@@ -17,10 +17,14 @@ import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import AddDeliveryPartner from "./AddDeliveryPartner";
+import { useAuth } from "../../Services/auth";
 const DeliveryPartnerDetails = () => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
-
+    const auth = useAuth();
+    if (!auth.isAuthenticated()) {
+        return <Redirect to="/admin" />
+    };
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -111,7 +115,7 @@ const DeliveryPartnerDetails = () => {
                                     type="text"
                                     className="form-control"
                                     placeholder="Search Delivery Partner"
-                                    // onChange={handleSearch}
+                                // onChange={handleSearch}
                                 />
                             </div>
                             <div className="col-md-10">
@@ -145,7 +149,7 @@ const DeliveryPartnerDetails = () => {
                                     <StyledTableCell>Delhi</StyledTableCell>
                                     <StyledTableCell>Delhi</StyledTableCell>
                                     <StyledTableCell>Delhi</StyledTableCell>
-                                    
+
                                     <StyledTableCell>
                                         <button className="btn btn-success py-0">
                                             See Details

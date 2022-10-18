@@ -1,5 +1,5 @@
 {
   "APP_ENV" : "dev",
-  "API_BASE_URL": "http://35.91.35.188/api/",
+  "API_BASE_URL": "https://35.91.35.188/api/",
   "RAZOR_PAY_JS": "https://checkout.razorpay.com/v1/checkout.js"
 }

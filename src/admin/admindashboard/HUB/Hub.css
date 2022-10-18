@@ -1,0 +1,21 @@
+.hub_order{
+    color: #fff;
+    background-color: green;
+    border: 1px solid green;
+}
+.hub_order:hover{
+    background-color: #fff;
+    color: green;
+}
+.hub_edit{
+    color: #0747a9;
+}
+.hub_edit:hover{
+    color: #0747a9;
+}
+.hub_delete{
+    color: red;
+}
+.hub_delete:hover{
+    color: red;
+}

@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 import "./tabpanel.css";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import trip from "../images/triplocation.png";
 import AirplanemodeActiveSharpIcon from "@mui/icons-material/AirplanemodeActiveSharp";
@@ -16,8 +15,6 @@ import 'antd/dist/antd.css';
 import {useAlert} from "react-alert";
 import {makeRequest} from "../Services/api";
 import {useAuth} from "../Services/auth";
-
-
 // import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -117,9 +114,9 @@ export default function BasicTabs() {
             }).then(res => {
                 setSuggestion(res.map(loc => {
                     return {
-                        value: formData.transport_type == 'station' ? loc.station_name : loc.name,
-                        code: formData.transport_type == 'station' ? loc.station_code : loc.stationCode,
-                        city: formData.transport_type == 'station' ? loc.city_name : loc.cityName
+                        value: formData.transport_type === 'station' ? loc.station_name : loc.name,
+                        code: formData.transport_type === 'station' ? loc.station_code : loc.stationCode,
+                        city: formData.transport_type === 'station' ? loc.city_name : loc.cityName
                     }
                 }))
             })
@@ -138,7 +135,7 @@ export default function BasicTabs() {
         setLoading(true);
 
         try{
-            const payload = getPayload(formData.journey_type == 'round_trip');
+            const payload = getPayload(formData.journey_type === 'round_trip');
             makeRequest('POST', 'createUserAvailability', payload).then(res => {
                 if(res.success) {
                     alert.success(res.message)

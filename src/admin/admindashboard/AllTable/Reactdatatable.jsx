@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useAlert } from "react-alert";
 import "./Table.css";
 import "../partnerorder.css";
@@ -16,178 +15,169 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormGroup, TextField } from "@material-ui/core";
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormGroup } from "@material-ui/core";
+import {makeRequest} from "../../../Services/api";
+import {useAuth} from "../../../Services/auth";
 
 const Reactdatatable = () => {
-  const [open, setopen] = React.useState(false);
+    const [open, setopen] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setopen(true);
-  };
+    const handleClickOpen = () => {
+        setopen(true);
+    };
 
-  const handleClose = () => {
-    setopen(false);
-  };
-
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 5));
-    setPage(0);
-  };
-  // PAGINATION ENDS
-
-  // DATA GRID TABLE START
-  const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: '#0747a9',
-      color: theme.palette.common.white,
-    },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: 12,
-      padding: '10px 14px',
-      border: '1px solid #c8c8c8'
-    },
-  }));
-
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    }
-  }));
-  let alert = useAlert();
-  const [setFilterVal] = useState([]);
-  const [partnerData, setPartnerData] = useState([]);
-  const [searchapiData, setSearchapiData] = useState([]);
-  const [searchTerm] = useState("");
-
-  // PARTNER ORDER LIST START
-  const [partnerOrderData, setPartnerOrderData] = useState([]);
-  const fetchOrderData = async (id) => {
-    const response = await axios.get(`http://35.91.35.188/api/partnerOrdersByPartnerId/${id}`);
-    const partnerList = Object.values(response.data);
-    const list = partnerList[0];
-    try {
-      setPartnerOrderData(list);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  // PARTNER ORDER LIST ENDS
-
-  const fetchData = async () => {
-    const response = await axios.get("http://35.91.35.188/api/partner-list");
-    const partnerList = Object.values(response.data);
-    const list = partnerList[0];
-    try {
-      setPartnerData(list);
-      setSearchapiData(list);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  // DELETE PARTNER START
-  const deleteData = async (id) => {
-    //http://35.91.35.188/api/delete-user/2
-    const res = await axios.delete(`http://35.91.35.188/api/delete-user/${id}`)
-    try {
-      console.log(res)
-      if (res.data.success === true) {
+    const handleClose = () => {
         setopen(false);
-        alert.success(res.data.message);
-      } else if (res.data.success === false) {
-        alert.success(res.data.message);
-      }
-    } catch (error) {
-      alert.error("Invalid inputs");
-    }
-  };
-  // DELETE PARTNER ENDS
+    };
 
-  // searchfuntion
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (e.target.value === "") {
-      partnerData(searchapiData);
-    } else {
-      const filterResult = searchapiData.filter((item) =>
-        item.partner_name.toLowerCase().includes(e.target.value.toLowerCase())
-      );
-      setPartnerData(filterResult);
-    }
-    // eslint-disable-next-line
-    setFilterVal(e.target.value);
-  };
-  // searchfuntion ends
-  const handleInput = (e) => {
-    const { name, value } = e.target;
-    setEditData({
-      ...editData,
-      [name]: value,
-    });
-  };
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  // UPDATE PARTNER DATA
-  const [editData, setEditData] = useState({});
-  const {
-    partner_name,
-    partner_email,
-    partner_password,
-    partner_phone,
-    partner_pincode,
-    partner_state,
-    partner_city,
-    partner_address,
-  } = editData;
-  const handlePartner = async (e, id) => {
-    e.preventDefault();
-    console.log(id);
-    const response = await axios.put(
-      "http://35.91.35.188/api/update-user/" + id,
-      {
-        partner_name,
-        partner_email,
-        partner_password,
-        partner_phone,
-        partner_pincode,
-        partner_state,
-        partner_city,
-        partner_address,
-      }
-    );
-    try {
-      if (alert.success(response.data.message)) {
-        setopen(false);
-      };
-    } catch (error) {
-      console.log(error);
-    }
-    return false;
-  };
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
 
-  // FETCH PARTNER DETAILS
-  const fetchID = async (id) => {
-    const response = await axios.get(
-      `http://35.91.35.188/api/partner-fetch-single-record/${id}`
-    );
-    try {
-      console.log(
-        "response " + JSON.stringify(response.data.partner_single_data)
-      );
-      setEditData(response.data.partner_single_data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 5));
+        setPage(0);
+    };
+    // PAGINATION ENDS
+
+    // DATA GRID TABLE START
+    const StyledTableCell = styled(TableCell)(({theme}) => ({
+        [`&.${tableCellClasses.head}`]: {
+            backgroundColor: '#0747a9',
+            color: theme.palette.common.white,
+        },
+        [`&.${tableCellClasses.body}`]: {
+            fontSize: 12,
+            padding: '10px 14px',
+            border: '1px solid #c8c8c8'
+        },
+    }));
+
+    const StyledTableRow = styled(TableRow)(({theme}) => ({
+        '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.action.hover,
+        }
+    }));
+    let alert = useAlert();
+    const {setLoading} = useAuth();
+
+    const [setFilterVal] = useState([]);
+    const [partnerData, setPartnerData] = useState([]);
+    const [searchapiData, setSearchapiData] = useState([]);
+    const [searchTerm] = useState("");
+
+    // PARTNER ORDER LIST START
+    const [partnerOrderData, setPartnerOrderData] = useState([]);
+
+    const fetchOrderData = async (id) => {
+        setLoading(true);
+
+        makeRequest('GET', `partnerOrdersByPartnerId/${id}`).then(result => {
+            alert.success(result.message);
+            setPartnerOrderData(result.data[0]);
+        }).catch(err => {
+            alert.error(err.message);
+        }).finally(() => {
+            setLoading(false);
+        })
+    };
+    // PARTNER ORDER LIST ENDS
+
+    const fetchData = async () => {
+        setLoading(true);
+
+        makeRequest('GET', `partner-list`).then(result => {
+            alert.success(result.message);
+            setPartnerData(result.data[0]);
+            setSearchapiData(result.data[0]);
+        }).catch(err => {
+            alert.error(err.message);
+        }).finally(() => {
+            setLoading(false);
+        })
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    // DELETE PARTNER START
+    const deleteData = async (id) => {
+        setLoading(true);
+
+        makeRequest('DELETE', `delete-user/${id}`).then(result => {
+            alert.success(result.message);
+        }).catch(err => {
+            alert.error(err.message);
+        }).finally(() => {
+            setLoading(false);
+            setopen(false);
+        })
+    };
+    // DELETE PARTNER ENDS
+
+    // searchfuntion
+    const handleSearch = (e) => {
+        e.preventDefault();
+        if (e.target.value === "") {
+            partnerData(searchapiData);
+        } else {
+            const filterResult = searchapiData.filter((item) =>
+                item.partner_name.toLowerCase().includes(e.target.value.toLowerCase())
+            );
+            setPartnerData(filterResult);
+        }
+        // eslint-disable-next-line
+        setFilterVal(e.target.value);
+    };
+    // searchfuntion ends
+    const handleInput = (e) => {
+        const {name, value} = e.target;
+        setEditData({
+            ...editData,
+            [name]: value,
+        });
+    };
+
+    // UPDATE PARTNER DATA
+    const [editData, setEditData] = useState({});
+
+    const handlePartner = async (e, id) => {
+        e.preventDefault();
+        setLoading(true);
+
+        makeRequest('PUT', `update-user/${id}`, editData).then(result => {
+            alert.success(result.message);
+        }).catch(err => {
+            alert.error(err.message);
+        }).finally(() => {
+            setLoading(false);
+            setopen(false);
+        })
+
+        return false;
+    };
+
+    // FETCH PARTNER DETAILS
+    const fetchID = async (id) => {
+        setLoading(true);
+
+        makeRequest('GET', `partner-fetch-single-record/${id}`, editData).then(result => {
+            alert.success(result.message);
+            result.success && setEditData(result.data.partner_single_data);
+        }).catch(err => {
+            alert.error(err.message);
+        }).finally(() => {
+            setLoading(false);
+        })
+    };
+
   // FETCH PARTNER DETAILS ENDS
   return (
     <Fragment>
@@ -195,8 +185,8 @@ const Reactdatatable = () => {
         <div className="form-row">
           <div className="col-md-2">
             <input
-              type="text"
               className="form-control"
+              type="text"
               placeholder="Search Partner"
               onChange={handleSearch}
             />
@@ -208,9 +198,6 @@ const Reactdatatable = () => {
           </div>
         </div>
       </div>
-
-      {/* React Table start */}
-
       <TableContainer component={Paper}>
         <Table stickyHeader striped aria-label="sticky table">
           <TableHead>
@@ -254,98 +241,97 @@ const Reactdatatable = () => {
                   <StyledTableCell>
                     <button
                       onClick={() => fetchID(row.id)}
-                      className="btn add_partner py-0 mr-1"
+                      className="btn edit_partner py-0 mr-1"
                       data-toggle="modal"
                       variant="contained"
                       data-target="#editPartner"
                     >
-                      EDIT
+                      <ModeEditOutlineIcon />
                     </button>
                     <button
                       className="btn delete-btn mr-1"
                       onClick={handleClickOpen}
                       variant="outlined" color="error"
                     >
-                      DELETE
+                      <DeleteIcon />
                     </button>
-                    <Button
+                    <button
                       className="btn partner_order py-0 mr-1"
                       data-toggle="modal"
                       data-target="#orderPartner"
                       variant="contained"
-                      color='error'
                       onClick={() => fetchOrderData(row.id)}
                     >
-                      ORDER
-                    </Button>
+                      <BookmarkBorderIcon />
+                    </button>
 
-                    {/* Delete POPUP START */}
-                    <Dialog
-                      open={open}
-                      onClose={handleClose}
-                      aria-labelledby="alert-dialog-title"
-                      aria-describedby="alert-dialog-description"
-                    >
-                      <DialogTitle id="alert-dialog-title">
-                        {"Are you want to delete partner?"}
-                      </DialogTitle>
-                      <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                          Once You Delete it , never backup it.
-                        </DialogContentText>
-                      </DialogContent>
-                      <DialogActions>
-                        <Button onClick={handleClose}>Disagree</Button>
-                        <Button onClick={() => deleteData(row.id)} autoFocus>
-                          Agree
-                        </Button>
-                      </DialogActions>
-                    </Dialog>
-                    {/* Delete POPUP ENDS */}
-                  </StyledTableCell>
-                </StyledTableRow>
-              ))}
-          </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TablePagination
-                page={page}
-                onPageChange={handleChangePage}
-                rowsPerPage={rowsPerPage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-                rowsPerPageOptions={[10, 25, 100]}
-                count={partnerData.length}
-                rows={10}
-              />
-            </TableRow>
-          </TableFooter>
-        </Table>
-      </TableContainer>
-      {/* React Table ends */}
+                                        {/* Delete POPUP START */}
+                                        <Dialog
+                                            open={open}
+                                            onClose={handleClose}
+                                            aria-labelledby="alert-dialog-title"
+                                            aria-describedby="alert-dialog-description"
+                                        >
+                                            <DialogTitle id="alert-dialog-title">
+                                                {"Are you want to delete partner?"}
+                                            </DialogTitle>
+                                            <DialogContent>
+                                                <DialogContentText id="alert-dialog-description">
+                                                    Once You Delete it , never backup it.
+                                                </DialogContentText>
+                                            </DialogContent>
+                                            <DialogActions>
+                                                <Button onClick={handleClose}>Disagree</Button>
+                                                <Button onClick={() => deleteData(row.id)} autoFocus>
+                                                    Agree
+                                                </Button>
+                                            </DialogActions>
+                                        </Dialog>
+                                        {/* Delete POPUP ENDS */}
+                                    </StyledTableCell>
+                                </StyledTableRow>
+                            ))}
+                    </TableBody>
+                    <TableFooter>
+                        <TableRow>
+                            <TablePagination
+                                page={page}
+                                onPageChange={handleChangePage}
+                                rowsPerPage={rowsPerPage}
+                                onRowsPerPageChange={handleChangeRowsPerPage}
+                                rowsPerPageOptions={[10, 25, 100]}
+                                count={partnerData.length}
+                                rows={10}
+                            />
+                        </TableRow>
+                    </TableFooter>
+                </Table>
+            </TableContainer>
+            {/* React Table ends */}
 
-      {/* EDIT MODAL START */}
-      <div
-        className="modal fade"
-        id="editPartner"
-        role="dialog"
-        aria-labelledby="editPartnerTitle"
-        aria-hidden="true"
-      >
-        <div
-          className="modal-dialog modal-dialog-centered add-partner"
-          role="document"
-        >
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="editPartnerTitle">
-                Partner Details
-              </h5>
-              <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
+            {/* EDIT MODAL START */}
+            <div
+                className="modal fade"
+                id="editPartner"
+                role="dialog"
+                aria-labelledby="editPartnerTitle"
+                aria-hidden="true"
+            >
+                <div
+                    className="modal-dialog modal-dialog-centered add-partner"
+                    role="document"
+                >
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="editPartnerTitle">
+                                Partner Details
+                            </h5>
+                            <button
+                                type="button"
+                                className="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                            >
                 <span aria-hidden="true" className="modal-off">
                   &times;
                 </span>
@@ -355,74 +341,67 @@ const Reactdatatable = () => {
               <FormGroup
                 className="partner_add"
               >
-                <TextField
+                <label htmlFor="#name">Name</label>
+                <input
+                  id='name'
+                  className="form-control"
                   type="text"
-                  variant='outlined'
-                  margin="normal"
-                  size='small'
-                  label="Name"
                   name="partner_name"
                   onChange={handleInput}
                   value={editData.partner_name}
                 />
-                <TextField
+                <label htmlFor="#email">Email</label>
+                <input
+                  id="email"
+                  className="form-control"
                   type="text"
                   name="partner_email"
-                  variant='outlined'
-                  margin="normal"
-                  size='small'
-                  label="Email"
                   onChange={handleInput}
                   value={editData.partner_email}
                 />
-                <TextField
+                <label htmlFor="#phone">Phone No</label>
+                <input
+                  className="form-control"
                   type="text"
+                  id='phone'
                   name="partner_phone"
                   onChange={handleInput}
-                  variant='outlined'
-                  margin="normal"
-                  size='small'
-                  label="Phone"
                   value={editData.partner_phone}
                 />
-                <TextField
+                <label htmlFor="//#endregionpincode">Pincode</label>
+                <input
+                  id='pincode'
+                  className="form-control"
                   type="text"
                   name="partner_pincode"
                   onChange={handleInput}
-                  variant='outlined'
-                  margin="normal"
-                  size='small'
-                  label="Pincode"
                   value={editData.partner_pincode}
                 />
-                <TextField
+                <label htmlFor="#state">State</label>
+                <input
+                  id="state"
+                  className="form-control"
                   type="text"
                   name="partner_state"
                   onChange={handleInput}
-                  variant='outlined'
-                  margin="normal"
-                  size='small'
-                  label="State"
                   value={editData.partner_state}
                 />
-                <TextField
+                <label htmlFor="#city">City</label>
+                <input
+                  id="city"
+                  className="form-control"
                   type="text"
                   name="partner_city"
                   onChange={handleInput}
-                  variant='outlined'
-                  margin="normal"
-                  size='small'
-                  label="City"
                   value={editData.partner_city}
                 />
-                <TextField
+                <label htmlFor="#address">Address</label>
+                <input
+                  id="address"
+                  className="form-control"
                   type="text"
                   name="partner_address"
                   onChange={handleInput}
-                  variant='outlined'
-                  margin='normal'
-                  size='small'
-                  label="Address"
                   value={editData.partner_address}
                 />
                 <div className="d-flex justify-content-between">
@@ -449,10 +428,7 @@ const Reactdatatable = () => {
         aria-labelledby="orderPartnerTitle"
         aria-hidden="true"
       >
-        <div
-          className="modal-dialog modal-dialog-centered modal-xl add-partner"
-          role="document"
-        >
+        <div className="modal-dialog modal-dialog-centered modal-xl add-partner" role="document">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="orderPartnerTitle">
@@ -472,47 +448,12 @@ const Reactdatatable = () => {
             <div className="modal-body p-0">
               <div className="table-responsive-lg partner_order_list">
                 <table className="table table-striped">
-
                   <tbody>
                     {partnerOrderData.map((item, id) => {
                       return (
-                        <tr key={id} style={{ margin: "10px 0 10px 0" }}>
-                          <td className="table_data">
-                            <th className="d-block">Sender Info</th>
+                        <>
 
-                            <td>{id + 1}</td>
-                            <td className="d-block">{item.sender_name} </td>
-                            <td className="d-block">{item.sender_email}</td>
-                            <td className="d-block">{item.sender_phone}</td>
-                            {/* <td className="d-block">{item.sender_pincode}</td> */}
-                            <td className="d-block">{item.sender_state} </td>
-                            <td className="d-block">{item.sender_city} </td>
-                            <td className="d-block">{item.sender_address}</td>
-                          </td>
-                          <td className="table_data">
-                            <th className="d-block">Receiver Info</th>
-
-                            <td>{id + 1}</td>
-                            <td className="d-block">{item.receiver_name} </td>
-                            <td className="d-block">{item.receiver_email}</td>
-                            <td className="d-block">{item.receiver_phone}</td>
-                            {/* <td className="d-block">{item.receiver_pincode}</td> */}
-                            <td className="d-block">{item.receiver_state}</td>
-                            <td className="d-block">{item.receiver_city} </td>
-                            <td className="d-block">{item.receiver_address}</td>
-                          </td>
-                          <td className="table_data">
-                            <th className="d-block">Order Summary</th>
-                            <td>{id + 1}</td>
-                            <td className="d-block">{item.receiver_name} </td>
-                            <td className="d-block">{item.receiver_email}</td>
-                            <td className="d-block">{item.receiver_phone}</td>
-                            {/* <td className="d-block">{item.receiver_pincode}</td> */}
-                            <td className="d-block">{item.receiver_state}</td>
-                            <td className="d-block">{item.receiver_city} </td>
-                            <td className="d-block">{item.receiver_address}</td>
-                          </td>
-                        </tr>
+                        </>
                       );
                     })}
                   </tbody>

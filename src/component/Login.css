@@ -24,9 +24,8 @@ body{
   -moz-box-shadow: -4px 1px 29px -5px rgba(0,0,0,0.75);
 }
 .user-login-section{
-  height: 300px;
-  width: 290px;
   display: flex;
+  width: 50%;
   justify-content: center;
   align-items: center;
   box-shadow: -4px 1px 29px -5px rgba(0,0,0,0.75);
@@ -47,32 +46,28 @@ body{
   height: 257px !important;
 }
 .signup-section{
-  height: 455px;
-  width: 380px;
   display: flex;
+  width: 60%;
   justify-content: center;
   align-items: center;
+  border-radius: 5px;
   box-shadow: -4px 1px 29px -5px rgba(0,0,0,0.75);
   -webkit-box-shadow: -4px 1px 29px -5px rgba(0,0,0,0.75);
   -moz-box-shadow: -4px 1px 29px -5px rgba(0,0,0,0.75);
 }
-.adminleftctn{
+ .signup_form_cs{
   width: 100%;
-  justify-content: center;
-  border-radius: 5px;
-  display: flex;
-  /* padding-top: 10px;
-  padding-left: 10px !important;
-  padding-right: 10px !important; */
-  width: 100% !important;
+}
+
+.adminleftctn{
   height: 100%;
   background: #fff;
+  box-shadow: 2px 0px 9px 0px rgba(255,255,255,0.27);
+  -webkit-box-shadow: 2px 0px 9px 0px rgba(255,255,255,0.27);
+  -moz-box-shadow: 2px 0px 9px 0px rgba(255,255,255,0.27);
 }
 
 .adminleftctn .my-form{
-  /* padding-left: 20px;
-  padding-right: 20px; */
-  width: 85%;
   padding-top: 10px;
 }
 .adminleftctn .my-form .wel-msg{
@@ -101,6 +96,14 @@ body{
   margin-top: 0.6rem;
   margin-bottom: 0.6rem;
 }
+.form-control:focus{
+  box-shadow: none;
+  outline: none;
+  border:1px solid #0747a9 !important;
+}
+.signup-section .form-group{
+  margin-bottom: 0rem;
+}
 .admin-section .login-form .form-group input:focus{
   outline: none;
   border: 1px solid #0747a9;
@@ -109,8 +112,8 @@ body{
 .login-det .form-group input{
   width: 100%;
   color: rgb(101, 100, 100);
-  font-size: 0.8rem;
-  padding: 0.4rem 0.8rem !important;
+  font-size: 1rem;
+  padding: 0.2rem 0.8rem !important;
   border: 1px solid grey;
   border-radius: 2px;
   height: auto !important;
@@ -118,7 +121,7 @@ body{
 }
 .login-det .form-group input::placeholder{
   color: rgb(189, 185, 185);
-  font-size: 10px;
+  font-size: 14px;
   padding: 0rem;
   letter-spacing: 0.1px;
 }
@@ -138,8 +141,9 @@ body{
 .forget-btn a:hover{
   text-decoration: none;
 }
-.forget-btn label{
-  font-size: 0.8rem;
+label{
+  font-size: 0.9rem;
+  font-weight: 600;
   margin-bottom: 0rem;
 }
 .login-btn {
@@ -220,17 +224,95 @@ body{
   background-color: transparent;
   color: #0747a9;
 }
+
+
+/* RIGHTSECTION CSS START */
+.adminrightctn{
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  width: 100% !important;
+  opacity: 0.7;
+  background:#000;
+}
+.adminrightctn .text_section{
+  display: flex;
+  color: #fff;
+  align-items: center;
+  text-align: center;
+}
+.adminrightctn .text_section h2{
+  color: #fff;
+}
+.adminrightctn .text_section div{
+  text-align: center;
+}
+.adminrightctn .text_section div img{
+  margin-bottom: 3rem;
+}
+.adminrightctn .go_back_btn{
+  color: #0747a9;
+  background-color: #fff;
+  text-decoration: none;
+  width: 100%;
+  cursor: pointer;
+  font-size: 0.8rem;
+  margin-top: 2rem;
+  font-weight: 500;
+  padding: 6px;
+  margin-bottom: 0.6rem;
+  text-transform:uppercase;
+  display: block;
+  text-align: center;
+  border-radius: 20px;
+  width: 100%;
+  -webkit-box-shadow:0px 10px 41px -11px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow:0px 10px 41px -11px rgba(0, 0, 0, 0.7);
+  box-shadow:0px 10px 41px -11px rgba(0, 0, 0, 0.7);
+}
+.mob_sign_logo{
+  display: none;
+}
+/* RIGHTSECTION CSS ENDS */
 @media only screen and (max-width:991px){
-  .signup-log .adminleftctn{
-    padding-top: 5px !important;
-  }
   .signup-log .signup-create h3{
     margin-bottom: 0.6rem !important;
   }
-  .signup-log .form-group{
-    margin-bottom: 5px !important;
+  .signup-section{
+    width: 100%;
   }
   .signup-log .login-det{
     margin-top: 0px !important;
+  }
+  .user-login-section{
+    width: 60%;
+  }
+  
+}
+@media (max-width:767px) {
+  .adminrightctn{
+    display: none;
+  }
+  .signup-section{
+    width: 60%;
+  }
+  .mob_sign_logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 3rem;
+    background: transparent;
+}
+  .user-login-section{
+    width: 40%;
+  }
+}
+@media (max-width:560px) {
+  .signup-section{
+    width: 100%;
+  }
+  .user-login-section{
+    width: 100%;
   }
 }

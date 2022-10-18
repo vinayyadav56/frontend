@@ -59,12 +59,14 @@ export default function DeliveryAllDetails() {
                         <Tab sx={{
                             padding:'0px',
                             marginRight:'2rem',
-                            fontWeight:'bold'
+                            fontWeight:'bold',
+                            marginBottom:'-5px'
                         }} 
                         label="Personal Information" {...a11yProps(0)} />
                        
                         <Tab sx={{
                             padding:'0px',
+                            marginBottom:'-5px',
                             fontWeight:'bold'
                         }}
                         label="Documents Information" {...a11yProps(1)} />

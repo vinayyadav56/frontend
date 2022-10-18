@@ -38,9 +38,11 @@ function useProvideAuth() {
     const isAuthenticated = () => {
         return user ? true : false;
     }
-
+    const isHub = () => {
+        return user && user.type === 'hub';
+    }
     const isAdmin = () => {
-        return user && user.type == 'admin';
+        return user && user.type === 'admin';
     }
 
     const isPartner = () => {
@@ -62,18 +64,19 @@ function useProvideAuth() {
         setLoading,
         isAuthenticated,
         isAdmin,
+        isHub,
         isPartner,
         isUser,
         signout,
     }
 }
 
-const formatUser = (user) => {
-    return {
-        uid: user.id,
-        email: user.email,
-        name: user.displayName,
-        provider: user.providerData[0].providerId,
-        photoUrl: user.photoURL,
-    }
-}
+// const formatUser = (user) => {
+//     return {
+//         uid: user.id,
+//         email: user.email,
+//         name: user.displayName,
+//         provider: user.providerData[0].providerId,
+//         photoUrl: user.photoURL,
+//     }
+// }

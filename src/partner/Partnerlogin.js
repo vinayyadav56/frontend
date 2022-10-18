@@ -1,50 +1,59 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
-import { useAlert } from "react-alert";
-import { useHistory } from "react-router-dom";
+import React, {useState} from "react";
+import {Link} from "react-router-dom";
+import {useAlert} from "react-alert";
+import {useHistory} from "react-router-dom";
+import {postRequest} from "../Services/api";
+import {useAuth} from "../Services/auth";
+
 const Adminlogin = () => {
-  let alert = useAlert();
-  let history = useHistory();
-  const [login_partner, setLogin_partner] = useState({
-    partner_email: "",
-    partner_password: "",
-  });
-  const handlePartner = (e) => {
-    const { name, value } = e.target;
-    setLogin_partner({
-      ...login_partner,
-      [name]: value,
-    });
-  };
+    const {setLoading, handleUser} = useAuth();
+    let alert = useAlert();
+    let history = useHistory();
 
-  const handleApipartner = (e) => {
-
-  e.preventDefault();
-  const { partner_email, partner_password} = login_partner;
-  if (partner_email && partner_password) {
-    axios.post("http://35.91.35.188/api/partner-login", login_partner).then((result) => {
-      if (result.data.success === true) {
-        alert.success(result.data.message);
-        history.push("/partner/dashboard");
-      } else if (result.data.success === false) {
-        alert.success(result.data.message);
-      }
+    const [login_partner, setLogin_partner] = useState({
+        partner_email: "",
+        partner_password: "",
     });
-  } else {
-    alert.error("Invalid Inputs");
-  }
-};
-  return (
-    <>
-      <div className="container-fluid admin-login">
-        <div className="row partner-section">
-          <div className="col-12 adminleftctn">
-            <div className="my-form">
+
+    const handlePartner = (e) => {
+        const {name, value} = e.target;
+        setLogin_partner({
+            ...login_partner,
+            [name]: value,
+        });
+    };
+
+    const handleApipartner = (e) => {
+        e.preventDefault();
+        const {partner_email, partner_password} = login_partner;
+
+        if (partner_email && partner_password) {
+            setLoading(true);
+
+            postRequest('partner-login', login_partner).then(result => {
+                console.log(result);
+                alert.success(result.message);
+                handleUser(result.userDetails);
+                result.success && history.push("/partner/dashboard");
+            }).catch(error => {
+                alert.error(error.message);
+            }).finally(() => {
+                setLoading(false);
+            });
+        } else {
+            alert.error("Invalid Inputs");
+        }
+    };
+    return (
+        <>
+            <div className="container-fluid admin-login">
+                <div className="row partner-section">
+                    <div className="col-12 adminleftctn">
+                        <div className="my-form">
               <span className="wel-msg">
                 Welcome To Carrykar
               </span>
-              <span className="log-title">Login to your account</span>
+              <span className="log-title">Login As Partner</span>
               <div className="login-det mt-2">
                 <div className="form-group">
                   <input

@@ -59,7 +59,8 @@ const Homepage = (userActive) => {
                         <NavLink to="/location">Locations</NavLink>
                       </li>
                       <li>
-                        <NavLink to="/answerkey">Contact Us</NavLink>
+                        <button type="button" className="contact_us" data-toggle="modal" data-target="#contactUsModal">Contact Us</button>
+
                       </li>
                       <li>
                         {/* <ShipNow userActive={userActive} /> */}
@@ -125,6 +126,9 @@ const Homepage = (userActive) => {
                           </NavLink>
                         </li>
                         <li>
+                          <ModalForm onClick={() => setToggleMenu(false)} />
+                        </li>
+                        <li>
                           <NavLink
                             onClick={() => setToggleMenu(false)}
                             to="/login"
@@ -158,8 +162,8 @@ const Homepage = (userActive) => {
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </div >
+      </section >
 
       <section className="trip_section">
         <div className="trip_section-bgc">
@@ -587,47 +591,45 @@ const Homepage = (userActive) => {
         </div>
       </section>
       <HomeFoooter />
-      {/* OTP VERIFY FORM START*/}
 
-      {/* <div className="ship_now_form">
-                                <div className="ship_now_heading">
-                                  <h2>
-                                    Enter Location Details
-                                  </h2>
-                                </div>
-                                <div className="form-group">
-                                  <label>Pickup Pincode</label>
-                                  <input
-                                    name="pick_pincode"
-                                    className="form-control"
-                                    placeholder="Pickup Pincode"
-                                    type="text"
-                                  // onChange={handleInput}
-                                  // value={userDatas.alternate_no}
-                                  />
-                                </div>
-                                <div className="form-group">
-                                  <label>Delivery Pincode</label>
-                                  <input
-                                    name="ship_pincode"
-                                    className="form-control"
-                                    placeholder="Delivery Pincode"
-                                    type="text"
-                                  // onChange={handleInput}
-                                  // value={userDatas.alternate_no}
-                                  />
-                                </div>
-                              </div>
-                              <button
-                                type="button"
-                                className="btn"
-                                data-toggle="modal"
-                                data-target="otp_verify"
-                              >
-                                Ship Now
-                              </button>
-                              <p>Get a free pickup from the comfort of your home</p> */}
 
+      {/* Cobtact Us Query */}
+      <div className="modal fade" id="contactUsModal" tabIndex="-1" role="dialog" aria-labelledby="contactUsModalTitle" aria-hidden="true">
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="contactUsModalTitle">Please Fill the Required Details</h5>
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              <form>
+                <div className="form-group">
+                  <label for="cname">Full Name</label>
+                  <input type="text" className="form-control" id="cname" placeholder="Enter Your Name" />
+                </div>
+                <div className="form-group">
+                  <label for="pnname">Phone No.</label>
+                  <input type="number" className="form-control" id="pnname" placeholder="Enter Your Contact" />
+                </div>
+                <div className="form-group">
+                  <label for="ename">Email address</label>
+                  <input type="email" className="form-control" id="ename" placeholder="name@example.com" />
+                </div>
+                <div className="form-group">
+                  <label for="contecttextarea">How Can We Help You</label>
+                  <textarea className="form-control" placeholder="Write Your Query" id="contecttextarea" rows="3"></textarea>
+                </div>
+              </form>
+            </div>
+            <div className="modal-footer d-flex justify-content-center">
+              <button type="button" className="btn btn-primary">Submit Query</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
     </>
   );
 };
