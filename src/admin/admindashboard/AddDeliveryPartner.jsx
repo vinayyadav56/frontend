@@ -6,8 +6,12 @@ import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import { useAlert } from 'react-alert';
 import { FormGroup, TextField } from "@material-ui/core";
+import {makeRequest} from "../../Services/api";
+import {useAuth} from "../../Services/auth";
 const AddDeliveryPartner = () => {
     let alert = useAlert();
+    const { setLoading } = useAuth();
+
     let history = useHistory();
     const [partnerregister, setPartnerregister] = useState({
         partner_name: "",
@@ -49,16 +53,16 @@ const AddDeliveryPartner = () => {
             partner_city &&
             partner_address
         ) {
-            axios
-                .post("http://35.91.35.188/api/partners", partnerregister)
-                .then((response) => {
-                    if (response.data.success === true) {
-                        alert.success(response.data.message);
-                        history.push("/admindashboard");
-                    } else if (response.data.success === false) {
-                        alert.error(response.data.message);
-                    }
-                });
+            setLoading(true);
+
+            makeRequest('POST', `partners`, partnerregister).then(result => {
+                alert.success(result.message);
+                result.success && history.push("/admindashboard");
+            }).catch(err => {
+                alert.error(err.message);
+            }).finally(() => {
+                setLoading(false);
+            })
         } else {
             alert.error("Invalid Inputs");
         }
@@ -108,7 +112,7 @@ const AddDeliveryPartner = () => {
                             >
                                 <TextField
                                     type="text"
-                                    
+
                                     margin="normal"
                                     size='small'
                                     label=" Name"
@@ -120,7 +124,7 @@ const AddDeliveryPartner = () => {
                                 <TextField
                                     type="text"
                                     name="partner_email"
-                                    
+
                                     margin="normal"
                                     size='small'
                                     placeholder=" Email"
@@ -132,7 +136,7 @@ const AddDeliveryPartner = () => {
                                     type="text"
                                     name="partner_phone"
                                     onChange={handleInput}
-                                    
+
                                     margin="normal"
                                     size='small'
                                     placeholder=" Name"
@@ -143,7 +147,7 @@ const AddDeliveryPartner = () => {
                                     type="text"
                                     name="partner_pincode"
                                     onChange={handleInput}
-                                    
+
                                     margin="normal"
                                     size='small'
                                     placeholder=" Pincode"
@@ -154,7 +158,7 @@ const AddDeliveryPartner = () => {
                                     type="text"
                                     name="partner_state"
                                     onChange={handleInput}
-                                    
+
                                     margin="normal"
                                     size='small'
                                     placeholder=" Name"
@@ -165,7 +169,7 @@ const AddDeliveryPartner = () => {
                                     type="text"
                                     name="partner_city"
                                     onChange={handleInput}
-                                    
+
                                     margin="normal"
                                     size='small'
                                     placeholder=" City"
@@ -176,7 +180,7 @@ const AddDeliveryPartner = () => {
                                     type="text"
                                     name="partner_address"
                                     onChange={handleInput}
-                                    
+
                                     margin='normal'
                                     size='small'
                                     placeholder=" Address"

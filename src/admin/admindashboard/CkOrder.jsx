@@ -1,5 +1,5 @@
-import React, { Fragment, useState } from 'react'
-import { Link, NavLink } from "react-router-dom";
+import React, {Fragment, useState} from 'react'
+import {Link, NavLink} from "react-router-dom";
 import axios from 'axios';
 import "./Adminmenu.css";
 import "./ckorder.css";
@@ -10,7 +10,9 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import Box from '@mui/material/Box';
-import { DataGrid } from '@mui/x-data-grid';
+import {DataGrid} from '@mui/x-data-grid';
+import {makeRequest} from "../../Services/api";
+import {useAuth} from "../../Services/auth";
 // import {
 //     Paper,
 //     Table,
@@ -24,6 +26,8 @@ import { DataGrid } from '@mui/x-data-grid';
 
 
 export default function CkOrder() {
+    const {setLoading} = useAuth();
+
     const [ckOrder, setCkOrder] = useState({
         from_location: "",
         to_location: "",
@@ -31,7 +35,7 @@ export default function CkOrder() {
     const [orderData, setOrderData] = useState();
 
     const handleLocation = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setCkOrder({
             ...ckOrder,
             [name]: value,
@@ -39,14 +43,18 @@ export default function CkOrder() {
     };
 
     const handleApi = async (e) => {
-        const response = await axios.post("http://35.91.35.188/api/searchLocationbyFromto",ckOrder);
-        try {
-            console.log("response" + JSON.stringify(response.data.fetchOrdersList))
-            setOrderData(response.data.fetchOrdersList)
-        } catch (error) {
-            console.log(error)
-        }
+        setLoading(true);
+
+        makeRequest('POST', `searchLocationbyFromto`, ckOrder).then(result => {
+            alert.success(result.message);
+            result.success && setOrderData(result.fetchOrdersList)
+        }).catch(err => {
+            alert.error(err.message);
+        }).finally(() => {
+            setLoading(false);
+        })
     };
+
     // useEffect(() => {
     //     handleApi();
     //     // eslint-disable-next-line
@@ -92,13 +100,13 @@ export default function CkOrder() {
     //   CKORDER TABLE END
     orderData && orderData.forEach((item, id) => {
         rows.push({
-            id: id+1,
-            partner_order_id: item.partner_order_id,
-            customer_id: item.customer_id,
-            to_location: item.to_location,
-            from_location: item.from_location,
-            weight: item.weight,
-        }
+                id: id + 1,
+                partner_order_id: item.partner_order_id,
+                customer_id: item.customer_id,
+                to_location: item.to_location,
+                from_location: item.from_location,
+                weight: item.weight,
+            }
         )
     });
 
@@ -108,13 +116,13 @@ export default function CkOrder() {
                 <div className="partner-sidebar">
                     <span className="top-name">Carry Kar</span>
                     <div className="search-bar">
-                        <SearchSharpIcon />
-                        <input type="search" placeholder="Search" />
+                        <SearchSharpIcon/>
+                        <input type="search" placeholder="Search"/>
                     </div>
                     <div className="profile-area">
                         <div className="profile">
                             <div className="profile-photo">
-                                <AccountCircleRoundedIcon />
+                                <AccountCircleRoundedIcon/>
                             </div>
 
                             <div className="dropdown show">
@@ -147,7 +155,7 @@ export default function CkOrder() {
                             </div>
                         </div>
                         <button id="menu-btn">
-                            <MenuRoundedIcon />
+                            <MenuRoundedIcon/>
                         </button>
                     </div>
                 </div>
@@ -156,12 +164,12 @@ export default function CkOrder() {
                 <aside>
                     <div className="sidebar">
                         <button id="close-btn">
-                            <CloseRoundedIcon />
+                            <CloseRoundedIcon/>
                         </button>
                         <div className="responsive-sidebar">
                             <NavLink to="/admindashboard">
                                 <span className="icon">
-                                    <GridViewRoundedIcon />
+                                    <GridViewRoundedIcon/>
                                 </span>
                                 <h4 className="title">Dashboard</h4>
                             </NavLink>
@@ -223,25 +231,25 @@ export default function CkOrder() {
                             </div>
                             <div>
                                 <label htmlFor="colFormLabel2" className="col-form-label-sm">SuitCase Weight</label>
-                                <input type="number" className="form-control" id="colFormLabel2" />
+                                <input type="number" className="form-control" id="colFormLabel2"/>
                             </div>
                         </div>
                     </form>
                     {/* <TABLE START */}
 
-                    <Box sx={{ height: 400, width: '100%', background: '#fff' }}>
+                    <Box sx={{height: 400, width: '100%', background: '#fff'}}>
 
                         <DataGrid
                             rows={rows}
                             // getRowId={(row) => row.internalId}
                             columns={columns}
                             pageSize={5}
-                            sx={{ width: '100%' }}
+                            sx={{width: '100%'}}
                             rowsPerPageOptions={[5]}
                             // getRowId={(row) => row.no}
                             checkboxSelection
                             disableSelectionOnClick
-                            experimentalFeatures={{ newEditingApi: true }}
+                            experimentalFeatures={{newEditingApi: true}}
                         />
                     </Box>
 
