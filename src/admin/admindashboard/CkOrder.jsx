@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { Link, NavLink, Redirect } from "react-router-dom";
 import "./Adminmenu.css";
 import clsx from 'clsx';
@@ -11,55 +11,21 @@ import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
+import { makeRequest, postRequest } from "../../Services/api";
 import { useAuth } from '../../Services/auth';
 export default function CkOrder() {
+    const [selectedRows, setSelectedRows] = useState([]);
     const [ckOrder, setCkOrder] = useState({
-        from_location: "",
-        to_location: "",
+        from_hub_id: "",
+        to_hub_id: "",
+        package_weight: 0,
+        items_total_weight: 0,
+        subOrders: []
     });
-    const tableData = [
-        {
-            id: '1',
-            partner_order_id: '12',
-            customer_id: '21',
-            to_location: 'Delhi',
-            from_location: 'Kanpur',
-            weight: '20kg',
-            ordertype: 'PO'
-        },
-        {
-            id: '2',
-            partner_order_id: '12',
-            customer_id: '21',
-            to_location: 'Delhi',
-            from_location: 'Kanpur',
-            weight: '20kg',
-            ordertype: 'PO'
+    //console.log(selectedRows[0] ? selectedRows[0].package_volume_weight :selectedRows);
+    const { setLoading } = useAuth();
+    const [newOrder, setNewOrder] = useState([]);
 
-        },
-        {
-            id: '3',
-            partner_order_id: '12',
-            customer_id: '21',
-            to_location: 'Delhi',
-            from_location: 'Kolkata',
-            weight: '20kg',
-            ordertype: 'CO'
-
-        },
-        {
-            id: '4',
-            partner_order_id: '12',
-            customer_id: '21',
-            to_location: 'Mumbai',
-            from_location: 'Kanpur',
-            weight: '20kg',
-            ordertype: 'CO'
-
-        },
-    ];
-    const [orderData] = useState(tableData);
-    console.log(orderData)
     const handleLocation = (e) => {
         const { name, value } = e.target;
         setCkOrder({
@@ -67,44 +33,96 @@ export default function CkOrder() {
             [name]: value,
         });
     };
+    // Data Fetch Api start
+    const fetchData = async () => {
+        setLoading(true);
+        makeRequest('GET', `fetchNewOrders`).then(result => {
+            let tempData = [];
+            result.data.forEach(data => {
+                tempData.push({
+                    ...data,
+                    'id': data.source + '-' + data.id
+                })
+            })
+            console.log(result)
+            setNewOrder(tempData);
+        })
+            .finally(() => {
+                setLoading(false);
+            })
+    };
+    useEffect(() => {
+        fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const totalWeight = (selectedRows) => {
+        let weight = 0;
+
+        selectedRows.forEach(row => {
+            weight += +row.package_volume_weight
+        })
+
+        setCkOrder({
+            ...ckOrder,
+            package_weight: weight
+        })
+    }
+    useEffect(() => {
+        totalWeight(selectedRows);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedRows])
+    // Data Fetch Api ends
+    const handleOrder = async (e) => {
+        e.preventDefault();
+        postRequest('createAlphaOrder', ckOrder).then(result => {
+            console.log(result);
+            alert.success(result.message);
+        }).catch(error => {
+            alert.error(error.message);
+        }).finally(() => {
+            setLoading(false);
+        });
+    }
     const auth = useAuth();
     if (!auth.isAuthenticated()) {
         return <Redirect to="/admin" />
     };
+    
     const columns = [
         {
             field: 'id',
-            headerName: 'ID',
+            headerName: ' Id',
+            width: 80,
         },
         {
-            field: 'partner_order_id',
-            headerName: 'Partner Order Id',
+            field: 'partner_id',
+            headerName: 'Partner Id',
             width: 150,
         },
         {
             field: 'customer_id',
             headerName: 'Customer Id',
             width: 150,
-            // editable: true,
         },
         {
-            field: 'to_location',
-            headerName: 'To Location',
+            field: 'from_hub_id',
+            headerName: 'From Hub Id',
             width: 150,
         },
 
         {
-            field: 'from_location',
-            headerName: 'From Location',
+            field: 'to_hub_id',
+            headerName: 'To Hub Id',
             width: 150,
         },
         {
-            field: 'weight',
+            field: 'package_volume_weight',
             headerName: 'Weight',
             width: 150,
         },
         {
-            field: 'ordertype',
+            field: 'source',
             headerName: 'Order Type',
             width: 150,
             cellClassName: (params) => {
@@ -113,13 +131,12 @@ export default function CkOrder() {
                 }
 
                 return clsx('super-app', {
-                    negative: params.value === "PO",
-                    positive: params.value === "CO",
+                    negative: params.value === "CO",
+                    positive: params.value === "PO",
                 });
             },
         },
     ];
-
 
     return (
         <Fragment>
@@ -200,55 +217,56 @@ export default function CkOrder() {
                 </aside>
                 <section className="right">
                     <form className='ck_order_form'>
+                        <h2 className='text-center'>Create Ck Order</h2>
                         <div className="form-row">
-                            <div className="col-sm-5 pl-0">
+                            <div className="col-sm-4">
                                 <input
                                     type="text"
-                                    name="from_location"
+                                    name="from_hub_id"
+                                    value={ckOrder.from_hub_id}
                                     onChange={handleLocation}
-                                    value={ckOrder.from_location}
                                     className="form-control"
-                                    placeholder="From Location"
+                                    placeholder="From Hub Id"
                                 />
                             </div>
-                            <div className="col-sm-5">
+                            <div className="col-sm-4">
                                 <input
                                     type="text"
-                                    name='to_location'
+                                    name='to_hub_id'
+                                    value={ckOrder.to_hub_id}
                                     onChange={handleLocation}
-                                    value={ckOrder.to_location}
                                     className="form-control"
-                                    placeholder="To Location"
+                                    placeholder="To Hub Id"
                                 />
                             </div>
-                            <div className='col-sm-2 pr-0'>
-                                <button type='button' className='btn locasrchbtn'>Search</button>
+                            <div className="col-sm-4 col-12">
+                                <button className='btn ordergenrate'>
+                                    Search Hub
+                                </button>
                             </div>
                         </div>
                         <div className="form-row weight_section">
                             <div>
                                 <label
                                     htmlFor="colFormLabelSm"
-                                    className=" col-form-label-sm"
+                                    className="col-form-label-sm"
                                 >
                                     Total Weight
                                 </label>
                                 <input
                                     type="number"
-                                    disabled
+                                    name='package_volume_weight'
+                                    onChange={handleLocation}
+                                    value={ckOrder.package_weight}
                                     className="form-control"
                                     id="colFormLabelSm"
                                 />
                             </div>
-                            <div>
-                                <label htmlFor="colFormLabel2" className="col-form-label-sm">SuitCase Weight</label>
-                                <input type="number" className="form-control" id="colFormLabel2" />
-                            </div>
+
                         </div>
                     </form>
-                    {/* <TABLE START */}
                     <Box sx={{
-                        height: 400,
+                        height: 267,
                         width: '100%',
                         background: '#fff',
                         '& .super-app.negative': {
@@ -269,21 +287,34 @@ export default function CkOrder() {
                         },
                     }}>
                         <DataGrid
-                            rows={tableData}
+                            rows={newOrder}
                             columns={columns}
-                            pageSize={5}
+                            pageSize={3}
                             sx={{ width: '100%' }}
-                            onSelectionModelChange={(orderData) => {
-                                console.log(orderData)
+                            onSelectionModelChange={(ids) => {
+                                const selectedIDs = new Set(ids);
+                                const selectedRows = Object.values(newOrder).filter((row) =>
+                                    selectedIDs.has(row.id.toString()),
+                                );
+                                setCkOrder({
+                                    ...ckOrder,
+                                    subOrders: ids
+                                })
+                                setSelectedRows(selectedRows);
                             }}
-                            rowsPerPageOptions={[5]}
+                            rowsPerPageOptions={[3]}
                             checkboxSelection
                             disableSelectionOnClick
                             experimentalFeatures={{ newEditingApi: true }}
                         />
+                        <div className='d-flex justify-content-center mt-4'>
+                            <button className='btn ordergenrate' onClick={handleOrder}>
+                                Make Order
+                            </button>
+                        </div>
                     </Box>
                 </section>
             </main>
-        </Fragment>
+        </Fragment >
     );
 }

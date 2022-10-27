@@ -1,7 +1,6 @@
 .all_order_table {
-    background: #fff;
-    padding:0px  14px 14px 14px;
-    height:75vh;
+    background: #f0eff5;
+    height: 75vh;
 }
 
 .all_order_table .container-fluid {
@@ -10,8 +9,37 @@
 }
 
 .all_order_table .container-fluid .table_box {
-    border: 1px solid #000;
+    border: 2px solid #cfcfcf;
     border-radius: 5px;
-    background-color: azure;
-    margin-bottom: 1rem;
+    margin: -10px 10px 16px 10px;
+    background-color: #fff;
+    padding: 8px;
+    box-shadow: 0px 0px 12px -4px rgba(0, 0, 0, 0.40);
+}
+
+.all_order_table .badge {
+    padding: 4px 10px;
+}
+
+.status_track_col {
+    padding: 20px 0px;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 8px;
+    margin: 0rem 1rem;
+}
+
+/* TIMELINE CSS START */
+.dot1,
+.dot3 {
+    background-color: #000;
+    border: 2px solid rgb(194, 139, 139);
+    width: 12px;
+    height: 12px;
+    border-radius: 20px;
+}
+
+.dot2 {
+    width: 90px;
+    border: 1px solid #000;
 }

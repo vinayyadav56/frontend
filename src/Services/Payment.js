@@ -1,6 +1,6 @@
 import {makeRequest} from "./api";
 import Config from '../config.json';
-import {useCallback} from "react";
+// import {useCallback} from "react";
 
 type shippingParams = {
     from_pincode: string,

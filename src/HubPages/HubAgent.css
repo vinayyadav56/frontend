@@ -38,7 +38,8 @@ p {
 }
 
 .agent_details_col span p:first-child {
-    font-weight: 600;
+    font-weight: 500;
+    color: var(--gray);
     padding-right: 5px;
 }
 
@@ -54,8 +55,8 @@ p {
 .agent_personal_col h2,
 .agent_details_col h2,
 .agent_verify_col h2 {
-    font-weight: bold;
-    font-size: 16px;
+    font-weight: 600;
+    font-size: 14px;
 }
 
 .agent_personal_col span {

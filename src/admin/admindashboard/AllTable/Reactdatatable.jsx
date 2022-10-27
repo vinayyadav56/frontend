@@ -19,164 +19,163 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormGroup } from "@material-ui/core";
-import {makeRequest} from "../../../Services/api";
-import {useAuth} from "../../../Services/auth";
+import { makeRequest } from "../../../Services/api";
+import { useAuth } from "../../../Services/auth";
 
 const Reactdatatable = () => {
-    const [open, setopen] = React.useState(false);
+  const [open, setopen] = React.useState(false);
 
-    const handleClickOpen = () => {
-        setopen(true);
-    };
+  const handleClickOpen = () => {
+    setopen(true);
+  };
 
-    const handleClose = () => {
-        setopen(false);
-    };
+  const handleClose = () => {
+    setopen(false);
+  };
 
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
 
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 5));
-        setPage(0);
-    };
-    // PAGINATION ENDS
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+  // PAGINATION ENDS
 
-    // DATA GRID TABLE START
-    const StyledTableCell = styled(TableCell)(({theme}) => ({
-        [`&.${tableCellClasses.head}`]: {
-            backgroundColor: '#0747a9',
-            color: theme.palette.common.white,
-        },
-        [`&.${tableCellClasses.body}`]: {
-            fontSize: 12,
-            padding: '10px 14px',
-            border: '1px solid #c8c8c8'
-        },
-    }));
+  // DATA GRID TABLE START
+  const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: '#0747a9',
+      color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+      fontSize: 12,
+      padding: '10px 14px',
+      border: '1px solid #c8c8c8'
+    },
+  }));
 
-    const StyledTableRow = styled(TableRow)(({theme}) => ({
-        '&:nth-of-type(odd)': {
-            backgroundColor: theme.palette.action.hover,
-        }
-    }));
-    let alert = useAlert();
-    const {setLoading} = useAuth();
+  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    }
+  }));
+  let alert = useAlert();
+  const { user, setLoading } = useAuth();
+  const [setFilterVal] = useState([]);
+  const [partnerData, setPartnerData] = useState([]);
+  const [searchapiData, setSearchapiData] = useState([]);
+  const [searchTerm] = useState("");
 
-    const [setFilterVal] = useState([]);
-    const [partnerData, setPartnerData] = useState([]);
-    const [searchapiData, setSearchapiData] = useState([]);
-    const [searchTerm] = useState("");
+  const partnerId = user.id;
+  // PARTNER ORDER LIST BY ID START
+  const [partnerOrder, setPartnerOrder] = useState([]);
+  const fetchOrderData = async () => {
+    const partnerId = user.id;
+    setLoading(true);
+    makeRequest('GET', `partnerOrdersByPartnerId/${partnerId}`).then(result => {
+      setPartnerOrder(result.orders);
+      console.log(result);
+    })
+      .finally(() => {
+        setLoading(false);
+      })
+  };
+  useEffect(() => {
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  // PARTNER ORDER LIST ENDS
+  // ALL PARTNER  LIST START
+  const fetchData = async () => {
+    setLoading(true);
+    makeRequest('GET', `partnersList`).then(result => {
+      alert.success(result.message);
+      setPartnerData(result.partner_List);
+      setSearchapiData(result.partner_List);
+    }).catch(err => {
+      alert.error(err.message);
+    }).finally(() => {
+      setLoading(false);
+    })
+  };
 
-    // PARTNER ORDER LIST START
-    const [partnerOrderData, setPartnerOrderData] = useState([]);
+  useEffect(() => {
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  // DELETE PARTNER START
+  const deleteData = async (id) => {
+    setLoading(true);
 
-    const fetchOrderData = async (id) => {
-        setLoading(true);
+    makeRequest('DELETE', `delete-user/${id}`).then(result => {
+      alert.success(result.message);
+    }).catch(err => {
+      alert.error(err.message);
+    }).finally(() => {
+      setLoading(false);
+      setopen(false);
+    })
+  };
+  // DELETE PARTNER ENDS
 
-        makeRequest('GET', `partnerOrdersByPartnerId/${id}`).then(result => {
-            alert.success(result.message);
-            setPartnerOrderData(result.data[0]);
-        }).catch(err => {
-            alert.error(err.message);
-        }).finally(() => {
-            setLoading(false);
-        })
-    };
-    // PARTNER ORDER LIST ENDS
+  // searchfuntion
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (e.target.value === "") {
+      partnerData(searchapiData);
+    } else {
+      const filterResult = searchapiData.filter((item) =>
+        item.partner_name.toLowerCase().includes(e.target.value.toLowerCase())
+      );
+      setPartnerData(filterResult);
+    }
+    // eslint-disable-next-line
+    setFilterVal(e.target.value);
+  };
+  // searchfuntion ends
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setEditData({
+      ...editData,
+      [name]: value,
+    });
+  };
 
-    const fetchData = async () => {
-        setLoading(true);
+  // UPDATE PARTNER DATA
+  const [editData, setEditData] = useState({});
 
-        makeRequest('GET', `partner-list`).then(result => {
-            alert.success(result.message);
-            setPartnerData(result.data[0]);
-            setSearchapiData(result.data[0]);
-        }).catch(err => {
-            alert.error(err.message);
-        }).finally(() => {
-            setLoading(false);
-        })
-    };
+  const handlePartner = async (e, id) => {
+    e.preventDefault();
+    setLoading(true);
 
-    useEffect(() => {
-        fetchData();
-    }, []);
+    makeRequest('PUT', `update-user/${id}`, editData).then(result => {
+      alert.success(result.message);
+    }).catch(err => {
+      alert.error(err.message);
+    }).finally(() => {
+      setLoading(false);
+      setopen(false);
+    })
 
-    // DELETE PARTNER START
-    const deleteData = async (id) => {
-        setLoading(true);
+    return false;
+  };
 
-        makeRequest('DELETE', `delete-user/${id}`).then(result => {
-            alert.success(result.message);
-        }).catch(err => {
-            alert.error(err.message);
-        }).finally(() => {
-            setLoading(false);
-            setopen(false);
-        })
-    };
-    // DELETE PARTNER ENDS
-
-    // searchfuntion
-    const handleSearch = (e) => {
-        e.preventDefault();
-        if (e.target.value === "") {
-            partnerData(searchapiData);
-        } else {
-            const filterResult = searchapiData.filter((item) =>
-                item.partner_name.toLowerCase().includes(e.target.value.toLowerCase())
-            );
-            setPartnerData(filterResult);
-        }
-        // eslint-disable-next-line
-        setFilterVal(e.target.value);
-    };
-    // searchfuntion ends
-    const handleInput = (e) => {
-        const {name, value} = e.target;
-        setEditData({
-            ...editData,
-            [name]: value,
-        });
-    };
-
-    // UPDATE PARTNER DATA
-    const [editData, setEditData] = useState({});
-
-    const handlePartner = async (e, id) => {
-        e.preventDefault();
-        setLoading(true);
-
-        makeRequest('PUT', `update-user/${id}`, editData).then(result => {
-            alert.success(result.message);
-        }).catch(err => {
-            alert.error(err.message);
-        }).finally(() => {
-            setLoading(false);
-            setopen(false);
-        })
-
-        return false;
-    };
-
-    // FETCH PARTNER DETAILS
-    const fetchID = async (id) => {
-        setLoading(true);
-
-        makeRequest('GET', `partner-fetch-single-record/${id}`, editData).then(result => {
-            alert.success(result.message);
-            result.success && setEditData(result.data.partner_single_data);
-        }).catch(err => {
-            alert.error(err.message);
-        }).finally(() => {
-            setLoading(false);
-        })
-    };
+  // FETCH PARTNER DETAILS By Partner Id
+  const fetchID = async (id) => {
+    setLoading(true);
+    makeRequest('GET', `partnerDetailsByPartnerId/${partnerId}`, editData).then(result => {setEditData(result.data);
+      console.log(result.data)
+    }).catch(err => {
+      alert.error(err.message);
+    }).finally(() => {
+      setLoading(false);
+    })
+  };
 
   // FETCH PARTNER DETAILS ENDS
   return (
@@ -265,73 +264,73 @@ const Reactdatatable = () => {
                       <BookmarkBorderIcon />
                     </button>
 
-                                        {/* Delete POPUP START */}
-                                        <Dialog
-                                            open={open}
-                                            onClose={handleClose}
-                                            aria-labelledby="alert-dialog-title"
-                                            aria-describedby="alert-dialog-description"
-                                        >
-                                            <DialogTitle id="alert-dialog-title">
-                                                {"Are you want to delete partner?"}
-                                            </DialogTitle>
-                                            <DialogContent>
-                                                <DialogContentText id="alert-dialog-description">
-                                                    Once You Delete it , never backup it.
-                                                </DialogContentText>
-                                            </DialogContent>
-                                            <DialogActions>
-                                                <Button onClick={handleClose}>Disagree</Button>
-                                                <Button onClick={() => deleteData(row.id)} autoFocus>
-                                                    Agree
-                                                </Button>
-                                            </DialogActions>
-                                        </Dialog>
-                                        {/* Delete POPUP ENDS */}
-                                    </StyledTableCell>
-                                </StyledTableRow>
-                            ))}
-                    </TableBody>
-                    <TableFooter>
-                        <TableRow>
-                            <TablePagination
-                                page={page}
-                                onPageChange={handleChangePage}
-                                rowsPerPage={rowsPerPage}
-                                onRowsPerPageChange={handleChangeRowsPerPage}
-                                rowsPerPageOptions={[10, 25, 100]}
-                                count={partnerData.length}
-                                rows={10}
-                            />
-                        </TableRow>
-                    </TableFooter>
-                </Table>
-            </TableContainer>
-            {/* React Table ends */}
+                    {/* Delete POPUP START */}
+                    <Dialog
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="alert-dialog-title"
+                      aria-describedby="alert-dialog-description"
+                    >
+                      <DialogTitle id="alert-dialog-title">
+                        {"Are you want to delete partner?"}
+                      </DialogTitle>
+                      <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                          Once You Delete it , never backup it.
+                        </DialogContentText>
+                      </DialogContent>
+                      <DialogActions>
+                        <Button onClick={handleClose}>Disagree</Button>
+                        <Button onClick={() => deleteData(row.id)} autoFocus>
+                          Agree
+                        </Button>
+                      </DialogActions>
+                    </Dialog>
+                    {/* Delete POPUP ENDS */}
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                page={page}
+                onPageChange={handleChangePage}
+                rowsPerPage={rowsPerPage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                rowsPerPageOptions={[10, 25, 100]}
+                count={partnerData.length}
+                rows={10}
+              />
+            </TableRow>
+          </TableFooter>
+        </Table>
+      </TableContainer>
+      {/* React Table ends */}
 
-            {/* EDIT MODAL START */}
-            <div
-                className="modal fade"
-                id="editPartner"
-                role="dialog"
-                aria-labelledby="editPartnerTitle"
-                aria-hidden="true"
-            >
-                <div
-                    className="modal-dialog modal-dialog-centered add-partner"
-                    role="document"
-                >
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title" id="editPartnerTitle">
-                                Partner Details
-                            </h5>
-                            <button
-                                type="button"
-                                className="close"
-                                data-dismiss="modal"
-                                aria-label="Close"
-                            >
+      {/* EDIT MODAL START */}
+      <div
+        className="modal fade"
+        id="editPartner"
+        role="dialog"
+        aria-labelledby="editPartnerTitle"
+        aria-hidden="true"
+      >
+        <div
+          className="modal-dialog modal-dialog-centered add-partner"
+          role="document"
+        >
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="editPartnerTitle">
+                Partner Details
+              </h5>
+              <button
+                type="button"
+                className="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
                 <span aria-hidden="true" className="modal-off">
                   &times;
                 </span>
@@ -449,11 +448,122 @@ const Reactdatatable = () => {
               <div className="table-responsive-lg partner_order_list">
                 <table className="table table-striped">
                   <tbody>
-                    {partnerOrderData.map((item, id) => {
+                    {partnerOrder.map((item, id) => {
                       return (
-                        <>
+                        <div>
+                          <span className="badge badge-danger ml-3">{item.id}</span>
+                          <div key={id} className='row table_row_data ml-3'>
+                            <div className='col-6'>
+                              <div className='porder_formal_details'>
+                                <ul>
+                                  <li>
+                                    <span>Order Description :</span>
+                                    <span>{item.order_description}</span>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div className='col-6'>
+                              <div className='porder_formal_details'>
+                                <ul>
+                                  <li>
+                                    <span>Order Dimension :</span>
+                                    <span>{item.order_dimension}</span>
+                                  </li>
+                                  <li>
+                                    <span>Order Quantity :</span>
+                                    <span>{item.quantity}</span>
+                                  </li>
+                                </ul>
+                                <ul>
+                                  <li>
+                                    <span>From Location :</span>
+                                    <span>{item.from_location}</span>
+                                  </li>
+                                  <li>
+                                    <span>From Location :</span>
+                                    <span>{item.to_location}</span>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div className='col-12'>
+                              <div className='d-flex align-items-center'>
+                                <a className='collpase_button_prt mr-2' data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">
+                                  Sender Details
+                                </a>
+                                <p>/</p>
+                                <a className='collpase_button_prt ml-2' data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2">
+                                  Receiver Details
+                                </a>
+                              </div>
+                              <div className="collapse" id="collapse1">
+                                <div className='porder_formal_details'>
+                                  <ul>
+                                    <li>
+                                      <span>Sender Name :</span>
+                                      <span>{item.sender_name}</span>
+                                    </li>
+                                    <li>
+                                      <span>Sender Email :</span>
+                                      <span>{item.sender_email}</span>
+                                    </li>
 
-                        </>
+                                    <li>
+                                      <span>Sender Phone :</span>
+                                      <span>{item.sender_phone}</span>
+                                    </li>
+                                    <li>
+                                      <span>Sender Pincode :</span>
+                                      <span>{item.sender_pin}</span>
+                                    </li>
+                                    <li>
+                                      <span>Sender City :</span>
+                                      <span>{item.sender_city}</span>
+                                    </li>
+                                    <li>
+                                      <span>Sender State :</span>
+                                      <span>{item.sender_state}</span>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+
+                              <div className="collapse" id="collapse2">
+                                <div className='porder_formal_details'>
+                                  <ul>
+                                    <li>
+                                      <span>Receiver Name :</span>
+                                      <span>{item.receiver_name}</span>
+                                    </li>
+                                    <li>
+                                      <span>Receiver Email :</span>
+                                      <span>{item.receiver_email}</span>
+                                    </li>
+
+                                    <li>
+                                      <span>Receiver Phone :</span>
+                                      <span>{item.receiver_phone}</span>
+                                    </li>
+                                    <li>
+                                      <span>Receiver Pincode :</span>
+                                      <span>{item.receiver_pin}</span>
+                                    </li>
+                                    <li>
+                                      <span>Receiver City :</span>
+                                      <span>{item.receiver_city}</span>
+                                    </li>
+                                    <li>
+                                      <span>Receiver State :</span>
+                                      <span>{item.receiver_state}</span>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
                       );
                     })}
                   </tbody>

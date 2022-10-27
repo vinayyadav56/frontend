@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header from "./CustomerHeader";
 import Sidebar from "./CustomerSidebar";
@@ -6,7 +6,26 @@ import "./Trackhistory.css";
 import tableicon from "../images/tableicon.png";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import LuggageOutlinedIcon from "@mui/icons-material/LuggageOutlined";
+import { useAuth } from "../Services/auth";
+import { makeRequest } from "../Services/api";
+import { useState } from "react";
 const CustomerTrack = () => {
+  const { user, setLoading } = useAuth();
+  const [customerOrder, setCustomerOrder] = useState([{}]);
+  const fetchData = async () => {
+    const customerId = user.id;
+    setLoading(true);
+    makeRequest('GET', `customerOrderListById/${customerId}?status=new`).then(result => {
+      setCustomerOrder(result.data);
+    })
+      .finally(() => {
+        setLoading(false);
+      })
+  };
+  useEffect(() => {
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <div>
       <section className="user-dashboard">
@@ -56,171 +75,48 @@ const CustomerTrack = () => {
                     <th scope="col">DESTINATION</th>
                     <th scope="col">DATE</th>
                     <th scope="col">TOTAL WEIGHT</th>
-                    <th scope="col">QUANTITY</th>
-                    <th scope="col">STATUS</th>
+                    <th scope="col">ORDER TYPE</th>
+                    <th scope="col">COST</th>
+                    <th scope="col">FROM HUB ID</th>
+                    <th scope="col">TO HUB ID</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row" className="d-flex align-items-center">
-                      Assam
-                      <img src={tableicon} alt="table-img" />
-                    </th>
-                    <td>New Delhi</td>
-                    <td>
-                      <DateRangeIcon className="table-row-icon" /> 01/08/2022
-                    </td>
-                    <td>
-                      <LuggageOutlinedIcon className="table-row-icon" /> 10kg
-                    </td>
-                    <td>
-                      <p>2</p>
-                    </td>
-                    <td>
-                      {/* <button className="disabled">Recieved</button> */}
-                      <p>Recieved on 02/08/2022</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row" className="d-flex align-items-center">
-                      Assam
-                      <img src={tableicon} alt="table-img" />
-                    </th>
-                    <td>New Delhi</td>
-                    <td>
-                      <DateRangeIcon className="table-row-icon" /> 01/08/2022
-                    </td>
-                    <td>
-                      <LuggageOutlinedIcon className="table-row-icon" /> 10kg
-                    </td>
-                    <td>
-                      <p>2</p>
-                    </td>
-                    <td>
-                      {/* <button className="disabled">Recieved</button> */}
-                      <p>Out for delivery</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row" className="d-flex align-items-center">
-                      Assam
-                      <img src={tableicon} alt="table-img" />
-                    </th>
-                    <td>New Delhi</td>
-                    <td>
-                      <DateRangeIcon className="table-row-icon" /> 01/08/2022
-                    </td>
-                    <td>
-                      <LuggageOutlinedIcon className="table-row-icon" /> 10kg
-                    </td>
-                    <td>
-                      <p>2</p>
-                    </td>
-                    <td>
-                      {/* <button className="disabled">Recieved</button> */}
-                      <p>Pending</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row" className="d-flex align-items-center">
-                      Assam
-                      <img src={tableicon} alt="table-img" />
-                    </th>
-                    <td>New Delhi</td>
-                    <td>
-                      <DateRangeIcon className="table-row-icon" /> 01/08/2022
-                    </td>
-                    <td>
-                      <LuggageOutlinedIcon className="table-row-icon" /> 10kg
-                    </td>
-                    <td>
-                      <p>2</p>
-                    </td>
-                    <td>
-                      {/* <button className="disabled">Recieved</button> */}
-                      <p>On the Way</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row" className="d-flex align-items-center">
-                      Assam
-                      <img src={tableicon} alt="table-img" />
-                    </th>
-                    <td>New Delhi</td>
-                    <td>
-                      <DateRangeIcon className="table-row-icon" /> 01/08/2022
-                    </td>
-                    <td>
-                      <LuggageOutlinedIcon className="table-row-icon" /> 10kg
-                    </td>
-                    <td>
-                      <p>2</p>
-                    </td>
-                    <td>
-                      {/* <button className="disabled">Recieved</button> */}
-                      <p>With Carrier</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row" className="d-flex align-items-center">
-                      Assam
-                      <img src={tableicon} alt="table-img" />
-                    </th>
-                    <td>New Delhi</td>
-                    <td>
-                      <DateRangeIcon className="table-row-icon" /> 01/08/2022
-                    </td>
-                    <td>
-                      <LuggageOutlinedIcon className="table-row-icon" /> 10kg
-                    </td>
-                    <td>
-                      <p>2</p>
-                    </td>
-                    <td>
-                      {/* <button className="disabled">Recieved</button> */}
-                      <p>Pending</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row" className="d-flex align-items-center">
-                      Assam
-                      <img src={tableicon} alt="table-img" />
-                    </th>
-                    <td>New Delhi</td>
-                    <td>
-                      <DateRangeIcon className="table-row-icon" /> 01/08/2022
-                    </td>
-                    <td>
-                      <LuggageOutlinedIcon className="table-row-icon" /> 10kg
-                    </td>
-                    <td>
-                      <p>2</p>
-                    </td>
-                    <td>
-                      {/* <button className="disabled">Recieved</button> */}
-                      <p>Out for delivery</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row" className="d-flex align-items-center">
-                      Assam
-                      <img src={tableicon} alt="table-img" />
-                    </th>
-                    <td>New Delhi</td>
-                    <td>
-                      <DateRangeIcon className="table-row-icon" /> 01/08/2022
-                    </td>
-                    <td>
-                      <LuggageOutlinedIcon className="table-row-icon" /> 10kg
-                    </td>
-                    <td>
-                      <p>2</p>
-                    </td>
-                    <td>
-                      {/* <button className="disabled">Recieved</button> */}
-                      <p>On the way</p>
-                    </td>
-                  </tr>
+                  {
+                    customerOrder.map((row, id) => {
+                      return (
+                        <>
+                          <tr key={id}>
+                            <td className="d-flex align-items-center">
+                              {row.receiver_city}
+                              <img src={tableicon} alt="table-img" />
+                            </td>
+                            <td>
+                              {row.receiver_city}
+                            </td>
+                            <td>
+                              <DateRangeIcon className="table-row-icon" />
+                            </td>
+                            <td>
+                              <LuggageOutlinedIcon className="table-row-icon" />{row.package_volume_weight}
+                            </td>
+                            <td>
+                              {row.delivery_type}
+                            </td>
+                            <td>
+                              {row.package_value}
+                            </td>
+                            <td>
+                              {row.from_hub_id}
+                            </td>
+                            <td>
+                              {row.to_hub_id}
+                            </td>
+                          </tr>
+                        </>
+                      )
+                    })
+                  }
                 </tbody>
               </table>
             </div>

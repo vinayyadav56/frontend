@@ -20,6 +20,7 @@ const Profileform = () => {
 
     useEffect(() => {
         setuserDatas(user)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
@@ -38,8 +39,6 @@ const Profileform = () => {
             setLoading(false);
         })
     };
-
-
     // UPDATE USERS ENDS
     return (
         <div>

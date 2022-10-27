@@ -10,12 +10,17 @@ import CkOrder from "../admin/admindashboard/CkOrder";
 import DeliveryPartnerDetails from "../admin/admindashboard/DeliveryPartnerDetails";
 import AdminHub from '../admin/admindashboard/HUB/AdminHub';
 import RecenteOrder from '../admin/admindashboard/RecentOrder/RecentOrder';
+import PartnerOrderById from '../partner/partnerOrder/PartnerOrderById';
+import CkOrderList from '../admin/admindashboard/CkOrderList';
 
 export const AdminRoutes = () => {
     return (
         <Switch>
             <Route path="/partner/dashboard">
                 <PartnerDashboard />
+            </Route>
+            <Route path="/dashboard/order">
+                <PartnerOrderById />
             </Route>
             <Route path="/partner">
                 <Partnerlogin />
@@ -32,8 +37,11 @@ export const AdminRoutes = () => {
             <Route exact path="/admindashboardallorder">
                 <RecenteOrder />
             </Route>
-            <Route exact path="/admindashboardckorder">
+            <Route exact path="/admindashboardckordercreate">
                 <CkOrder />
+            </Route>
+            <Route exact path="/admindashboardckorder">
+                <CkOrderList />
             </Route>
             <Route exact path="/admindashboarddeliverypartnerdetails">
                 <DeliveryPartnerDetails />

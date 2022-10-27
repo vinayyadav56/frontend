@@ -74,8 +74,7 @@ const AdminDashboard = () => {
         <aside>
          <AdminSidebar/>
         </aside>
-
-        <section className="right">
+        <section className="right mt-md-0">
           <AllDetails />
         </section>
       </main>

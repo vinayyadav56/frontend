@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import { styled } from '@mui/material/styles';
@@ -11,167 +10,182 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
-import {makeRequest} from "../../../Services/api";
-import {useAuth} from "../../../Services/auth";
+import { makeRequest } from "../../../Services/api";
+import { useAuth } from "../../../Services/auth";
 
 import HubAssignOrder from "./HubAssignOrder";
-import {useAlert} from "react-alert";
+import { useAlert } from "react-alert";
 const UserAvalibiltyCheck = () => {
-    const {setLoading} = useAuth();
-    const alert = useAlert();
+  const { setLoading } = useAuth();
+  const alert = useAlert();
 
-    const [searchUser, setSearchUser] = useState({
-        from_location: "",
-        to_location: "",
-        weight: "",
-        quantity: "",
-    });
-    const [filterUser, setFilterUser] = useState({});
+  const [searchUser, setSearchUser] = useState({
+    from_location: "",
+    to_location: "",
+    weight: "",
+    quantity: "",
+  });
+  const [filterUser, setFilterUser] = useState({});
 
-    const fetchAvailbility = async () => {
-        setLoading(true);
+  const fetchAvailbility = async () => {
+    setLoading(true);
 
-        makeRequest('POST', `user-availability-fetch`, searchUser).then(result => {
-            alert.success(result.message);
-            result.userAvailability && setFilterUser(result.userAvailability);
-        }).catch(err => {
-            alert.error(err.message);
-        }).finally(() => {
-            setLoading(false);
-        })
+    makeRequest('POST', `fetchUsersAvailability`, searchUser).then(result => {
+      alert.success(result.message);
+      result.userAvailability
+        &&
+        setFilterUser(result.userAvailability);
+    }).catch(err => {
+      alert.error(err.message);
+    }).finally(() => {
+      setLoading(false);
+    })
 
+  }
+  useEffect(() => {
+    fetchAvailbility();
+    // eslint-disable-next-line
+  }, []);
+
+  const handleSearchinput = (e) => {
+    setSearchUser(e.target.value)
+  };
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 5));
+    setPage(0);
+  };
+  // PAGINATION ENDS
+  // DATA GRID TABLE START
+  const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: '#0747a9',
+      color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+      fontSize: 12,
+      padding: '10px 14px',
+      border: '1px solid #c8c8c8'
+    },
+  }));
+
+  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
     }
-    useEffect(() => {
-        fetchAvailbility();
-        // eslint-disable-next-line
-    }, []);
+  }));
+  return (
+    <div>
+      <div className="form-title">
+        <h2>Check Availbility</h2>
+      </div>
+      <div className="container-fluid">
+        <div className="form-group row">
+          <div className="col-md-6">
+            <label htmlFor="inputAddress">From :</label>
+            <input
+              id="inputfrom"
+              className="form-control"
+              name="from_location"
+              placeholder="Enter Location"
+              autoComplete="off"
+              type="text"
+              value={searchUser.from_location}
+              onChange={handleSearchinput}
+            />
+          </div>
+          <div className="col-md-6">
+            <label htmlFor="inputto">To :</label>
+            <input
+              id="inputto"
+              type="text"
+              autoComplete="off"
+              placeholder="Enter Location"
+              name="to_location"
+              value={searchUser.to_location}
+              onChange={handleSearchinput}
+              className="form-control"
+            />
+          </div>
+          <div className="col-md-6">
+            <label htmlFor="inputquantity">Weight</label>
+            <input
+              type="number"
+              className="form-control"
+              placeholder="Enter weight"
+              min="0"
+              name="weight"
+              onChange={handleSearchinput}
+              value={searchUser.weight}
+            />
+          </div>
+          <div className="col-md-6">
+            <label htmlFor="inputquantity">Date</label>
+            <input
+              type="date"
+              className="form-control"
+              placeholder="Enter Date"
+              min="0"
+              name="date"
+              onChange={handleSearchinput}
+              value={searchUser.quantity}
+            />
+          </div>
+        </div>
+      </div>
+      <TableContainer component={Paper}>
+        <Table stickyHeader striped aria-label="sticky table">
+          <TableHead>
+            <StyledTableRow>
+              <StyledTableCell>Id</StyledTableCell>
+              <StyledTableCell>Name</StyledTableCell>
+              <StyledTableCell>From Date</StyledTableCell>
+              <StyledTableCell>User Id</StyledTableCell>
+              <StyledTableCell>Journey Id</StyledTableCell>
+              <StyledTableCell>From City</StyledTableCell>
+              <StyledTableCell>From Airport Code</StyledTableCell>
+              <StyledTableCell>From Pincode</StyledTableCell>
+              <StyledTableCell>From St. Code</StyledTableCell>
+              <StyledTableCell>To City</StyledTableCell>
+              <StyledTableCell>To Airport Code</StyledTableCell>
+              <StyledTableCell>To Pincode</StyledTableCell>
+              <StyledTableCell>To St. Code</StyledTableCell>
+              <StyledTableCell>Journey Type</StyledTableCell>
+              <StyledTableCell>Available Space</StyledTableCell>
+              <StyledTableCell>Journey Medium</StyledTableCell>
 
-    const handleSearchinput = (e) => {
-        setSearchUser(e.target.value)
-    };
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
-
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 5));
-        setPage(0);
-    };
-    // PAGINATION ENDS
-
-    // DATA GRID TABLE START
-    const StyledTableCell = styled(TableCell)(({theme}) => ({
-        [`&.${tableCellClasses.head}`]: {
-            backgroundColor: '#0747a9',
-            color: theme.palette.common.white,
-        },
-        [`&.${tableCellClasses.body}`]: {
-            fontSize: 12,
-            padding: '10px 14px',
-            border: '1px solid #c8c8c8'
-        },
-    }));
-
-    const StyledTableRow = styled(TableRow)(({theme}) => ({
-        '&:nth-of-type(odd)': {
-            backgroundColor: theme.palette.action.hover,
-        }
-    }));
-    return (
-        <div>
-            <div className="form-title mt-5">
-                <h2>Check Availbility</h2>
-            </div>
-            <div className="form-group row">
-                <div className="col-md-6">
-                    <label htmlFor="inputAddress">From :</label>
-                    <input
-                        id="inputfrom"
-                        className="form-control"
-                        name="from_location"
-                        placeholder="Enter Location"
-                        autoComplete="off"
-                        type="text"
-                        value={searchUser.from_location}
-                        onChange={handleSearchinput}
-                    />
-                </div>
-                <div className="col-md-6">
-                    <label htmlFor="inputto">To :</label>
-                    <input
-                        id="inputto"
-                        type="text"
-                        autoComplete="off"
-                        placeholder="Enter Location"
-                        name="to_location"
-                        value={searchUser.to_location}
-                        onChange={handleSearchinput}
-                        className="form-control"
-                    />
-                </div>
-                <div className="col-md-6">
-                    <label htmlFor="inputquantity">Weight</label>
-                    <input
-                        type="number"
-                        className="form-control"
-                        placeholder="Enter weight"
-                        min="0"
-                        name="weight"
-                        onChange={handleSearchinput}
-                        value={searchUser.weight}
-                    />
-                </div>
-                <div className="col-md-6">
-                    <label htmlFor="inputquantity">Date</label>
-                    <input
-                        type="date"
-                        className="form-control"
-                        placeholder="Enter Date"
-                        min="0"
-                        name="date"
-                        onChange={handleSearchinput}
-                        value={searchUser.quantity}
-                    />
-                </div>
-            </div>
-
-            <TableContainer component={Paper}>
-                <Table stickyHeader striped aria-label="sticky table">
-                    <TableHead>
-                        <StyledTableRow>
-                            <StyledTableCell>Id</StyledTableCell>
-                            <StyledTableCell>Order Id</StyledTableCell>
-                            <StyledTableCell>User Id</StyledTableCell>
-                            <StyledTableCell>From Location</StyledTableCell>
-                            <StyledTableCell>To Location</StyledTableCell>
-                            <StyledTableCell>Journey Type</StyledTableCell>
-                            <StyledTableCell>Available Space</StyledTableCell>
-                            <StyledTableCell>Journey Medium</StyledTableCell>
-                            <StyledTableCell>From Date</StyledTableCell>
-                            <StyledTableCell>To Date</StyledTableCell>
-                            <StyledTableCell>Action</StyledTableCell>
-                        </StyledTableRow>
-                    </TableHead>
-                    <TableBody>
-                        {Object.values(filterUser)
-                            // eslint-disable-next-line
+              <StyledTableCell>Action</StyledTableCell>
+            </StyledTableRow>
+          </TableHead>
+          <TableBody>
+            {Object.values(filterUser)
+              // eslint-disable-next-line
 
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((item, id) => (
-                <StyledTableRow hover tabIndex={-1} key={id}>
+                <StyledTableRow hover key={id}>
                   <StyledTableCell>{item.id}</StyledTableCell>
-                  <StyledTableCell>{item.order_id}</StyledTableCell>
+                  <StyledTableCell>{item.first_name}{item.last_name}</StyledTableCell>
+                  <StyledTableCell>{item.from_date}</StyledTableCell>
                   <StyledTableCell>{item.user_id}</StyledTableCell>
-                  <StyledTableCell>{item.fromlocation}</StyledTableCell>
-                  <StyledTableCell>{item.tolocation}</StyledTableCell>
+                  <StyledTableCell>{item.journey_unique_id}</StyledTableCell>
+                  <StyledTableCell>{item.from_location_city}</StyledTableCell>
+                  <StyledTableCell>{item.from_location_airport_code}</StyledTableCell>
+                  <StyledTableCell>{item.from_location_pin_code}</StyledTableCell>
+                  <StyledTableCell>{item.from_location_station_code}</StyledTableCell>
+                  <StyledTableCell>{item.to_location_city}</StyledTableCell>
+                  <StyledTableCell>{item.to_location_airport_code}</StyledTableCell>
+                  <StyledTableCell>{item.to_location_pin_code}</StyledTableCell>
+                  <StyledTableCell>{item.to_location_station_code}</StyledTableCell>
                   <StyledTableCell>{item.journey_type}</StyledTableCell>
                   <StyledTableCell>{item.available_space}</StyledTableCell>
                   <StyledTableCell>{item.journey_medium}</StyledTableCell>
-                  <StyledTableCell>{item.from_date}</StyledTableCell>
-                  <StyledTableCell>{item.to_date}</StyledTableCell>
                   <StyledTableCell>
                     <button
                       type="button"
@@ -199,15 +213,13 @@ const UserAvalibiltyCheck = () => {
           </TableFooter>
         </Table>
       </TableContainer>
-
-
       {/* ASSIGN DETAILS MODAL TO AGENT HUB TABLE */}
       <div className="modal fade see_hub-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div className="modal-dialog  add-partner modal-lg">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="editPartnerTitle">
-               Available Hub
+                Available Hub
               </h5>
               <button
                 type="button"
@@ -221,7 +233,7 @@ const UserAvalibiltyCheck = () => {
               </button>
             </div>
             <div className="modal-body">
-             <HubAssignOrder />
+              <HubAssignOrder />
             </div>
           </div>
         </div>

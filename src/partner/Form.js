@@ -1,46 +1,56 @@
-import React, {useState} from "react";
-import {postRequest} from "../Services/api";
-import {useAuth} from "../Services/auth";
+import React, { Fragment, useState } from "react";
+import { postRequest } from "../Services/api";
+import { useAuth } from "../Services/auth";
 import { useAlert } from "react-alert";
 // import { useHistory } from "react-router-dom";
 
 const Form = () => {
-    const {setLoading} = useAuth();
+    const { setLoading } = useAuth();
     let alert = useAlert();
     // let history = useHistory();
 
-    const [createorder, setCreateorder] = useState({
-        partner_id: 5,
-        order_description: "",
-        quantity: "",
-        order_dimension: "",
-        from_location: "",
-        to_location: "",
-        sender_info: {
-            sender_name: "",
-            sender_email: "",
-            sender_phone: "",
-            sender_city: "",
-            sender_state: "",
-            sender_pin: "",
-            sender_address: "",
-        },
-        receiver_info: {
-            receiver_name: "",
-            receiver_email: "",
-            receiver_phone: "",
-            receiver_city: "",
-            receiver_state: "",
-            receiver_pin: "",
-            receiver_address: "",
-        },
-        weight: 200,
-        order_image: {img: ""},
-        items: {},
-    });
+    const [createorder, setCreateorder] = useState(
+        {
+            partner_id: 1,
+            delivery_pincode: 123401,
+            pickup_pincode: 123435,
+            delivery_type: "",
+            sender_details: {
+                sender_name: '',
+                sender_email: '',
+                sender_contact_no: '',
+                address: {
+                    sender_house_number: '',
+                    sender_locality: '',
+                    sender_city: '',
+                    sender_state: '',
+                    sender_pincode: ''
+                }
+            },
+            reciever_details: {
+                receiver_name: '',
+                receiver_email: '',
+                receiver_contact_no: '',
+                address: {
+                    receiver_house_number: '',
+                    receiver_locality: '',
+                    receiver_city: '',
+                    receiver_state: '',
+                    receiver_pincode: ''
+                }
+            },
+            package_details: {
+                package_size: '',
+                package_dimension: '',
+                cateogory_id: '',
+                sub_category_id: '',
+                additional_details: ''
+            }
+        }
+    );
 
     const handleCreateinput = (e) => {
-        const {name, value} = e.target;
+        const { name, value } = e.target;
         setCreateorder({
             ...createorder,
             [name]: value,
@@ -52,8 +62,9 @@ const Form = () => {
         e.preventDefault();
         setLoading(true);
 
-        postRequest('partner-order', createorder).then(result => {
+        postRequest('createNewOrderPartner', createorder).then(result => {
             alert.success(result.message);
+            console.log(result.createorder);
         }).catch(error => {
             alert.error(error.message);
         }).finally(() => {
@@ -61,87 +72,75 @@ const Form = () => {
         });
     };
     return (
-        <div>
+        <Fragment>
             <div className="container order-cont">
                 <div className="form-title">
                     <h2>Create Order</h2>
                 </div>
                 <div className="order-sum">
                     <form className="order-dis" onSubmit={handleOrder}>
-                        <div className="form-group mt-2">
-                            <label htmlFor="Textarea1">Order Description :</label>
-                            <textarea
-                                className="form-control"
-                                placeholder="Enter Description"
-                                id="Textarea1"
-                                rows="3"
-                                type="text"
-                                name="order_description"
-                                value={createorder.order_description}
-                                onChange={handleCreateinput}
-                            ></textarea>
-                        </div>
                         <div className="form-group row">
-                            <div className="col-md-6">
-                                <label htmlFor="inputsize">Size</label>
+                            <div className="col-md-6 pl-0">
+                                <label htmlFor="inputcat">Category</label>
                                 <input
-                                    size="dimension"
+                                    id="inputcat"
                                     className="form-control"
-                                    id="inputsize"
-                                    placeholder="WW/HH/LL"
-                                    name="order_dimension"
-                                    value={createorder.order_dimension}
+                                    name="category_id"
+                                    type="text"
+                                    placeholder="Enter Category Id"
+                                    value={createorder.category_id}
                                     onChange={handleCreateinput}
                                 />
                             </div>
-                            <div className="col-md-6">
-                                <label htmlFor="inputquantity">Quantity</label>
+                            <div className="col-md-6 pr-0">
+                                <label htmlFor="inputsubcat">Sub Category</label>
+                                <input
+                                    id="inputsubcat"
+                                    type="text"
+                                    placeholder="Enter Sub Category"
+                                    name="sub_category_id"
+                                    value={createorder.sub_category_id}
+                                    onChange={handleCreateinput}
+                                    className="form-control"
+                                />
+                            </div>
+                            <div className="col-md-6 pl-0">
+                                <label htmlFor="inputsize">Size</label>
+                                <select id="inputsize" value={createorder.package_size} name="package_size" className="form-control"
+                                    required type='Select' onChange={handleCreateinput}>
+                                    <option>Select Size</option>
+                                    <option value="Extra Small" >Extra</option>
+                                    <option value="Small" >Small</option>
+                                    <option value="Medium" >Medium</option>
+                                    <option value="Large" >Large</option>
+                                    <option value="Extra Large" >Extra Large</option>
+                                </select>
+                            </div>
+                            <div className="col-md-6 pr-0">
+                                <label htmlFor="inputquantity">Package Dimensions</label>
                                 <input
                                     type="number"
                                     className="form-control"
                                     placeholder="Select Quantity"
-                                    min="0"
-                                    name="quantity"
+                                    name="package_dimension"
                                     onChange={handleCreateinput}
-                                    value={createorder.quantity}
+                                    value={createorder.package_dimension}
                                 ></input>
                             </div>
-
-                            <div className="col-md-6">
-                                <label htmlFor="inputAddress">From :</label>
-                                <input
-                                    id="inputfrom"
-                                    className="form-control"
-                                    name="from_location"
-                                    type="text"
-                                    value={createorder.from_location}
-                                    onChange={handleCreateinput}
-                                />
+                            <div className="col-md-6 pl-0">
+                                <label htmlFor="deliverytype">Delivery Type</label>
+                                <select id="deliverytype" value={createorder.delivery_type} name='delivery_type' className="form-control"
+                                    required type='Select' onChange={handleCreateinput}>
+                                    <option>Select Delivery Type</option>
+                                    <option value="EXP" >Express</option>
+                                    <option value="PLT" >Platinum</option>
+                                </select>
                             </div>
-                            <div className="col-md-6">
-                                <label htmlFor="inputto">To :</label>
-                                <input
-                                    id="inputto"
-                                    type="text"
-                                    name="to_location"
-                                    value={createorder.to_location}
-                                    onChange={handleCreateinput}
-                                    className="form-control"
-                                />
-                            </div>
-                            {/* <div className="col-md-6 img-upload">
-                <label htmlFor="inputimage">Upload Order Packing Image</label>
-                <input
-                  type="file"
-                  value={createorder.file}
-                  className="form-control"
-                />
-              </div> */}
                         </div>
                         <h2 className="sender-info">Sender Details :</h2>
                         <div className="form-group row">
                             <div className="col-md-4">
-                                <label htmlFor="inputname">Sender Name</label>
+                                <label htmlFor="inputname">Name</label>
                                 <input
                                     type="text"
                                     className="form-control"
@@ -167,13 +166,49 @@ const Form = () => {
                             <div className="col-md-4">
                                 <label htmlFor="inputphone">Mobile No.</label>
                                 <input
-                                    type="text"
+                                    type="number"
                                     className="form-control"
                                     id="inputphone"
                                     onChange={handleCreateinput}
-                                    value={createorder.sender_phone}
-                                    name="sender_phone"
+                                    value={createorder.sender_contact_no}
+                                    name="sender_contact_no"
                                     placeholder="Enter mobile number"
+                                />
+                            </div>
+                            <div className="col-md-4">
+                                <label htmlFor="inputhno">House No</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="inputhno"
+                                    name="sender_house_number"
+                                    value={createorder.sender_house_number}
+                                    onChange={handleCreateinput}
+                                    placeholder="Enter House No"
+                                />
+                            </div>
+                            <div className="col-md-4">
+                                <label htmlFor="inputlocality">Locality</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="inputlocality"
+                                    placeholder="Enter Locality"
+                                    name="sender_locality"
+                                    value={createorder.sender_locality}
+                                    onChange={handleCreateinput}
+                                />
+                            </div>
+                            <div className="col-md-4">
+                                <label htmlFor="inputpin">Pincode</label>
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    id="inputpin"
+                                    name="sender_pincode"
+                                    value={createorder.sender_pincode}
+                                    onChange={handleCreateinput}
+                                    placeholder="Enter PIN"
                                 />
                             </div>
                             <div className="col-md-4">
@@ -189,7 +224,7 @@ const Form = () => {
                                 />
                             </div>
                             <div className="col-md-4">
-                                <label htmlFor="inputCity">State</label>
+                                <label htmlFor="inputstate">State</label>
                                 <input
                                     type="text"
                                     className="form-control"
@@ -200,45 +235,19 @@ const Form = () => {
                                     onChange={handleCreateinput}
                                 />
                             </div>
-                            <div className="col-md-4">
-                                <label htmlFor="inputpin">PIN</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="inputpin"
-                                    name="sender_pin"
-                                    value={createorder.sender_pin}
-                                    onChange={handleCreateinput}
-                                    placeholder="Enter PIN"
-                                />
-                            </div>
-                            <div className="col-md-12">
-                                <label htmlFor="inputaddress" className="mt-2">
-                                    Full Address
-                                </label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="inputaddress"
-                                    placeholder="Enter full address"
-                                    name="sender_address"
-                                    value={createorder.sender_address}
-                                    onChange={handleCreateinput}
-                                />
-                            </div>
                         </div>
                         <h2 className="sender-info">Receiver Details :</h2>
                         <div className="form-group row">
                             <div className="col-md-4">
-                                <label htmlFor="inputname">Reciever Name</label>
+                                <label htmlFor="inputname">Name</label>
                                 <input
                                     type="text"
                                     className="form-control"
-                                    id="inputname"
                                     name="receiver_name"
+                                    placeholder="Enter Name"
                                     value={createorder.receiver_name}
-                                    placeholder="Enter name"
                                     onChange={handleCreateinput}
+                                    autoComplete="off"
                                 />
                             </div>
                             <div className="col-md-4">
@@ -246,23 +255,59 @@ const Form = () => {
                                 <input
                                     type="email"
                                     className="form-control"
-                                    id="inputemail"
                                     name="receiver_email"
                                     value={createorder.receiver_email}
                                     onChange={handleCreateinput}
+                                    autoComplete="off"
                                     placeholder="Enter email"
                                 />
                             </div>
                             <div className="col-md-4">
                                 <label htmlFor="inputphone">Mobile No.</label>
                                 <input
-                                    type="phone"
+                                    type="number"
                                     className="form-control"
                                     id="inputphone"
-                                    name="receiver_phone"
-                                    value={createorder.receiver_phone}
                                     onChange={handleCreateinput}
+                                    value={createorder.receiver_contact_no}
+                                    name="receiver_contact_no"
                                     placeholder="Enter mobile number"
+                                />
+                            </div>
+                            <div className="col-md-4">
+                                <label htmlFor="inputhno">House No</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="inputhno"
+                                    name="receiver_house_number"
+                                    value={createorder.receiver_house_number}
+                                    onChange={handleCreateinput}
+                                    placeholder="Enter House No"
+                                />
+                            </div>
+                            <div className="col-md-4">
+                                <label htmlFor="inputlocality">Locality</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="inputlocality"
+                                    placeholder="Enter Locality"
+                                    name="receiver_locality"
+                                    value={createorder.receiver_locality}
+                                    onChange={handleCreateinput}
+                                />
+                            </div>
+                            <div className="col-md-4">
+                                <label htmlFor="inputpin">Pincode</label>
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    id="inputpin"
+                                    name="receiver_pincode"
+                                    value={createorder.receiver_pincode}
+                                    onChange={handleCreateinput}
+                                    placeholder="Enter PIN"
                                 />
                             </div>
                             <div className="col-md-4">
@@ -278,70 +323,18 @@ const Form = () => {
                                 />
                             </div>
                             <div className="col-md-4">
-                                <label htmlFor="inputCity">State</label>
+                                <label htmlFor="inputstate">State</label>
                                 <input
                                     type="text"
                                     className="form-control"
                                     id="inputstate"
+                                    placeholder="Enter state"
                                     name="receiver_state"
                                     value={createorder.receiver_state}
                                     onChange={handleCreateinput}
-                                    placeholder="Enter state"
-                                />
-                            </div>
-                            <div className="col-md-4">
-                                <label htmlFor="inputpin">PIN</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="inputpin"
-                                    name="receiver_pin"
-                                    value={createorder.receiver_pin}
-                                    onChange={handleCreateinput}
-                                    placeholder="Enter PIN"
-                                />
-                            </div>
-                            <div className="col-md-12">
-                                <label htmlFor="inputaddress" className="mt-2">
-                                    Full Address
-                                </label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="inputaddress"
-                                    name="receiver_address"
-                                    value={createorder.receiver_address}
-                                    onChange={handleCreateinput}
-                                    placeholder="Enter full address"
                                 />
                             </div>
                         </div>
-                        {/* <div className="partner-order">
-            <div className="col-md-4">
-                <label htmlFor="inputCity">Image</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="inputstate"
-                  name="image_url"
-                  value={createorder.image_url}
-                  onChange={handleCreateinput}
-                  placeholder="Enter state"
-                />
-              </div>
-              <div className="col-md-4">
-                <label htmlFor="inputpin">Weight</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="inputpin"
-                  name="weight"
-                  value={createorder.weight}
-                  onChange={handleCreateinput}
-                  placeholder="Enter PIN"
-                />
-              </div>
-            </div> */}
                         <div className="d-flex jutify-content-center">
                             <button type="submit" className="btn btn-danger mx-auto">
                                 Create Order
@@ -350,7 +343,7 @@ const Form = () => {
                     </form>
                 </div>
             </div>
-        </div>
+        </Fragment>
     );
 };
 

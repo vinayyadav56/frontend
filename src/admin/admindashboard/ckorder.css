@@ -1,8 +1,9 @@
-.ck_order_form{
+.ck_order_form {
     background-color: #fff;
     padding: 1rem;
 }
-.ck_order_form .locasrchbtn{
+
+.ck_order_form .locasrchbtn {
     width: 100%;
     font-size: 13px;
     letter-spacing: 1px;
@@ -10,19 +11,32 @@
     background-color: #0747a9;
     border: 1px solid #0747a9;
 }
-.ck_order_form .locasrchbtn:hover{
+.ordergenrate{
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #fff;
+    background-color: #0747a9;
+    border: 1px solid #0747a9;
+}
+.ordergenrate:hover{
+    color: #fff;
+}
+.ck_order_form .locasrchbtn:hover {
     color: #0747a9;
     background-color: #fff;
 }
-.ck_order_form .locasrchbtn:focus{
+
+.ck_order_form .locasrchbtn:focus {
     outline: none;
     box-shadow: none;
 }
-.ck_order_form .weight_section label{
+
+.ck_order_form .weight_section label {
     color: #333;
     padding-bottom: 0.1rem;
     font-weight: 600;
 }
+
 .css-1jbbcbn-MuiDataGrid-columnHeaderTitle {
     text-overflow: ellipsis;
     overflow: hidden;
@@ -30,8 +44,104 @@
     font-weight: 600;
     font-size: 14px;
 }
-.ck_order_form .weight_section{
+
+.ck_order_form .weight_section {
     display: flex;
     justify-content: space-between;
     margin-top: 3rem;
+}
+
+.CkOrderTableData {
+    background-color: #fff;
+}
+
+.ck_order_table {
+    border: 2px solid #cfcfcf;
+    border-radius: 5px;
+    margin: 5px;
+    font-family: revert;
+    background: #f8f8f8;
+}
+
+.ck_Order_header {
+    height: 40px;
+    border-bottom: 1px solid #d8d8d8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ck_order_table p span:first-child {
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.ck_order_table p span:last-child {
+    font-size: 10px;
+    padding-left: 4px;
+    font-weight: 600;
+    color: #5f5f5fbd;
+}
+.ck_Order_body .body_list{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 150px;
+}
+
+.ck_Order_footer {
+    border-top: 1px solid #d8d8d8;
+    padding: 10px;
+}
+
+.ck_Order_footer a:hover{
+    color: #fff;
+}
+.ck_Order_footer .collpase_button_prt{
+    color: brown !important;
+}
+.ck_Order_footer .collpase_button_prt:hover{
+    color: brown !important;
+}
+.ck_order_footer_sub_details ul{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.ck_order_footer_sub_details ul li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.ck_order_footer_sub_details p span:first-child {
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.ck_order_footer_sub_details p span:last-child {
+    font-size: 10px;
+    padding-left: 4px;
+    font-weight: 600;
+    color: #5f5f5fbd;
+}
+.ck_Order_footer img{
+    width: 50px;
+    height: 50px;
+}
+.ck_Order_footer .table td, .table th {
+    padding: 0.75rem;
+    vertical-align: center;
+}
+.ck_Order_body .status_btn{
+    margin-bottom: 2rem;
+    border: 1px solid rgb(163, 163, 22) !important;
+    color: #0747a9;
+    font-weight: 600;
+    padding: 0px;
+    background: transparent;
+}
+/* .ck_Order_footer tbody */
+
+.css-19kzrtu{
+    padding:20px 9px 0px 9px;
 }

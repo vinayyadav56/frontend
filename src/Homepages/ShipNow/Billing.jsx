@@ -1,7 +1,7 @@
 import { Button, CardContent } from '@material-ui/core'
 import React from 'react'
 import {CreateShippingOrder, StartPayment} from "../../Services/Payment";
-import axios from "axios";
+// import axios from "axios";
 import {useAuth} from "../../Services/auth";
 import {useAlert} from "react-alert";
 

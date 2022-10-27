@@ -1,13 +1,11 @@
 import React from 'react'
 import { Fragment } from 'react'
 import AddIcon from "@mui/icons-material/Add";
-import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import { useAlert } from 'react-alert';
 import '../admindashboard/Adminmenu.css'
 import Previews from './DeliveryImageSelector';
-import { FormGroup, TextField } from "@material-ui/core";
 import {makeRequest} from "../../Services/api";
 import {useAuth} from "../../Services/auth";
 const AddDeliveryPartner = () => {
@@ -29,11 +27,7 @@ const AddDeliveryPartner = () => {
         current_address: "",
         permanent_address: "",
         pan_card_no: "",
-        aadhar_card_no: "",
-        driving_license_no: "",
-        pan_card_image_link: "",
-        aadhar_card_image_link: "",
-        driving_license_image_link: "",
+        driving_licence_no: "",
     });
     const handleInput = (e) => {
         const { name, value } = e.target;
@@ -57,12 +51,8 @@ const AddDeliveryPartner = () => {
             current_address,
             permanent_address,
             pan_card_no,
-            aadhar_card_no,
-            driving_license_no,
-            pan_card_image_link,
-            aadhar_card_image_link,
+            driving_licence_no,
             linked_hub_id,
-            driving_license_image_link,
         } = agent;
         // console.log(handlePartner);
         if (
@@ -78,16 +68,12 @@ const AddDeliveryPartner = () => {
             current_address &&
             permanent_address &&
             pan_card_no &&
-            aadhar_card_no &&
-            driving_license_no &&
-            pan_card_image_link &&
-            aadhar_card_image_link &&
-            linked_hub_id &&
-            driving_license_image_link
+            driving_licence_no &&
+            linked_hub_id
         ) {
             setLoading(true);
 
-            makeRequest('POST', `partners`, agent).then(result => {
+            makeRequest('POST', `createNewDeliveryAgent`, agent).then(result => {
                 alert.success(result.message);
                 result.success && history.push("/admindashboard");
             }).catch(err => {
@@ -108,7 +94,7 @@ const AddDeliveryPartner = () => {
                 data-target="#deliverypartner"
             >
                 <AddIcon />
-                Add Delivery Details
+                Add Delivery Partner
             </button>
             <div
                 className="modal fade"
@@ -138,7 +124,7 @@ const AddDeliveryPartner = () => {
                             </button>
                         </div>
                         <div className="modal-body">
-                            <FormGroup
+                            <form
                                 onSubmit={(e) => handlePartner(e)}
                                 className="agent_add"
                             >
@@ -178,11 +164,11 @@ const AddDeliveryPartner = () => {
                                 <div className="row mb-3">
                                     <div className="col">
                                         <label for="#pin">Pincode</label>
-                                        <input id='pin' name='pin' type="number" onChange={handleInput} value={agent.pincode} className="form-control" placeholder="Pincode" />
+                                        <input id='pin' name='pin' type="number" onChange={handleInput} value={agent.pin} className="form-control" placeholder="Pincode" />
                                     </div>
                                     <div className="col">
                                         <label for="#dlno">Driving License No.</label>
-                                        <input id='dlno' name=' driving_license_no' type="number" onChange={handleInput} value={agent.driving_license_no} className="form-control" placeholder="Pincode" />
+                                        <input id='dlno' name='driving_licence_no' type="text" onChange={handleInput} value={agent.driving_licence_no} className="form-control" placeholder="License No." />
                                     </div>
                                 </div>
                                 <div className="row mb-3">
@@ -215,7 +201,7 @@ const AddDeliveryPartner = () => {
                                         <input type="number" id="addno" name='aadhar_card_no' onChange={handleInput} value={agent.aadhar_card_no} className="form-control" placeholder="Aadhar No" />
                                     </div>
                                 </div>
-                                <div className="row mb-3">
+                                {/* <div className="row mb-3">
                                     <div className="col">
                                         <label for="#panimg">Pan Card Image</label>
                                         <input name='current_address' id='panimg' type="file" onChange={handleInput} value={agent.pan_card_image_link} className="form-control" placeholder="Current Address" />
@@ -230,11 +216,11 @@ const AddDeliveryPartner = () => {
                                         <label for="#dliimg">Driving License Image</label>
                                         <input id='dliimg' name='driving_license_image_link' type="file" onChange={handleInput} value={agent.driving_license_image_link} className="form-control" placeholder="Pan No" />
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="d-flex justify-content-between">
                                     <button className="btn btn-primary">Save Agent</button>
                                 </div>
-                            </FormGroup>
+                            </form>
                         </div>
                     </div>
                 </div>

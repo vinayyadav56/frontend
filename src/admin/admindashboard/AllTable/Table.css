@@ -130,8 +130,9 @@ body {
 .table-heading {
   display: flex;
   justify-content: center;
+  border-bottom: 2px solid #cfcfcf;
   padding: 1rem 0rem;
-  background-color: #fff;
+  background-color: #f0eff5;
 }
 
 .table-heading h2 {

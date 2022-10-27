@@ -12,30 +12,36 @@ const navArray = [
     },
     {
         id: 2,
-        nav: 'CK Order',
+        nav: 'CK Order Create',
         icon: <StarBorderRoundedIcon />,
-        link: '/admindashboardckorder'
+        link: '/admindashboardckordercreate'
     },
     {
-        id: 2,
-        nav: 'Order',
+        id: 3,
+        nav: 'New Order',
         icon: <BorderColorRoundedIcon />,
         link: '/admindashboardallorder'
     },
     {
-        id: 3,
+        id: 4,
         nav: 'Agents',
         icon: <HelpCenterRoundedIcon />,
         link: '/admindashboarddeliverypartnerdetails'
     },
     {
-        id: 4,
+        id: 5,
         nav: 'Hub',
         icon: <HubIcon />,
         link: '/admindashboardhub'
     },
     {
-        id: 5,
+        id: 6,
+        nav: 'CK Order List',
+        icon: <StarBorderRoundedIcon />,
+        link: '/admindashboardckorder'
+    },
+    {
+        id: 7,
         nav: 'Setting',
         icon: <SettingsIcon />,
         link: '/admin/dashboard'

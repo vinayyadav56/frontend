@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { useAlert } from "react-alert";
-import { useHistory } from "react-router-dom";
 import { postRequest } from '../../../Services/api';
 import AddIcon from "@mui/icons-material/Add";
 import { useAuth } from "../../../Services/auth";
 const Newpartner = () => {
     const { setLoading, handleUser } = useAuth();
     let alert = useAlert();
-    let history = useHistory();
     const [hub, setHub] = useState({
         hub_name: "",
         state: "",
@@ -47,7 +45,6 @@ const Newpartner = () => {
                     console.log(result);
                     alert.success(result.message);
                     handleUser(result.userDetails);
-                    result.success && history.push("/admindashboardhub")
                   }).catch(error => {
                     alert.error(error.message);
                   }).finally(() => {

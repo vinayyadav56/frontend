@@ -1,24 +1,24 @@
 import React from "react";
-// import { Table, thead, tbody, tr, Th, Td } from "react-super-responsive-table";
+import DeleteIcon from '@mui/icons-material/Delete';
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import "./Table.css";
-import {styled} from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell, {tableCellClasses} from '@mui/material/TableCell';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
-import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@material-ui/core";
-import {makeRequest} from "../../../Services/api";
-import {useAuth} from "../../../Services/auth";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@material-ui/core";
+import { makeRequest } from "../../../Services/api";
+import { useAuth } from "../../../Services/auth";
 
 const UserData = () => {
-    const {setLoading} = useAuth();
+    const { setLoading } = useAuth();
     // const [setFilterVal] = useState([]);
 
     const [userData, setUserData] = useState([]);
@@ -27,19 +27,21 @@ const UserData = () => {
 
     const fetchData = async () => {
         setLoading(true);
-
-        makeRequest('GET', `user-all-list`).then(result => {
-            alert.success(result.message);
-            result.success && setUserData(result.data[0]);
-        }).catch(err => {
-            alert.error(err.message);
-        }).finally(() => {
-            setLoading(false);
+        makeRequest('GET', `usersList`).then(result => {
+            // alert.success(result.message);
+            // result.success && 
+            setUserData(result.userList);
         })
+            // .catch(err => {
+            //     alert.error(err.message);
+            // })
+            .finally(() => {
+                setLoading(false);
+            })
     };
-
     useEffect(() => {
         fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // delete function start
@@ -99,7 +101,7 @@ const UserData = () => {
     // PAGINATION ENDS
 
     // DATA GRID TABLE START
-    const StyledTableCell = styled(TableCell)(({theme}) => ({
+    const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
             backgroundColor: '#0747a9',
             color: theme.palette.common.white,
@@ -111,29 +113,29 @@ const UserData = () => {
         },
     }));
 
-    const StyledTableRow = styled(TableRow)(({theme}) => ({
+    const StyledTableRow = styled(TableRow)(({ theme }) => ({
         '&:nth-of-type(odd)': {
             backgroundColor: theme.palette.action.hover,
         }
     }));
 
 
-    const rows = [];
-    //   CKORDER TABLE END
-    userData && userData.forEach((item, id) => {
-        rows.push({
-                id: id + 1,
-                first_name: item.first_name,
-                last_name: item.last_name,
-                dob: item.dob,
-                pincode: item.pincode,
-                city: item.city,
-                state: item.state,
-                address: item.address,
-            }
-        )
-    });
-    // DATA GRID TABLES ENDS
+    // const rows = [];
+    // //   CKORDER TABLE END
+    // userData && userData.forEach((item, id) => {
+    //     rows.push({
+    //         id: id + 1,
+    //         first_name: item.first_name,
+    //         last_name: item.last_name,
+    //         dob: item.dob,
+    //         pincode: item.pincode,
+    //         city: item.city,
+    //         state: item.state,
+    //         address: item.address,
+    //     }
+    //     )
+    // });
+    // // DATA GRID TABLES ENDS
     return (
         <div>
             <div className="filter_partner">
@@ -158,7 +160,7 @@ const UserData = () => {
                         </StyledTableRow>
                     </TableHead>
                     <TableBody>
-                        {rows
+                        {userData
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row, id) => (
                                 <StyledTableRow hover tabIndex={-1} key={id}>
@@ -171,14 +173,14 @@ const UserData = () => {
                                     <StyledTableCell>{row.state}</StyledTableCell>
                                     <StyledTableCell>{row.address}</StyledTableCell>
                                     <StyledTableCell>
+                                       
                                         <button
                                             className="btn delete-btn mr-1"
                                             onClick={handleClickOpen}
                                             variant="outlined" color="error"
                                         >
-                                            DELETE
+                                            <DeleteIcon />
                                         </button>
-
                                         {/* Delete POPUP START */}
                                         <Dialog
                                             open={userOpen}
@@ -214,7 +216,7 @@ const UserData = () => {
                                 rowsPerPage={rowsPerPage}
                                 onRowsPerPageChange={handleChangeRowsPerPage}
                                 rowsPerPageOptions={[10, 25, 100]}
-                                count={rows.length}
+                                count={userData.length}
                                 rows={10}
                             />
                         </TableRow>

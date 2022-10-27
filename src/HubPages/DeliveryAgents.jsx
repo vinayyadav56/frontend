@@ -4,6 +4,7 @@ import HubHeader from './HubHeader'
 import HubSidebar from './HubSidebar'
 import agent1 from '../images/expressimg.png';
 import './HubAgent.css';
+import AddDeliveryPartner from '../admin/admindashboard/AddDeliveryPartner';
 const DeliveryAgents = () => {
     return (
         <Fragment>
@@ -11,6 +12,9 @@ const DeliveryAgents = () => {
                 <HubSidebar />
                 <section className="main-content">
                     <HubHeader />
+                    <div className='d-flex justify-content-end mt-4'>
+                        <AddDeliveryPartner />
+                    </div>
                     <div className='agent_details'>
                         <div className='container-fluid'>
                             <div className='row'>

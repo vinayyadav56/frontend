@@ -275,7 +275,6 @@ main aside .sidebar a:hover span {
     }
 
 }
-
 /* media queries for mobile */
 @media screen and (max-width:600px) {
     .partnerdash-nav .profile-area {
@@ -289,12 +288,9 @@ main aside .sidebar a:hover span {
         display: none;
     }
 }
-
-
-
 /* oder form css */
 .right{
-    margin-top: 2rem !important;
+    margin-top: 1rem !important;
     width: 100%;
     overflow: scroll;
 }

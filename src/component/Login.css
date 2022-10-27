@@ -25,7 +25,7 @@ body{
 }
 .user-login-section{
   display: flex;
-  width: 50%;
+  width: 600px;
   justify-content: center;
   align-items: center;
   box-shadow: -4px 1px 29px -5px rgba(0,0,0,0.75);
@@ -284,9 +284,6 @@ label{
   .signup-log .login-det{
     margin-top: 0px !important;
   }
-  .user-login-section{
-    width: 60%;
-  }
   
 }
 @media (max-width:767px) {
@@ -305,7 +302,7 @@ label{
     background: transparent;
 }
   .user-login-section{
-    width: 40%;
+    width:400px;
   }
 }
 @media (max-width:560px) {

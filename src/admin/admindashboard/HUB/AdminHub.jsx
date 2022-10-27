@@ -186,7 +186,7 @@ const AdminHub = () => {
                                                 <div className="d-flex">
                                                     <button
                                                         type="button"
-                                                        className="btn hub_order"
+                                                        className="btn"
                                                         data-toggle="modal" data-target=".see_hub-lg"
                                                     >
                                                         <RemoveRedEyeIcon />

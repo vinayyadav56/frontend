@@ -135,8 +135,8 @@ main {
     display: grid !important;
     grid-template-columns: 18rem auto;
     gap: 2rem;
-    width:100%;
-    /* margin: 0rem auto 4rem; */
+    width: 100%;
+    height: calc(100vh - 100px);
     background: var(--color-light);
 }
 
@@ -184,6 +184,7 @@ main aside .sidebar a h4 {
     color: #fff;
     font-size: 14px;
 }
+
 main aside .sidebar a.active::before {
     content: "";
     height: 100%;
@@ -196,9 +197,12 @@ main aside .sidebar a.active {
     background: #fff;
     color: #0747a9;
 }
-main aside .sidebar a.active h4,main aside .sidebar a:hover h4{
+
+main aside .sidebar a.active h4,
+main aside .sidebar a:hover h4 {
     color: #0747a9;
 }
+
 main aside .sidebar a:hover {
     color: #0747a9;
     background-color: #fff;
@@ -341,12 +345,15 @@ main aside .sidebar a:hover span {
     margin-bottom: 0;
     color: #fff;
 }
-.user_availbility{
+
+.user_availbility {
     background-color: #fff;
 }
-.user_availbility .form-group{
+
+.user_availbility .form-group {
     padding: 0px 10px;
 }
+
 .sender-info input[type="text"],
 input[type="tel"],
 input[type="email"],
@@ -423,7 +430,8 @@ select {
     display: block;
     margin-right: auto;
 }
-.agent_add label{
+
+.agent_add label {
     font-size: 12px !important;
     font-weight: 500 !important;
     color: #000;

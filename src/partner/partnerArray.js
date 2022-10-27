@@ -18,7 +18,7 @@ const partnerArray = [
         id: 1,
         navitem: 'Order',
         icon: <StarBorderRoundedIcon />,
-        link: '/admin/dashboard'
+        link: '/dashboard/order'
     },
     {
         id: 2,

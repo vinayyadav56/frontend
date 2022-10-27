@@ -25,7 +25,7 @@ const HomeFoooter = () => {
                     <NavLink to="/location">Locations</NavLink>
                   </li>
                   <li>
-                    <p  data-toggle="modal" className="become-part_btn" data-target="#commuterform">
+                    <p data-toggle="modal" className="become-part_btn" data-target="#commuterform">
                       Become a Partner
                     </p>
                     <div
@@ -109,7 +109,7 @@ const HomeFoooter = () => {
         </div>
 
       </section>
-      
+
     </>
   );
 };

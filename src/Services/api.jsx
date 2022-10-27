@@ -11,7 +11,7 @@ axiosClient.defaults.headers = {
 };
 
 //All request will wait 2 seconds before timeout
-axiosClient.defaults.timeout = 2000;
+axiosClient.defaults.timeout = 10000;
 
 axiosClient.defaults.withCredentials = false;
 
@@ -39,20 +39,14 @@ export function makeRequest(method, URL, payload){
     switch (method){
         case 'GET':
             return getRequest(URL);
-            break;
         case 'POST':
             return postRequest(URL, payload);
-            break;
         case 'PATCH':
             return patchRequest(URL, payload);
-            break;
         case 'PUT':
             return putRequest(URL, payload);
-            break;
         case 'DELETE':
             return deleteRequest(URL, payload);
-            break;
         default:
-            throw "Invalid method passed";
-    }
+               }
 }

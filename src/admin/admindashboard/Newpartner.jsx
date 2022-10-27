@@ -2,7 +2,6 @@ import React, { useState } from "react";
 // import AddIcon from "@mui/icons-material/Add";
 import { useAlert } from "react-alert";
 import { useHistory } from "react-router-dom";
-import {FormGroup, TextField} from "@material-ui/core";
 import {makeRequest} from "../../Services/api";
 import {useAuth} from "../../Services/auth";
 
@@ -55,9 +54,10 @@ const Newpartner = () => {
         ) {
             setLoading(true);
 
-            makeRequest('POST', `partners`, partnerregister).then(result => {
+            makeRequest('POST', `createNewPartner`, partnerregister).then(result => {
                 alert.success(result.message);
                 result.success && history.push("/admindashboard");
+                console.log(result)
             }).catch(err => {
                 alert.error(err.message);
             }).finally(() => {
@@ -69,91 +69,102 @@ const Newpartner = () => {
     };
     return (
         <div>
-            <FormGroup
+            <form
                 onSubmit={(e) => handlePartner(e)}
                 className="partner_add"
             >
-                <TextField
+                <label htmlFor='#pn'>Partner Name</label>
+                <input
                     type="text"
-                    variant='outlined'
-                    margin="normal"
+                    className="form-control"
+                    id="pn"
                     size='small'
-                    label="Partner Name"
                     name="partner_name"
                     placeholder="Partner Name"
                     onChange={handleInput}
                     value={partnerregister.partner_name}
-                ></TextField>
-                <TextField
-                    type="text"
+                ></input>
+                <label htmlFor='#pe'>Partner Email</label>
+                <input
+                    type="email"
                     name="partner_email"
-                    variant='outlined'
-                    margin="normal"
+                    className="form-control"
+                    id="pe"
                     size='small'
                     placeholder="Partner Email"
-                    label="Partner Email"
                     onChange={handleInput}
                     value={partnerregister.partner_email}
-                ></TextField>
-                <TextField
-                    type="text"
+                ></input>
+                  <label htmlFor='#pp'>Partner Password</label>
+                 <input
+                    type="password"
+                    name="partner_password"
+                    onChange={handleInput}
+                    className="form-control"
+                    id="pp"
+                    size='small'
+                    placeholder="Partner password"
+                    value={partnerregister.partner_password}
+                ></input>
+                <label htmlFor='#pnum'>Partner Phone</label>
+                <input
+                    type="number"
                     name="partner_phone"
                     onChange={handleInput}
-                    variant='outlined'
-                    margin="normal"
+                    className="form-control"
+                    id="pnum"
                     size='small'
-                    placeholder="Partner Name"
-                    label="Phone"
+                    placeholder="Partner Phone"
                     value={partnerregister.partner_phone}
-                ></TextField>
-                <TextField
-                    type="text"
+                ></input>
+                <label htmlFor='#pcd'>Partner Pincode</label>
+                <input
+                    type="number"
                     name="partner_pincode"
                     onChange={handleInput}
-                    variant='outlined'
-                    margin="normal"
+                    className="form-control"
+                    id="pcd"
                     size='small'
                     placeholder="Partner Pincode"
-                    label="Partner Pincode"
                     value={partnerregister.partner_pincode}
-                ></TextField>
-                <TextField
+                ></input>
+                <label htmlFor='#pst'>Partner State</label>
+                <input
                     type="text"
                     name="partner_state"
                     onChange={handleInput}
-                    variant='outlined'
-                    margin="normal"
+                    className="form-control"
+                    id="pst"
                     size='small'
-                    placeholder="Partner Name"
-                    label="State"
+                    placeholder="Partner state"
                     value={partnerregister.partner_state}
-                ></TextField>
-                <TextField
+                ></input>
+                <label htmlFor='#pcity'>Partner City</label>
+                <input
                     type="text"
                     name="partner_city"
                     onChange={handleInput}
-                    variant='outlined'
-                    margin="normal"
+                    className="form-control"
+                    id="pcity"
                     size='small'
                     placeholder="Partner City"
-                    label="Partner City"
                     value={partnerregister.partner_city}
-                ></TextField>
-                <TextField
+                ></input>
+                <label htmlFor='#padd'>Partner Address</label>
+                <input
                     type="text"
                     name="partner_address"
                     onChange={handleInput}
-                    variant='outlined'
-                    margin='normal'
                     size='small'
+                    id='padd'
+                    className="form-control"
                     placeholder="Partner Address"
-                    label="Partner Address"
                     value={partnerregister.partner_address}
-                ></TextField>
+                ></input>
                 <div className="d-flex justify-content-between">
                     <button className="btn btn-primary">Save Partner</button>
                 </div>
-            </FormGroup>
+            </form>
 
         </div>
     );

@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Adminmenu.css";
 import { useState } from "react";
 import { styled } from '@mui/material/styles';
@@ -16,15 +16,16 @@ import AdminSidebar from "./AdminSidebar";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
-import AddDeliveryPartner from "./AddDeliveryPartner";
 import { useAuth } from "../../Services/auth";
+import { useAlert } from "react-alert";
+import { makeRequest } from "../../Services/api";
+import { useEffect } from "react";
 const DeliveryPartnerDetails = () => {
+    let alert = useAlert();
+    const { setLoading } = useAuth();
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
-    const auth = useAuth();
-    if (!auth.isAuthenticated()) {
-        return <Redirect to="/admin" />
-    };
+
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -39,11 +40,14 @@ const DeliveryPartnerDetails = () => {
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
             backgroundColor: '#0747a9',
+            padding:'5px 0px',
+            minWidth:'60px',
+            textAlign:'center',
             color: theme.palette.common.white,
         },
         [`&.${tableCellClasses.body}`]: {
-            fontSize: 12,
-            padding: '10px 14px',
+            fontSize: '12px',
+            padding: '5px 5px',
             border: '1px solid #c8c8c8'
         },
     }));
@@ -53,6 +57,26 @@ const DeliveryPartnerDetails = () => {
             backgroundColor: theme.palette.action.hover,
         }
     }));
+
+    const [addAgent, setAddAgent] = useState([]);
+
+    // ALL PARTNER  LIST START
+    const fetchData = async () => {
+        setLoading(true);
+        makeRequest('GET', `deliveryAgentsList`).then(result => {
+            alert.success(result.message);
+            setAddAgent(result.data);
+        }).catch(err => {
+            alert.error(err.message);
+        }).finally(() => {
+            setLoading(false);
+        })
+    };
+
+    useEffect(() => {
+        fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     return (
         <Fragment>
             <nav className="sticky-top partnerdash-nav">
@@ -120,7 +144,7 @@ const DeliveryPartnerDetails = () => {
                             </div>
                             <div className="col-md-10">
                                 <div className="d-flex justify-content-end">
-                                    <AddDeliveryPartner />
+                                   
                                 </div>
                             </div>
                         </div>
@@ -129,33 +153,52 @@ const DeliveryPartnerDetails = () => {
                         <Table stickyHeader striped aria-label="sticky table">
                             <TableHead>
                                 <StyledTableRow>
-                                    <StyledTableCell>Name </StyledTableCell>
+                                    <StyledTableCell>Id</StyledTableCell>
+                                    <StyledTableCell>Hub Id</StyledTableCell>
+                                    <StyledTableCell>First Name </StyledTableCell>
+                                    <StyledTableCell>Last Name </StyledTableCell>
                                     <StyledTableCell>Email </StyledTableCell>
                                     <StyledTableCell>Phone No.</StyledTableCell>
+                                    <StyledTableCell>Alt. Phone No.</StyledTableCell>
+                                    <StyledTableCell>Dob</StyledTableCell>
                                     <StyledTableCell>City</StyledTableCell>
                                     <StyledTableCell>State</StyledTableCell>
                                     <StyledTableCell>Pincode</StyledTableCell>
-                                    <StyledTableCell>Address</StyledTableCell>
-                                    <StyledTableCell>Actions</StyledTableCell>
+                                    <StyledTableCell>Current Add.</StyledTableCell>
+                                    <StyledTableCell>Permanent Add.</StyledTableCell>
+                                    <StyledTableCell>Pan Card No.</StyledTableCell>
+                                    <StyledTableCell>Aadhar Card No.</StyledTableCell>
+                                    <StyledTableCell>Driving Licence No.</StyledTableCell>
                                 </StyledTableRow>
                             </TableHead>
                             <TableBody>
+                                {
+                                    addAgent.map((item, id) => {
+                                        return (
+                                            <>
+                                                <StyledTableRow hover tabIndex={-1} key={id} >
+                                                    <StyledTableCell>{item.id}</StyledTableCell>
+                                                    <StyledTableCell>{item.linked_hub_id}</StyledTableCell>
+                                                    <StyledTableCell>{item.first_name}</StyledTableCell>
+                                                    <StyledTableCell>{item.last_name}</StyledTableCell>
+                                                    <StyledTableCell>{item.email_id}</StyledTableCell>
+                                                    <StyledTableCell>{item.phone_no}</StyledTableCell>
+                                                    <StyledTableCell>{item.alter_phone_no} </StyledTableCell>
+                                                    <StyledTableCell>{item.dob}</StyledTableCell>
+                                                    <StyledTableCell>{item.city}</StyledTableCell>
+                                                    <StyledTableCell>{item.state}</StyledTableCell>
+                                                    <StyledTableCell>{item.pin}</StyledTableCell>
+                                                    <StyledTableCell>{item.current_address}</StyledTableCell>
+                                                    <StyledTableCell>{item.permanent_address}</StyledTableCell>
+                                                    <StyledTableCell>{item.pan_card_no}</StyledTableCell>
+                                                    <StyledTableCell>{item.aadhar_card_no}</StyledTableCell>
+                                                    <StyledTableCell>{item.driving_licence_no} </StyledTableCell>
+                                                </StyledTableRow>
+                                            </>
+                                        )
+                                    })
+                                }
 
-                                <StyledTableRow hover tabIndex={-1}>
-                                    <StyledTableCell>Delhi</StyledTableCell>
-                                    <StyledTableCell>Delhi</StyledTableCell>
-                                    <StyledTableCell>Delhi</StyledTableCell>
-                                    <StyledTableCell>Delhi</StyledTableCell>
-                                    <StyledTableCell>Delhi</StyledTableCell>
-                                    <StyledTableCell>Delhi</StyledTableCell>
-                                    <StyledTableCell>Delhi</StyledTableCell>
-
-                                    <StyledTableCell>
-                                        <button className="btn btn-success py-0">
-                                            See Details
-                                        </button>
-                                    </StyledTableCell>
-                                </StyledTableRow>
                             </TableBody>
                             <TableFooter>
                                 <TableRow>
@@ -165,7 +208,7 @@ const DeliveryPartnerDetails = () => {
                                         rowsPerPage={rowsPerPage}
                                         onRowsPerPageChange={handleChangeRowsPerPage}
                                         rowsPerPageOptions={[10, 25, 100]}
-                                        // count={filterUser.length}
+                                        // count={.length}
                                         rows={10}
                                     />
                                 </TableRow>

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import emailicon from "../../images/emailicon.png";
 import {makeRequest} from "../../Services/api";
 import {useAuth} from "../../Services/auth";

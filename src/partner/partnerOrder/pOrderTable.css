@@ -1,0 +1,66 @@
+.partnerOr {
+    background-color: #fff;
+}
+
+.table_partner_data {
+    background-color: #fff;
+    padding-bottom: 1rem;
+}
+
+.table_row_data {
+    border: 2px solid #cfcfcf;
+    border-radius: 5px;
+    padding: 10px 0px;
+    margin: -10px 10px 10px 0px;
+}
+
+.partnerOr h2 {
+    color: #0747a9;
+    padding-top: 10px;
+}
+
+.porder_formal_details {
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    background-color: #f9f9f8;
+    box-shadow: 0px 0px 8px 0px rgba(0,0,NaN,1);
+    padding: 8px;
+}
+
+.porder_formal_details ul {
+    display: flex;
+    margin-bottom: 0.5rem;
+    justify-content: space-between;
+}
+
+.porder_formal_details li {
+    display: flex;
+    align-items: center;
+}
+
+.porder_formal_details li span:first-child {
+    font-weight: 700;
+    padding-right: 5px;
+    font-size: 12px;
+}
+
+.porder_formal_details li span:last-child {
+    font-size: 12px;
+}
+
+.collpase_button_prt {
+    color: rgb(135, 2, 2);
+    padding:0px 0px 4px 0px;
+    font-weight: 500;
+}
+.partner_order_details{
+    border: none;
+    border-radius: 5px;
+}
+.partner_order_details h2{
+    font-size: 18px;
+    font-weight: 600;
+}
+.partner_order_details h2:first-child{
+    padding-left: 12px;
+}

@@ -11,10 +11,10 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
-import { useState } from 'react';
+// import { useState } from 'react';
 import { Fragment } from 'react';
 
-const AllOrder = ({ userActive, addUserLocal }) => {
+const AllOrder = () => {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const handleChangePage = (event, newPage) => {
@@ -44,7 +44,47 @@ const AllOrder = ({ userActive, addUserLocal }) => {
             backgroundColor: theme.palette.action.hover,
         }
     }));
-    const [partnerData] = useState([]);
+    const partnerData = [
+        {
+            id:1,
+            customer_name:'Rahul',
+            pickup_date:'12/06/2001',
+            pickup_time: '12:06',
+            cost:'₹400',
+            city:'Kanina',
+            state:'Haryana'
+        },
+        {
+            id:2,
+            customer_name:'Rahul',
+            pickup_date:'12/06/2001',
+            pickup_time: '12:06',
+            cost:'₹400',
+            city:'Kanina',
+            state:'Haryana'
+
+        },
+        {
+            id:3,
+            customer_name:'Rahul',
+            pickup_date:'12/06/2001',
+            pickup_time: '12:06',
+            cost:'₹400',
+            city:'Kanina',
+            state:'Haryana'
+
+        },
+        {
+            id:4,
+            customer_name:'Rahul',
+            pickup_date:'12/06/2001',
+            pickup_time: '12:06',
+            cost:'₹400',
+            city:'Kanina',
+            state:'Haryana'
+
+        },
+    ];
     return (
         <Fragment>
             <div className='pickup_table_section'>
@@ -72,14 +112,13 @@ const AllOrder = ({ userActive, addUserLocal }) => {
                                 .map((row, id) => (
                                     <StyledTableRow hover tabIndex={-1} key={id}>
                                         <StyledTableCell>{row.id}</StyledTableCell>
-                                        <StyledTableCell>{row.partner_name}</StyledTableCell>
-                                        <StyledTableCell>{row.partner_email}</StyledTableCell>
-                                        <StyledTableCell>{row.partner_phone}</StyledTableCell>
-                                        <StyledTableCell>{row.partner_pincode}</StyledTableCell>
-                                        <StyledTableCell>{row.partner_city}</StyledTableCell>
-                                        <StyledTableCell>{row.partner_state}</StyledTableCell>
-                                        <StyledTableCell>{row.partner_address}</StyledTableCell>
-
+                                        <StyledTableCell>{row.customer_name}</StyledTableCell>
+                                        <StyledTableCell>{row.pickup_date}</StyledTableCell>
+                                        <StyledTableCell>{row.pickup_time}</StyledTableCell>
+                                        <StyledTableCell>{row.cost}</StyledTableCell>
+                                        <StyledTableCell>{row.pincode}</StyledTableCell>
+                                        <StyledTableCell>{row.state}</StyledTableCell>
+                                        <StyledTableCell>{row.address}</StyledTableCell>
                                     </StyledTableRow>
                                 ))}
                         </TableBody>

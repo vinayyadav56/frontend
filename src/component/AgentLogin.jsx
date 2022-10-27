@@ -13,8 +13,6 @@ const AgentLogin = () => {
     const { setLoading, handleUser } = useAuth();
     let alert = useAlert();
     let history = useHistory();
-
-
     const handleLoginInput = (e) => {
         const { name, value } = e.target;
         setLoginuser({
@@ -25,10 +23,8 @@ const AgentLogin = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         const { email, password } = loginuser;
-
         if (email && password) {
             setLoading(true);
-
             postRequest('login', loginuser).then(result => {
                 console.log(result);
                 alert.success(result.message);
@@ -98,8 +94,10 @@ const AgentLogin = () => {
                         <div className="col-md-6 adminrightctn">
                             <div className="text_section">
                                 <div>
-                                    <img src={newLogo} alt='newalg'/>
-                                    <h2>Welcome To CarryKar</h2>
+                                    <Link to='/'>
+                                        <img src={newLogo} style={{ width: '100px', height: 'auto' }} alt='newalg' />
+                                    </Link>
+                                    <h2>Hello! ,Friends</h2>
                                 </div>
                             </div>
                         </div>

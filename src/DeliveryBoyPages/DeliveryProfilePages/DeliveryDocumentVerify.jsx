@@ -5,7 +5,6 @@ const DeliveryDocumentVerify = () => {
     return (
         <Fragment>
             <div className='container-fluid'>
-
                 <div className='row'>
                     <div className='col-lg-6 offset-lg-3'>
                         <div className="headings">
