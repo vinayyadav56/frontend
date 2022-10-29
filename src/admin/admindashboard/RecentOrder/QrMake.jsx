@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useAlert } from 'react-alert';
 import { useHistory } from 'react-router-dom';
+import config from '../../../config.json';
 import { makeRequest } from '../../../Services/api';
 import { useAuth } from '../../../Services/auth';
 const QrMake = ({ path, orderid, ordertype }) => {
@@ -9,9 +10,10 @@ const QrMake = ({ path, orderid, ordertype }) => {
     const history = useHistory();
     const alert = useAlert();
     const [qrdata, setQrdata] = useState({
-        order_id:orderid,
-        order_type:ordertype
+        order_id: orderid,
+        order_type: ordertype
     })
+    console.log(path);
     const handleGenrateQr = async () => {
         setLoading(true);
         makeRequest('POST', `generateQrCode`, qrdata).then(result => {
@@ -24,7 +26,7 @@ const QrMake = ({ path, orderid, ordertype }) => {
             setLoading(false);
         })
     }
-    if (path === '') {
+    if (path === null) {
         return (
             <>
                 <button type="button" className="btn btn-warning" onClick={(orderid, ordertype) => handleGenrateQr((orderid, ordertype))}>
@@ -33,7 +35,7 @@ const QrMake = ({ path, orderid, ordertype }) => {
             </>
         )
     } else {
-        return <img style={{ width: '100px', height: '100px' }} src={`https://api.testing.carrykar.in` + path} alt="qrcode" />
+        return <img style={{ width: '80px', height: '80px' }} src={`${config.BASE_URL}${path}`} alt="qrcode" />
     }
 }
 

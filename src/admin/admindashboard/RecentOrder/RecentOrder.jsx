@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import AdminSidebar from '../AdminSidebar';
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
@@ -10,8 +10,11 @@ import { makeRequest } from "../../../Services/api";
 import { useAuth } from '../../../Services/auth';
 import { useEffect } from 'react';
 import QrMake from './QrMake';
+import { useAlert } from 'react-alert';
 
 const RecenteOrder = ({ qr }) => {
+    let alert = useAlert();
+    const [hubData, setHubData] = useState([]);
     const { setLoading } = useAuth();
     const [newOrder, setNewOrder] = useState([]);
     const fetchData = async () => {
@@ -20,6 +23,7 @@ const RecenteOrder = ({ qr }) => {
             // alert.success(result.message);
             // result.success && 
             setNewOrder(result.data);
+            console.log(result.data);
         })
             // .catch(err => {
             //     alert.error(err.message);
@@ -30,11 +34,61 @@ const RecenteOrder = ({ qr }) => {
     };
     useEffect(() => {
         fetchData();
+        hubListData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     const handleId = (id) => {
         console.log(id);
     }
+    const auth = useAuth();
+    if (!auth.isAuthenticated()) {
+        return <Redirect to="/admin" />
+    }
+
+    // HUB LIST FETCHED FOR DROPDOWN STARTS
+
+    const hubListData = async () => {
+        setLoading(true);
+        makeRequest('GET', `hubsList`).then(result => {
+            alert.success(result.message);
+            setHubData(result.data);
+        })
+            .finally(() => {
+                setLoading(false);
+            })
+    };
+
+    // UPDAT HUB API STARTS
+
+    const handleInput = (fieldName, type, hub_id, order_id) => {
+        console.log(fieldName, type, hub_id, order_id)
+        // console.lconsoleog(handlePartner);
+        if (
+            order_id &&
+            type &&
+            fieldName &&
+            hub_id
+        ) {
+            setLoading(true);
+            makeRequest('POST', `updateHubForNewOrders`, {
+                "order_id": order_id,
+                "type": type,
+                "fieldName": fieldName,
+                "hubId": hub_id
+            }).then(result => {
+                alert.success(result.message);
+                result.success && console.log(result);
+            }).catch(err => {
+                alert.error(err.message);
+            }).finally(() => {
+                setLoading(false);
+            })
+        } else {
+            alert.error("Invalid Inputs");
+        }
+
+    };
+
     return (
         <Fragment>
             <nav className="sticky-top partnerdash-nav">
@@ -101,68 +155,104 @@ const RecenteOrder = ({ qr }) => {
                                         <>
                                             <span className="badge badge-danger">{item.source}</span>
                                             <div key={id} className='row table_box'>
-                                                <div className='col-lg-3 col-md-6 agent_details_col  mt-1'>
-                                                    <h2>Receiver Details :</h2>
-                                                    <span className='pl-0'>
-                                                        <p>Name : </p>
-                                                        <p>{item.receiver_name}</p>
-                                                    </span>
-                                                    <span className='pl-0'>
-                                                        <p>Email : </p>
-                                                        <p>{item.receiver_email}</p>
-                                                    </span>
-                                                    <span className='pl-0'>
-                                                        <p>Phone No : </p>
-                                                        <p>{item.receiver_contact_no}</p>
-                                                    </span>
-                                                    <span className='pl-0'>
-                                                        <p>House No : </p>
-                                                        <p>{item.receiver_house_number}</p>
-                                                    </span>
-                                                    <span className='pl-0'>
-                                                        <p> Locality: </p>
-                                                        <p>{item.receiver_locality} </p>
-                                                    </span>
-                                                    <span className='pl-0'>
-                                                        <p>City : </p>
-                                                        <p>{item.receiver_city}</p>
-                                                    </span>
-                                                    <span className='pl-0'>
-                                                        <p>State : </p>
-                                                        <p>{item.receiver_state} </p>
-                                                    </span>
-                                                    <span className='pl-0'>
-                                                        <p>Pincode : </p>
-                                                        <p>{item.receiver_pincode}</p>
-                                                    </span>
-                                                </div>
-                                                <div className='col-lg-3 col-md-6 agent_details_col  mt-1'>
-                                                    <h2>Sender Details :</h2>
-                                                    <span className='pl-0'>
-                                                        <p>Name : </p>
-                                                        <p>{item.sender_details.first_name}{item.sender_details.last_name} </p>
-                                                    </span>
-                                                    <span className='pl-0'>
-                                                        <p>Email : </p>
-                                                        <p>{item.sender_details.email}</p>
-                                                    </span>
-                                                    <span className='pl-0'>
-                                                        <p>Pincode : </p>
-                                                        <p>{item.sender_details.pincode}</p>
-                                                    </span>
+                                                <div className='col-lg-6'>
+                                                    <div className='row'>
+                                                        <div className='col-md-6 agent_details_col  mt-1'>
+                                                            <h2>Receiver Details :</h2>
+                                                            <span className='pl-0'>
+                                                                <p>Name : </p>
+                                                                <p>{item.receiver_name}</p>
+                                                            </span>
+                                                            <span className='pl-0'>
+                                                                <p>Email : </p>
+                                                                <p>{item.receiver_email}</p>
+                                                            </span>
+                                                            <span className='pl-0'>
+                                                                <p>Phone No : </p>
+                                                                <p>{item.receiver_contact_no}</p>
+                                                            </span>
+                                                            <span className='pl-0'>
+                                                                <p>House No : </p>
+                                                                <p>{item.receiver_house_number}</p>
+                                                            </span>
+                                                            <span className='pl-0'>
+                                                                <p> Locality: </p>
+                                                                <p>{item.receiver_locality} </p>
+                                                            </span>
+                                                            <span className='pl-0'>
+                                                                <p>City : </p>
+                                                                <p>{item.receiver_city}</p>
+                                                            </span>
+                                                            <span className='pl-0'>
+                                                                <p>State : </p>
+                                                                <p>{item.receiver_state} </p>
+                                                            </span>
 
-                                                    <span className='pl-0'>
-                                                        <p>City : </p>
-                                                        <p>{item.sender_details.city}</p>
-                                                    </span>
-                                                    <span className='pl-0'>
-                                                        <p>State : </p>
-                                                        <p>{item.sender_details.state} </p>
-                                                    </span>
-                                                    <span className='pl-0'>
-                                                        <p>Address : </p>
-                                                        <p>{item.sender_details.address}</p>
-                                                    </span>
+                                                        </div>
+                                                        <div className='col-md-6 agent_details_col  mt-1'>
+                                                            <h2>Sender Details :</h2>
+                                                            <span className='pl-0'>
+                                                                <p>Name : </p>
+                                                                <p>{item.sender_details.first_name}{item.sender_details.last_name} </p>
+                                                            </span>
+                                                            <span className='pl-0'>
+                                                                <p>Email : </p>
+                                                                <p>{item.sender_details.email}</p>
+                                                            </span>
+                                                            <span className='pl-0'>
+                                                                <p>Email : </p>
+                                                                <p>{item.sender_details.receiver_contact_no}</p>
+                                                            </span>
+                                                            <span className='pl-0'>
+                                                                <p>Pincode : </p>
+                                                                <p>{item.sender_details.pincode}</p>
+                                                            </span>
+
+                                                            <span className='pl-0'>
+                                                                <p>City : </p>
+                                                                <p>{item.sender_details.city}</p>
+                                                            </span>
+                                                            <span className='pl-0'>
+                                                                <p>State : </p>
+                                                                <p>{item.sender_details.state} </p>
+                                                            </span>
+                                                            <span className='pl-0'>
+                                                                <p>Address : </p>
+                                                                <p>{item.sender_details.address}</p>
+                                                            </span>
+                                                        </div>
+                                                        <div className='col from_hub'>
+                                                            <div class="row">
+                                                                <div class="col-6">
+                                                                    <label htmlFor="cars">From Hub:</label>
+                                                                    <select className='form-control' name="fromid" id="fromid" onChange={() => handleInput('from_hub_id', item.source, item.id, item.cateogory_id)}>
+                                                                        <option>Select Hub</option>
+                                                                        {hubData.map((index) => {
+                                                                            return (
+                                                                                <>
+                                                                                    <option value={index.hub_name} >{index.hub_name} </option>
+                                                                                </>
+                                                                            )
+                                                                        })}
+
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <label htmlFor="cars">To Hub:</label>
+                                                                    <select className='form-control' name="fromid" id="fromid" onChange={() => handleInput('to_hub_id', item.source, item.id, item.cateogory_id)}>
+                                                                        <option>Select Hub</option>
+                                                                        {hubData.map((index) => {
+                                                                            return (
+                                                                                <>
+                                                                                    <option value={index.hub_name} >{index.hub_name} </option>
+                                                                                </>
+                                                                            )
+                                                                        })}
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div className='col-lg-6 col-md-12 agent_verify_col mt-1'>
                                                     <div className='row '>
@@ -186,7 +276,7 @@ const RecenteOrder = ({ qr }) => {
 
                                                         </div>
                                                     </div>
-                                                    <div className='row mt-5'>
+                                                    <div className='row mt-2 d-flex align-items-center'>
                                                         <div className='col-md-6 pr-0 '>
                                                             <button type="button" className="btn btn-warning" data-toggle="modal" data-target="#partnerprintid" onClick={handleId(item.id)}>
                                                                 Generate Invoice
@@ -196,7 +286,7 @@ const RecenteOrder = ({ qr }) => {
                                                             <QrMake path={item.qr_image_path} orderid={item.id} ordertype={item.source} />
                                                         </div>
                                                     </div>
-                                                    <div className='row mt-5'>
+                                                    <div className='row mt-2'>
                                                         <div className='col status_track_col'>
                                                             <ul className='d-flex align-items-center pl-3'>
                                                                 <li className='dot1'>
@@ -208,7 +298,6 @@ const RecenteOrder = ({ qr }) => {
                                                             </ul>
                                                         </div>
                                                     </div>
-
                                                 </div>
                                                 <div className="modal fade" id="partnerprintid" tabindex="-1" role="dialog" aria-labelledby="partnerprintidLabel" aria-hidden="true">
                                                     <div className="modal-dialog" role="document">
@@ -263,64 +352,87 @@ const RecenteOrder = ({ qr }) => {
                                         <>
                                             <span className="badge badge-danger">{item.source}</span>
                                             <div key={id} className='row table_box'>
-                                                <div className='col-lg-3 col-md-6 agent_details_col  mt-1'>
-                                                    <h2>Receiver Details :</h2>
-                                                    <span className='pl-0'>
-                                                        <p>Name : </p>
-                                                        <p>{item.receiver_name}</p>
-                                                    </span>
-                                                    <span className='pl-0'>
-                                                        <p>Email : </p>
-                                                        <p>{item.receiver_email}</p>
-                                                    </span>
-                                                    <span className='pl-0'>
-                                                        <p>Phone No : </p>
-                                                        <p>{item.receiver_phone}</p>
-                                                    </span>
-                                                    <span className='pl-0'>
-                                                        <p>City : </p>
-                                                        <p>{item.receiver_city}</p>
-                                                    </span>
-                                                    <span className='pl-0'>
-                                                        <p>State : </p>
-                                                        <p>{item.receiver_state} </p>
-                                                    </span>
-                                                    <span className='pl-0'>
-                                                        <p>Pincode : </p>
-                                                        <p>{item.receiver_pincode}</p>
-                                                    </span>
-                                                    <span className='pl-0'>
-                                                        <p>Pincode : </p>
-                                                        <p>{item.receiver_address}</p>
-                                                    </span>
-                                                </div>
-                                                <div className='col-lg-3 col-md-6 agent_details_col  mt-1'>
-                                                    <h2>Sender Details :</h2>
-                                                    <span className='pl-0'>
-                                                        <p>Name : </p>
-                                                        <p>{item.sender_name}</p>
-                                                    </span>
-                                                    <span className='pl-0'>
-                                                        <p>Email : </p>
-                                                        <p>{item.sender_email}</p>
-                                                    </span>
-                                                    <span className='pl-0'>
-                                                        <p>Pincode : </p>
-                                                        <p>{item.sender_pincode}</p>
-                                                    </span>
+                                                <div className='col-lg-6'>
+                                                    <div className='row'>
+                                                        <div className='col-md-6 agent_details_col  mt-1'>
+                                                            <h2>Receiver Details :</h2>
+                                                            <span className='pl-0'>
+                                                                <p>Name : </p>
+                                                                <p>{item.receiver_name}</p>
+                                                            </span>
+                                                            <span className='pl-0'>
+                                                                <p>Email : </p>
+                                                                <p>{item.receiver_email}</p>
+                                                            </span>
+                                                            <span className='pl-0'>
+                                                                <p>City : </p>
+                                                                <p>{item.receiver_city}</p>
+                                                            </span>
+                                                            <span className='pl-0'>
+                                                                <p>State : </p>
+                                                                <p>{item.receiver_state} </p>
+                                                            </span>
+                                                            <span className='pl-0'>
+                                                                <p>Pincode : </p>
+                                                                <p>{item.receiver_pincode}</p>
+                                                            </span>
 
-                                                    <span className='pl-0'>
-                                                        <p>City : </p>
-                                                        <p>{item.sender_city}</p>
-                                                    </span>
-                                                    <span className='pl-0'>
-                                                        <p>State : </p>
-                                                        <p>{item.sender_state} </p>
-                                                    </span>
-                                                    <span className='pl-0'>
-                                                        <p>Address : </p>
-                                                        <p>{item.sender_address}</p>
-                                                    </span>
+                                                        </div>
+                                                        <div className='col-md-6 agent_details_col  mt-1'>
+                                                            <h2>Sender Details :</h2>
+                                                            <span className='pl-0'>
+                                                                <p>Name : </p>
+                                                                <p>{item.sender_name}</p>
+                                                            </span>
+                                                            <span className='pl-0'>
+                                                                <p>Email : </p>
+                                                                <p>{item.sender_email}</p>
+                                                            </span>
+                                                            <span className='pl-0'>
+                                                                <p>City : </p>
+                                                                <p>{item.sender_city}</p>
+                                                            </span>
+                                                            <span className='pl-0'>
+                                                                <p>State : </p>
+                                                                <p>{item.sender_state} </p>
+                                                            </span>
+                                                            <span className='pl-0'>
+                                                                <p>Pincode : </p>
+                                                                <p>{item.sender_pincode}</p>
+                                                            </span>
+                                                        </div>
+                                                        <div className='col from_hub'>
+                                                            <div class="row">
+                                                                <div class="col-6">
+                                                                    <label htmlFor="cars">From Hub:</label>
+                                                                    <select className='form-control' name="fromid" id="fromid" onChange={() => handleInput('from_hub_id', item.source, item.id, item.cateogory_id)}>
+                                                                        <option>Select Hub</option>
+                                                                        {hubData.map((index) => {
+                                                                            return (
+                                                                                <>
+                                                                                    <option value={index.hub_name} >{index.hub_name} </option>
+                                                                                </>
+                                                                            )
+                                                                        })}
+
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <label htmlFor="cars">To Hub:</label>
+                                                                    <select className='form-control' name="fromid" id="fromid" onChange={() => handleInput('to_hub_id', item.source, item.id, item.cateogory_id)}>
+                                                                        <option>Select Hub</option>
+                                                                        {hubData.map((index) => {
+                                                                            return (
+                                                                                <>
+                                                                                    <option value={index.hub_name} >{index.hub_name} </option>
+                                                                                </>
+                                                                            )
+                                                                        })}
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div className='col-lg-6 col-md-12 agent_verify_col mt-1'>
                                                     <div className='row '>
@@ -343,7 +455,7 @@ const RecenteOrder = ({ qr }) => {
 
                                                         </div>
                                                     </div>
-                                                    <div className='row mt-5'>
+                                                    <div className='row mt-2 d-flex align-items-center'>
                                                         <div className='col-md-6 pr-0 '>
                                                             <button type="button" className="btn btn-warning" data-toggle="modal" data-target="#partnerprintid">
                                                                 Generate Invoice
@@ -353,7 +465,7 @@ const RecenteOrder = ({ qr }) => {
                                                             <QrMake path={item.qr_image_path} orderid={item.id} ordertype={item.source} />
                                                         </div>
                                                     </div>
-                                                    <div className='row mt-5'>
+                                                    <div className='row mt-2'>
                                                         <div className='col status_track_col'>
                                                             <ul className='d-flex align-items-center pl-3'>
                                                                 <li className='dot1'>
@@ -421,7 +533,7 @@ const RecenteOrder = ({ qr }) => {
                     </div>
                 </section>
             </main>
-        </Fragment>
+        </Fragment >
     )
 }
 

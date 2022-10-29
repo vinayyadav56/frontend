@@ -6,7 +6,8 @@ import { makeRequest } from "../../../Services/api";
 import { useAuth } from "../../../Services/auth";
 import { Fragment } from "react";
 import qrImage from '../../../images/qrimageadmin.jpg'
-import AlQrGenerate from "./AlQrGenrate";
+import CkAssignAvailibility from "./CkAssignCarrier";
+import AlQrGenrate from "./AlQrGenrate";
 const CkDeliveredOrder = () => {
     const { setLoading } = useAuth();
     const [userData, setUserData] = useState([]);
@@ -35,12 +36,12 @@ const CkDeliveredOrder = () => {
                                 <ul>
                                     <li>
                                         <p>
-                                            <span>From Hub Id :</span><span>{row.from_hub_id}</span>
+                                            <span>From Hub :</span><span>{row.fromHubDetails?.hub_code} , {row.fromHubDetails?.city} , {row.fromHubDetails?.state}</span>
                                         </p>
                                     </li>
                                     <li>
                                         <p>
-                                            <span>To Hub Id :</span><span>{row.to_hub_id}</span>
+                                            <span>To Hub :</span><span>{row.toHubDetails?.hub_code} , {row.toHubDetails?.city} , {row.toHubDetails?.state}</span>
                                         </p>
                                     </li>
                                 </ul>
@@ -81,9 +82,6 @@ const CkDeliveredOrder = () => {
                                     </ul>
                                     <ul>
                                         <li>
-                                            <button className="btn status_btn">New Order</button>
-                                        </li>
-                                        <li>
                                             <p>
                                                 <span>Sub Order Id :</span><span>{row.sub_order_id}</span>
                                             </p>
@@ -106,9 +104,13 @@ const CkDeliveredOrder = () => {
                                     <a className="btn btn-primary" data-toggle="collapse" href="#collapseTable" role="button" aria-expanded="false" aria-controls="collapseTable">
                                         See Order Details
                                     </a>
-                                    <AlQrGenerate />
-                                    <button className="btn btn-success">
-                                        Assign Order
+                                    <AlQrGenrate path={row.qr_image_alpha} orderid={row.ck_order_id} />
+                                    <button
+                                        type="button"
+                                        className="btn btn-success"
+                                        data-toggle="modal" data-target=".assign_order_to_delivery_boy"
+                                    >
+                                        Assign Carrier
                                     </button>
                                 </div>
                                 <div className="collapse" id="collapseTable">
@@ -196,11 +198,81 @@ const CkDeliveredOrder = () => {
                                             </ul>
                                         </div>
                                     </div>
+                                    <div className="collapse" id="collapse2">
+                                        <div className="ck_order_footer_sub_details">
+                                            <ul>
+                                                <li>
+                                                    <p>
+                                                        <span>Receiver Name :</span>
+                                                        <span>{row.subOrderDetails.receiver_name}</span>
+                                                    </p>
+
+                                                </li>
+                                                <li>
+                                                    <p>
+                                                        <span>Receiver Email :</span>
+                                                        <span>{row.subOrderDetails.receiver_email}</span>
+                                                    </p>
+                                                </li>
+
+                                                <li>
+                                                    <p>
+                                                        <span>Receiver Phone :</span>
+                                                        <span>{row.subOrderDetails.receiver_phone}</span>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <p>
+                                                        <span>Receiver Pincode :</span>
+                                                        <span>{row.subOrderDetails.receiver_pin}</span>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <p>
+                                                        <span>Receiver City :</span>
+                                                        <span>{row.subOrderDetails.receiver_city}</span>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <p>
+                                                        <span>Receiver State :</span>
+                                                        <span>{row.subOrderDetails.receiver_state}</span>
+                                                    </p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     )
                 })}
+            </div>
+
+            {/* ASSIGN DETAILS MODAL TO AGENT HUB TABLE */}
+            <div className="modal fade assign_order_to_delivery_boy" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div className="modal-dialog  add-partner modal-xl">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="assigncarrierfromAdminTitle">
+                                Avalaible Carrier List
+                            </h5>
+                            <button
+                                type="button"
+                                className="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                            >
+                                <span aria-hidden="true" className="modal-off">
+                                    &times;
+                                </span>
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                            <CkAssignAvailibility />
+                        </div>
+                    </div>
+                </div>
             </div>
         </Fragment>
     );

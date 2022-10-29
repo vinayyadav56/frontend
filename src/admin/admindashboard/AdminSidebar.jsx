@@ -17,7 +17,6 @@ const AdminSidebar = () => {
                 </span>
                 <h4 className="title">Dashboard</h4>
               </NavLink>
-
               {navArray.map((data, id) => {
                 return (
                   <li key={id}>
