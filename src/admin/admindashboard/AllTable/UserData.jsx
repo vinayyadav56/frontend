@@ -118,24 +118,6 @@ const UserData = () => {
             backgroundColor: theme.palette.action.hover,
         }
     }));
-
-
-    // const rows = [];
-    // //   CKORDER TABLE END
-    // userData && userData.forEach((item, id) => {
-    //     rows.push({
-    //         id: id + 1,
-    //         first_name: item.first_name,
-    //         last_name: item.last_name,
-    //         dob: item.dob,
-    //         pincode: item.pincode,
-    //         city: item.city,
-    //         state: item.state,
-    //         address: item.address,
-    //     }
-    //     )
-    // });
-    // // DATA GRID TABLES ENDS
     return (
         <div>
             <div className="filter_partner">

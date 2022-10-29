@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "../../admin/admindashboard/AllTable/Table.css";
 import "../../admin/admindashboard/partnerorder.css";
 import { styled } from '@mui/material/styles';
@@ -11,17 +11,21 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
-// import { useState } from 'react';
 import { Fragment } from 'react';
+import { makeRequest } from '../../Services/api';
+import { useAlert } from 'react-alert';
+import { useAuth } from '../../Services/auth';
 
 const NewOrder = () => {
+    let alert = useAlert();
+    const {user, setLoading } = useAuth();
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
     const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 5));
+        setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
     // PAGINATION ENDS
@@ -44,51 +48,25 @@ const NewOrder = () => {
             backgroundColor: theme.palette.action.hover,
         }
     }));
-    const partnerData = [
-        {
-            id:1,
-            customer_name:'Rahul',
-            pickup_date:'12/06/2001',
-            pickup_time: '12:06',
-            cost:'₹400',
-            pincode:'123046',
-            city:'Kanina',
-            state:'Haryana'
-        },
-        {
-            id:2,
-            customer_name:'Rahul',
-            pickup_date:'12/06/2001',
-            pickup_time: '12:06',
-            cost:'₹400',
-            pincode:'123046',
-            city:'Kanina',
-            state:'Haryana'
+    const [hubOrderData, sethubOrderData] = useState([]);
+    const fetchData = async () => {
+        const hubId = user.tokenable_id
+        setLoading(true);
+        makeRequest('GET', `fetchHubOrderByHubId/${hubId}?status=new`).then(result => {
+            alert.success(result.message);
+            sethubOrderData(result.data);
+            console.log(result + JSON.stringify(result.data))
+        }).catch(err => {
+            alert.error(err.message);
+        }).finally(() => {
+            setLoading(false);
+        })
+    };
 
-        },
-        {
-            id:3,
-            customer_name:'Rahul',
-            pickup_date:'12/06/2001',
-            pickup_time: '12:06',
-            cost:'₹400',
-            pincode:'123046',
-            city:'Kanina',
-            state:'Haryana'
-
-        },
-        {
-            id:4,
-            customer_name:'Rahul',
-            pickup_date:'12/06/2001',
-            pickup_time: '12:06',
-            cost:'₹400',
-            pincode:'123046',
-            city:'Kanina',
-            state:'Haryana'
-
-        },
-    ];
+    useEffect(() => {
+        fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     return (
         <Fragment>
             <div className='pickup_table_section'>
@@ -98,31 +76,40 @@ const NewOrder = () => {
                         <TableHead>
                             <StyledTableRow>
                                 <StyledTableCell>Id</StyledTableCell>
-                                <StyledTableCell>Customer Name</StyledTableCell>
-                                <StyledTableCell>Pickup Date</StyledTableCell>
-                                <StyledTableCell>Pickup Time</StyledTableCell>
-                                <StyledTableCell>Cost</StyledTableCell>
-                                <StyledTableCell>Pincode</StyledTableCell>
+                                <StyledTableCell>Ck Order Id</StyledTableCell>
+                                <StyledTableCell>From Hub</StyledTableCell>
+                                <StyledTableCell>To Hub</StyledTableCell>
+                                <StyledTableCell>Package Weight</StyledTableCell>
+                                <StyledTableCell>Item Total Weight</StyledTableCell>
                                 <StyledTableCell>City</StyledTableCell>
                                 <StyledTableCell>State</StyledTableCell>
                                 <StyledTableCell>Address</StyledTableCell>
-                                <StyledTableCell>Details</StyledTableCell>
+                                <StyledTableCell>Action</StyledTableCell>
                             </StyledTableRow>
                         </TableHead>
                         <TableBody>
-                            {partnerData
+                            {hubOrderData
                                 // eslint-disable-next-line
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, id) => (
                                     <StyledTableRow hover tabIndex={-1} key={id}>
                                         <StyledTableCell>{row.id}</StyledTableCell>
-                                        <StyledTableCell>{row.customer_name}</StyledTableCell>
-                                        <StyledTableCell>{row.pickup_date}</StyledTableCell>
-                                        <StyledTableCell>{row.pickup_time}</StyledTableCell>
-                                        <StyledTableCell>{row.cost}</StyledTableCell>
-                                        <StyledTableCell>{row.pincode}</StyledTableCell>
-                                        <StyledTableCell>{row.state}</StyledTableCell>
-                                        <StyledTableCell>{row.address}</StyledTableCell>
+                                        <StyledTableCell>{row.ck_order_id}</StyledTableCell>
+                                        <StyledTableCell>{row.from_hub_id}</StyledTableCell>
+                                        <StyledTableCell>{row.to_hub_id}</StyledTableCell>
+                                        <StyledTableCell>{row.package_weight}</StyledTableCell>
+                                        <StyledTableCell>{row.item_total_weight}</StyledTableCell>
+                                        <StyledTableCell>{row.sub_order_id}</StyledTableCell>
+                                        <StyledTableCell>{row.sub_order_source}</StyledTableCell>
+                                        <StyledTableCell>
+                                            <button
+                                                type="button"
+                                                className="btn btn-secondary"
+                                                data-toggle="modal" data-target=".assign_order_to_delivery_boy"
+                                            >
+                                                Assign For Delivery
+                                            </button>
+                                        </StyledTableCell>
                                     </StyledTableRow>
                                 ))}
                         </TableBody>
@@ -134,7 +121,7 @@ const NewOrder = () => {
                                     rowsPerPage={rowsPerPage}
                                     onRowsPerPageChange={handleChangeRowsPerPage}
                                     rowsPerPageOptions={[10, 25, 100]}
-                                    count={partnerData.length}
+                                    count={hubOrderData.length}
                                     rows={10}
                                 />
                             </TableRow>

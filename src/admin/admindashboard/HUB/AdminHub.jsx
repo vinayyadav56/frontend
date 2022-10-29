@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link} from "react-router-dom";
 import ".././Adminmenu.css";
 import { useState } from "react";
 import { styled } from '@mui/material/styles';
@@ -23,8 +23,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import "./Hub.css"
 import HubDetails from "./HubTabs";
 import { useEffect } from "react";
-import { getRequest } from '../../../Services/api';
+import { makeRequest } from '../../../Services/api';
 import { useAuth } from "../../../Services/auth";
+import { useAlert } from "react-alert";
 // HUB DATA START
 
 const AdminHub = () => {
@@ -33,7 +34,7 @@ const AdminHub = () => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  
+
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -64,20 +65,25 @@ const AdminHub = () => {
     }));
 
     // HUBLIST FROM GET API JS START
+
+    let alert = useAlert();
+    const { setLoading } = useAuth();
     const hubListData = async () => {
-        getRequest('hubsList')
-            .then(response => {
-                setHubData(response.data)
+        setLoading(true);
+        makeRequest('GET', `hubsList`).then(result => {
+            alert.success(result.message);
+            setHubData(result.data);
+        })
+            .finally(() => {
+                setLoading(false);
             })
     };
+
     useEffect(() => {
         hubListData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    
-    const auth = useAuth();
-    if (!auth.isAuthenticated()) {
-        return <Redirect to="/admin" />
-    };
+
     // HUBLIST FROM GET API JS ENDS
 
     return (

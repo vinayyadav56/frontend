@@ -15,11 +15,9 @@ import AdminSidebar from "./AdminSidebar";
 
 const AdminDashboard = () => {
   const auth = useAuth();
-
   if(!auth.isAuthenticated()){
     return <Redirect to="/admin" />
   }
-
   return (
     <Fragment>
       <nav className="sticky-top partnerdash-nav">

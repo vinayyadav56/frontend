@@ -193,7 +193,11 @@ body {
   font-size: 20px;
   text-align: center;
 }
-
+.invoice_body{
+  border-left: 1px solid black;
+  padding: 0px 0px;
+  border-right: 1px solid black;
+}
 .invoice_body h4 {
   font-weight: 600;
   font-size: 16px;

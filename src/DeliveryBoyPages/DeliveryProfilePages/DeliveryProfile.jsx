@@ -3,7 +3,6 @@ import DeliveryHeader from '../DeliveryHeader'
 import DeliverySidebar from '../DeliverySidebar'
 import DeliveryAllDetails from './DeliveryInfo';
 const DeliveryProfile = ({ userActive, addUserLocal }) => {
-
     return (
         <div>
             <section className="user-dashboard">

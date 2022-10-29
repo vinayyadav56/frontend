@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import "./Adminmenu.css";
 import { useState } from "react";
 import { styled } from '@mui/material/styles';
@@ -20,7 +20,7 @@ import { useAuth } from "../../Services/auth";
 import { useAlert } from "react-alert";
 import { makeRequest } from "../../Services/api";
 import { useEffect } from "react";
-const DeliveryPartnerDetails = () => {
+const DeliveryPartnerDetails =()=>{
     let alert = useAlert();
     const { setLoading } = useAuth();
     const [page, setPage] = useState(0);
@@ -60,7 +60,7 @@ const DeliveryPartnerDetails = () => {
 
     const [addAgent, setAddAgent] = useState([]);
 
-    // ALL PARTNER  LIST START
+    // ALL Delivery Agent  LIST START
     const fetchData = async () => {
         setLoading(true);
         makeRequest('GET', `deliveryAgentsList`).then(result => {
@@ -77,6 +77,12 @@ const DeliveryPartnerDetails = () => {
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+    
+    const auth = useAuth();
+
+    if(!auth.isAuthenticated()){
+      return <Redirect to="/admin" />
+    }
     return (
         <Fragment>
             <nav className="sticky-top partnerdash-nav">
@@ -167,7 +173,6 @@ const DeliveryPartnerDetails = () => {
                                     <StyledTableCell>Current Add.</StyledTableCell>
                                     <StyledTableCell>Permanent Add.</StyledTableCell>
                                     <StyledTableCell>Pan Card No.</StyledTableCell>
-                                    <StyledTableCell>Aadhar Card No.</StyledTableCell>
                                     <StyledTableCell>Driving Licence No.</StyledTableCell>
                                 </StyledTableRow>
                             </TableHead>
@@ -191,7 +196,6 @@ const DeliveryPartnerDetails = () => {
                                                     <StyledTableCell>{item.current_address}</StyledTableCell>
                                                     <StyledTableCell>{item.permanent_address}</StyledTableCell>
                                                     <StyledTableCell>{item.pan_card_no}</StyledTableCell>
-                                                    <StyledTableCell>{item.aadhar_card_no}</StyledTableCell>
                                                     <StyledTableCell>{item.driving_licence_no} </StyledTableCell>
                                                 </StyledTableRow>
                                             </>
