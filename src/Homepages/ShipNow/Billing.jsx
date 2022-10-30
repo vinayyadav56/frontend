@@ -4,36 +4,54 @@ import {CreateShippingOrder, StartPayment} from "../../Services/Payment";
 // import axios from "axios";
 import {useAuth} from "../../Services/auth";
 import {useAlert} from "react-alert";
+import {makeRequest} from "../../Services/api";
 
-const Billing = ({ values,handleModalClose }) => {
+const Billing = ({ values,handleModalClose, prevStep }) => {
     const {user, setLoading} = useAuth();
     const alert = useAlert();
-    // const submitFormData = (e) => {
-    //     e.preventDefault();
-    // };
-    const {
-        reciver_name,
-        reciver_phone_no,
-        reciver_email_id,
-        reciver_house_no,
-        reciver_area,
-        reciver_pincode,
-        reciver_state,
-        reciver_city,
-        sender_name,
-        sender_phone_no,
-        sender_email_id,
-        sender_house_no,
-        sender_area,
-        sender_pincode,
-        sender_state,
-        sender_city } = values;
 
     const paymentCallback = (res) => {
-        console.log(res);
         setLoading(false);
-        handleModalClose();
+        createShipmentOrder();
         alert.success("Your payment completed successfully");
+    }
+
+    const createShipmentOrder = () => {
+        let shipment = {
+            "delivery_pincode": values.delivery_pincode,
+            "pickup_pincode": values.pickup_pincode,
+            "pickup_timing": values.schedule_date,
+            "delivery_type": "EXP",
+            "sender_id":1,
+            "reciever_details": {
+                "receiver_name":values.receiver_address.receiver_name,
+                "receiver_email": values.receiver_address.receiver_email_id,
+                "receiver_contact_no": values.receiver_address.receiver_phone_no,
+                "address": {
+                    "receiver_house_number":values.receiver_address.receiver_house_no,
+                    "receiver_locality": values.receiver_address.receiver_area,
+                    "receiver_city": values.receiver_address.receiver_city,
+                    "receiver_state": values.receiver_address.receiver_state,
+                    "receiver_pincode": values.receiver_address.receiver_pincode
+                }
+            },
+            "package_details": {
+                "package_size":"S",
+                "package_dimension": "10*20*30",
+                "cateogory_id": "1",
+                "sub_category_id":"2",
+                "additional_details": "test"
+            }
+        }
+
+        makeRequest('POST', 'createNewShipmentOrderByCustomer', shipment).then(res => {
+            console.log(res);
+        }).catch(e => {
+            console.log(e);
+        })
+
+        handleModalClose();
+        alert.success("Your Order Created Successfully");
     }
 
     const handlePayment = async () => {
@@ -41,7 +59,7 @@ const Billing = ({ values,handleModalClose }) => {
             setLoading(true);
 
             let Order = await CreateShippingOrder({
-                amount: 500
+                amount: values.delivery_cost
             })
 
             let payment = await StartPayment({
@@ -68,48 +86,67 @@ const Billing = ({ values,handleModalClose }) => {
             <CardContent className='billing_details'>
                 <h4>Sender Details:</h4>
                 <p>
-                    Email :{sender_email_id}
+                    <strong>Name</strong>  :{values.sender_address.sender_name}
                 </p>
                 <p>
-                    Name :{sender_name}
+                    <strong>Email</strong>  :{values.sender_address.sender_email_id}
                 </p>
                 <p>
-                    Contact :{sender_phone_no}
+                    <strong>Contact</strong>  :{values.sender_address.sender_phone_no}
                 </p>
                 <p>
-                    Address :{sender_house_no}, {sender_pincode},{sender_city} ,{sender_state}
-                </p>
-                <p>
-                    {sender_area}
+                    <strong>Address</strong>  :{values.sender_address.sender_house_no},{values.sender_address.sender_area},{values.sender_address.sender_city} ,{values.sender_address.sender_state},{values.sender_address.sender_pincode}
                 </p>
             </CardContent>
             <CardContent className='shipping_details'>
                 <h4>Shiping Details:</h4>
                 <p>
-                    {reciver_email_id}
+                    <strong>Email</strong>:    {values.receiver_address.receiver_email_id}
                 </p>
                 <p>
-                    {reciver_name}
+                    <strong>Name</strong>: {values.receiver_address.receiver_name}
                 </p>
                 <p>
-                    {reciver_phone_no}
+                    <strong>Contact</strong>: {values.receiver_address.receiver_phone_no}
                 </p>
                 <p>
-                    {reciver_house_no}, {reciver_pincode}, {reciver_city},{reciver_state}
+                    <strong>Address</strong>: {values.receiver_address.receiver_house_no}, {values.receiver_address.receiver_area}, {values.receiver_address.receiver_city},{values.receiver_address.receiver_state}, {values.receiver_address.receiver_pincode}
+                </p>
+
+            </CardContent>
+            <CardContent className='shipping_details'>
+                <h4>Package Details:</h4>
+                <p>
+                    <strong>Size</strong>: {values.package_size}
                 </p>
                 <p>
-                    {reciver_area}
+                    <strong>Category</strong>: {values.category}
                 </p>
-                <div className='d-flex justify-content-center'>
+                <p>
+                    <strong>Sub Category</strong>: {values.sub_category}
+                </p>
+                <p>
+                    <strong>Schedule Date</strong>: {values.schedule_date}
+                </p>
+                <strong>Cost:</strong> {values.delivery_cost}
+
+                <div  className='mt-4' style={{ display: 'flex', justifyContent: 'space-between', pt: 2, flex: '1 auto' }}>
                     <Button
+                        color="inherit"
+                        onClick={prevStep}
+                        className='address_btn'
+                    >
+                        Prev
+                    </Button>
+                    <Button
+                        color="success"
                         type="button"
-                        className='mt-3 address_btn'
+                        className='address_btn btn-success'
                         onClick={handlePayment}
                     >
-                        Submit
+                        Proceed
                     </Button>
                 </div>
-
             </CardContent>
         </div>
     )

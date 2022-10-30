@@ -355,9 +355,9 @@ main aside .sidebar a:hover span {
 }
 
 .sender-info input[type="text"],
-input[type="tel"],
-input[type="email"],
-select {
+.sender-info input[type="tel"],
+.sender-info input[type="email"],
+.sender-info select {
     width: 70%;
     height: 30px;
     padding: 5px 10px;
@@ -435,8 +435,4 @@ select {
     font-size: 12px !important;
     font-weight: 500 !important;
     color: #000;
-}
-
-.all_details_ck_orders{
-    height: 200px;
 }

@@ -115,10 +115,11 @@ export default function BasicTabs() {
                 searchType: formData.transport_type
             }).then(res => {
                 setSuggestion(res.map(loc => {
+                    console.log(loc);
                     return {
                         value: formData.transport_type === 'station' ? loc.station_name : loc.name,
-                        code: formData.transport_type === 'station' ? loc.station_code : loc.stationCode,
-                        city: formData.transport_type === 'station' ? loc.city_name : loc.cityName
+                        code: loc.code,
+                        city: loc.city
                     }
                 }))
             })
@@ -126,6 +127,7 @@ export default function BasicTabs() {
     }
 
     const handleFormChange = (name, value) => {
+        console.log(name, value);
         setFormData({
             ...formData,
             [name]: value

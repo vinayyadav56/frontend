@@ -1,7 +1,6 @@
-import { Box, Button, FormGroup, TextField } from '@material-ui/core'
+import { Box, Button, FormGroup, TextField} from '@material-ui/core'
 import React from 'react'
-import "react-phone-number-input/style.css";
-const Address = ({ values, handleFormData, nextStep, prevStep }) => {
+const ReceiverAddress = ({ values, handleFormData, nextStep, prevStep}) => {
     const submitFormData = (e) => {
         e.preventDefault();
         nextStep();
@@ -11,98 +10,97 @@ const Address = ({ values, handleFormData, nextStep, prevStep }) => {
         let name = e.target.name;
         let val = e.target.value;
 
-        handleFormData("sender_address", {
-            ...values.sender_address,
+        handleFormData("receiver_address", {
+            ...values.receiver_address,
             [name]: val
         });
+
     }
 
     return (
         <div>
             <Box>
                 <form onSubmit={submitFormData}>
-                    <FormGroup sx={{ padding: '0px auto' }} className="address_modal">
-                        <h5>Sender Details</h5>
+                    <FormGroup sx={{padding:'0px auto'}} className="address_modal">
+                        <h5>Receiver Details</h5>
                         <TextField
                             size="small"
-                            name="sender_name"
+                            name="receiver_name"
                             label="Name"
                             variant="outlined"
                             placeholder="Enter Name"
                             fullWidth
-                            autoFocus
-                            margin="dense"
                             required
+                            margin="dense"
                             onChange={handleInputChange}
-                            defaultValue={values.sender_address.sender_name}
+                            defaultValue={values.receiver_address.receiver_name}
                         />
                         <TextField
                             size="small"
-                            name="sender_phone_no"
+                            name="receiver_phone_no"
                             label="Phone"
                             type='number'
                             variant="outlined"
                             placeholder="Enter Phone Number"
                             fullWidth
-                            margin="dense"
                             required
+                            margin="dense"
                             onChange={handleInputChange}
-                            defaultValue={values.sender_address.sender_phone_no}
+                            defaultValue={values.receiver_address.receiver_phone_no}
                         />
                         <TextField
                             size="small"
-                            name="sender_email_id"
+                            name="receiver_email_id"
                             label="Email"
                             type="email"
                             variant="outlined"
                             placeholder="Enter Email"
                             fullWidth
-                            margin="dense"
                             required
+                            margin="dense"
                             onChange={handleInputChange}
-                            defaultValue={values.sender_address.sender_email_id}
+                            defaultValue={values.receiver_address.receiver_email_id}
                         />
-                        <p className="mt-2 package_text">Pickup Address</p>
+                        <p className="mt-2 package_text">Shipping Address</p>
                         <TextField
                             size="small"
-                            name="sender_house_no"
+                            name="receiver_house_no"
                             label="House no."
                             variant="outlined"
                             placeholder="Flat/House no./Building/Apartment"
                             fullWidth
-                            margin="dense"
                             required
+                            margin="dense"
                             onChange={handleInputChange}
-                            defaultValue={values.sender_address.sender_house_no}
+                            defaultValue={values.receiver_address.receiver_house_no}
                         />
                         <TextField
                             size="small"
-                            name="sender_area"
+                            name="receiver_area"
                             label="Locality"
                             variant="outlined"
                             placeholder="Area,Street,Sector"
                             fullWidth
                             margin="dense"
-                            required
                             onChange={handleInputChange}
-                            defaultValue={values.sender_address.sender_area}
+                            defaultValue={values.receiver_address.receiver_area}
                         />
                         <TextField
                             size="small"
-                            name="sender_pincode"
+                            name="receiver_pincode"
                             label="Pincode"
                             variant="outlined"
                             placeholder="Enter Pincode"
                             fullWidth
-                            margin="dense"
                             inputProps={{readOnly: true}}
                             disabled
+                            margin="dense"
                             onChange={handleInputChange}
-                            defaultValue={values.sender_address.sender_pincode}
+                            defaultValue={values.receiver_address.receiver_pincode}
                         />
                         <TextField
                             size="small"
-                            name="sender_city"
+                            name="receiver_city"
                             label="City"
                             variant="outlined"
                             placeholder="Enter City"
@@ -112,11 +110,11 @@ const Address = ({ values, handleFormData, nextStep, prevStep }) => {
                             disabled
                             margin="dense"
                             onChange={handleInputChange}
-                            defaultValue={values.sender_address.sender_city}
+                            defaultValue={values.receiver_address.receiver_city}
                         />
                         <TextField
                             size="small"
-                            id="state"
+                            name="receiver_state"
                             label="State"
                             variant="outlined"
                             placeholder="Enter State"
@@ -125,9 +123,9 @@ const Address = ({ values, handleFormData, nextStep, prevStep }) => {
                             inputProps={{readOnly: true}}
                             disabled
                             onChange={handleInputChange}
-                            defaultValue={values.sender_address.sender_state}
+                            defaultValue={values.receiver_address.receiver_state}
                         />
-                        <div className='mt-4' style={{ display: 'flex', justifyContent: 'space-between', pt: 2, flex: '1 auto' }}>
+                        <div  className='mt-4' style={{ display: 'flex', justifyContent: 'space-between', pt: 2, flex: '1 auto' }}>
                             <Button
                                 color="inherit"
                                 onClick={prevStep}
@@ -147,8 +145,9 @@ const Address = ({ values, handleFormData, nextStep, prevStep }) => {
                     </FormGroup>
                 </form>
             </Box>
+
         </div >
     )
 }
 
-export default Address
+export default ReceiverAddress
