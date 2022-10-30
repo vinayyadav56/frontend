@@ -21,25 +21,11 @@
     padding: 4px 10px;
 }
 
-.status_track_col {
-    padding: 20px 0px;
-    background-color: #fff;
-    border: 1px solid #000;
-    border-radius: 8px;
-    margin: 0rem 1rem;
-}
-
-/* TIMELINE CSS START */
-.dot1,
-.dot3 {
-    background-color: #000;
-    border: 2px solid rgb(194, 139, 139);
-    width: 12px;
-    height: 12px;
-    border-radius: 20px;
-}
-
-.dot2 {
-    width: 90px;
-    border: 1px solid #000;
+.status_track_col{
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    background-color: #f9f9f8;
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 8px;
 }

@@ -24,7 +24,7 @@ const PartnerOrderTable = () => {
       const partnerId = user.id
       console.log(partnerId)
         setLoading(true);
-        makeRequest('GET', `partnerOrdersByPartnerId/${partnerId}`).then(result => {
+        makeRequest('GET',`partnerOrdersByPartnerId/${partnerId}`).then(result => {
             setPartnerOrder(result.orders);
             console.log(result.orders);
         })
@@ -72,7 +72,7 @@ const PartnerOrderTable = () => {
                         <div>
                             <span className="badge badge-danger">{item.id}</span>
                             <div key={id} className='row table_row_data'>
-                                <div className='col-12 mb-3'>
+                                <div className='col-12 header_partner_oder mb-3'>
                                     <div className='d-flex justify-content-end'>
                                         <button type="button" className="btn btn-primary mr-2" data-toggle="modal" data-target="#partnerOrderEdit">
                                             Edit Order

@@ -10,10 +10,18 @@
 .table_row_data {
     border: 2px solid #cfcfcf;
     border-radius: 5px;
-    padding: 10px 0px;
+    z-index: -999;
     margin: -10px 10px 10px 0px;
 }
-
+.table_row_data .header_partner_oder{
+    background-color: #0e99951c;
+    padding: 6px 0px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.badge-danger{
+    z-index: 999;
+}
 .partnerOr h2 {
     color: #0747a9;
     padding-top: 10px;

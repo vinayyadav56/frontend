@@ -200,7 +200,6 @@ export default function BasicTabs() {
             }
         }
     }
-
     return (
         <>
             <form className="form-inline trip_search_form" onSubmit={handleFormSubmit} ref={formRef} noValidate>

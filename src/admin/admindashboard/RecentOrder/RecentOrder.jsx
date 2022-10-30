@@ -11,6 +11,7 @@ import { useAuth } from '../../../Services/auth';
 import { useEffect } from 'react';
 import QrMake from './QrMake';
 import { useAlert } from 'react-alert';
+import QrButton from './QrButton';
 
 const RecenteOrder = ({ qr }) => {
     let alert = useAlert();
@@ -20,14 +21,9 @@ const RecenteOrder = ({ qr }) => {
     const fetchData = async () => {
         setLoading(true);
         makeRequest('GET', `fetchNewOrders`).then(result => {
-            // alert.success(result.message);
-            // result.success && 
             setNewOrder(result.data);
             console.log(result.data);
         })
-            // .catch(err => {
-            //     alert.error(err.message);
-            // })
             .finally(() => {
                 setLoading(false);
             })
@@ -38,19 +34,15 @@ const RecenteOrder = ({ qr }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     const handleId = (id) => {
-        console.log(id);
     }
     const auth = useAuth();
     if (!auth.isAuthenticated()) {
         return <Redirect to="/admin" />
     }
-
     // HUB LIST FETCHED FOR DROPDOWN STARTS
-
     const hubListData = async () => {
         setLoading(true);
         makeRequest('GET', `hubsList`).then(result => {
-            alert.success(result.message);
             setHubData(result.data);
         })
             .finally(() => {
@@ -60,21 +52,20 @@ const RecenteOrder = ({ qr }) => {
 
     // UPDAT HUB API STARTS
 
-    const handleInput = (fieldName, type, hub_id, order_id) => {
-        console.log(fieldName, type, hub_id, order_id)
-        // console.lconsoleog(handlePartner);
+    const handleInput = (fieldName, type, e, order_id) => {
+        console.log(fieldName, type, order_id)
         if (
             order_id &&
             type &&
             fieldName &&
-            hub_id
+            e.target.value
         ) {
             setLoading(true);
             makeRequest('POST', `updateHubForNewOrders`, {
                 "order_id": order_id,
                 "type": type,
                 "fieldName": fieldName,
-                "hubId": hub_id
+                "hubId": e.target.value
             }).then(result => {
                 alert.success(result.message);
                 result.success && console.log(result);
@@ -221,37 +212,6 @@ const RecenteOrder = ({ qr }) => {
                                                                 <p>{item.sender_details.address}</p>
                                                             </span>
                                                         </div>
-                                                        <div className='col from_hub'>
-                                                            <div class="row">
-                                                                <div class="col-6">
-                                                                    <label htmlFor="cars">From Hub:</label>
-                                                                    <select className='form-control' name="fromid" id="fromid" onChange={() => handleInput('from_hub_id', item.source, item.id, item.cateogory_id)}>
-                                                                        <option>Select Hub</option>
-                                                                        {hubData.map((index) => {
-                                                                            return (
-                                                                                <>
-                                                                                    <option value={index.hub_name} >{index.hub_name} </option>
-                                                                                </>
-                                                                            )
-                                                                        })}
-
-                                                                    </select>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <label htmlFor="cars">To Hub:</label>
-                                                                    <select className='form-control' name="fromid" id="fromid" onChange={() => handleInput('to_hub_id', item.source, item.id, item.cateogory_id)}>
-                                                                        <option>Select Hub</option>
-                                                                        {hubData.map((index) => {
-                                                                            return (
-                                                                                <>
-                                                                                    <option value={index.hub_name} >{index.hub_name} </option>
-                                                                                </>
-                                                                            )
-                                                                        })}
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div className='col-lg-6 col-md-12 agent_verify_col mt-1'>
@@ -277,26 +237,51 @@ const RecenteOrder = ({ qr }) => {
                                                         </div>
                                                     </div>
                                                     <div className='row mt-2 d-flex align-items-center'>
-                                                        <div className='col-md-6 pr-0 '>
-                                                            <button type="button" className="btn btn-warning" data-toggle="modal" data-target="#partnerprintid" onClick={handleId(item.id)}>
-                                                                Generate Invoice
-                                                            </button>
-                                                        </div>
-                                                        <div className='col-md-6 text-right'>
+                                                        <div className='col-md-12 mt-2 text-right'>
                                                             <QrMake path={item.qr_image_path} orderid={item.id} ordertype={item.source} />
                                                         </div>
                                                     </div>
-                                                    <div className='row mt-2'>
-                                                        <div className='col status_track_col'>
-                                                            <ul className='d-flex align-items-center pl-3'>
-                                                                <li className='dot1'>
+                                                </div>
+                                                <div className='col-12 from_hub'>
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <label htmlFor="cars">From Hub:</label>
+                                                            <select className='form-control' name="fromid" id="fromid" onChange={(e) => handleInput('from_hub_id', item.source, e, item.id)}>
 
-                                                                </li>
-                                                                <li className='dot2'>
+                                                                {hubData.map((index) => {
+                                                                    return (
+                                                                        <>
+                                                                            <option value={index.id} selected={item.from_hub_id == index.id ? true : false}>{index.hub_name} </option>
+                                                                        </>
+                                                                    )
+                                                                })}
 
-                                                                </li>
-                                                            </ul>
+                                                            </select>
                                                         </div>
+                                                        <div class="col-6">
+                                                            <label htmlFor="cars">To Hub:</label>
+                                                            <select className='form-control' name="id" onChange={(e) => handleInput('to_hub_id', item.source, e, item.id)}>
+
+                                                                {hubData.map((index) => {
+                                                                    return (
+                                                                        <>
+                                                                            <option value={index.id} selected={item.to_hub_id == index.id ? true : false}>{index.hub_name} </option>
+                                                                        </>
+                                                                    )
+                                                                })}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className='col-12 mt-2'>
+                                                    <div className='status_track_col'>
+                                                        <button type="button" className="btn btn-warning" data-toggle="modal" data-target="#partnerprintid" onClick={handleId(item.id)}>
+                                                            Generate Invoice
+                                                        </button>
+                                                        <QrButton path={item.qr_image_path} orderid={item.id} ordertype={item.source} />
+                                                        <button className='btn btn-secondary'>
+                                                            Tracking
+                                                        </button>
                                                     </div>
                                                 </div>
                                                 <div className="modal fade" id="partnerprintid" tabindex="-1" role="dialog" aria-labelledby="partnerprintidLabel" aria-hidden="true">
@@ -401,37 +386,6 @@ const RecenteOrder = ({ qr }) => {
                                                                 <p>{item.sender_pincode}</p>
                                                             </span>
                                                         </div>
-                                                        <div className='col from_hub'>
-                                                            <div class="row">
-                                                                <div class="col-6">
-                                                                    <label htmlFor="cars">From Hub:</label>
-                                                                    <select className='form-control' name="fromid" id="fromid" onChange={() => handleInput('from_hub_id', item.source, item.id, item.cateogory_id)}>
-                                                                        <option>Select Hub</option>
-                                                                        {hubData.map((index) => {
-                                                                            return (
-                                                                                <>
-                                                                                    <option value={index.hub_name} >{index.hub_name} </option>
-                                                                                </>
-                                                                            )
-                                                                        })}
-
-                                                                    </select>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <label htmlFor="cars">To Hub:</label>
-                                                                    <select className='form-control' name="fromid" id="fromid" onChange={() => handleInput('to_hub_id', item.source, item.id, item.cateogory_id)}>
-                                                                        <option>Select Hub</option>
-                                                                        {hubData.map((index) => {
-                                                                            return (
-                                                                                <>
-                                                                                    <option value={index.hub_name} >{index.hub_name} </option>
-                                                                                </>
-                                                                            )
-                                                                        })}
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div className='col-lg-6 col-md-12 agent_verify_col mt-1'>
@@ -456,26 +410,51 @@ const RecenteOrder = ({ qr }) => {
                                                         </div>
                                                     </div>
                                                     <div className='row mt-2 d-flex align-items-center'>
-                                                        <div className='col-md-6 pr-0 '>
-                                                            <button type="button" className="btn btn-warning" data-toggle="modal" data-target="#partnerprintid">
-                                                                Generate Invoice
-                                                            </button>
-                                                        </div>
-                                                        <div className='col-md-6 text-right'>
+                                                        <div className='col-md-12 mt-3 text-right'>
                                                             <QrMake path={item.qr_image_path} orderid={item.id} ordertype={item.source} />
                                                         </div>
                                                     </div>
-                                                    <div className='row mt-2'>
-                                                        <div className='col status_track_col'>
-                                                            <ul className='d-flex align-items-center pl-3'>
-                                                                <li className='dot1'>
 
-                                                                </li>
-                                                                <li className='dot2'>
+                                                </div>
+                                                <div className='col-12 from_hub'>
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <label htmlFor="cars">From Hub:</label>
+                                                            <select className='form-control' name="fromid" id="fromid" onChange={(e) => handleInput('from_hub_id', item.source, e, item.id)}>
 
-                                                                </li>
-                                                            </ul>
+                                                                {hubData.map((index) => {
+                                                                    return (
+                                                                        <>
+                                                                            <option value={index.id} selected={item.from_hub_id == index.id ? true : false}>{index.hub_name} </option>
+                                                                        </>
+                                                                    )
+                                                                })}
+
+                                                            </select>
                                                         </div>
+                                                        <div class="col-6">
+                                                            <label htmlFor="cars">To Hub:</label>
+                                                            <select className='form-control' name="id" onChange={(e) => handleInput('to_hub_id', item.source, e, item.id)}>
+                                                                {hubData.map((index) => {
+                                                                    return (
+                                                                        <>
+                                                                            <option value={index.id} selected={item.to_hub_id == index.id ? true : false}>{index.hub_name} </option>
+                                                                        </>
+                                                                    )
+                                                                })}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className='col-12 mt-2'>
+                                                    <div className='status_track_col'>
+                                                        <button type="button" className="btn btn-warning" data-toggle="modal" data-target="#partnerprintid" onClick={handleId(item.id)}>
+                                                            Generate Invoice
+                                                        </button>
+                                                        <QrButton path={item.qr_image_path} orderid={item.id} ordertype={item.source} />
+                                                        <button className='btn btn-secondary'>
+                                                            Tracking
+                                                        </button>
                                                     </div>
                                                 </div>
                                                 <div className="modal fade" id="partnerprintid" tabindex="-1" role="dialog" aria-labelledby="partnerprintidLabel" aria-hidden="true">

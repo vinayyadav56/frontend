@@ -196,7 +196,6 @@ const Signup = () => {
                         <label htmlFor="#selectuser" >User Type</label>
                         <select id="selectuser" value={user.type} name='type' className="form-control"
                           required type='Select' onChange={handleInput}>
-                          {console.log(user.type)}
                           <option>Select User</option>
                           <option value="customer" >Customer</option>
                           <option value="carrier" >Carrier</option>

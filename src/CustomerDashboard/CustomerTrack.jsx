@@ -96,6 +96,7 @@ const CustomerTrack = () => {
                             </td>
                             <td>
                               <DateRangeIcon className="table-row-icon" />
+                              {row.pickup_timing}
                             </td>
                             <td>
                               <LuggageOutlinedIcon className="table-row-icon" />{row.package_volume_weight}
