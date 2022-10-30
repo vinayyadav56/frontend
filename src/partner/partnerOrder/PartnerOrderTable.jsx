@@ -21,10 +21,12 @@ const PartnerOrderTable = () => {
     const [partnerOrder, setPartnerOrder] = useState([]);
 
     const fetchData = async () => {
-        const partnerId = user.id;
+      const partnerId = user.id
+      console.log(partnerId)
         setLoading(true);
         makeRequest('GET', `partnerOrdersByPartnerId/${partnerId}`).then(result => {
             setPartnerOrder(result.orders);
+            console.log(result.orders);
         })
             .finally(() => {
                 setLoading(false);

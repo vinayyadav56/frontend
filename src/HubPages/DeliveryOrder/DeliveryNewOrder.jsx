@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "../../admin/admindashboard/AllTable/Table.css";
 import "../../admin/admindashboard/partnerorder.css";
 import { styled } from '@mui/material/styles';
@@ -13,15 +13,19 @@ import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
 import { Fragment } from 'react';
 import OrderAssignForDelivery from './OrderAssignForDelivery';
-
-const NewOrder = () => {
+import { makeRequest } from '../../Services/api';
+import { useAlert } from 'react-alert';
+import { useAuth } from '../../Services/auth';
+const DeliveryNewOrder = () => {
+    let alert = useAlert();
+    const {user, setLoading } = useAuth();
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
     const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 5));
+        setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
     // PAGINATION ENDS
@@ -46,52 +50,25 @@ const NewOrder = () => {
         }
     }));
     // const [hubOrderData] = useState([]);
-    const hubOrderData = [
-        {
-            id: '1',
-            customer_name: 'Rupesh Jangid',
-            pickup_date: '04/11/2022',
-            pickup_time: '12:30 AM',
-            cost: '₹614',
-            pincode: '123034',
-            city: 'Gurgaon',
-            state: 'Haryana',
-            address: '898,swami vivekananda block,saraswati vihar , sector 28 ,gurgaon',
-        },
-        {
-            id: '2',
-            customer_name: 'Naveen Rohilla',
-            pickup_date: '04/11/2022',
-            pickup_time: '12:30 AM',
-            cost: '₹614',
-            pincode: '123034',
-            city: 'Gurgaon',
-            state: 'Haryana',
-            address: '898,swami vivekananda block,saraswati vihar , sector 28 ,gurgaon',
-        },
-        {
-            id: '3',
-            customer_name: 'Deepak Yadav',
-            pickup_date: '04/11/2022',
-            pickup_time: '12:30 AM',
-            cost: '₹614',
-            pincode: '123034',
-            city: 'Gurgaon',
-            state: 'Haryana',
-            address: '898,swami vivekananda block,saraswati vihar , sector 28 ,gurgaon',
-        },
-        {
-            id: '4',
-            customer_name: 'Ramesh Srivastav',
-            pickup_date: '04/11/2022',
-            pickup_time: '12:30 AM',
-            cost: '₹614',
-            pincode: '123034',
-            city: 'Gurgaon',
-            state: 'Haryana',
-            address: '898,swami vivekananda block,saraswati vihar , sector 28 ,gurgaon',
-        }
-    ]
+    const [hubOrderData, sethubOrderData] = useState([]);
+    const fetchData = async () => {
+        const hubId = user.tokenable_id
+        setLoading(true);
+        makeRequest('GET', `fetchHubOrderByHubId/${hubId}?status=new`).then(result => {
+            alert.success(result.message);
+            sethubOrderData(result.data);
+            console.log(result + JSON.stringify(result.data))
+        }).catch(err => {
+            alert.error(err.message);
+        }).finally(() => {
+            setLoading(false);
+        })
+    };
+
+    useEffect(() => {
+        fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     return (
         <Fragment>
             <div className='pickup_table_section'>
@@ -101,11 +78,11 @@ const NewOrder = () => {
                         <TableHead>
                             <StyledTableRow>
                                 <StyledTableCell>Id</StyledTableCell>
-                                <StyledTableCell>Customer Name</StyledTableCell>
-                                <StyledTableCell>Pickup Date</StyledTableCell>
-                                <StyledTableCell>Pickup Time</StyledTableCell>
-                                <StyledTableCell>Cost</StyledTableCell>
-                                <StyledTableCell>Pincode</StyledTableCell>
+                                <StyledTableCell>Ck Order Id</StyledTableCell>
+                                <StyledTableCell>From Hub</StyledTableCell>
+                                <StyledTableCell>To Hub</StyledTableCell>
+                                <StyledTableCell>Package Weight</StyledTableCell>
+                                <StyledTableCell>Item Total Weight</StyledTableCell>
                                 <StyledTableCell>City</StyledTableCell>
                                 <StyledTableCell>State</StyledTableCell>
                                 <StyledTableCell>Address</StyledTableCell>
@@ -119,14 +96,13 @@ const NewOrder = () => {
                                 .map((row, id) => (
                                     <StyledTableRow hover tabIndex={-1} key={id}>
                                         <StyledTableCell>{row.id}</StyledTableCell>
-                                        <StyledTableCell>{row.customer_name}</StyledTableCell>
-                                        <StyledTableCell>{row.pickup_date}</StyledTableCell>
-                                        <StyledTableCell>{row.pickup_time}</StyledTableCell>
-                                        <StyledTableCell>{row.cost}</StyledTableCell>
-                                        <StyledTableCell>{row.pincode}</StyledTableCell>
-                                        <StyledTableCell>{row.city}</StyledTableCell>
-                                        <StyledTableCell>{row.state}</StyledTableCell>
-                                        <StyledTableCell>{row.address}</StyledTableCell>
+                                        <StyledTableCell>{row.ck_order_id}</StyledTableCell>
+                                        <StyledTableCell>{row.from_hub_id}</StyledTableCell>
+                                        <StyledTableCell>{row.to_hub_id}</StyledTableCell>
+                                        <StyledTableCell>{row.package_weight}</StyledTableCell>
+                                        <StyledTableCell>{row.item_total_weight}</StyledTableCell>
+                                        <StyledTableCell>{row.sub_order_id}</StyledTableCell>
+                                        <StyledTableCell>{row.sub_order_source}</StyledTableCell>
                                         <StyledTableCell>
                                             <button
                                                 type="button"
@@ -183,5 +159,4 @@ const NewOrder = () => {
         </Fragment>
     )
 }
-
-export default NewOrder
+export default DeliveryNewOrder

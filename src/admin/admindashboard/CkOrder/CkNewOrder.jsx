@@ -8,6 +8,7 @@ import { makeRequest } from "../../../Services/api";
 import { useAuth } from "../../../Services/auth";
 import { Fragment } from "react";
 import AlQrGenrate from "./AlQrGenrate";
+import CkAssignAvailibility from "./CkAssignCarrier";
 const CkNewOrder = () => {
     const { setLoading } = useAuth();
     const [userData, setUserData] = useState([]);
@@ -39,12 +40,12 @@ const CkNewOrder = () => {
                                 <ul>
                                     <li>
                                         <p>
-                                            <span>From Hub Id :</span><span>{row.from_hub_id}</span>
+                                            <span>From Hub :</span><span>{row.fromHubDetails?.hub_code} , {row.fromHubDetails?.city} , {row.fromHubDetails?.state}</span>
                                         </p>
                                     </li>
                                     <li>
                                         <p>
-                                            <span>To Hub Id :</span><span>{row.to_hub_id}</span>
+                                            <span>To Hub :</span><span>{row.toHubDetails?.hub_code} , {row.toHubDetails?.city} , {row.toHubDetails?.state}</span>
                                         </p>
                                     </li>
                                 </ul>
@@ -107,9 +108,13 @@ const CkNewOrder = () => {
                                     <a className="btn btn-primary" data-toggle="collapse" href="#collapseTable" role="button" aria-expanded="false" aria-controls="collapseTable">
                                         See Order Details
                                     </a>
-                                    <AlQrGenrate />
-                                    <button className="btn btn-success">
-                                        Assign Order
+                                    <AlQrGenrate path={row.qr_image_alpha} orderid={row.ck_order_id} />
+                                    <button
+                                        type="button"
+                                        className="btn btn-success"
+                                        data-toggle="modal" data-target=".assign_order_to_delivery_boy"
+                                    >
+                                        Assign Carrier
                                     </button>
                                 </div>
                                 <div className="collapse" id="collapseTable">
@@ -248,7 +253,31 @@ const CkNewOrder = () => {
                 })}
             </div>
 
-
+            {/* ASSIGN DETAILS MODAL TO AGENT HUB TABLE */}
+            <div className="modal fade assign_order_to_delivery_boy" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div className="modal-dialog  add-partner modal-xl">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="assigncarrierfromAdminTitle">
+                                Avalaible Carrier List
+                            </h5>
+                            <button
+                                type="button"
+                                className="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                            >
+                                <span aria-hidden="true" className="modal-off">
+                                    &times;
+                                </span>
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                            <CkAssignAvailibility />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </Fragment>
     );
 };

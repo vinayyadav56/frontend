@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import SenderAddress from './SenderAddress';
 import Billing from './Billing';
 import DeliveryOrder from './DeliveryOrder';
 import Pincode from './Pincode';
 import Schedule from './Schedule';
-import ReciverAddress from './ReciverAddress';
+import ReceiverAddress from './ReceiverAddress';
 
 const ShipingOrder = (props) => {
   //state for steps
@@ -14,33 +14,26 @@ const ShipingOrder = (props) => {
   const [formData, setFormData] = useState({
     delivery_pincode: "",
     pickup_pincode: "",
-    address_details: {
-      sender_addres: [
-        {
-          sender_name: "",
-          sender_phone_no: "",
-          sender_email_id: "",
-          sender_house_no: "",
-          sender_area: "",
-          sender_pincode: "",
-          sender_state: "",
-          sender_city: ""
-        }
-      ],
-      recive_addres: [
-        {
-          reciver_name: "",
-          reciver_phone_no: "",
-          reciver_email_id: "",
-          reciver_house_no: "",
-          reciver_area: "",
-          reciver_pincode: "",
-          reciver_state: "",
-          reciver_city: ""
-        }
-      ]
+    sender_address: {
+        sender_name: "",
+        sender_phone_no: "",
+        sender_email_id: "",
+        sender_house_no: "",
+        sender_area: "",
+        sender_pincode: "",
+        sender_state: "",
+        sender_city: ""
     },
-
+    receiver_address: {
+        receiver_name: "",
+        receiver_phone_no: "",
+        receiver_email_id: "",
+        receiver_house_no: "",
+        receiver_area: "",
+        receiver_pincode: "",
+        receiver_state: "",
+        receiver_city: ""
+    },
     delivery_cost: "",
     package_size: "",
     delivery_type: "",
@@ -51,13 +44,7 @@ const ShipingOrder = (props) => {
 
   // function for going to next step by increasing step state by 1
   const nextStep = () => {
-    if (formData.pickup_pincode === '' || formData.pickup_pincode.length <= 0) {
-      return alert("Please Enter Pickup Pincode")
-    }
-    else {
-      setstep(step + 1);
-    }
-
+    setstep(step + 1);
   };
 
 
@@ -67,13 +54,19 @@ const ShipingOrder = (props) => {
   };
 
   // handling form input data by taking onchange value and updating our previous form data state
-  const handleInputData = input => e => {
-    const { value } = e.target;
+  const handleInputData = (input, val) => {
+    console.log(input, val);
+
     setFormData(prevState => ({
       ...prevState,
-      [input]: value
+      [input]: val
     }));
   }
+
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
+
   //  javascript switch case to show different form in each step
   switch (step) {
     case 1:
@@ -98,7 +91,7 @@ const ShipingOrder = (props) => {
       )
     case 3:
       return (
-        <ReciverAddress
+        <ReceiverAddress
           label="string"
           nextStep={nextStep}
           prevStep={prevStep}

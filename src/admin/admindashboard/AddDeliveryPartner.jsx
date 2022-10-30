@@ -6,8 +6,8 @@ import { useState } from 'react';
 import { useAlert } from 'react-alert';
 import '../admindashboard/Adminmenu.css'
 import Previews from './DeliveryImageSelector';
-import {makeRequest} from "../../Services/api";
-import {useAuth} from "../../Services/auth";
+import { makeRequest } from "../../Services/api";
+import { useAuth } from "../../Services/auth";
 const AddDeliveryPartner = () => {
     let alert = useAlert();
     const { setLoading } = useAuth();
@@ -28,6 +28,9 @@ const AddDeliveryPartner = () => {
         permanent_address: "",
         pan_card_no: "",
         driving_licence_no: "",
+        is_aadhar_verified: 1,
+        is_pan_verified: 1,
+        is_driving_licence_verified: 1
     });
     const handleInput = (e) => {
         const { name, value } = e.target;
@@ -53,6 +56,10 @@ const AddDeliveryPartner = () => {
             pan_card_no,
             driving_licence_no,
             linked_hub_id,
+            is_pan_verified,
+            is_driving_licence_verified,
+            is_aadhar_verified
+
         } = agent;
         // console.log(handlePartner);
         if (
@@ -69,13 +76,16 @@ const AddDeliveryPartner = () => {
             permanent_address &&
             pan_card_no &&
             driving_licence_no &&
-            linked_hub_id
+            linked_hub_id &&
+            is_pan_verified &&
+            is_driving_licence_verified &&
+            is_aadhar_verified
         ) {
             setLoading(true);
 
             makeRequest('POST', `createNewDeliveryAgent`, agent).then(result => {
                 alert.success(result.message);
-                result.success && history.push("/admindashboard");
+                result.success && history.push("/hub/dashboard");
             }).catch(err => {
                 alert.error(err.message);
             }).finally(() => {
