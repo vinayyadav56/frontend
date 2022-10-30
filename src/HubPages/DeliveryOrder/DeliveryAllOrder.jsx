@@ -16,10 +16,11 @@ import { Fragment } from 'react';
 import { makeRequest } from '../../Services/api';
 import { useAlert } from 'react-alert';
 import { useAuth } from '../../Services/auth';
+import OrderAssignForDelivery from './OrderAssignForDelivery';
 
 const DeliveryAllOrder = () => {
     let alert = useAlert();
-    const {user, setLoading } = useAuth();
+    const { user, setLoading } = useAuth();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const handleChangePage = (event, newPage) => {
@@ -54,7 +55,7 @@ const DeliveryAllOrder = () => {
     const fetchData = async () => {
         const hubId = user.tokenable_id
         setLoading(true);
-        makeRequest('GET', `fetchHubOrderByHubId/${hubId}?status=new`).then(result => {
+        makeRequest('GET', `fetchHubOrderByHubId/2?status=new`).then(result => {
             alert.success(result.message);
             sethubOrderData(result.data);
         }).catch(err => {
@@ -82,9 +83,8 @@ const DeliveryAllOrder = () => {
                                 <StyledTableCell>To Hub</StyledTableCell>
                                 <StyledTableCell>Package Weight</StyledTableCell>
                                 <StyledTableCell>Item Total Weight</StyledTableCell>
-                                <StyledTableCell>City</StyledTableCell>
-                                <StyledTableCell>State</StyledTableCell>
-                                <StyledTableCell>Address</StyledTableCell>
+                                <StyledTableCell>Sub Order Id</StyledTableCell>
+                                <StyledTableCell>Sub Order Source</StyledTableCell>
                                 <StyledTableCell>Action</StyledTableCell>
                             </StyledTableRow>
                         </TableHead>
@@ -129,6 +129,32 @@ const DeliveryAllOrder = () => {
                         </TableFooter>
                     </Table>
                 </TableContainer>
+            </div>
+
+            <div className="modal fade assign_order_to_delivery_boy" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div className="modal-dialog  add-partner modal-xl">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="assigncarrierfromAdminTitle">
+                                Avalaible Delivery Agents
+                            </h5>
+                            <button
+                                type="button"
+                                className="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                            >
+                                <span aria-hidden="true" className="modal-off">
+                                    &times;
+                                </span>
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                            {/* <CkAssignAvailibility /> */}
+                            <OrderAssignForDelivery />
+                        </div>
+                    </div>
+                </div>
             </div>
         </Fragment>
     )

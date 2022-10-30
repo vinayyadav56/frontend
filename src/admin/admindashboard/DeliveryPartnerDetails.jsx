@@ -20,7 +20,7 @@ import { useAuth } from "../../Services/auth";
 import { useAlert } from "react-alert";
 import { makeRequest } from "../../Services/api";
 import { useEffect } from "react";
-const DeliveryPartnerDetails =()=>{
+const DeliveryPartnerDetails = () => {
     let alert = useAlert();
     const { setLoading } = useAuth();
     const [page, setPage] = useState(0);
@@ -40,9 +40,9 @@ const DeliveryPartnerDetails =()=>{
     const StyledTableCell = styled(TableCell)(({ theme }) => ({
         [`&.${tableCellClasses.head}`]: {
             backgroundColor: '#0747a9',
-            padding:'5px 0px',
-            minWidth:'60px',
-            textAlign:'center',
+            padding: '5px 0px',
+            minWidth: '60px',
+            textAlign: 'center',
             color: theme.palette.common.white,
         },
         [`&.${tableCellClasses.body}`]: {
@@ -77,11 +77,11 @@ const DeliveryPartnerDetails =()=>{
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    
+
     const auth = useAuth();
 
-    if(!auth.isAuthenticated()){
-      return <Redirect to="/admin" />
+    if (!auth.isAuthenticated()) {
+        return <Redirect to="/admin" />
     }
     return (
         <Fragment>
@@ -138,22 +138,8 @@ const DeliveryPartnerDetails =()=>{
                     <AdminSidebar />
                 </aside>
                 <section className="right">
-                    <div className="filter_partner">
-                        <div className="form-row">
-                            <div className="col-md-2">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Search Delivery Partner"
-                                // onChange={handleSearch}
-                                />
-                            </div>
-                            <div className="col-md-10">
-                                <div className="d-flex justify-content-end">
-                                   
-                                </div>
-                            </div>
-                        </div>
+                    <div className='table-heading'>
+                        <h2 className='text-center'>Delivery Agents List</h2>
                     </div>
                     <TableContainer component={Paper}>
                         <Table stickyHeader striped aria-label="sticky table">

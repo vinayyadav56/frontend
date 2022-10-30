@@ -106,8 +106,10 @@ export default function BasicTabs() {
     }
 
     const handleLocationSearch = (value) => {
-
-        if (value.length > 2) {
+        if (formData.transport_type === ""){
+            return null
+        }
+        else if(value.length > 2) {
             callCitySearchApi({
                 cityName: value,
                 searchType: formData.transport_type

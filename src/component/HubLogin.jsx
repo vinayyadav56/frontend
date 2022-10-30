@@ -26,9 +26,8 @@ const HubLogin = () => {
         const { username, password } = hubUserLogin;
         if (username && password) {
             postRequest('hubLogin', hubUserLogin).then(result => {
-                console.log(result);
                 alert.success(result.message);
-                result.success && history.push("/hub/dashboard")
+                history.push("/hub/dashboard")
             }).catch(error => {
                 alert.error(error.message);
             })
@@ -39,40 +38,40 @@ const HubLogin = () => {
     return (
         <Fragment>
             <div className="container-fluid admin-login">
-                    <div className="row admin-section">
-                        <div className="col-12 adminleftctn">
-                            <form className="my-form" onSubmit={handleLogin}>
-                                <span className="wel-msg">Welcome To Carrykar</span>
-                                <span className="log-title text-center">Hub Dashboard</span>
-                                <div className="login-det mt-2">
-                                    <div className="form-group">
-                                        <input
-                                            type="username"
-                                            name="username"
-                                            placeholder="Username"
-                                            value={hubUserLogin.username}
-                                            onChange={handleLoginInput}
-                                            autoComplete="off"
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <input
-                                            type="password"
-                                            name="password"
-                                            placeholder="Enter password"
-                                            value={hubUserLogin.password}
-                                            onChange={handleLoginInput}
-                                        />
-                                    </div>
+                <div className="row admin-section">
+                    <div className="col-12 adminleftctn">
+                        <form className="my-form" onSubmit={handleLogin}>
+                            <span className="wel-msg">Welcome To Carrykar</span>
+                            <span className="log-title text-center">Hub Dashboard</span>
+                            <div className="login-det mt-2">
+                                <div className="form-group">
+                                    <input
+                                        type="username"
+                                        name="username"
+                                        placeholder="Username"
+                                        value={hubUserLogin.username}
+                                        onChange={handleLoginInput}
+                                        autoComplete="off"
+                                    />
                                 </div>
-                                <div className="admin-footer pt-3">
-                                    <button type="submit" className="login-btn mt-2">
-                                        Login
-                                    </button>
+                                <div className="form-group">
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        placeholder="Enter password"
+                                        value={hubUserLogin.password}
+                                        onChange={handleLoginInput}
+                                    />
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                            <div className="admin-footer pt-3">
+                                <button type="submit" className="login-btn mt-2">
+                                    Login
+                                </button>
+                            </div>
+                        </form>
                     </div>
+                </div>
             </div>
         </Fragment>
     )

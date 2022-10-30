@@ -145,7 +145,7 @@ main {
     grid-template-columns: 18rem auto;
     gap: 0rem;
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     /* margin: 0rem auto 4rem; */
     background: var(--color-light);
 }
