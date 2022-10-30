@@ -18,7 +18,7 @@ import { useAlert } from 'react-alert';
 import { useAuth } from '../../Services/auth';
 const DeliveryNewOrder = () => {
     let alert = useAlert();
-    const {user, setLoading } = useAuth();
+    const { user, setLoading } = useAuth();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const handleChangePage = (event, newPage) => {
@@ -83,9 +83,8 @@ const DeliveryNewOrder = () => {
                                 <StyledTableCell>To Hub</StyledTableCell>
                                 <StyledTableCell>Package Weight</StyledTableCell>
                                 <StyledTableCell>Item Total Weight</StyledTableCell>
-                                <StyledTableCell>City</StyledTableCell>
-                                <StyledTableCell>State</StyledTableCell>
-                                <StyledTableCell>Address</StyledTableCell>
+                                <StyledTableCell>Sub Order Id</StyledTableCell>
+                                <StyledTableCell>Sub Order Source</StyledTableCell>
                                 <StyledTableCell>Action</StyledTableCell>
                             </StyledTableRow>
                         </TableHead>

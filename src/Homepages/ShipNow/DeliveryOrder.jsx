@@ -10,11 +10,10 @@ import {
 } from '@material-ui/core';
 
 const DeliveryOrder = ({ values, handleFormData, nextStep, prevStep }) => {
-  // const [error, setError] = useState(false);
 
   const submitFormData = (e) => {
     e.preventDefault();
-
+    console.log(FormData);
     // checking if value of first name and last name is empty show error else take to step 2
 
   };
@@ -48,7 +47,7 @@ const DeliveryOrder = ({ values, handleFormData, nextStep, prevStep }) => {
               type="radio"
               name="searchType"
               defaultValue={values.package_size}
-              id="option1"
+              id="option3"
               onChange={handleFormData("package_size")}
             />
             Medium
@@ -58,7 +57,7 @@ const DeliveryOrder = ({ values, handleFormData, nextStep, prevStep }) => {
               type="radio"
               name="searchType"
               defaultValue={values.package_size}
-              id="option2"
+              id="option4"
               onChange={handleFormData("package_size")}
             />
             Large

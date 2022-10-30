@@ -15,11 +15,7 @@
     }else if(!/\S+@\S+/.test(values.email)){
         errors.email="Email is invalid, please enter valid email."
     }
-    if(!values.password){
-        errors.password="password is required."
-    }else if(values.password.length < 5){
-        errors.password="Password must be more than five characters."
-    }
+  
   return errors
 };
 

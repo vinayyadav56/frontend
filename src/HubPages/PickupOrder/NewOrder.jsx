@@ -18,7 +18,7 @@ import { useAuth } from '../../Services/auth';
 
 const NewOrder = () => {
     let alert = useAlert();
-    const {user, setLoading } = useAuth();
+    const { user, setLoading } = useAuth();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const handleChangePage = (event, newPage) => {
@@ -55,7 +55,7 @@ const NewOrder = () => {
         makeRequest('GET', `fetchHubOrderByHubId/${hubId}?status=new`).then(result => {
             alert.success(result.message);
             sethubOrderData(result.data);
-            console.log(result + JSON.stringify(result.data))
+            // console.log(result + JSON.stringify(result.data))
         }).catch(err => {
             alert.error(err.message);
         }).finally(() => {
@@ -81,9 +81,8 @@ const NewOrder = () => {
                                 <StyledTableCell>To Hub</StyledTableCell>
                                 <StyledTableCell>Package Weight</StyledTableCell>
                                 <StyledTableCell>Item Total Weight</StyledTableCell>
-                                <StyledTableCell>City</StyledTableCell>
-                                <StyledTableCell>State</StyledTableCell>
-                                <StyledTableCell>Address</StyledTableCell>
+                                <StyledTableCell>Sub Order Id</StyledTableCell>
+                                <StyledTableCell>Sub Order Source</StyledTableCell>
                                 <StyledTableCell>Action</StyledTableCell>
                             </StyledTableRow>
                         </TableHead>

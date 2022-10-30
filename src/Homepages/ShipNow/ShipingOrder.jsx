@@ -57,10 +57,7 @@ const ShipingOrder = (props) => {
     else {
       setstep(step + 1);
     }
-
   };
-
-
   // function for going to previous step by decreasing step state by 1
   const prevStep = () => {
     setstep(step - 1);

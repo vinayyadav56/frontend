@@ -3,14 +3,11 @@ import { Link, useHistory } from "react-router-dom";
 import {useAlert} from "react-alert";
 import {makeRequest} from "../Services/api";
 import {useAuth} from "../Services/auth";
-// import { myUserContext } from "./UserContext";
 import newLogo from '../images/newlogo1.png'
 const Signup = () => {
     let alert = useAlert();
     const {setLoading} = useAuth();
     let history = useHistory();
-
-    // const [user, setUser] = useContext(myUserContext);
     const [user, setUser] = useState({
         first_name: "",
         phone_no: "",

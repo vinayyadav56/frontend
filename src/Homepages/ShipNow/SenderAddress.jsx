@@ -1,9 +1,10 @@
-import { Box, Button, FormGroup, TextField} from '@material-ui/core'
+import { Box, Button, FormGroup, TextField } from '@material-ui/core'
 import React from 'react'
+import "react-phone-number-input/style.css";
 const Address = ({ values, handleFormData, nextStep, prevStep }) => {
     const submitFormData = (e) => {
         e.preventDefault();
-    };
+    };;
 
     return (
         <div>
@@ -25,9 +26,10 @@ const Address = ({ values, handleFormData, nextStep, prevStep }) => {
                         size="small"
                         id="phone"
                         label="Phone"
-                        type='number'
+                        type="number"
+                        pattern="[0-9]{3}-[0-9]{4}-[0-9]{3}"
                         variant="outlined"
-                        placeholder="Enter Phone Number"
+                        placeholder="000-0000-000"
                         fullWidth
                         margin="dense"
                         onChange={handleFormData("sender_phone_no")}
@@ -121,7 +123,6 @@ const Address = ({ values, handleFormData, nextStep, prevStep }) => {
                     </div>
                     <p className="ship_text">All the field are Mandatory**</p>
                 </FormGroup>
-
             </Box>
 
         </div >

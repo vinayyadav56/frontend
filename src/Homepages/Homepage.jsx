@@ -60,7 +60,6 @@ const Homepage = (userActive) => {
                       </li>
                       <li>
                         <button type="button" className="contact_us" data-toggle="modal" data-target="#contactUsModal">Contact Us</button>
-
                       </li>
                       <li>
                         {/* <ShipNow userActive={userActive} /> */}

@@ -136,7 +136,7 @@ main {
     grid-template-columns: 18rem auto;
     gap: 2rem;
     width: 100%;
-    height: calc(100vh - 100px);
+    height: calc(100vh - 60px);
     background: var(--color-light);
 }
 
@@ -435,4 +435,8 @@ select {
     font-size: 12px !important;
     font-weight: 500 !important;
     color: #000;
+}
+
+.all_details_ck_orders{
+    height: 200px;
 }

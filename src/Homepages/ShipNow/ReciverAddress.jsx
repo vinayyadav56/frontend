@@ -1,6 +1,6 @@
-import { Box, Button, FormGroup, TextField} from '@material-ui/core'
+import { Box, Button, FormGroup, TextField } from '@material-ui/core'
 import React from 'react'
-const ReciverAddress = ({ values, handleFormData, nextStep, prevStep}) => {
+const ReciverAddress = ({ values, handleFormData, nextStep, prevStep }) => {
     const submitFormData = (e) => {
         e.preventDefault();
     };
@@ -10,7 +10,7 @@ const ReciverAddress = ({ values, handleFormData, nextStep, prevStep}) => {
     return (
         <div>
             <Box>
-                <FormGroup onSubmit={submitFormData} sx={{padding:'0px auto'}} className="address_modal">
+                <FormGroup onSubmit={submitFormData} sx={{ padding: '0px auto' }} className="address_modal">
                     <h5>Reciver Details</h5>
                     <TextField
                         size="small"
@@ -80,30 +80,30 @@ const ReciverAddress = ({ values, handleFormData, nextStep, prevStep}) => {
                         onChange={handleFormData("reciver_pincode")}
                         defaultValue={values.reciver_pincode}
                     />
-                        <TextField
-                            size="small"
-                            id="email"
-                            label="City"
-                            variant="outlined"
-                            placeholder="Enter City"
-                            component="form"
-                            fullWidth
-                            margin="dense"
-                            onChange={handleFormData("reciver_city")}
-                            defaultValue={values.reciver_city}
-                        />
-                        <TextField
-                            size="small"
-                            id="email"
-                            label="State"
-                            variant="outlined"
-                            placeholder="Enter State"
-                            margin="dense"
-                            fullWidth
-                            onChange={handleFormData()}
-                            defaultValue={values.reciver_state}
-                        />
-                    <div  className='mt-4' style={{ display: 'flex', justifyContent: 'space-between', pt: 2, flex: '1 auto' }}>
+                    <TextField
+                        size="small"
+                        id="email"
+                        label="City"
+                        variant="outlined"
+                        placeholder="Enter City"
+                        component="form"
+                        fullWidth
+                        margin="dense"
+                        onChange={handleFormData("reciver_city")}
+                        defaultValue={values.reciver_city}
+                    />
+                    <TextField
+                        size="small"
+                        id="email"
+                        label="State"
+                        variant="outlined"
+                        placeholder="Enter State"
+                        margin="dense"
+                        fullWidth
+                        onChange={handleFormData()}
+                        defaultValue={values.reciver_state}
+                    />
+                    <div className='mt-4' style={{ display: 'flex', justifyContent: 'space-between', pt: 2, flex: '1 auto' }}>
                         <Button
                             color="inherit"
                             onClick={prevStep}

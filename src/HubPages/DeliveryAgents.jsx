@@ -8,7 +8,6 @@ import AddDeliveryPartner from '../admin/admindashboard/AddDeliveryPartner';
 import { makeRequest } from '../Services/api';
 import { useAuth } from '../Services/auth';
 import { useAlert } from 'react-alert';
-import { Redirect } from 'react-router-dom';
 const DeliveryAgents = () => {
     let alert = useAlert();
     const { user, setLoading } = useAuth();
@@ -31,12 +30,6 @@ const DeliveryAgents = () => {
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    const auth = useAuth();
-
-    if(!auth.isHub()){
-      return <Redirect to="/hub" />
-    }
     return (
         <Fragment>
             <section className="user-dashboard">

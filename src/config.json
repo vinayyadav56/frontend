@@ -1,6 +1,6 @@
 {
   "APP_ENV" : "dev",
-  "API_BASE_URL": "https://09f2-103-15-253-240.in.ngrok.io/api/",
-  "BASE_URL": "https://09f2-103-15-253-240.in.ngrok.io/",
+  "API_BASE_URL": "https://api.testing.carrykar.in/api/",
+  "BASE_URL": "https://api.testing.carrykar.in/",
   "RAZOR_PAY_JS": "https://checkout.razorpay.com/v1/checkout.js"
 }
