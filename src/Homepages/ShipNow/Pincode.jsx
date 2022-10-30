@@ -1,11 +1,11 @@
-import {Button, FormGroup, TextField} from '@material-ui/core'
-import React, {useState} from 'react';
-import {makeRequest} from "../../Services/api";
-import {useAuth} from "../../Services/auth";
-import {useAlert} from "react-alert";
+import { Button, FormGroup, TextField } from '@material-ui/core'
+import React, { useState } from 'react';
+import { makeRequest } from "../../Services/api";
+import { useAuth } from "../../Services/auth";
+import { useAlert } from "react-alert";
 
-const Pincode = ({values, handleFormData, nextStep}) => {
-    const {setLoading} = useAuth();
+const Pincode = ({ values, handleFormData, nextStep }) => {
+    const { setLoading } = useAuth();
     const alert = useAlert();
     const PICKUP_PINCODE = 'pickup_pincode';
     const DELIVERY_PINCODE = 'delivery_pincode';
@@ -15,8 +15,8 @@ const Pincode = ({values, handleFormData, nextStep}) => {
     const [deliveryError, setDeliveryError] = useState(false);
 
     const handlePincodeInput = async (e) => {
-        if(/\D/.test(e.target.value)){
-            e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g,'$1');
+        if (/\D/.test(e.target.value)) {
+            e.target.value = e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
             return false;
         }
 
@@ -27,18 +27,18 @@ const Pincode = ({values, handleFormData, nextStep}) => {
 
         setDisabledBtn(true);
 
-        if (e.target.value.length == 6) {
+        if (e.target.value.length === 6) {
             let pincode = e.target.value;
 
-            if(e.target.name == 'delivery_pincode' && pincode == values.pickup_pincode){
+            if (e.target.name === 'delivery_pincode' && pincode === values.pickup_pincode) {
                 alert.error("Enter different delivery Pincode");
                 return false;
             }
 
             let pincodeDetail = await fetchPincodeDetails(pincode);
 
-            if(pincodeDetail.data.length > 0 || Object.keys(pincodeDetail.data).length > 0){
-                if(e.target.name == 'pickup_pincode'){
+            if (pincodeDetail.data.length > 0 || Object.keys(pincodeDetail.data).length > 0) {
+                if (e.target.name === 'pickup_pincode') {
                     handleFormData(DELIVERY_PINCODE, pincode)
                     handleFormData("receiver_address", {
                         ...values.receiver_address,
@@ -47,7 +47,7 @@ const Pincode = ({values, handleFormData, nextStep}) => {
                         receiver_city: pincodeDetail.data.city
                     })
                     setPickupError(false);
-                }else if(e.target.name == 'delivery_pincode'){
+                } else if (e.target.name === 'delivery_pincode') {
                     handleFormData(PICKUP_PINCODE, pincode)
                     handleFormData("sender_address", {
                         ...values.sender_address,
@@ -61,10 +61,10 @@ const Pincode = ({values, handleFormData, nextStep}) => {
 
 
                 alert.success(pincodeDetail.message);
-            }else{
-                if(e.target.name === 'pickup_pincode'){
+            } else {
+                if (e.target.name === 'pickup_pincode') {
                     setPickupError(true);
-                }else if(e.target.name === 'delivery_pincode'){
+                } else if (e.target.name === 'delivery_pincode') {
                     setDeliveryError(true);
                 }
 
@@ -110,7 +110,8 @@ const Pincode = ({values, handleFormData, nextStep}) => {
                     error={pickupError}
                     onChange={handlePincodeInput}
                     defaultValue={values.pickup_pincode}
-                />
+                >
+                </TextField>
                 <TextField
                     size="small"
                     id="last-name"

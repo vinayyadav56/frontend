@@ -70,16 +70,14 @@ const Reactdatatable = () => {
   const [partnerData, setPartnerData] = useState([]);
   const [searchapiData, setSearchapiData] = useState([]);
   const [searchTerm] = useState("");
-
-  const partnerId = user.id;
   // PARTNER ORDER LIST BY ID START
   const [partnerOrder, setPartnerOrder] = useState([]);
-  const fetchOrderData = async () => {
-    const partnerId = user.id;
+  const fetchOrderData = async (id) => {
+    // const partnerId = user.id;
     setLoading(true);
-    makeRequest('GET', `partnerOrdersByPartnerId/${partnerId}`).then(result => {
+    makeRequest('GET', `partnerOrdersByPartnerId/${id}`).then(result => {
       setPartnerOrder(result.orders);
-      console.log(result);
+      // console.log(result);
     })
       .finally(() => {
         setLoading(false);
@@ -103,7 +101,6 @@ const Reactdatatable = () => {
       setLoading(false);
     })
   };
-
   useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -168,7 +165,7 @@ const Reactdatatable = () => {
   // FETCH PARTNER DETAILS By Partner Id
   const fetchID = async (id) => {
     setLoading(true);
-    makeRequest('GET', `partnerDetailsByPartnerId/${partnerId}`, editData).then(result => {setEditData(result.data);
+    makeRequest('GET', `partnerDetailsByPartnerId/${id}`, editData).then(result => {setEditData(result.data);
       console.log(result.data)
     }).catch(err => {
       alert.error(err.message);

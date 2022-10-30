@@ -44,38 +44,42 @@
     font-weight: 600;
     font-size: 14px;
 }
-
 .ck_order_form .weight_section {
     display: flex;
     justify-content: space-between;
     margin-top: 3rem;
 }
-
 .CkOrderTableData {
     background-color: #fff;
 }
-
-.ck_order_table {
+.ck_order_table{
     border: 2px solid #cfcfcf;
     border-radius: 5px;
     margin: 5px;
     font-family: revert;
-    background: #f8f8f8;
+    background: #fff;
 }
-
 .ck_Order_header {
-    height: 40px;
-    border-bottom: 1px solid #d8d8d8;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    background-color: #f9f9f8;
+    box-shadow: 0px 0px 8px 0px rgba(0,0,NaN,1);
+    padding: 8px;
 }
-
+.ck_Order_body{
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    background-color: #f9f9f8;
+    box-shadow: 0px 0px 8px 0px rgba(0,0,NaN,1);
+    padding: 16px 8px;
+}
 .ck_order_table p span:first-child {
     font-size: 10px;
     font-weight: 600;
 }
-
 .ck_order_table p span:last-child {
     font-size: 10px;
     padding-left: 4px;
@@ -86,14 +90,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 150px;
 }
-
-.ck_Order_footer {
-    border-top: 1px solid #d8d8d8;
-    padding: 10px;
+.ck_Order_footer{
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    background-color: #f9f9f8;
+    box-shadow: 0px 0px 8px 0px rgba(0,0,NaN,1);
+    padding: 16px 8px;
 }
-
 .ck_Order_footer a:hover{
     color: #fff;
 }

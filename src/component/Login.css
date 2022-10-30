@@ -42,8 +42,17 @@ body{
   -webkit-box-shadow: -4px 1px 29px -5px rgba(0,0,0,0.75);
   -moz-box-shadow: -4px 1px 29px -5px rgba(0,0,0,0.75);
 }
+.forget .adminleftctn{
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
 .forget{
-  height: 257px !important;
+  height: 220px !important;
+}
+.forget .adminleftctn .my-form {
+  padding-top: 10px;
+  width: 100%;
 }
 .signup-section{
   display: flex;

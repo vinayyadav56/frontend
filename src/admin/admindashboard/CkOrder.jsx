@@ -22,9 +22,11 @@ export default function CkOrder() {
         items_total_weight: 0,
         subOrders: []
     });
+    console.log(ckOrder.from_hub_id)
     //console.log(selectedRows[0] ? selectedRows[0].package_volume_weight :selectedRows);
     const { setLoading } = useAuth();
     const [newOrder, setNewOrder] = useState([]);
+    const [hubData, setHubData] = useState([]);
 
     const handleLocation = (e) => {
         const { name, value } = e.target;
@@ -34,9 +36,10 @@ export default function CkOrder() {
         });
     };
     // Data Fetch Api start
-    const fetchData = async () => {
+    const fetchData = async (e) => {
+        e.preventDefault();
         setLoading(true);
-        makeRequest('GET', `fetchNewOrders`).then(result => {
+        makeRequest('GET', `fetchNewOrders?fromHubId=${ckOrder.from_hub_id}&toHubId=${ckOrder.to_hub_id}`).then(result => {
             let tempData = [];
             result.data.forEach(data => {
                 tempData.push({
@@ -44,17 +47,13 @@ export default function CkOrder() {
                     'id': data.source + '-' + data.id
                 })
             })
-            console.log(result)
             setNewOrder(tempData);
+            console.log(tempData)
         })
             .finally(() => {
                 setLoading(false);
             })
     };
-    useEffect(() => {
-        fetchData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     const totalWeight = (selectedRows) => {
         let weight = 0;
@@ -70,16 +69,15 @@ export default function CkOrder() {
     }
     useEffect(() => {
         totalWeight(selectedRows);
+        hubListData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedRows])
     // Data Fetch Api ends
+
     const handleOrder = async (e) => {
-        e.preventDefault();
         postRequest('createAlphaOrder', ckOrder).then(result => {
-            console.log(result);
             alert.success(result.message);
-        }).catch(error => {
-            alert.error(error.message);
+            setCkOrder(result);
         }).finally(() => {
             setLoading(false);
         });
@@ -88,43 +86,42 @@ export default function CkOrder() {
     if (!auth.isAuthenticated()) {
         return <Redirect to="/admin" />
     };
-    
     const columns = [
         {
             field: 'id',
             headerName: ' Id',
-            width: 80,
+            width: 60,
         },
         {
-            field: 'partner_id',
-            headerName: 'Partner Id',
-            width: 150,
+            field: `${newOrder.partner_details?.partner_name}`,
+            headerName: 'Partner Name',
+            width: 150
         },
         {
-            field: 'customer_id',
-            headerName: 'Customer Id',
-            width: 150,
+            field: 'sender_name',
+            headerName: 'Customer Name',
+            width: 150
         },
         {
             field: 'from_hub_id',
-            headerName: 'From Hub Id',
-            width: 150,
+            headerName: 'From Hub Id'
         },
 
         {
             field: 'to_hub_id',
-            headerName: 'To Hub Id',
-            width: 150,
+            headerName: 'To Hub Id'
         },
         {
             field: 'package_volume_weight',
-            headerName: 'Weight',
-            width: 150,
+            headerName: 'Weight'
+        },
+        {
+            field: 'delivery_type',
+            headerName: 'Delivery Type'
         },
         {
             field: 'source',
             headerName: 'Order Type',
-            width: 150,
             cellClassName: (params) => {
                 if (params.value == null) {
                     return '';
@@ -137,6 +134,16 @@ export default function CkOrder() {
             },
         },
     ];
+    const hubListData = async () => {
+        setLoading(true);
+        makeRequest('GET', `hubsList`).then(result => {
+            setHubData(result.data);
+            console.log(result.data);
+        })
+            .finally(() => {
+                setLoading(false);
+            })
+    };
 
     return (
         <Fragment>
@@ -152,7 +159,6 @@ export default function CkOrder() {
                             <div className="profile-photo">
                                 <AccountCircleRoundedIcon />
                             </div>
-
                             <div className="dropdown show">
                                 <Link
                                     className="btn dropdown-toggle"
@@ -170,13 +176,13 @@ export default function CkOrder() {
                                     className="dropdown-menu"
                                     aria-labelledby="dropdownMenuLink"
                                 >
-                                    <Link className="dropdown-item" to="/admin">
+                                    <Link className="dropdown-index" to="/admin">
                                         Logout
                                     </Link>
-                                    <Link className="dropdown-item" to="/">
+                                    <Link className="dropdown-index" to="/">
                                         Change Profile
                                     </Link>
-                                    <Link className="dropdown-item" to="/setting">
+                                    <Link className="dropdown-index" to="/setting">
                                         Setting
                                     </Link>
                                 </div>
@@ -216,31 +222,37 @@ export default function CkOrder() {
                     </div>
                 </aside>
                 <section className="right">
-                    <form className='ck_order_form'>
+                    <form className='ck_order_form' onSubmit={fetchData}>
                         <h2 className='text-center'>Create Ck Order</h2>
                         <div className="form-row">
-                            <div className="col-sm-4">
-                                <input
-                                    type="text"
-                                    name="from_hub_id"
-                                    value={ckOrder.from_hub_id}
-                                    onChange={handleLocation}
-                                    className="form-control"
-                                    placeholder="From Hub Id"
-                                />
+                            <div className="col-4">
+                                <select id="selectuser" value={ckOrder.from_hub_id} name='from_hub_id' className="form-control"
+                                    required onChange={handleLocation}>
+                                    <option>From Hub</option>
+                                    {hubData.map((index) => {
+                                        return (
+                                            <>
+                                                <option value={index.id}>{index.hub_name}</option>
+                                            </>
+                                        )
+                                    })}
+                                </select>
                             </div>
-                            <div className="col-sm-4">
-                                <input
-                                    type="text"
-                                    name='to_hub_id'
-                                    value={ckOrder.to_hub_id}
-                                    onChange={handleLocation}
-                                    className="form-control"
-                                    placeholder="To Hub Id"
-                                />
+                            <div className="col-4">
+                                <select id="selectuser" value={ckOrder.to_hub_id} name='to_hub_id' className="form-control"
+                                    required onChange={handleLocation}>
+                                    <option>To Hub</option>
+                                    {hubData.map((index) => {
+                                        return (
+                                            <>
+                                                <option value={index.id}>{index.hub_name}</option>
+                                            </>
+                                        )
+                                    })}
+                                </select>
                             </div>
                             <div className="col-sm-4 col-12">
-                                <button className='btn ordergenrate'>
+                                <button className='btn ordergenrate' type='submit'>
                                     Search Hub
                                 </button>
                             </div>
@@ -270,7 +282,7 @@ export default function CkOrder() {
                         width: '100%',
                         background: '#fff',
                         '& .super-app.negative': {
-                            backgroundColor: 'green',
+                            backgroundColor: '#e0cd62',
                             color: '#fff',
                             border: '1px solid #fff',
                             display: 'flex',
@@ -278,7 +290,7 @@ export default function CkOrder() {
                             fontWeight: '600',
                         },
                         '& .super-app.positive': {
-                            backgroundColor: 'red',
+                            backgroundColor: '#fe5eaa9e',
                             color: '#fff',
                             display: 'flex',
                             border: '1px solid #fff',
@@ -289,7 +301,6 @@ export default function CkOrder() {
                         <DataGrid
                             rows={newOrder}
                             columns={columns}
-                            pageSize={3}
                             sx={{ width: '100%' }}
                             onSelectionModelChange={(ids) => {
                                 const selectedIDs = new Set(ids);
@@ -302,7 +313,6 @@ export default function CkOrder() {
                                 })
                                 setSelectedRows(selectedRows);
                             }}
-                            rowsPerPageOptions={[3]}
                             checkboxSelection
                             disableSelectionOnClick
                             experimentalFeatures={{ newEditingApi: true }}
