@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./Partnerdash.css";
 import Form from "./Form";
 import partnerArray from "./partnerArray";
@@ -66,20 +66,19 @@ const PartnerDashboard = () => {
               <CloseRoundedIcon />
             </button>
             <div className="responsive-sidebar">
-              <Link to="/partner/dashboard" className="active">
+              <NavLink to="/partner/dashboard">
                 <span className="icon">
-                <GridViewRoundedIcon />
+                  <GridViewRoundedIcon />
                 </span>
                 <h4 className="title">Dashboard</h4>
-              </Link>
-
+              </NavLink>
               {partnerArray.map((data, id) => {
                 return (
                   <li key={id}>
-                    <Link to={data.link}>
+                   <NavLink exact to={data.link}>
                       <span className="icon">{data.icon}</span>
                       <h4 className="title">{data.navitem}</h4>
-                    </Link>
+                    </NavLink>
                   </li>
                 );
               })}

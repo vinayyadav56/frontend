@@ -122,28 +122,27 @@ const CkNewOrder = () => {
                                             Assign Carrier
                                         </button>
                                     </div>
-
                                     <div className="collapse" id={`collapsable-${row.id}`}>
                                         <table className="table table-bordered table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th scope="col">Id</th>
                                                     <th scope="col">Partner Id</th>
-                                                    <th scope="col">Quantity</th>
+                                                    <th scope="col">Delivered</th>
                                                     <th scope="col">Order Dimension</th>
-                                                    <th scope="col">From Location</th>
-                                                    <th scope="col">To Location</th>
+                                                    <th scope="col">From Hub</th>
+                                                    <th scope="col">To Hub</th>
+                                                    <th scope="col">Total Weight</th>
                                                     <th scope="col">Qr Code</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>{row.subOrderDetails.id}</td>
                                                     <td>{row.subOrderDetails.partner_id}</td>
-                                                    <td>{row.subOrderDetails.quantity} </td>
-                                                    <td>{row.subOrderDetails.order_dimension} </td>
-                                                    <td>{row.subOrderDetails.from_location} </td>
-                                                    <td>{row.subOrderDetails.to_location} </td>
+                                                    <td>{row.delivered_on} </td>
+                                                    <td>{row.dimension} </td>
+                                                    <td>{row.from_hub_id} </td>
+                                                    <td>{row.to_hub_id} </td>
+                                                    <td>{row.items_total_weight} </td>
                                                     <td>
                                                         <img className="" src={qrImage} alt="qr_src" />
                                                     </td>
@@ -184,13 +183,13 @@ const CkNewOrder = () => {
                                                     <li>
                                                         <p>
                                                             <span>Sender Phone :</span>
-                                                            <span>{row.subOrderDetails.sender_phone}</span>
+                                                            <span>{row.subOrderDetails.sender_contact_no}</span>
                                                         </p>
                                                     </li>
                                                     <li>
                                                         <p>
                                                             <span>Sender Pincode :</span>
-                                                            <span>{row.subOrderDetails.sender_pin}</span>
+                                                            <span>{row.subOrderDetails.sender_pincode}</span>
                                                         </p>
                                                     </li>
                                                     <li>
@@ -228,13 +227,13 @@ const CkNewOrder = () => {
                                                     <li>
                                                         <p>
                                                             <span>Receiver Phone :</span>
-                                                            <span>{row.subOrderDetails.receiver_phone}</span>
+                                                            <span>{row.subOrderDetails.receiver_contact_no}</span>
                                                         </p>
                                                     </li>
                                                     <li>
                                                         <p>
                                                             <span>Receiver Pincode :</span>
-                                                            <span>{row.subOrderDetails.receiver_pin}</span>
+                                                            <span>{row.subOrderDetails.receiver_pincode}</span>
                                                         </p>
                                                     </li>
                                                     <li>

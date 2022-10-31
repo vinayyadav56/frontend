@@ -4,7 +4,7 @@ import { useAlert } from 'react-alert';
 import { useHistory } from 'react-router-dom';
 import { makeRequest } from '../../../Services/api';
 import { useAuth } from '../../../Services/auth';
-const QrButton = ({ path, orderid, ordertype }) => {
+const QrButton = ({ path, orderid, ordertype, status }) => {
     const { setLoading } = useAuth();
     const history = useHistory();
     const alert = useAlert();
@@ -24,7 +24,7 @@ const QrButton = ({ path, orderid, ordertype }) => {
             setLoading(false);
         })
     }
-    if (path === null) {
+    if (status === "ASSIGNED_HUB_TO_PICK" && path === null) {
         return (
         <button type="button" className="btn btn-success" onClick={(orderid, ordertype) => handleGenrateQr((orderid, ordertype))}>
             Generate Qr Code

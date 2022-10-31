@@ -50,11 +50,13 @@ const AdminHub = () => {
         [`&.${tableCellClasses.head}`]: {
             backgroundColor: '#0747a9',
             color: theme.palette.common.white,
+            width:100
         },
         [`&.${tableCellClasses.body}`]: {
             fontSize: 12,
             padding: '10px 14px',
-            border: '1px solid #c8c8c8'
+            border: '1px solid #c8c8c8',
+            width:100
         },
     }));
 
@@ -163,7 +165,7 @@ const AdminHub = () => {
                             <TableHead>
                                 <StyledTableRow>
                                     <StyledTableCell>Id </StyledTableCell>
-                                    <StyledTableCell>Hub Name </StyledTableCell>
+                                    <StyledTableCell>Hub Id </StyledTableCell>
                                     <StyledTableCell>Hub Code </StyledTableCell>
                                     <StyledTableCell>State</StyledTableCell>
                                     <StyledTableCell>City</StyledTableCell>

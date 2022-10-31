@@ -53,7 +53,6 @@ const NewOrder = () => {
         const hubId = user.tokenable_id
         setLoading(true);
         makeRequest('GET', `fetchHubOrderByHubId/${hubId}?status=new`).then(result => {
-            alert.success(result.message);
             sethubOrderData(result.data);
             // console.log(result + JSON.stringify(result.data))
         }).catch(err => {
@@ -62,7 +61,6 @@ const NewOrder = () => {
             setLoading(false);
         })
     };
-
     useEffect(() => {
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -106,7 +104,7 @@ const NewOrder = () => {
                                                 className="btn btn-secondary"
                                                 data-toggle="modal" data-target=".assign_order_to_delivery_boy"
                                             >
-                                                Assign For Delivery
+                                                Assign For Pickup
                                             </button>
                                         </StyledTableCell>
                                     </StyledTableRow>

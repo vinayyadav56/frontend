@@ -1,6 +1,6 @@
 import React from 'react'
 import { Fragment } from 'react'
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "../Partnerdash.css";
 import partnerArray from "../partnerArray";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
@@ -66,20 +66,20 @@ const PartnerOrderById = () => {
                             <CloseRoundedIcon />
                         </button>
                         <div className="responsive-sidebar">
-                            <Link to="/partner/dashboard">
+                            <NavLink to="/partner/dashboard">
                                 <span className="icon">
                                     <GridViewRoundedIcon />
                                 </span>
                                 <h4 className="title">Dashboard</h4>
-                            </Link>
+                            </NavLink>
 
                             {partnerArray.map((data, id) => {
                                 return (
                                     <li key={id}>
-                                        <Link to={data.link}>
+                                        <NavLink to={data.link}>
                                             <span className="icon">{data.icon}</span>
                                             <h4 className="title">{data.navitem}</h4>
-                                        </Link>
+                                        </NavLink>
                                     </li>
                                 );
                             })}

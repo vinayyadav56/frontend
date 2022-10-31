@@ -16,8 +16,6 @@ import { Fragment } from 'react';
 import { makeRequest } from '../../Services/api';
 import { useAlert } from 'react-alert';
 import { useAuth } from '../../Services/auth';
-import OrderAssignForDelivery from './OrderAssignForDelivery';
-
 const DeliveryAllOrder = () => {
     let alert = useAlert();
     const { user, setLoading } = useAuth();
@@ -53,10 +51,10 @@ const DeliveryAllOrder = () => {
     // const [hubOrderData] = useState([]);
     const [hubOrderData, sethubOrderData] = useState([]);
     const fetchData = async () => {
-        const hubId = user.tokenable_id
+        const hubId = user.id
+        console.log(hubId)
         setLoading(true);
-        makeRequest('GET', `fetchHubOrderByHubId/2?status=new`).then(result => {
-            alert.success(result.message);
+        makeRequest('GET', `fetchHubOrderByHubId/${hubId}?status=new`).then(result => {
             sethubOrderData(result.data);
         }).catch(err => {
             alert.error(err.message);
@@ -69,6 +67,24 @@ const DeliveryAllOrder = () => {
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    // ASSIGN ORDER TO DELIVERY AGENTS 
+
+    const [deliveryAgents, setDeliveryAgents] = useState([]);
+    const fetchDeliveryAgents = async () => {
+        setLoading(true);
+        const hubId = user.id
+        makeRequest('GET', `deliveryAgentsListByHubId/${hubId}`).then(result => {
+            setDeliveryAgents(result.data);
+        }).finally(() => {
+            setLoading(false);
+        })
+    };
+    useEffect(() => {
+        fetchDeliveryAgents();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
         <Fragment>
             <div className='pickup_table_section'>
@@ -150,8 +166,57 @@ const DeliveryAllOrder = () => {
                             </button>
                         </div>
                         <div className="modal-body">
-                            {/* <CkAssignAvailibility /> */}
-                            <OrderAssignForDelivery />
+                            <TableContainer component={Paper}>
+                                <Table stickyHeader striped aria-label="sticky table">
+                                    <TableHead>
+                                        <StyledTableRow>
+                                            <StyledTableCell>Id</StyledTableCell>
+                                            <StyledTableCell>Delivery Boy Name</StyledTableCell>
+                                            <StyledTableCell>Email</StyledTableCell>
+                                            <StyledTableCell>Phone No</StyledTableCell>
+                                            <StyledTableCell>Alternate Phone No</StyledTableCell>
+                                            <StyledTableCell>Action</StyledTableCell>
+                                        </StyledTableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {deliveryAgents
+                                            // eslint-disable-next-line
+                                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                            .map((row, id) => (
+                                                <StyledTableRow hover tabIndex={-1} key={id}>
+                                                    <StyledTableCell>{row.id}</StyledTableCell>
+                                                    <StyledTableCell>{row.first_name}{row.last_name}</StyledTableCell>
+                                                    <StyledTableCell>{row.email_id}</StyledTableCell>
+                                                    <StyledTableCell>{row.phone_no}</StyledTableCell>
+                                                    <StyledTableCell>{row.alter_phone_no}</StyledTableCell>
+                                                    <StyledTableCell>
+                                                        <button
+                                                            type="button"
+                                                            className="btn btn-secondary"
+                                                            onClick={fetchDeliveryAgents}
+                                                            data-toggle="modal" data-target=".assign_order_to_delivery_boy"
+                                                        >
+                                                            Assign
+                                                        </button>
+                                                    </StyledTableCell>
+                                                </StyledTableRow>
+                                            ))}
+                                    </TableBody>
+                                    <TableFooter>
+                                        <TableRow>
+                                            <TablePagination
+                                                page={page}
+                                                onPageChange={handleChangePage}
+                                                rowsPerPage={rowsPerPage}
+                                                onRowsPerPageChange={handleChangeRowsPerPage}
+                                                rowsPerPageOptions={[10, 25, 100]}
+                                                count={deliveryAgents.length}
+                                                rows={10}
+                                            />
+                                        </TableRow>
+                                    </TableFooter>
+                                </Table>
+                            </TableContainer>
                         </div>
                     </div>
                 </div>

@@ -16,7 +16,6 @@ import { Fragment } from 'react';
 import { makeRequest } from '../../Services/api';
 import { useAlert } from 'react-alert';
 import { useAuth } from '../../Services/auth';
-import OrderAssignForDelivery from '../DeliveryOrder/OrderAssignForDelivery';
 const AllOrder = () => {
     let alert = useAlert();
     const { user, setLoading } = useAuth();
@@ -106,7 +105,7 @@ const AllOrder = () => {
                                                 className="btn btn-secondary"
                                                 data-toggle="modal" data-target=".assign_order_to_delivery_boy"
                                             >
-                                                Assign For Delivery
+                                                Assign For Pickup
                                             </button>
                                         </StyledTableCell>
                                     </StyledTableRow>
@@ -148,8 +147,6 @@ const AllOrder = () => {
                             </button>
                         </div>
                         <div className="modal-body">
-                            {/* <CkAssignAvailibility /> */}
-                            <OrderAssignForDelivery />
                         </div>
                     </div>
                 </div>
