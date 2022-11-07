@@ -19,3 +19,36 @@
 .hub_delete:hover{
     color: red;
 }
+.hub_details{
+    width: 100%;
+    box-shadow: 0px 0px 6px -6px rgb(0 0 0 / 40%);
+    border: 2px solid #cfcfcf;
+    border-radius: 5px;
+    margin: 5px;
+    font-family: revert;
+    background: #fff;
+}
+.hub_details>div{
+    padding: 8px;
+}
+.hub_details .hub_header{
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    background: #f9f9f8;
+    padding: 5px;
+}
+.hub_details .hub_header ul{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.hub_details .hub_header ul li{
+    display: flex;
+}
+.hub_details .hub_header ul li p{
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+.hub_details .hub_header ul li span{
+    font-size: 0.9rem;
+}

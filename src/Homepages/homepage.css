@@ -1098,6 +1098,7 @@ ul {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 550;
+    cursor: pointer;
     font-size: 15px;
     line-height: 25px;
     color: #000000;
@@ -1120,7 +1121,22 @@ ul {
     padding: 4rem;
     padding-bottom: 0.6rem;
 }
+.contact_footer{
+    background: none;
+    color: #ffF;
+    font-size: 14px;
+    font-weight: 400;
+    text-decoration: none;
+}
+.contact_footer:hover{
+    color: aqua;
+}
 
+
+.contact_footer:focus {
+    box-shadow: none;
+    outline: none;
+}
 /* .home_footer .container-fluid .row {
     margin-bottom: 5rem;
 } */

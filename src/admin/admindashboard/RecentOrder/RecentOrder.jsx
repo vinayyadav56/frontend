@@ -22,14 +22,16 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
+import CustomizedSteppers from '../../../Timeline';
+
 const RecenteOrder = ({ qr }) => {
     let alert = useAlert();
     const [hubData, setHubData] = useState([]);
     const { setLoading } = useAuth();
     const [newOrder, setNewOrder] = useState([]);
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
-    
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
     useEffect(() => {
         fetchData();
         hubListData();
@@ -74,7 +76,7 @@ const RecenteOrder = ({ qr }) => {
             type &&
             fieldName &&
             e.target.value
-        ){
+        ) {
             setLoading(true);
             makeRequest('POST', `updateHubForNewOrders`, {
                 "order_id": order_id,
@@ -136,11 +138,14 @@ const RecenteOrder = ({ qr }) => {
                 setLoading(false);
             })
     };
+
     return (
         <Fragment>
             <nav className="sticky-top partnerdash-nav">
                 <div className="partner-sidebar">
-                    <span className="top-name">Carry Kar</span>
+                    <Link to='/'>
+                        <span className="top-name">Carry Kar</span>
+                    </Link>
                     <div className="search-bar">
                         <SearchSharpIcon />
                         <input type="search" placeholder="Search" />
@@ -699,26 +704,65 @@ const RecenteOrder = ({ qr }) => {
                                                     </div>
                                                     <div className='col-12 mt-2'>
                                                         <div className='status_track_col'>
-                                                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#hubAssignForCo">
+                                                            <button type="button" className="btn btn-warning" data-toggle="modal" data-target="#hubAssignForCo">
                                                                 Assign For Pickup
                                                             </button>
-                                                            <button className='btn btn-secondary'>
+                                                            <button className='btn btn-secondary' type='button' data-toggle="collapse" data-target={`#collapsetrack-${item.id}`} aria-expanded="false" aria-controls="collapsetrack">
                                                                 Tracking
                                                             </button>
                                                         </div>
+                                                        <div className="collapse mt-2" id={`collapsetrack-${item.id}`}>
+                                                            <div className="card tracking-card">
+                                                                <p>Tracking Status Detail</p>
+                                                                {/* <div className='card-body'>
+                                                                    <div className="card mb-2">
+                                                                        Anim pariatur cliche reprehenderit, enim e
+                                                                    </div>
+                                                                    <div className="card mb-2">
+                                                                        Anim pariatur cliche reprehenderit, enim e
+                                                                    </div>
+                                                                    <div className="card mb-2">
+                                                                        Anim pariatur cliche reprehenderit, enim e
+                                                                    </div>
+                                                                    <div className="card mb-2">
+                                                                        Anim pariatur cliche reprehenderit, enim e
+                                                                    </div>
+                                                                    <div className="card mb-2">
+                                                                        Anim pariatur cliche reprehenderit, enim e
+                                                                    </div>
+                                                                    <div className="card">
+                                                                        Anim pariatur cliche reprehenderit, enim e
+                                                                    </div>
+                                                                </div> */}
+                                                                {/* <Stepper activeStep={6} style={{ width: '100%', padding: '0px', marginBottom: '20px' }} alternativeLabel>
+                                                                    {steps1.map((label) => (
+                                                                        <Step style={{ width: '60px', marginLeft: '0px', marginRight: '0px' }} key={label}>
+                                                                            <StepLabel StepIconComponent={AdjustIcon} style={{ paddingLeft: '0px', paddingRight: '0px' }}>{label}</StepLabel>
+                                                                        </Step>
+                                                                    ))}
+                                                                </Stepper>
+                                                                <Stepper activeStep={0} style={{ width: '100%', padding: '0px' }} alternativeLabel>
+                                                                    {steps2.map((label) => (
+                                                                        <Step style={{ width: '60px', marginLeft: '0px', marginRight: '0px' }} key={label}>
+                                                                            <StepLabel style={{ marginLeft: '0px', marginRight: '0px' }}>{label}</StepLabel>
+                                                                        </Step>
+                                                                    ))}
+                                                                </Stepper> */}
+                                                                <CustomizedSteppers/>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-
-                                                <div class="modal fade" id="hubAssignForCo" tabindex="-1" role="dialog" aria-labelledby="hubAssignForCoLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-xl add-partner" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="hubAssignForCoLabel">Hub List</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <div className="modal fade" id="hubAssignForCo" tabindex="-1" role="dialog" aria-labelledby="hubAssignForCoLabel" aria-hidden="true">
+                                                    <div className="modal-dialog modal-xl add-partner" role="document">
+                                                        <div className="modal-content">
+                                                            <div className="modal-header">
+                                                                <h5 className="modal-title" id="hubAssignForCoLabel">Hub List</h5>
+                                                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
-                                                            <div class="modal-body">
+                                                            <div className="modal-body">
                                                                 <TableContainer component={Paper}>
                                                                     <Table stickyHeader striped aria-label="sticky table">
                                                                         <TableHead>
@@ -769,7 +813,7 @@ const RecenteOrder = ({ qr }) => {
                                                                                     rowsPerPage={rowsPerPage}
                                                                                     onRowsPerPageChange={handleChangeRowsPerPage}
                                                                                     rowsPerPageOptions={[10, 25, 100]}
-                                                                                    // count={filterUser.length}
+                                                                                    count={hubData.length}
                                                                                     rows={10}
                                                                                 />
                                                                             </TableRow>
@@ -913,26 +957,44 @@ const RecenteOrder = ({ qr }) => {
                                                     </div>
                                                     <div className='col-12 mt-2'>
                                                         <div className='status_track_col'>
-                                                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#hubAssignForPo">
+                                                            <button type="button" className="btn btn-warning" data-toggle="modal" data-target="#hubAssignForPo">
                                                                 Assign For Pickup
                                                             </button>
-                                                            <button className='btn btn-secondary'>
+                                                            <button className='btn btn-secondary' type='button' data-toggle="collapse" data-target={`#collapsetrack2-${item.id}`} aria-expanded="false" aria-controls="collapsetrack">
                                                                 Tracking
                                                             </button>
                                                         </div>
+                                                        <div className="collapse mt-2" id={`collapsetrack2-${item.id}`}>
+                                                            <div className="card tracking-card">
+                                                                <p>Tracking Status Detail</p>
+                                                                {/* <Stepper activeStep={0} alternativeLabel>
+                                                                    {steps1.map((label) => (
+                                                                        <Step style={{ width: '60px' }} key={label}>
+                                                                            <StepLabel style={{ paddingLeft: '0px', paddingRight: '0px' }}>{label}</StepLabel>
+                                                                        </Step>
+                                                                    ))}
+                                                                </Stepper>
+                                                                <Stepper activeStep={0} style={{ width: '100%', padding: '0px' }} alternativeLabel>
+                                                                    {steps2.map((label) => (
+                                                                        <Step style={{ width: '60px', marginLeft: '0px', marginRight: '0px' }} key={label}>
+                                                                            <StepLabel style={{ marginLeft: '0px', marginRight: '0px' }}>{label}</StepLabel>
+                                                                        </Step>
+                                                                    ))}
+                                                                </Stepper> */}
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-
-                                                <div class="modal fade" id="hubAssignForPo" tabindex="-1" role="dialog" aria-labelledby="hubAssignForPoLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-xl add-partner" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="hubAssignForPoLabel">Hub List</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <div className="modal fade" id="hubAssignForPo" tabindex="-1" role="dialog" aria-labelledby="hubAssignForPoLabel" aria-hidden="true">
+                                                    <div className="modal-dialog modal-xl add-partner" role="document">
+                                                        <div className="modal-content">
+                                                            <div className="modal-header">
+                                                                <h5 className="modal-title" id="hubAssignForPoLabel">Hub List</h5>
+                                                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
-                                                            <div class="modal-body">
+                                                            <div className="modal-body">
                                                                 <TableContainer component={Paper}>
                                                                     <Table stickyHeader striped aria-label="sticky table">
                                                                         <TableHead>
@@ -1137,9 +1199,34 @@ const RecenteOrder = ({ qr }) => {
                                                                 Generate Invoice
                                                             </button>
                                                             <QrButton path={item.qr_image_path} status={item.status} orderid={item.id} ordertype={item.source} />
-                                                            <button className='btn btn-secondary'>
+                                                            <button className='btn btn-secondary' type='button' data-toggle="collapse" data-target={`#collapsetrack-${item.id}`} aria-expanded="false" aria-controls="collapsetrack">
                                                                 Tracking
                                                             </button>
+                                                        </div>
+                                                        <div className="collapse mt-2" id={`collapsetrack-${item.id}`}>
+                                                            <div className="card tracking-card">
+                                                                <p>Tracking Status Detail</p>
+                                                                <div className='card-body'>
+                                                                    <div className="card mb-2">
+                                                                        Anim pariatur cliche reprehenderit, enim e
+                                                                    </div>
+                                                                    <div className="card mb-2">
+                                                                        Anim pariatur cliche reprehenderit, enim e
+                                                                    </div>
+                                                                    <div className="card mb-2">
+                                                                        Anim pariatur cliche reprehenderit, enim e
+                                                                    </div>
+                                                                    <div className="card mb-2">
+                                                                        Anim pariatur cliche reprehenderit, enim e
+                                                                    </div>
+                                                                    <div className="card mb-2">
+                                                                        Anim pariatur cliche reprehenderit, enim e
+                                                                    </div>
+                                                                    <div className="card">
+                                                                        Anim pariatur cliche reprehenderit, enim e
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div className="modal fade" id="partnerprintid" tabindex="-1" role="dialog" aria-labelledby="partnerprintidLabel" aria-hidden="true">
@@ -1325,9 +1412,34 @@ const RecenteOrder = ({ qr }) => {
                                                                 Generate Invoice
                                                             </button>
                                                             <QrButton path={item.qr_image_path} orderid={item.id} ordertype={item.source} />
-                                                            <button className='btn btn-secondary'>
+                                                            <button className='btn btn-secondary' type='button' data-toggle="collapse" data-target={`#collapsetrack2-${item.id}`} aria-expanded="false" aria-controls="collapsetrack">
                                                                 Tracking
                                                             </button>
+                                                        </div>
+                                                        <div className="collapse mt-2" id={`collapsetrack2-${item.id}`}>
+                                                            <div className="card tracking-card">
+                                                                <p>Tracking Status Detail</p>
+                                                                <div className='card-body'>
+                                                                    <div className="card mb-2">
+                                                                        Anim pariatur cliche reprehenderit, enim e
+                                                                    </div>
+                                                                    <div className="card mb-2">
+                                                                        Anim pariatur cliche reprehenderit, enim e
+                                                                    </div>
+                                                                    <div className="card mb-2">
+                                                                        Anim pariatur cliche reprehenderit, enim e
+                                                                    </div>
+                                                                    <div className="card mb-2">
+                                                                        Anim pariatur cliche reprehenderit, enim e
+                                                                    </div>
+                                                                    <div className="card mb-2">
+                                                                        Anim pariatur cliche reprehenderit, enim e
+                                                                    </div>
+                                                                    <div className="card">
+                                                                        Anim pariatur cliche reprehenderit, enim e
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div className="modal fade" id="partnerprintid" tabindex="-1" role="dialog" aria-labelledby="partnerprintidLabel" aria-hidden="true">

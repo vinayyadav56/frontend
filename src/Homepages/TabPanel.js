@@ -298,7 +298,7 @@ export default function BasicTabs() {
                       id="lsp"
                       name="dept_luggage"
                       className="form-control"
-                      placeholder="only number"
+                      placeholder="Weight"
                       onInput={e => {  e.target.value = e.target.value.replace(/[\D]/g, '')}}
                       onChange={(e) => handleFormChange(e.target.name, e.target.value)}
                   />
@@ -344,9 +344,7 @@ export default function BasicTabs() {
                     >
                       <Input className="form-control mb-2 mr-sm-2"/>
                     </AutoComplete>
-                      {/* <button onClick={() => onSearchTo(value)}> Search </button> */}
                   </span>
-
                 </span>
               </span>
               <span className="form-group col-sm-12 col-md-2  mb-sm-4 px-0  col-lg-2 d-flex justify-content-center">
@@ -381,7 +379,6 @@ export default function BasicTabs() {
                     format="DD/MM/YYYY"
                 />
               </span>
-
               <span className="form-group col-sm-6 col-md-6 mb-sm-4 px-2  col-lg-3">
                 <span className="input-box">
                   <label htmlFor="#lsp">Luggage Space</label>
@@ -391,6 +388,7 @@ export default function BasicTabs() {
                       min="1"
                       id="lsp"
                       name="dept_luggage"
+                      placeholder="Weight"
                       className="form-control"
                       onInput={e => {  e.target.value = e.target.value.replace(/[\D]/g, '')}}
                       onChange={(e) => handleFormChange(e.target.name, e.target.value)}

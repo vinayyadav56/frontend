@@ -138,7 +138,6 @@ export default function CkOrder() {
         setLoading(true);
         makeRequest('GET', `hubsList`).then(result => {
             setHubData(result.data);
-            console.log(result.data);
         })
             .finally(() => {
                 setLoading(false);
@@ -149,7 +148,9 @@ export default function CkOrder() {
         <Fragment>
             <nav className="sticky-top partnerdash-nav">
                 <div className="partner-sidebar">
-                    <span className="top-name">Carry Kar</span>
+                    <Link to='/'>
+                        <span className="top-name">Carry Kar</span>
+                    </Link>
                     <div className="search-bar">
                         <SearchSharpIcon />
                         <input type="search" placeholder="Search" />

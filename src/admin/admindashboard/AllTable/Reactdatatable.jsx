@@ -65,7 +65,7 @@ const Reactdatatable = () => {
     }
   }));
   let alert = useAlert();
-  const { user, setLoading } = useAuth();
+  const { setLoading } = useAuth();
   const [setFilterVal] = useState([]);
   const [partnerData, setPartnerData] = useState([]);
   const [searchapiData, setSearchapiData] = useState([]);
@@ -73,11 +73,9 @@ const Reactdatatable = () => {
   // PARTNER ORDER LIST BY ID START
   const [partnerOrder, setPartnerOrder] = useState([]);
   const fetchOrderData = async (id) => {
-    // const partnerId = user.id;
     setLoading(true);
     makeRequest('GET', `partnerOrdersByPartnerId/${id}`).then(result => {
       setPartnerOrder(result.orders);
-      // console.log(result);
     })
       .finally(() => {
         setLoading(false);
@@ -92,7 +90,6 @@ const Reactdatatable = () => {
   const fetchData = async () => {
     setLoading(true);
     makeRequest('GET', `partnersList`).then(result => {
-      alert.success(result.message);
       setPartnerData(result.partner_List);
       setSearchapiData(result.partner_List);
     }).catch(err => {
@@ -108,7 +105,6 @@ const Reactdatatable = () => {
   // DELETE PARTNER START
   const deleteData = async (id) => {
     setLoading(true);
-
     makeRequest('DELETE', `delete-user/${id}`).then(result => {
       alert.success(result.message);
     }).catch(err => {
@@ -450,51 +446,59 @@ const Reactdatatable = () => {
                         <div>
                           <span className="badge badge-danger ml-3">{item.id}</span>
                           <div key={id} className='row table_row_data ml-3'>
-                            <div className='col-6'>
+                            <div className='col-6 mt-2'>
                               <div className='porder_formal_details'>
                                 <ul>
                                   <li>
-                                    <span>Order Description :</span>
-                                    <span>{item.order_description}</span>
+                                    <span>Package Value :</span>
+                                    <span>{item.package_value}</span>
+                                  </li>
+                                  <li>
+                                    <span>Package Size :</span>
+                                    <span>{item.package_size}</span>
+                                  </li>
+                                  <li>
+                                    <span>Package Weight :</span>
+                                    <span>{item.package_volume_weight}</span>
                                   </li>
                                 </ul>
                               </div>
                             </div>
-                            <div className='col-6'>
+                            <div className='col-6 mt-2'>
                               <div className='porder_formal_details'>
                                 <ul>
                                   <li>
                                     <span>Order Dimension :</span>
-                                    <span>{item.order_dimension}</span>
+                                    <span>{item.package_dimension}</span>
                                   </li>
                                   <li>
-                                    <span>Order Quantity :</span>
-                                    <span>{item.quantity}</span>
+                                    <span>Delivery Type :</span>
+                                    <span>{item.delivery_type}</span>
                                   </li>
                                 </ul>
                                 <ul>
                                   <li>
-                                    <span>From Location :</span>
-                                    <span>{item.from_location}</span>
+                                    <span>Category :</span>
+                                    <span>{item.cateogory_id}</span>
                                   </li>
                                   <li>
-                                    <span>From Location :</span>
-                                    <span>{item.to_location}</span>
+                                    <span>Sub Category :</span>
+                                    <span>{item.sub_category_id}</span>
                                   </li>
                                 </ul>
                               </div>
                             </div>
                             <div className='col-12'>
                               <div className='d-flex align-items-center'>
-                                <a className='collpase_button_prt mr-2' data-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapse1">
+                                <a className='collpase_button_prt mr-2' data-toggle="collapse" href={`#senderCol-${item.id}`} role="button" aria-expanded="false" aria-controls="collapse1">
                                   Sender Details
                                 </a>
                                 <p>/</p>
-                                <a className='collpase_button_prt ml-2' data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2">
+                                <a className='collpase_button_prt ml-2' data-toggle="collapse" href={`#recieverCol-${item.id}`} role="button" aria-expanded="false" aria-controls="collapse2">
                                   Receiver Details
                                 </a>
                               </div>
-                              <div className="collapse" id="collapse1">
+                              <div className="collapse" id={`senderCol-${item.id}`}>
                                 <div className='porder_formal_details'>
                                   <ul>
                                     <li>
@@ -526,7 +530,7 @@ const Reactdatatable = () => {
                                 </div>
                               </div>
 
-                              <div className="collapse" id="collapse2">
+                              <div className="collapse" id={`recieverCol-${item.id}`} >
                                 <div className='porder_formal_details'>
                                   <ul>
                                     <li>

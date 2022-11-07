@@ -1,18 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import TableFooter from '@mui/material/TableFooter';
-import TablePagination from '@mui/material/TablePagination';
 import { makeRequest } from "../../../Services/api";
 import { useAuth } from "../../../Services/auth";
-
 import HubAssignOrder from "./HubAssignOrder";
 import { useAlert } from "react-alert";
 const UserAvalibiltyCheck = () => {
@@ -50,36 +39,6 @@ const UserAvalibiltyCheck = () => {
   const handleSearchinput = (e) => {
     setSearchUser(e.target.value)
   };
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 5));
-    setPage(0);
-  };
-  // PAGINATION ENDS
-  // DATA GRID TABLE START
-  const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: '#0747a9',
-      color: theme.palette.common.white,
-    },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: 12,
-      padding: '10px 14px',
-      border: '1px solid #c8c8c8'
-    },
-  }));
-
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    }
-  }));
   return (
     <div>
       <div className="form-title">
@@ -139,80 +98,122 @@ const UserAvalibiltyCheck = () => {
           </div>
         </div>
       </div>
-      <TableContainer component={Paper}>
-        <Table stickyHeader striped aria-label="sticky table">
-          <TableHead>
-            <StyledTableRow>
-              <StyledTableCell>Id</StyledTableCell>
-              <StyledTableCell>Name</StyledTableCell>
-              <StyledTableCell>From Date</StyledTableCell>
-              <StyledTableCell>User Id</StyledTableCell>
-              <StyledTableCell>Journey Id</StyledTableCell>
-              <StyledTableCell>From City</StyledTableCell>
-              <StyledTableCell>From Airport Code</StyledTableCell>
-              <StyledTableCell>From Pincode</StyledTableCell>
-              <StyledTableCell>From St. Code</StyledTableCell>
-              <StyledTableCell>To City</StyledTableCell>
-              <StyledTableCell>To Airport Code</StyledTableCell>
-              <StyledTableCell>To Pincode</StyledTableCell>
-              <StyledTableCell>To St. Code</StyledTableCell>
-              <StyledTableCell>Journey Type</StyledTableCell>
-              <StyledTableCell>Available Space</StyledTableCell>
-              <StyledTableCell>Journey Medium</StyledTableCell>
-
-              <StyledTableCell>Action</StyledTableCell>
-            </StyledTableRow>
-          </TableHead>
-          <TableBody>
-            {Object.values(filterUser)
-              // eslint-disable-next-line
-
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((item, id) => (
-                <StyledTableRow hover key={id}>
-                  <StyledTableCell>{item.id}</StyledTableCell>
-                  <StyledTableCell>{item.first_name}{item.last_name}</StyledTableCell>
-                  <StyledTableCell>{item.from_date}</StyledTableCell>
-                  <StyledTableCell>{item.user_id}</StyledTableCell>
-                  <StyledTableCell>{item.journey_unique_id}</StyledTableCell>
-                  <StyledTableCell>{item.from_location_city}</StyledTableCell>
-                  <StyledTableCell>{item.from_location_airport_code}</StyledTableCell>
-                  <StyledTableCell>{item.from_location_pin_code}</StyledTableCell>
-                  <StyledTableCell>{item.from_location_station_code}</StyledTableCell>
-                  <StyledTableCell>{item.to_location_city}</StyledTableCell>
-                  <StyledTableCell>{item.to_location_airport_code}</StyledTableCell>
-                  <StyledTableCell>{item.to_location_pin_code}</StyledTableCell>
-                  <StyledTableCell>{item.to_location_station_code}</StyledTableCell>
-                  <StyledTableCell>{item.journey_type}</StyledTableCell>
-                  <StyledTableCell>{item.available_space}</StyledTableCell>
-                  <StyledTableCell>{item.journey_medium}</StyledTableCell>
-                  <StyledTableCell>
-                    <button
-                      type="button"
-                      className="btn hub_order"
-                      data-toggle="modal" data-target=".see_hub-lg"
-                    >
-                      Assign Order
-                    </button>
-                  </StyledTableCell>
-                </StyledTableRow>
-              ))}
-          </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TablePagination
-                page={page}
-                onPageChange={handleChangePage}
-                rowsPerPage={rowsPerPage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-                rowsPerPageOptions={[10, 25, 100]}
-                count={filterUser.length}
-                rows={10}
-              />
-            </TableRow>
-          </TableFooter>
-        </Table>
-      </TableContainer>
+      {Object.values(filterUser)
+        // eslint-disable-next-line
+        .map((row, id) => {
+          return (
+            <div className="row ck_order_table" key={id}>
+              <div className="col-12 my-2">
+                <button
+                  type="button"
+                  className="btn hub_order ml-auto mb-2 d-flex"
+                  data-toggle="modal" data-target=".see_hub-lg"
+                >
+                  Assign Order
+                </button>
+                <div className="ck_Order_header">
+                  <ul>
+                    <li>
+                      <p>
+                        <span>User Id :</span><span>{row.user_id}</span>
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <span>Name :</span><span>{row.first_name} {row.last_name}</span>
+                      </p>
+                    </li>
+                  </ul>
+                  <ul>
+                    <li>
+                      <p>
+                        <span>From Date :</span><span>{row.from_date}</span>
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <span>Journey Id :</span><span>{row.journey_unique_id}</span>
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className="col-12">
+                <div className="ck_Order_body">
+                  <div className="body_list">
+                    <ul>
+                      <li>
+                        <p>
+                          <span>From City :</span><span>{row.from_location_city}</span>
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          <span>From Airport Code :</span><span>{row.from_location_airport_code}</span>
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          <span>From Pincode :</span><span>{row.from_location_pin_code}</span>
+                        </p>
+                      </li>
+                    </ul>
+                    <ul>
+                      <li>
+                        <p>
+                          <span>From St. Code :</span><span>{row.from_location_station_code}</span>
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          <span>To St. Code :</span><span>{row.to_location_station_code}</span>
+                        </p>
+                      </li>
+                    </ul>
+                    <ul>
+                      <li>
+                        <p>
+                          <span>To City :</span><span>{row.to_location_city}</span>
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          <span>To Airport Code :</span><span>{row.to_location_airport_code}</span>
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          <span>To Pincode :</span><span>{row.to_location_pin_code}</span>
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div className="col-12 my-2">
+                <div className="ck_Order_footer">
+                  <ul className="d-flex justify-content-between">
+                    <li>
+                      <p>
+                        <span>Journey Type :</span><span>{row.journey_type}</span>
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <span>Available Space :</span><span>{row.available_space}</span>
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <span>Journey Medium :</span><span>{row.journey_medium}</span>
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          )
+        })}
       {/* ASSIGN DETAILS MODAL TO AGENT HUB TABLE */}
       <div className="modal fade see_hub-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div className="modal-dialog  add-partner modal-lg">
@@ -238,7 +239,7 @@ const UserAvalibiltyCheck = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

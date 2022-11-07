@@ -15,7 +15,6 @@ const QrButton = ({ path, orderid, ordertype, status }) => {
     const handleGenrateQr = async () => {
         setLoading(true);
         makeRequest('POST', `generateQrCode`, qrdata).then(result => {
-            alert.success(result.message);
             setQrdata(console.log(result))
             history.push("/admindashboardallorder");
         }).catch(err => {

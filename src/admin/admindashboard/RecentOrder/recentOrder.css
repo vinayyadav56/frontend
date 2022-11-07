@@ -21,11 +21,56 @@
     padding: 4px 10px;
 }
 
-.status_track_col{
+.status_track_col {
     border: 1px solid #e5e5e5;
     border-radius: 5px;
     background-color: #f9f9f8;
     display: flex;
     justify-content: space-between;
     padding: 16px 8px;
+}
+.tracking-card {
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    background-color: #f9f9f8;
+}
+.tracking-card .card-body {
+    padding: 7px;
+    height: 140px;
+    overflow: scroll;
+    scroll-behavior: smooth;
+}
+
+.tracking-card p{
+    font-size: 16px;
+    text-align: center;
+    color: #333;
+    border: 1px solid #f1d196;
+    border-radius: 5px;
+    background-color: #f1d196;
+    font-weight: 600;
+    margin-bottom: 10px;
+    padding: 5px;
+    margin: 7px;
+}
+.tracking-card .card-body .card{
+    padding: 10px 5px;
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }

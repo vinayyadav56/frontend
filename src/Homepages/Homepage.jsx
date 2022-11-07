@@ -592,7 +592,7 @@ const Homepage = (userActive) => {
       <HomeFoooter />
 
 
-      {/* Cobtact Us Query */}
+      {/* Contact Us Query */}
       <div className="modal fade" id="contactUsModal" tabIndex="-1" role="dialog" aria-labelledby="contactUsModalTitle" aria-hidden="true">
         <div className="modal-dialog modal-dialog-centered" role="document">
           <div className="modal-content">

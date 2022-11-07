@@ -12,7 +12,6 @@ const HomeFoooter = () => {
     <>
 
       <section className="homemainfooter">
-
         <div className="home_footer">
           <div className="container-fluid">
             <div className="row">
@@ -62,13 +61,10 @@ const HomeFoooter = () => {
                     <h4>HELP & SUPPORT</h4>
                   </li>
                   <li>
-                    <NavLink to="/support">Support</NavLink>
-                  </li>
-                  <li>
                     <NavLink to="/Knowledgebase">Knowledge base</NavLink>
                   </li>
                   <li>
-                    <NavLink to="/Knowledgebase">Contact Us</NavLink>
+                  <button type="button" className="contact_footer" data-toggle="modal" data-target="#contact">Contact Us</button>
                   </li>
                 </ul>
               </div>
@@ -109,6 +105,43 @@ const HomeFoooter = () => {
         </div>
 
       </section>
+
+
+      <div className="modal fade" id="contact" tabIndex="-1" role="dialog" aria-labelledby="contactTitle" aria-hidden="true">
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="contactTitle">Please Fill the Required Details</h5>
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              <form>
+                <div className="form-group">
+                  <label for="cname">Full Name</label>
+                  <input type="text" className="form-control" id="cname" placeholder="Enter Your Name" />
+                </div>
+                <div className="form-group">
+                  <label for="pnname">Phone No.</label>
+                  <input type="number" className="form-control" id="pnname" placeholder="Enter Your Contact" />
+                </div>
+                <div className="form-group">
+                  <label for="ename">Email address</label>
+                  <input type="email" className="form-control" id="ename" placeholder="name@example.com" />
+                </div>
+                <div className="form-group">
+                  <label for="contecttextarea">How Can We Help You</label>
+                  <textarea className="form-control" placeholder="Write Your Query" id="contecttextarea" rows="3"></textarea>
+                </div>
+              </form>
+            </div>
+            <div className="modal-footer d-flex justify-content-center">
+              <button type="button" className="btn btn-primary">Submit Query</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </>
   );

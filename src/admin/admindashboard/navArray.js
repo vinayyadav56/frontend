@@ -12,15 +12,15 @@ const navArray = [
     },
     {
         id: 2,
-        nav: 'CK Order Create',
+        nav: 'Alpha Order Create',
         icon: <StarBorderRoundedIcon />,
         link: '/admindashboardckordercreate'
     },
     {
         id: 3,
-        nav: 'New Order',
-        icon: <BorderColorRoundedIcon />,
-        link: '/admindashboardallorder'
+        nav: 'CK Order List',
+        icon: <StarBorderRoundedIcon />,
+        link: '/admindashboardckorder'
     },
     {
         id: 4,
@@ -34,12 +34,14 @@ const navArray = [
         icon: <HubIcon />,
         link: '/admindashboardhub'
     },
+    
     {
         id: 6,
-        nav: 'CK Order List',
-        icon: <StarBorderRoundedIcon />,
-        link: '/admindashboardckorder'
+        nav: 'New Order',
+        icon: <BorderColorRoundedIcon />,
+        link: '/admindashboardallorder'
     },
+   
     {
         id: 7,
         nav: 'Setting',

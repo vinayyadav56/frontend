@@ -60,20 +60,6 @@ const UserData = () => {
         })
     };
 
-    // searchfuntion
-    // const handleSearch = (e) => {
-    //   e.preventDefault();
-    //   if (e.target.value === "") {
-    //     userData(searchUserData);
-    //   } else {
-    //     const filterResult = searchUserData.filter((item) =>
-    //       item.first_name.toLowerCase().includes(e.target.value.toLowerCase())
-    //     );
-    //     setUserData(filterResult);
-    //   }
-    //   setFilterVal(e.target.value);
-    // };
-
 
     // PAGINATION ENDS
 
@@ -88,16 +74,16 @@ const UserData = () => {
     };
 
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
 
     const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 5));
+        setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
-    };
+      };
     // PAGINATION ENDS
 
     // DATA GRID TABLE START
@@ -143,7 +129,7 @@ const UserData = () => {
                     </TableHead>
                     <TableBody>
                         {userData
-                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                           .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row, id) => (
                                 <StyledTableRow hover tabIndex={-1} key={id}>
                                     <StyledTableCell>{row.id}</StyledTableCell>
@@ -195,7 +181,7 @@ const UserData = () => {
                             <TablePagination
                                 page={page}
                                 onPageChange={handleChangePage}
-                                rowsPerPage={rowsPerPage}
+                                rowsPerPage={10}
                                 onRowsPerPageChange={handleChangeRowsPerPage}
                                 rowsPerPageOptions={[10, 25, 100]}
                                 count={userData.length}
