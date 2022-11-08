@@ -52,6 +52,7 @@ const Billing = ({ values,modalClose, prevStep }) => {
         })
 
         modalClose();
+        window.localStorage.removeItem('shipment_details');
         alert.success("Your Order Created Successfully");
     }
 

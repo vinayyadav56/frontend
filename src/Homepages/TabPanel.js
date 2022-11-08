@@ -139,9 +139,9 @@ export default function BasicTabs() {
 
         try{
             const payload = getPayload(formData.journey_type === 'round_trip');
+            window.localStorage.setItem('availability', JSON.stringify(payload));
 
             if(!user){
-                window.localStorage.setItem('availability', JSON.stringify(payload));
                 history.push("/login");
                 return;
             }
