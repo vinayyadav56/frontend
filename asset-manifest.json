@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.abefc407.css",
-    "main.js": "/static/js/main.3cfcd489.js",
+    "main.js": "/static/js/main.7cc32e37.js",
     "static/media/homebg.png": "/static/media/homebg.da9731536e0863760e86.png",
     "static/media/commuter.png": "/static/media/commuter.02f6414b0b602ec61833.png",
     "static/media/step_carrykar1.png": "/static/media/step_carrykar1.d81bba8a39e8b7d2084c.png",
@@ -19,10 +19,10 @@
     "static/media/befikar3.png": "/static/media/befikar3.5183d7cd8794bf40e6ad.png",
     "index.html": "/index.html",
     "main.abefc407.css.map": "/static/css/main.abefc407.css.map",
-    "main.3cfcd489.js.map": "/static/js/main.3cfcd489.js.map"
+    "main.7cc32e37.js.map": "/static/js/main.7cc32e37.js.map"
   },
   "entrypoints": [
     "static/css/main.abefc407.css",
-    "static/js/main.3cfcd489.js"
+    "static/js/main.7cc32e37.js"
   ]
 }
