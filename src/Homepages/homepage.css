@@ -4,7 +4,19 @@ body {
     overflow-x: hidden;
     background-color: #E7F0F9 !important;
 }
-
+.popup_close_btn{
+    font-size: 1.6rem !important;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    justify-content: end;
+    margin-bottom: -25px;
+}
+.popup_close{
+    font-size: 1.6rem !important;
+    font-weight: 500;
+    cursor: pointer;
+}
 .main_section {
     background: linear-gradient(77.42deg, #0747A9 -0.01%, #2277C9 94.19%);
     height: 100%;
@@ -46,13 +58,10 @@ body {
         1px -1px 0 #fff,
         -1px -1px 0 #fff;
 }
-
-/* .hero_section .hero_section-div .txt_content p {
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    color: #fff;
-} */
+.hero_section-div .img_content img{
+    width: 100%;
+    height: auto;
+}
 
 @media screen and (max-width: 1003px) {
 
@@ -498,11 +507,11 @@ ul {
 }
 
 .nav-mobile-links li:nth-child(6) a {
-    background: #fff;
+    background: #0747A9;
     border: 1px solid #2277C9;
     padding: 2px 20px;
     font-weight: 400;
-    color: #0747A9;
+    color: #fff;
     border-radius: 5px;
 }
 
@@ -900,59 +909,6 @@ ul {
     color: aqua;
 }
 
-.become_partner_form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.become-partner-modal .modal-content {
-    background-color: none;
-    border-radius: 10px;
-}
-
-.card-registration {
-    border: 1px solid #E9E9E9;
-    box-shadow: 0px 0px 15px -1px rgb(181 179 181);
-    border-radius: 10px;
-}
-
-.card-registration h3 {
-    font-weight: bold;
-    font-size: 18px;
-    color: #0747A9;
-}
-
-.card-registration input {
-    border: none;
-    border-bottom: 1px solid #ababab;
-    border-radius: 0px;
-    padding: 0.5rem 0rem;
-}
-
-.card-registration input:focus {
-    outline: none;
-    box-shadow: none;
-}
-
-.card-registration input::placeholder {
-    font-size: 14px;
-    font-weight: lighter;
-}
-
-.card-registration .become_form_save {
-    background: #0747A9;
-    border: 1px solid #0747A9;
-    padding: 4px 16px;
-    color: #fff;
-    border-radius: 5px;
-}
-
-.card-registration .become_form_save:hover {
-    color: #0747A9;
-    background-color: #fff;
-}
-
 /* become partner form css ends */
 .operational {
     background: #1B6BC1;
@@ -962,7 +918,14 @@ ul {
     -webkit-clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 6%);
     clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 6%);
 }
-
+.operational .badge-warning{
+    width: 80px;
+    margin-bottom: -20px;
+    z-index: 9999;
+    display: flex;
+    background-color: #fff;
+    color: #0747a9;
+}
 .operational .card {
     background: transparent;
     border: none;
@@ -1044,6 +1007,7 @@ ul {
     background: #0E53B1;
     color: #fff;
     padding: 4px 10px;
+    border-radius: 5px;
     margin-top: 3rem;
 }
 
@@ -1167,7 +1131,7 @@ ul {
 
 .footer_logo {
     display: flex;
-    justify-content: flex-end;
+    justify-content:end;
 }
 
 .footer_logo img {
@@ -1357,11 +1321,10 @@ ul {
         width: 100px;
         height: 80px;
     }
-
-    .home_footer .footer_logo {
+    .footer_logo {
         color: #fff;
         display: flex;
-        justify-content: flex-start;
+        justify-content: start;
     }
 
 }

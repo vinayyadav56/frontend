@@ -96,7 +96,7 @@ const AdminHub = () => {
                 </aside>
                 <section className="right">
                     <div className="CkOrderTableData">
-                        <div className="filter_partner pt-4 px-2">
+                        <div className="filter_partner py-4 mb-0 px-2">
                             <div className="form-row">
                                 <div className="col-md-2">
                                     <input

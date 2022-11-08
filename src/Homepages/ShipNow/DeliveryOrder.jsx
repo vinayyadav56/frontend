@@ -8,9 +8,7 @@ import {
     Select,
     MenuItem
 } from '@material-ui/core';
-import {FormControlLabel, FormLabel, Radio, RadioGroup} from "@mui/material";
-
-const DeliveryOrder = ({values, handleFormData, nextStep, prevStep}) => {
+const DeliveryOrder = ({ values, handleFormData, nextStep, prevStep }) => {
     // const [error, setError] = useState(false);
 
     const submitFormData = (e) => {
@@ -41,7 +39,7 @@ const DeliveryOrder = ({values, handleFormData, nextStep, prevStep}) => {
                                 onChange={handleInputChange}
                                 checked={() => values.package_size == "extra small"}
                             />
-                            Extra Small
+                            100g
                         </label>
                         <label className={"btn ship_select_btns " + (values.package_size == "small" ? "active" : "")}>
                             <input
@@ -53,7 +51,7 @@ const DeliveryOrder = ({values, handleFormData, nextStep, prevStep}) => {
                                 onChange={handleInputChange}
                                 checked={() => values.package_size == "small"}
                             />
-                            Small
+                            250g
                         </label>
                         <label className={"btn ship_select_btns " + (values.package_size == "medium" ? "active" : "")}>
                             <input
@@ -65,7 +63,7 @@ const DeliveryOrder = ({values, handleFormData, nextStep, prevStep}) => {
                                 onChange={handleInputChange}
                                 checked={() => values.package_size == "medium"}
                             />
-                            Medium
+                            500g
                         </label>
                         <label className={"btn ship_select_btns " + (values.package_size == "large" ? "active" : "")}>
                             <input
@@ -77,7 +75,7 @@ const DeliveryOrder = ({values, handleFormData, nextStep, prevStep}) => {
                                 onChange={handleInputChange}
                                 checked={() => values.package_size == "large"}
                             />
-                            Large
+                            1Kg
                         </label>
                     </div>
                     <FormControl sx={{ m: 1, minWidth: 120 }} size="small" variant="outlined">

@@ -1,11 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import HomeFoooter from "./HomeFoooter";
 import homgbg from "../images/homebg.png";
-import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
-import { NavLink, Link } from "react-router-dom";
-import Frame from "../images/Frame.png";
 import step_carrykar1 from "../images/step_carrykar1.png";
 import befikar1 from "../images/befikar1.png";
 import befikar2 from "../images/befikar2.png";
@@ -28,128 +24,15 @@ import commuter3 from "../images/commuter3.png";
 import quetion from "../images/quetion.png";
 import "./homepage.css";
 import Tripsearch from "./Tripsearch";
-import ModalForm from "./ShipNow/ModalForm";
+import CommuterSignUp from "./CommuterSignUp";
+import HomeHeader from "./HomeHeader";
 const Homepage = (userActive) => {
-
-  const [toggleMenu, setToggleMenu] = useState(false);
-
   return (
     <>
 
       <section className="main_section">
         <div className="container">
-          <div className="navbar_section">
-            <section className="nav-sec">
-              <div className="menu">
-                <div className="desktop-menu">
-                  <div className="nav-logo">
-                    <NavLink to="/carrykar" className="nav-link">
-                      <img src={Frame} alt="logo" />
-                    </NavLink>
-                  </div>
-                  <div className="desktop-links">
-                    <ul>
-                      <li className="dropdown">
-                        <Link to="/services">Services</Link>
-                      </li>
-                      <li>
-                        <NavLink to="/latestjob">Daily Commuter</NavLink>
-                      </li>
-                      <li>
-                        <NavLink to="/location">Locations</NavLink>
-                      </li>
-                      <li>
-                        <button type="button" className="contact_us" data-toggle="modal" data-target="#contactUsModal">Contact Us</button>
-                      </li>
-                      <li>
-                        {/* <ShipNow userActive={userActive} /> */}
-                        {/* <ShipingOrder/> */}
-                        <ModalForm />
-                      </li>
-                      <li className="home_login">
-                        <NavLink to="/login" >Login</NavLink>
-                      </li>
-                      <li className="home_signup">
-                        <NavLink to="/signup" >SignUp</NavLink>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div className="nav-mobile">
-                  <button
-                    className="open_nav"
-                    onClick={() => setToggleMenu(true)}
-                  >
-                    <MenuIcon />
-                  </button>
-                  {toggleMenu && (
-                    <div className="nav-mobile-div slide-bottom">
-                      <button
-                        className="close_navlinks"
-                        onClick={() => setToggleMenu(false)}
-                      >
-                        <CloseIcon />
-                      </button>
-                      <ul className="nav-mobile-links">
-                        <li>
-                          <NavLink
-                            exact
-                            onClick={() => setToggleMenu(false)}
-                            to="/services"
-                          >
-                            Services
-                          </NavLink>
-                        </li>
-                        <li>
-                          <NavLink
-                            onClick={() => setToggleMenu(false)}
-                            to="/subscription"
-                          >
-                            Subscription
-                          </NavLink>
-                        </li>
-                        <li>
-                          <NavLink
-                            onClick={() => setToggleMenu(false)}
-                            to="/locations"
-                          >
-                            Location
-                          </NavLink>
-                        </li>
-                        <li>
-                          <NavLink
-                            onClick={() => setToggleMenu(false)}
-                            to="/contactus"
-                          >
-                            Conatct Us
-                          </NavLink>
-                        </li>
-                        <li>
-                          <ModalForm onClick={() => setToggleMenu(false)} />
-                        </li>
-                        <li>
-                          <NavLink
-                            onClick={() => setToggleMenu(false)}
-                            to="/login"
-                          >
-                            Login
-                          </NavLink>
-                        </li>
-                        <li>
-                          <NavLink
-                            onClick={() => setToggleMenu(false)}
-                            to="/signup"
-                          >
-                            Sign Up
-                          </NavLink>
-                        </li>
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </section>
-          </div>
+           <HomeHeader />
           <div className="hero_section">
             <div className="hero_section-div">
               <div className="txt_content">
@@ -321,6 +204,7 @@ const Homepage = (userActive) => {
                 </div>
               </div>
               <div className="card">
+                <span class="badge badge-warning">Coming Soon</span>
                 <div className="card-body">
                   <img src={operation3} alt="operation2" />
                   <p>Kolkata</p>
@@ -378,7 +262,8 @@ const Homepage = (userActive) => {
               </div>
             </div>
             <div className="d-flex justify-content-center">
-              <button className="btn become-btn">Become a Commuter</button>
+              {/* <button className="btn become-btn">Become a Commuter</button> */}
+              <CommuterSignUp />
             </div>
           </div>
         </div>
@@ -628,7 +513,7 @@ const Homepage = (userActive) => {
           </div>
         </div>
       </div>
-      
+
     </>
   );
 };

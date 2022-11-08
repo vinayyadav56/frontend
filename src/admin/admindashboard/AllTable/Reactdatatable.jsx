@@ -107,15 +107,12 @@ const Reactdatatable = () => {
     setLoading(true);
     makeRequest('DELETE', `delete-user/${id}`).then(result => {
       alert.success(result.message);
+      setopen(false);
     }).catch(err => {
       alert.error(err.message);
-    }).finally(() => {
-      setLoading(false);
-      setopen(false);
     })
   };
   // DELETE PARTNER ENDS
-
   // searchfuntion
   const handleSearch = (e) => {
     e.preventDefault();
@@ -138,10 +135,8 @@ const Reactdatatable = () => {
       [name]: value,
     });
   };
-
   // UPDATE PARTNER DATA
   const [editData, setEditData] = useState({});
-
   const handlePartner = async (e, id) => {
     e.preventDefault();
     setLoading(true);
@@ -152,16 +147,15 @@ const Reactdatatable = () => {
       alert.error(err.message);
     }).finally(() => {
       setLoading(false);
-      setopen(false);
     })
 
     return false;
   };
-
   // FETCH PARTNER DETAILS By Partner Id
   const fetchID = async (id) => {
     setLoading(true);
-    makeRequest('GET', `partnerDetailsByPartnerId/${id}`, editData).then(result => {setEditData(result.data);
+    makeRequest('GET', `partnerDetailsByPartnerId/${id}`, editData).then(result => {
+      setEditData(result.data);
       console.log(result.data)
     }).catch(err => {
       alert.error(err.message);
@@ -169,7 +163,6 @@ const Reactdatatable = () => {
       setLoading(false);
     })
   };
-
   // FETCH PARTNER DETAILS ENDS
   return (
     <Fragment>
@@ -242,7 +235,7 @@ const Reactdatatable = () => {
                     </button>
                     <button
                       className="btn delete-btn mr-1"
-                      onClick={handleClickOpen}
+                      onClick={() => handleClickOpen(row.id)}
                       variant="outlined" color="error"
                     >
                       <DeleteIcon />
@@ -258,27 +251,7 @@ const Reactdatatable = () => {
                     </button>
 
                     {/* Delete POPUP START */}
-                    <Dialog
-                      open={open}
-                      onClose={handleClose}
-                      aria-labelledby="alert-dialog-title"
-                      aria-describedby="alert-dialog-description"
-                    >
-                      <DialogTitle id="alert-dialog-title">
-                        {"Are you want to delete partner?"}
-                      </DialogTitle>
-                      <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                          Once You Delete it , never backup it.
-                        </DialogContentText>
-                      </DialogContent>
-                      <DialogActions>
-                        <Button onClick={handleClose}>Disagree</Button>
-                        <Button onClick={() => deleteData(row.id)} autoFocus>
-                          Agree
-                        </Button>
-                      </DialogActions>
-                    </Dialog>
+
                     {/* Delete POPUP ENDS */}
                   </StyledTableCell>
                 </StyledTableRow>
@@ -300,7 +273,6 @@ const Reactdatatable = () => {
         </Table>
       </TableContainer>
       {/* React Table ends */}
-
       {/* EDIT MODAL START */}
       <div
         className="modal fade"
@@ -411,7 +383,6 @@ const Reactdatatable = () => {
         </div>
       </div>
       {/* EDIT MODAL ENDS */}
-
       {/* ORDER DETAILS START */}
       <div
         className="modal bd-example-modal-xl fade"
@@ -575,7 +546,31 @@ const Reactdatatable = () => {
         </div>
       </div>
       {/* ORDER DETAILS ENDS */}
-
+      {/* Delete POPUP START */}
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Are you want to delete partner?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Once You Delete it , never backup it.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <DialogActions>
+            <Button onClick={handleClose}>Disagree</Button>
+            <Button onClick={() => deleteData()} autoFocus>
+              Agree
+            </Button>
+          </DialogActions>
+        </DialogActions>
+      </Dialog>
+      {/* Delete POPUP ENDS */}
     </Fragment>
   );
 };
