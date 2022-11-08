@@ -5,11 +5,11 @@ import PartnerDashboard from "../partner/PartnerDashboard";
 import Partnerlogin from "../partner/Partnerlogin";
 import Adminlogin from "../admin/Adminlogin";
 import AdminDashboard from "../admin/admindashboard/AdminDashboard";
-import Order from "../admin/admindashboard/Order";
+import UserAvailability from "../admin/admindashboard/UserAvailability";
 import CkOrder from "../admin/admindashboard/CkOrder";
 import DeliveryPartnerDetails from "../admin/admindashboard/DeliveryPartnerDetails";
 import AdminHub from '../admin/admindashboard/HUB/AdminHub';
-import RecenteOrder from '../admin/admindashboard/RecentOrder/RecentOrder';
+import RecentOrder from '../admin/admindashboard/RecentOrder/RecentOrder';
 import PartnerOrderById from '../partner/partnerOrder/PartnerOrderById';
 import CkOrderList from '../admin/admindashboard/CkOrderList';
 
@@ -25,17 +25,17 @@ export const AdminRoutes = () => {
             <Route path="/partner">
                 <Partnerlogin />
             </Route>
-            <Route path="/admin">
-                <Adminlogin />
-            </Route>
             <Route path="/admindashboard">
                 <AdminDashboard />
             </Route>
-            <Route exact path="/admindashboardorder">
-                <Order />
+            <Route exact path="/admin/user-availability">
+                <UserAvailability />
             </Route>
-            <Route exact path="/admindashboardallorder">
-                <RecenteOrder />
+            <Route exact path="/admin/all-order">
+                <RecentOrder />
+            </Route>
+            <Route exact path="/admin">
+                <Adminlogin />
             </Route>
             <Route exact path="/admindashboardckordercreate">
                 <CkOrder />

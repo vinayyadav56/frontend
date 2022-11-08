@@ -5,48 +5,42 @@ import HelpCenterRoundedIcon from '@mui/icons-material/HelpCenterRounded';
 import HubIcon from '@mui/icons-material/Hub';
 const navArray = [
     {
-        id: 1,
-        nav: 'User Availability',
-        icon: <StarBorderRoundedIcon />,
-        link: '/admindashboardorder'
+        nav: 'New Order',
+        icon: <BorderColorRoundedIcon />,
+        link: '/admin/all-order'
     },
     {
-        id: 2,
+        nav: 'User Availability',
+        icon: <StarBorderRoundedIcon />,
+        link: '/admin/user-availability'
+    },
+    {
         nav: 'CK Order Create',
         icon: <StarBorderRoundedIcon />,
         link: '/admindashboardckordercreate'
     },
     {
-        id: 3,
-        nav: 'New Order',
-        icon: <BorderColorRoundedIcon />,
-        link: '/admindashboardallorder'
+        nav: 'CK Order List',
+        icon: <StarBorderRoundedIcon />,
+        link: '/admindashboardckorder'
     },
+
     {
-        id: 4,
         nav: 'Agents',
         icon: <HelpCenterRoundedIcon />,
         link: '/admindashboarddeliverypartnerdetails'
     },
     {
-        id: 5,
         nav: 'Hub',
         icon: <HubIcon />,
         link: '/admindashboardhub'
     },
     {
-        id: 6,
-        nav: 'CK Order List',
-        icon: <StarBorderRoundedIcon />,
-        link: '/admindashboardckorder'
-    },
-    {
-        id: 7,
         nav: 'Setting',
         icon: <SettingsIcon />,
         link: '/admin/dashboard'
     },
- 
+
 
 
 ]

@@ -17,16 +17,16 @@ const QrButton = ({ path, orderid, ordertype, status }) => {
         makeRequest('POST', `generateQrCode`, qrdata).then(result => {
             alert.success(result.message);
             setQrdata(console.log(result))
-            history.push("/admindashboardallorder");
+            history.push("/admin/all-order");
         }).catch(err => {
             alert.error(err.message);
         }).finally(() => {
             setLoading(false);
         })
     }
-    if (status === "ASSIGNED_HUB_TO_PICK" && path === null) {
+    if (path === null) {
         return (
-        <button type="button" className="btn btn-success" onClick={(orderid, ordertype) => handleGenrateQr((orderid, ordertype))}>
+        <button type="button" className="btn btn-success mr-2 " onClick={(orderid, ordertype) => handleGenrateQr((orderid, ordertype))}>
             Generate Qr Code
         </button>
         )
