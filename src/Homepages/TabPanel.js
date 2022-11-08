@@ -1,5 +1,7 @@
 import * as React from "react";
 import {useEffect, useRef, useState} from "react";
+import { useHistory } from "react-router-dom";
+
 import "./styles.css";
 import PropTypes from "prop-types";
 import "./tabpanel.css";
@@ -15,6 +17,7 @@ import 'antd/dist/antd.css';
 import {useAlert} from "react-alert";
 import {makeRequest} from "../Services/api";
 import {useAuth} from "../Services/auth";
+
 // import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -54,6 +57,7 @@ export default function BasicTabs() {
     const alert = useAlert();
     const [activeTab, setActiveTab] = React.useState(0);
     const formRef = useRef();
+    const history = useHistory();
 
     const [suggestions, setSuggestion] = useState([]);
 
@@ -81,10 +85,6 @@ export default function BasicTabs() {
     };
 
     const [formData, setFormData] = useState(FormDataType);
-
-    useEffect(() => {
-        console.log(formData);
-    }, [formData])
 
     const callCitySearchApi = (reqObj) => {
         setLoading(true);
@@ -136,10 +136,17 @@ export default function BasicTabs() {
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
-        setLoading(true);
 
         try{
             const payload = getPayload(formData.journey_type === 'round_trip');
+
+            if(!user){
+                window.localStorage.setItem('availability', JSON.stringify(payload));
+                history.push("/login");
+                return;
+            }
+
+            setLoading(true);
             makeRequest('POST', 'createUserAvailability', payload).then(res => {
                 if(res.success) {
                     alert.success(res.message)
@@ -164,7 +171,7 @@ export default function BasicTabs() {
 
     const getPayload = (twoWay = false) => {
         return {
-            user_id: user.id,
+            user_id: user?.id,
             from_location: {
                 city: formData.location_from.value,
                 airport_code: formData.location_from.code,
@@ -210,19 +217,18 @@ export default function BasicTabs() {
                             name="transport_type"
                             value="flight"
                             id="option1"
-                            checked={formData.transport_type === 'flight'}
                             onChange={(e) => handleFormChange(e.target.name, e.target.value)}
                         />
                         <AirplanemodeActiveSharpIcon className="btn_icn mr-2"/>
                         Flight
                     </label>
-                    <label className="btn top_select_btns">
+                    <label className="btn top_select_btns focus active">
                         <input
                             type="radio"
                             name="transport_type"
                             value="station"
                             id="option2"
-                            checked={formData.transport_type === 'station'}
+                            defaultChecked="station"
                             onChange={(e) => handleFormChange(e.target.name, e.target.value)}
                         />
                         <DirectionsTransitFilledIcon className="btn_icn mr-2"/>

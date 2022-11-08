@@ -62,8 +62,19 @@ const ShipingOrder = (props) => {
   }
 
   useEffect(() => {
-    console.log(formData);
-  }, [formData]);
+    checkShipmentDetails()
+  }, []);
+
+  const checkShipmentDetails = () => {
+      const shipmentDetails = window.localStorage.getItem('shipment_details');
+
+      if(shipmentDetails && shipmentDetails.length > 0){
+          const details = JSON.parse(shipmentDetails);
+
+          setFormData(details);
+          setstep(6);
+      }
+  }
 
   //  javascript switch case to show different form in each step
   switch (step) {
@@ -127,7 +138,7 @@ const ShipingOrder = (props) => {
           prevStep={prevStep}
           handleFormData={handleInputData}
           values={formData}
-          handleModalClose={props.modalHandleClode}
+          modalClose={props.modalClose}
         />
       )
 

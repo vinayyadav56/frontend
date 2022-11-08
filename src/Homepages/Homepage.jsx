@@ -43,7 +43,7 @@ const Homepage = (userActive) => {
               <div className="menu">
                 <div className="desktop-menu">
                   <div className="nav-logo">
-                    <NavLink to="/carrykar" className="nav-link">
+                    <NavLink to="/" className="nav-link">
                       <img src={Frame} alt="logo" />
                     </NavLink>
                   </div>
@@ -628,7 +628,7 @@ const Homepage = (userActive) => {
           </div>
         </div>
       </div>
-      
+
     </>
   );
 };

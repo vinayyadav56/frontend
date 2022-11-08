@@ -35,7 +35,14 @@ const Login = () => {
         console.log(result);
         alert.success(result.message);
         handleUser(result.userDetails);
-        result.success && history.push("/carrier/dashboard/postavailabilty")
+        if(result.success){
+          if(window.localStorage.getItem('shipment_details')){
+            history.push("/");
+            return;
+          }
+
+          history.push("/carrier/dashboard/postavailabilty")
+        }
       }).catch(error => {
         alert.error(error.message);
       }).finally(() => {

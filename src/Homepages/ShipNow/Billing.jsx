@@ -1,14 +1,15 @@
 import { Button, CardContent } from '@material-ui/core'
 import React from 'react'
 import {CreateShippingOrder, StartPayment} from "../../Services/Payment";
-// import axios from "axios";
 import {useAuth} from "../../Services/auth";
 import {useAlert} from "react-alert";
 import {makeRequest} from "../../Services/api";
+import { useHistory } from 'react-router-dom';
 
-const Billing = ({ values,handleModalClose, prevStep }) => {
+const Billing = ({ values,modalClose, prevStep }) => {
     const {user, setLoading} = useAuth();
     const alert = useAlert();
+    const history = useHistory();
 
     const paymentCallback = (res) => {
         setLoading(false);
@@ -22,7 +23,7 @@ const Billing = ({ values,handleModalClose, prevStep }) => {
             "pickup_pincode": values.pickup_pincode,
             "pickup_timing": values.schedule_date,
             "delivery_type": "EXP",
-            "sender_id":1,
+            "sender_id":user.id,
             "reciever_details": {
                 "receiver_name":values.receiver_address.receiver_name,
                 "receiver_email": values.receiver_address.receiver_email_id,
@@ -50,14 +51,21 @@ const Billing = ({ values,handleModalClose, prevStep }) => {
             console.log(e);
         })
 
-        handleModalClose();
+        modalClose();
         alert.success("Your Order Created Successfully");
     }
 
     const handlePayment = async () => {
         try{
-            setLoading(true);
+            // save data to local storage
+            if(!user){
+                window.localStorage.setItem('shipment_details', JSON.stringify(values));
+                modalClose();
+                history.push('/login');
+                return;
+            }
 
+            setLoading(true);
             let Order = await CreateShippingOrder({
                 amount: values.delivery_cost
             })
@@ -77,7 +85,7 @@ const Billing = ({ values,handleModalClose, prevStep }) => {
             });
 
         }catch (e){
-            alert.error(e.message());
+            alert.error(e.message);
         }
     }
 
