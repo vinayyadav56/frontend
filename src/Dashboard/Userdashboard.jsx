@@ -2,7 +2,13 @@ import React from "react";
 import "./commondashboard.css";
 import Sidebar from "./Dashboardsidebar";
 import Header from "./Dashboardheader";
+import { useAuth } from "../Services/auth";
+import { Redirect } from "react-router-dom";
 const Userdashboard = ({ addUserLocal, userActive }) => {
+  const auth = useAuth();
+  if (!auth.isAuthenticated()) {
+    return <Redirect to="/login" />
+  }
   return (
     <div>
       <section className="user-dashboard">

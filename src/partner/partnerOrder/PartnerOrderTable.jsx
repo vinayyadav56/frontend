@@ -7,9 +7,14 @@ import { useState } from 'react';
 import { makeRequest, postRequest } from '../../Services/api';
 import { useEffect } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
+
 const PartnerOrderTable = () => {
+    
     const { user, setLoading } = useAuth();
-    const [open, setopen] = React.useState(false);
+    const [open, setopen] = useState(false);
+    const [partnerOrder, setPartnerOrder] = useState([]);
+    const [createorder, setCreateorder] = useState({});
+    
 
     const handleClickOpen = () => {
         setopen(true);
@@ -18,29 +23,26 @@ const PartnerOrderTable = () => {
     const handleClose = () => {
         setopen(false);
     };
-    const [partnerOrder, setPartnerOrder] = useState([]);
-
     const fetchData = async () => {
       const partnerId = user.id
-      console.log(partnerId)
+      console.log(partnerId);
         setLoading(true);
         makeRequest('GET',`partnerOrdersByPartnerId/${partnerId}`).then(result => {
             setPartnerOrder(result.orders);
-            console.log(result.orders);
         })
             .finally(() => {
                 setLoading(false);
             })
     };
-    console.log(partnerOrder);
     useEffect(() => {
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
+   
+  
+ 
 
     // FETCH ORDER DETAILS BY ORDER ID START 
-    const [createorder, setCreateorder] = useState({});
     const handleCreateinput = (e) => {
         const { name, value } = e.target;
         setCreateorder({
@@ -63,6 +65,8 @@ const PartnerOrderTable = () => {
             setLoading(false);
         });
     };
+
+ 
     return (
         <Fragment>
             <div className='container-fluid partnerOr'>

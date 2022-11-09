@@ -273,7 +273,7 @@ const AdminHub = () => {
                 </section >
             </main >
 
-            <div className="modal fade see_hub-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div className="modal fade see_hub-lg" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                 <div className="modal-dialog  add-partner modal-lg">
                     <div className="modal-content">
                         <div className="modal-header">

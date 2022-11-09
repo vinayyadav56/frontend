@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Header from "./CustomerHeader";
 import Sidebar from "./CustomerSidebar";
 import "./Trackhistory.css";
@@ -26,6 +26,10 @@ const CustomerTrack = () => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const auth = useAuth();
+  if (!auth.isUser()) {
+    return <Redirect to="/login" />
+  }
   return (
     <div>
       <section className="user-dashboard">

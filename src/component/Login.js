@@ -30,9 +30,7 @@ const Login = () => {
 
     if (email && password) {
       setLoading(true);
-
       postRequest('login', loginuser).then(result => {
-        console.log(result);
         alert.success(result.message);
         handleUser(result.userDetails);
         result.success && history.push("/carrier/dashboard/postavailabilty")

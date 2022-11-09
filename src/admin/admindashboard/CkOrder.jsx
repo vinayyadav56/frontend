@@ -22,8 +22,7 @@ export default function CkOrder() {
         items_total_weight: 0,
         subOrders: []
     });
-    console.log(ckOrder.from_hub_id)
-    //console.log(selectedRows[0] ? selectedRows[0].package_volume_weight :selectedRows);
+    console.log(ckOrder.subOrders);
     const { setLoading } = useAuth();
     const [newOrder, setNewOrder] = useState([]);
     const [hubData, setHubData] = useState([]);
@@ -77,7 +76,8 @@ export default function CkOrder() {
     const handleOrder = async (e) => {
         postRequest('createAlphaOrder', ckOrder).then(result => {
             alert.success(result.message);
-            setCkOrder(result);
+            result.success &&
+                setCkOrder(result);
         }).finally(() => {
             setLoading(false);
         });

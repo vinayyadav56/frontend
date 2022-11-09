@@ -138,7 +138,7 @@ const HomeHeader = () => {
                                             <Link to="/services">Services</Link>
                                         </li>
                                         <li>
-                                            <NavLink to="/latestjob">Daily Commuter</NavLink>
+                                            <NavLink to="/dailycommuter">Daily Commuter</NavLink>
                                         </li>
                                         <li>
                                             <NavLink to="/location">Locations</NavLink>

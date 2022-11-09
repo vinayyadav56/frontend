@@ -63,14 +63,14 @@ const hubPickupData = [
 ]
 const DeliveryOrderDetail = () => {
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
 
     const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(parseInt(event.target.value, 5));
+        setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
     // PAGINATION ENDS
@@ -99,6 +99,7 @@ const DeliveryOrderDetail = () => {
                 <Table stickyHeader striped aria-label="sticky table">
                     <TableHead>
                         <StyledTableRow>
+                            <StyledTableCell>Id</StyledTableCell>
                             <StyledTableCell>From Location</StyledTableCell>
                             <StyledTableCell>To Location</StyledTableCell>
                             <StyledTableCell>Weight</StyledTableCell>
@@ -113,6 +114,7 @@ const DeliveryOrderDetail = () => {
                     <TableBody>
                         {hubPickupData.map((item, id) => (
                             <StyledTableRow hover tabIndex={-1} key={id}>
+                                <StyledTableCell>{item.id}</StyledTableCell>
                                 <StyledTableCell>{item.from_location}</StyledTableCell>
                                 <StyledTableCell>{item.to_location}</StyledTableCell>
                                 <StyledTableCell>{item.weight}</StyledTableCell>

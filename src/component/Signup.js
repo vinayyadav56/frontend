@@ -63,7 +63,7 @@ const Signup = () => {
 
             makeRequest('POST', `register-user`, user).then(result => {
                 alert.success(result.message);
-                result.success && history.push("/carrier/dashboard/postavailabilty");
+                result.success && history.push("/login");
             }).catch(err => {
                 alert.error(err.message);
             }).finally(() => {
