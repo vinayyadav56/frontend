@@ -58,9 +58,10 @@ const Billing = ({ values,modalClose, prevStep }) => {
 
     const handlePayment = async () => {
         try{
+            window.localStorage.setItem('shipment_details', JSON.stringify(values));
+
             // save data to local storage
             if(!user){
-                window.localStorage.setItem('shipment_details', JSON.stringify(values));
                 modalClose();
                 history.push('/login');
                 return;
