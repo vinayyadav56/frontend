@@ -23,17 +23,21 @@ const Login = () => {
       [name]: value,
     });
   };
-
   const handleLogin = async (e) => {
     e.preventDefault();
     const { email, password } = loginuser;
-
     if (email && password) {
       setLoading(true);
       postRequest('login', loginuser).then(result => {
         alert.success(result.message);
         handleUser(result.userDetails);
-        result.success && history.push("/carrier/dashboard/postavailabilty")
+        if (result.userDetails.is_customer === 1) {
+          history.push("/customer/dashboard")
+        }
+        if(result.userDetails.is_carrier === 1) {
+          history.push("/carrier/dashboard")
+        }
+       
       }).catch(error => {
         alert.error(error.message);
       }).finally(() => {

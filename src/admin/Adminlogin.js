@@ -10,7 +10,6 @@ const Adminlogin = () => {
     let alert = useAlert();
     let history = useHistory();
     const { setLoading, handleUser} = useAuth();
-
     const [adminlogin, setAdminlogin] = useState({
         admin_username: "",
         admin_password: "",

@@ -39,18 +39,21 @@ function useProvideAuth() {
         return user ? true : false;
     }
     const isHub = () => {
-        return user && user.type === 'hub';
+        return user && user.is_hub === 'hub';
     }
     const isAdmin = () => {
-        return user && user.type === 'admin';
+        return user && user.is_admin === 'admin';
     }
 
     const isPartner = () => {
-        return user && user.type === 'partner';
+        return user && user.is_partner === 'partner';
     }
 
     const isUser = () => {
-        return user && user.type === 'user';
+        return user && user.is_customer === 'user';
+    }
+    const isCarrier = () => {
+        return user && user.is_carrier === 'carrier';
     }
 
     useEffect(() => {
@@ -67,6 +70,7 @@ function useProvideAuth() {
         isHub,
         isPartner,
         isUser,
+        isCarrier,
         signout,
     }
 }

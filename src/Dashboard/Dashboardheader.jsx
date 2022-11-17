@@ -4,7 +4,9 @@ import SearchIcon from "@mui/icons-material/Search";
 // import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import bellicon from "../images/bellicon.png";
 import logout from "../images/logout.png";
+import { useAuth } from "../Services/auth";
 const Header = ({addUserLocal}) => {
+  const {signout} = useAuth();
   return (
     <div>
       <nav className="navbar navbar-fixed dashboard-header">
@@ -30,7 +32,7 @@ const Header = ({addUserLocal}) => {
           </li>
           <button
             className="header-btn d-flex"
-            onClick={() => addUserLocal({})}
+            onClick={signout}
           >
             {/* <ExitToAppIcon className="mr-2" /> */}
             <img src={logout} alt="logoutimg" />

@@ -19,6 +19,7 @@ const Signup = () => {
         address: "",
         city: "",
         state: "",
+        type: "",
         pincode: "",
     });
 
@@ -42,6 +43,7 @@ const Signup = () => {
             dob,
             address,
             city,
+            type,
             state,
             pincode,
         } = user;
@@ -52,18 +54,18 @@ const Signup = () => {
             phone_no &&
             email &&
             password &&
+            type &&
             dob &&
             state &&
             city &&
             pincode &&
             address &&
             password === reEnterPass
-        ) {
+        ){
             setLoading(true);
-
-            makeRequest('POST', `register-user`, user).then(result => {
+            makeRequest('POST',`register-user`, user).then(result => {
                 alert.success(result.message);
-                result.success && history.push("/login");
+                result.success && history.push("/customer/dashboard");
             }).catch(err => {
                 alert.error(err.message);
             }).finally(() => {

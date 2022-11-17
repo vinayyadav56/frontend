@@ -490,19 +490,19 @@ const Homepage = (userActive) => {
             <div className="modal-body">
               <form>
                 <div className="form-group">
-                  <label for="cname">Full Name</label>
+                  <label htmlFor="cname">Full Name</label>
                   <input type="text" className="form-control" id="cname" placeholder="Enter Your Name" />
                 </div>
                 <div className="form-group">
-                  <label for="pnname">Phone No.</label>
+                  <label htmlFor="pnname">Phone No.</label>
                   <input type="number" className="form-control" id="pnname" placeholder="Enter Your Contact" />
                 </div>
                 <div className="form-group">
-                  <label for="ename">Email address</label>
+                  <label htmlFor="ename">Email address</label>
                   <input type="email" className="form-control" id="ename" placeholder="name@example.com" />
                 </div>
                 <div className="form-group">
-                  <label for="contecttextarea">How Can We Help You</label>
+                  <label htmlFor="contecttextarea">How Can We Help You</label>
                   <textarea className="form-control" placeholder="Write Your Query" id="contecttextarea" rows="3"></textarea>
                 </div>
               </form>

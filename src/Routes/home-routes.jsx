@@ -7,7 +7,6 @@ import Services from "../Homepages/Services";
 import Forgetpassword from "../component/Forgetpassword";
 import Login from "../component/Login";
 import About from "../component/About";
-import Contact from "../component/Contact";
 
 export const HomeRoutes = () => {
     return (
@@ -18,7 +17,6 @@ export const HomeRoutes = () => {
             <Route path="/forgetpassword" component={Forgetpassword} />
             <Route path="/login" component={Login} />
             <Route path="/about" component={About} />
-            <Route path="/contact" component={Contact} />
         </Switch>
     );
 }
