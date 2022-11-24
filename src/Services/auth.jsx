@@ -17,7 +17,6 @@ function useProvideAuth() {
     const [user, setUser] = useState(storage.getJson('user'));
     const [loading, setLoading] = useState(false)
 
-
     const handleUser = (rawUser) => {
         if (rawUser) {
             // const user = formatUser(rawUser)
@@ -33,14 +32,17 @@ function useProvideAuth() {
 
     const signout = () => {
         handleUser(null);
+        storage.clear("user")
     }
 
     const isAuthenticated = () => {
         return user ? true : false;
     }
+
     const isHub = () => {
         return user && user.is_hub === 'hub';
     }
+
     const isAdmin = () => {
         return user && user.is_admin === 'admin';
     }
@@ -52,6 +54,7 @@ function useProvideAuth() {
     const isUser = () => {
         return user && user.is_customer === 'user';
     }
+
     const isCarrier = () => {
         return user && user.is_carrier === 'carrier';
     }
@@ -73,4 +76,5 @@ function useProvideAuth() {
         isCarrier,
         signout,
     }
+
 }

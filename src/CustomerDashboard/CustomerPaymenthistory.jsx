@@ -1,17 +1,16 @@
 import React from 'react'
-import { NavLink, Redirect } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Sidebar from "./CustomerSidebar";
 import Header from "./CustomerHeader";
 import gpay from "../images/Gpay.png"
 import paytm from "../images/paytm.png"
 import phonepay from "../images/phonepe.png"
 import "./CustomerHistory.css";
-import { useAuth } from '../Services/auth';
 const CustomerManagereffrals = () => {
-  const auth = useAuth();
-  if (!auth.isUser()) {
-    return <Redirect to="/login" />
-  }
+  // const auth = useAuth();
+  // if (!auth.isUser()) {
+  //   return <Redirect to="/login" />
+  // }
   return (
     <div>
       <section className="user-dashboard">

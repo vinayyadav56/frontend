@@ -20,7 +20,6 @@ const DeliveryPersonalForm = () => {
     const fetchUser = async () => {
         const userId = user.tokenable_id;
         setLoading(true);
-
         makeRequest('GET', `user-detail/${userId}`).then(result => {
             alert.success(result.message);
             setuserDatas(result.userDetails[0]);

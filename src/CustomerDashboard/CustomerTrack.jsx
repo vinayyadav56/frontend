@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Header from "./CustomerHeader";
 import Sidebar from "./CustomerSidebar";
 import "./Trackhistory.css";
@@ -15,7 +15,7 @@ const CustomerTrack = () => {
   const fetchData = async () => {
     const customerId = user.id;
     setLoading(true);
-    makeRequest('GET', `customerOrderListById/${customerId}?status=new`).then(result => {
+    makeRequest('GET', `customerOrderListById/1?status=new`).then(result => {
       setCustomerOrder(result.data);
     })
       .finally(() => {
@@ -26,10 +26,10 @@ const CustomerTrack = () => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const auth = useAuth();
-  if (!auth.isUser()) {
-    return <Redirect to="/login" />
-  }
+  // const auth = useAuth();
+  // if (!auth.isUser()) {
+  //   return <Redirect to="/login" />
+  // }
   return (
     <div>
       <section className="user-dashboard">
@@ -91,9 +91,9 @@ const CustomerTrack = () => {
                       return (
                         <>
                           <tr key={id}>
-                            <td className="d-flex align-items-center">
+                            <td className="d-flex align-items-center" style={{width:'115px'}}>
                               {row.receiver_city}
-                              <img src={tableicon} alt="table-img" />
+                              <img src={tableicon} style={{width:'65px',marginLeft:'auto'}} alt="table-img" />
                             </td>
                             <td>
                               {row.receiver_city}

@@ -5,15 +5,6 @@ const CustomerProfileform = () => {
   return (
     <div>
           <form>
-        {/* {user.map(users =>{
-            return(
-                <>
-                <div key={users.id}>
-                  <h1>{users.first_name} </h1>
-                </div>
-                </>
-            )
-        })} */}
         <div className="row">
           <div className="form-group col-6">
             <label>First Name</label>

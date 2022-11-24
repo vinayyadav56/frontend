@@ -24,7 +24,6 @@ const CustomerHeader = () => {
               </span>
             </div>
           </div>
-
           <li>
             <img src={headericon} alt="bell" />
           </li>

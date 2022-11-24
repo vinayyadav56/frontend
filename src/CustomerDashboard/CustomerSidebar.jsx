@@ -7,6 +7,7 @@ import prlogo from "../images/pr-img.png";
 import paymenticon from "../images/paymenthistory.png";
 import dashboardlogo from "../images/Frame.png";
 // import historyicon from "../images/refral.png";
+import moblogo from "../images/moblogo1.png"
 import vector from "../images/Vector.png";
 
 const CustomerSidebar = () => {
@@ -18,7 +19,7 @@ const CustomerSidebar = () => {
             <nav className="user-dash-navbar">
               <NavLink to="/customer/dashboard" className="navbar-brand">
                 <img src={dashboardlogo} alt="dashlogo" />
-                {/* <img src={moblogo} alt="mobilelogo" /> */}
+                <img src={moblogo} className="mob_img" alt="mobilelogo" />
               </NavLink>
               <ul className="navbar-nav">
                 <li className="nav-item">

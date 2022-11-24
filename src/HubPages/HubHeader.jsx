@@ -4,11 +4,13 @@ import headericon from "../images/header-user-icon.png";
 import SearchIcon from "@mui/icons-material/Search";
 import bellicon from "../images/bellicon.png";
 import logout from "../images/logout.png";
-const HubHeader = (addUserLocal) => {
+import { useAuth } from '../Services/auth';
+const HubHeader = () => {
+    const {signout} = useAuth();
     return (
         <Fragment>
             <nav className="navbar navbar-fixed dashboard-header">
-                <h2>CarryKar Hub</h2>
+                <h2>Hub Dashboard</h2>
                 <div className="search-dash d-flex align-items-center">
                     <div className="input-group">
                         <input
@@ -30,7 +32,7 @@ const HubHeader = (addUserLocal) => {
                     </li>
                     <button
                         className="header-btn d-flex"
-                        onClick={() => addUserLocal({})}
+                        onClick={signout}
                     >
                         {/* <ExitToAppIcon className="mr-2" /> */}
                         <img src={logout} alt="logoutimg" />

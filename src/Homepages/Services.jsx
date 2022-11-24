@@ -9,8 +9,12 @@ import expressimg from "../images/expressimg.png";
 import "./homepage.css";
 import "./Service.css";
 import HomeFoooter from "./HomeFoooter";
+import ContactUsForm from "./ContactUsForm";
+import ModalForm from "./ShipNow/ModalForm";
+import { useAuth } from "../Services/auth";
 const Services = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
+  const user = useAuth();
   return (
     <div>
       <section className="main_section">
@@ -35,18 +39,42 @@ const Services = () => {
                       <li>
                         <NavLink to="/location">Locations</NavLink>
                       </li>
-                      {/* <li>
-                        <NavLink to="/result">About Us</NavLink>
-                      </li> */}
                       <li>
-                        <NavLink to="/answerkey">Contact Us</NavLink>
+                        <ContactUsForm />
                       </li>
                       <li>
-                        <NavLink to="/login">Login</NavLink>
+                        <ModalForm />
                       </li>
-                      <li>
-                        <NavLink to="/carrier/signup">SignUp</NavLink>
-                      </li>
+                      {
+                        !user.isAuthenticated() ?
+                          <>
+                            <li className="home_login">
+                              <NavLink to="/login" >Login</NavLink>
+                            </li>
+                            <li className="home_signup">
+                              <NavLink to="/signup" >SignUp</NavLink>
+                            </li>
+                          </>
+                          :
+                          <li className='home_login'>
+                            {!user.isCarrier() ?
+                              <NavLink
+                                onClick={() => setToggleMenu(false)}
+                                to="/customer/dashboard"
+                              >
+                                Go To Dashboard
+                              </NavLink>
+                              :
+                              <NavLink
+                                onClick={() => setToggleMenu(false)}
+                                to="/carrier/dashboard"
+                              >
+                                Go To Dashboard
+                              </NavLink>
+                            }
+
+                          </li>
+                      }
                     </ul>
                   </div>
                 </div>
@@ -57,7 +85,6 @@ const Services = () => {
                   >
                     <MenuIcon />
                   </button>
-
                   {toggleMenu && (
                     <div className="nav-mobile-div slide-bottom">
                       <button
@@ -93,29 +120,40 @@ const Services = () => {
                           </NavLink>
                         </li>
                         <li>
-                          <NavLink
-                            onClick={() => setToggleMenu(false)}
-                            to="/contactus"
-                          >
-                            Conatct Us
-                          </NavLink>
+                          <ContactUsForm onClick={() => setToggleMenu(false)} />
                         </li>
                         <li>
-                          <NavLink
-                            onClick={() => setToggleMenu(false)}
-                            to="/login"
-                          >
-                            Login
-                          </NavLink>
+                          <ModalForm onClick={() => setToggleMenu(false)} />
                         </li>
-                        <li>
-                          <NavLink
-                            onClick={() => setToggleMenu(false)}
-                            to="/signup"
-                          >
-                            Sign Up
-                          </NavLink>
-                        </li>
+                        {!user.isAuthenticated() ?
+                          <>
+                            <li className="home_login">
+                              <NavLink to="/login" >Login</NavLink>
+                            </li>
+                            <li className="home_signup">
+                              <NavLink to="/signup" >SignUp</NavLink>
+                            </li>
+                          </>
+                          :
+                          <li className='home_login'>
+                            {!user.isUser() ?
+                              <NavLink
+                                onClick={() => setToggleMenu(false)}
+                                to="/customer/dashboard"
+                              >
+                                Go To Dashboard
+                              </NavLink>
+                              :
+                              <NavLink
+                                onClick={() => setToggleMenu(false)}
+                                to="/carrier/dashboard"
+                              >
+                                Go To Dashboard
+                              </NavLink>
+                            }
+
+                          </li>
+                        }
                       </ul>
                     </div>
                   )}
@@ -171,13 +209,13 @@ const Services = () => {
           <div className="container">
             <div className="plt_text">
               <div>
-              <h3 className="mb-4">Express Delivery</h3>
+                <h3 className="mb-4">Express Delivery</h3>
                 <p>
-                Express is designed for shipments that require urgency
-                in delivery with an advantage of being cost effective. 
-                The service assures delivery within 24 hours, 48 hours
-                and more than 48 hours (Multimodal) to all the metro &
-                non metro locations.
+                  Express is designed for shipments that require urgency
+                  in delivery with an advantage of being cost effective.
+                  The service assures delivery within 24 hours, 48 hours
+                  and more than 48 hours (Multimodal) to all the metro &
+                  non metro locations.
                 </p>
               </div>
               <div className="ser-img-plt">
@@ -187,7 +225,7 @@ const Services = () => {
           </div>
         </div>
       </section>
-      <HomeFoooter/>
+      <HomeFoooter />
     </div>
   );
 };

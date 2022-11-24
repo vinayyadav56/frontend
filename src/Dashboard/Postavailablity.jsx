@@ -13,7 +13,6 @@ const Postavailablity = ({addUserLocal,  userActive }) => {
           <div className="mt-5 trip_form">
             <Tripsearch />
           </div>
-         
         </section>
       </section>
     </div>

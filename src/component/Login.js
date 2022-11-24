@@ -15,7 +15,6 @@ const Login = () => {
     email: "",
     password: "",
   });
-
   const handleLoginInput = (e) => {
     const { name, value } = e.target;
     setLoginuser({
@@ -23,6 +22,7 @@ const Login = () => {
       [name]: value,
     });
   };
+
   const handleLogin = async (e) => {
     e.preventDefault();
     const { email, password } = loginuser;
@@ -34,10 +34,9 @@ const Login = () => {
         if (result.userDetails.is_customer === 1) {
           history.push("/customer/dashboard")
         }
-        if(result.userDetails.is_carrier === 1) {
+        if (result.userDetails.is_carrier === 1) {
           history.push("/carrier/dashboard")
         }
-       
       }).catch(error => {
         alert.error(error.message);
       }).finally(() => {
@@ -46,9 +45,7 @@ const Login = () => {
     } else {
       alert.error("Invalid inputs please retry");
     }
-
   };
-
   return (
     <>
       <div className="container-fluid admin-login">

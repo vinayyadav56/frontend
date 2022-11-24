@@ -204,7 +204,7 @@ const Homepage = (userActive) => {
                 </div>
               </div>
               <div className="card">
-                <span class="badge badge-warning">Coming Soon</span>
+                <span className="badge badge-warning">Coming Soon</span>
                 <div className="card-body">
                   <img src={operation3} alt="operation2" />
                   <p>Kolkata</p>

@@ -59,8 +59,8 @@
 }
 .payment-history .payment-table tbody tr td{
     text-align: left;
-    padding-top: 1.6rem;
-    padding-bottom: 1.6rem;
+    padding-top: auto !important;
+    padding-bottom:auto !important;
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
@@ -88,4 +88,12 @@ tbody tr td .abled{
     color: #960101;
     border: 1px solid #960101;
     cursor: no-drop;
+}
+.mob_img{
+    display: none;
+}
+@media only screen and (max-width:991px){
+    .mob_img{
+        display:block;
+    }
 }
