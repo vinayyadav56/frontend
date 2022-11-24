@@ -3,8 +3,8 @@ import Sidebar from "./CustomerSidebar";
 import Header from "./CustomerHeader";
 import ShipingOrder from "../Homepages/ShipNow/ShipingOrder"
 import { Box } from '@material-ui/core';
-import { useAuth } from '../Services/auth';
-import { Redirect } from 'react-router-dom';
+// import { useAuth } from '../Services/auth';
+// import { Redirect } from 'react-router-dom';
 const CustomerDashboard = () => {
   const style = {
     width: 400,
@@ -14,10 +14,12 @@ const CustomerDashboard = () => {
     overflow: 'scroll',
     borderRadius: '4px'
   };
-  const auth = useAuth();
-  if (!auth.isUser()) {
-    return <Redirect to="/login" />
-  }
+  // const auth = useAuth();
+
+  // if (!auth.isUser()) {
+  //   return <Redirect to="/login" />
+  // }
+
   return (
     <div>
       <section className="user-dashboard">
