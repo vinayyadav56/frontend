@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import {makeRequest} from "../../Services/api";
 import {useAuth} from "../../Services/auth";
 import {useAlert} from "react-alert";

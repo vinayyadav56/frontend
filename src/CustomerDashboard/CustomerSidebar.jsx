@@ -37,7 +37,6 @@ const CustomerSidebar = () => {
                     ) : (
                       "Guest"
                     )}
-                       
                     </p>
                   </div>
                 </li>
@@ -65,6 +64,7 @@ const CustomerSidebar = () => {
                     <span>Help & Support</span>
                   </NavLink>
                 </li>
+                
               </ul>
             </nav>
           </div>

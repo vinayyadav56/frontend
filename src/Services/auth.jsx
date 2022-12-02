@@ -16,14 +16,13 @@ function useProvideAuth() {
     const storage = localStorage();
     const [user, setUser] = useState(storage.getJson('user'));
     const [loading, setLoading] = useState(false)
-
     const handleUser = (rawUser) => {
         if (rawUser) {
             // const user = formatUser(rawUser)
             setLoading(false)
             setUser(rawUser)
             return user
-        } else {
+        } else{
             setLoading(false)
             setUser(null)
             return false

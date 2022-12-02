@@ -6,7 +6,7 @@ import { useAuth } from "../Services/auth";
 import newLogo from '../images/newlogo1.png'
 const Signup = () => {
   let alert = useAlert();
-  const { setLoading } = useAuth();
+  const { setLoading, handleUser } = useAuth();
   let history = useHistory();
   const [user, setUser] = useState({
     first_name: "",
@@ -63,14 +63,16 @@ const Signup = () => {
       setLoading(true);
       makeRequest('POST', `register-user`, user).then(result => {
         alert.success(result.message);
-        result.success && history.push("/carrier/dashboard");
-        console.log(result.data);
-        // if (result.userDetails.is_customer === 1) {
-        //   history.push("/customer/dashboard")
-        // }
-        // if (result.userDetails.is_carrier === 1) {
-        //   history.push("/carrier/dashboard")
-        // }
+        handleUser(result.userData);
+        if (result.userData.is_customer === 1) {
+          history.push("/customer/dashboard")
+        }
+        if (result.userData.is_carrier === 1) {
+          history.push("/carrier/dashboard")
+        }
+        if (result.userData.is_daily_commuter === 1) {
+          history.push("/delivery/dashboard")
+        }
       }).catch(err => {
         alert.error(err.message);
       }).finally(() => {

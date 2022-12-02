@@ -1,4 +1,4 @@
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Header from "./Dashboardheader";
 import Sidebar from "./Dashboardsidebar";
 import "./Paymenthistory.css";
@@ -10,12 +10,8 @@ import tableicon from "../images/tableicon.png";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import LuggageOutlinedIcon from "@mui/icons-material/LuggageOutlined";
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
-import { useAuth } from "../Services/auth";
+// import { useAuth } from "../Services/auth";
 const Paymenthistory = ({addUserLocal, userActive }) => {
-  const auth = useAuth();
-  if (!auth.isAuthenticated()) {
-    return <Redirect to="/login" />
-  }
   return (
     <>
       <section className="user-dashboard">

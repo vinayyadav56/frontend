@@ -4,38 +4,36 @@ import {useAuth} from "../../Services/auth";
 import {makeRequest} from "../../Services/api";
 import {useAlert} from "react-alert";
 const Profileform = () => {
-    const {user, setLoading} = useAuth();
+    const { user, setLoading } = useAuth();
     const alert = useAlert();
     const handleInput = (e) => {
-        const { name, value } = e.target;
-        setuserDatas({
-            ...userDatas,
-            [name]: value,
-        });
+      const { name, value } = e.target;
+      setuserDatas({
+        ...userDatas,
+        [name]: value,
+      });
     };
     const [userDatas, setuserDatas] = useState({});
-
     useEffect(() => {
-        setuserDatas(user)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+      setuserDatas(user)
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
     // UPDATE USER START
-    const handleUpdate = async () => {
-        const userId = user.tokenable_id;
-
-        setLoading(true);
-
-        makeRequest('PUT', `profile-update/${userId}`).then(result => {
-            alert.success(result.message);
-            setuserDatas(result.userDetails[0]);
-        }).catch(err => {
-            alert.error(err.message);
-        }).finally(() => {
-            setLoading(false);
-        })
+    const handleUpdate = async (e) => {
+      e.preventDefault()
+      const userId = user.tokenable_id;
+  
+      setLoading(true);
+  
+      makeRequest('PUT', `profile-update/${userId}`).then(result => {
+        alert.success(result.message);
+        setuserDatas(result.userDetails[0]);
+      }).catch(err => {
+        alert.error(err.message);
+      }).finally(() => {
+        setLoading(false);
+      })
     };
-    // UPDATE USERS ENDS
     
     return (
         <div>

@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useAlert } from 'react-alert';
-import { Link } from "react-router-dom";
+import { Link, } from "react-router-dom";
 import emailicon from "../images/emailicon.png";
 import { makeRequest } from '../Services/api';
 import { useAuth } from '../Services/auth';
@@ -16,9 +16,7 @@ const CustomerProfileform = () => {
       [name]: value,
     });
   };
-
   const [userDatas, setuserDatas] = useState({});
-
   useEffect(() => {
     setuserDatas(user)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -40,6 +38,11 @@ const CustomerProfileform = () => {
     })
   };
   // UPDATE USERS ENDS
+  
+  // const auth = useAuth();
+  // if (!auth.isAuthenticated()) {
+  //   return <Redirect to="/login" />
+  // }
   return (
     <div>
       <form>

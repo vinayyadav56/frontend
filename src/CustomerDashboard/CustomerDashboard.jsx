@@ -14,11 +14,7 @@ const CustomerDashboard = () => {
     overflow: 'scroll',
     borderRadius: '4px'
   };
-  // const auth = useAuth();
 
-  // if (!auth.isUser()) {
-  //   return <Redirect to="/login" />
-  // }
 
   return (
     <div>
