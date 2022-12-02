@@ -5,7 +5,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { useAuth } from "../../../Services/auth";
 import { useHistory } from "react-router-dom";
 const Newpartner = () => {
-    const { setLoading} = useAuth();
+    const { setLoading } = useAuth();
     let alert = useAlert();
     let history = useHistory();
     const [hub, setHub] = useState({
@@ -32,25 +32,26 @@ const Newpartner = () => {
             pin,
             contact_number,
             alternate_contact_number,
-            hub_full_address, 
+            hub_full_address,
         } = hub;
-        if(
-            hub_name && 
-            state && 
-            city && 
-            pin && 
-            contact_number && 
-            alternate_contact_number && 
+        if (
+            hub_name &&
+            state &&
+            city &&
+            pin &&
+            contact_number &&
+            alternate_contact_number &&
             hub_full_address
-            ){setLoading(true);
-                postRequest('createNewHub', hub).then(result => {
-                    alert.success(result.message);
-                    result.success && history.push("/admindashboard")
-                  }).catch(error => {
-                    alert.error(error.message);
-                  }).finally(() => {
-                    setLoading(false);
-                  });
+        ) {
+            setLoading(true);
+            postRequest('createNewHub', hub).then(result => {
+                alert.success(result.message);
+                result.success && history.push("/admindashboardhub")
+            }).catch(error => {
+                alert.error(error.message);
+            }).finally(() => {
+                setLoading(false);
+            });
         }
     }
     return (
@@ -93,7 +94,6 @@ const Newpartner = () => {
                         </div>
                         <div className="modal-body">
                             <form
-                                onSubmit={(e) => handlePartner(e)}
                                 className="partner_add"
                             >
                                 <label htmlFor="#hubname">Hub Name</label>
@@ -181,7 +181,7 @@ const Newpartner = () => {
                                     value={hub.hub_full_address}
                                 ></input>
                                 <div className="d-flex justify-content-between">
-                                    <button type="submit" className="btn btn-primary">Add Hub</button>
+                                    <button className="btn btn-primary" data-dismiss="modal" onClick={(e) => handlePartner(e)}>Add Hub</button>
                                 </div>
                             </form>
                         </div>

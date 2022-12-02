@@ -9,9 +9,11 @@ import dashboardlogo from "../images/Frame.png";
 // import historyicon from "../images/refral.png";
 import moblogo from "../images/moblogo1.png"
 import vector from "../images/Vector.png";
+import { useAuth } from '../Services/auth';
 
 const CustomerSidebar = () => {
     const [toggleMenu, setToggleMenu] = useState();
+    const { user } = useAuth();
   return (
     <div>
         <section className="user-sidebar">
@@ -28,15 +30,13 @@ const CustomerSidebar = () => {
                     <p>
                       <span>Welcome Back!</span>
                       <span>Rahul Yadav</span>
-                      {/* {name.map((name,id) => {
-                        return(
-                          <span key={id}>
-                            <span>{name.id}</span>
-                            <span>{name.first_name}</span>
-                            <span>{name.last_name}</span>
-                          </span>
-                        )
-                      })} */}
+                      {user && user.id ? (
+                      <span>
+                        {user.first_name} {user.last_name}
+                      </span>
+                    ) : (
+                      "Guest"
+                    )}
                        
                     </p>
                   </div>

@@ -1,14 +1,59 @@
 import React from 'react'
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { useAlert } from 'react-alert';
 import { Link } from "react-router-dom";
 import emailicon from "../images/emailicon.png";
+import { makeRequest } from '../Services/api';
+import { useAuth } from '../Services/auth';
 const CustomerProfileform = () => {
+  const { user, setLoading } = useAuth();
+  const alert = useAlert();
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setuserDatas({
+      ...userDatas,
+      [name]: value,
+    });
+  };
+
+  const [userDatas, setuserDatas] = useState({});
+
+  useEffect(() => {
+    setuserDatas(user)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  // UPDATE USER START
+  const handleUpdate = async (e) => {
+    e.preventDefault()
+    const userId = user.tokenable_id;
+
+    setLoading(true);
+
+    makeRequest('PUT', `profile-update/${userId}`).then(result => {
+      alert.success(result.message);
+      setuserDatas(result.userDetails[0]);
+    }).catch(err => {
+      alert.error(err.message);
+    }).finally(() => {
+      setLoading(false);
+    })
+  };
+  // UPDATE USERS ENDS
   return (
     <div>
-          <form>
+      <form>
         <div className="row">
           <div className="form-group col-6">
             <label>First Name</label>
-            <input className="form-control" type="text" id="fnameid" />
+            <input
+              name="first_name"
+              onChange={handleInput}
+              value={userDatas.first_name}
+              className="form-control"
+              type="text"
+            />
+            {/* <input className="form-control" type="text" id="fnameid" /> */}
           </div>
           <div className="form-group col-6">
             <label>Last Name</label>
@@ -67,7 +112,9 @@ const CustomerProfileform = () => {
           />
         </div>
         <div className="persnl-detail-btns">
-          <button className="btn">Save</button>
+          <button type='button' className="btn" onClick={handleUpdate}>
+            Save
+          </button>
           <Link to="/resetpassword">Reset Password?</Link>
         </div>
       </form>

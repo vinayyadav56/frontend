@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink, Redirect } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./Partnerdash.css";
 import Form from "./Form";
 import partnerArray from "./partnerArray";
@@ -8,12 +8,8 @@ import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
-import { useAuth } from "../Services/auth";
+// import { useAuth } from "../Services/auth";
 const PartnerDashboard = () => {
-  const auth = useAuth();
-  if (!auth.isAuthenticated()) {
-    return <Redirect to="/partner" />
-  }
   return (
     <>
       <nav className="sticky-top partnerdash-nav ">
@@ -90,7 +86,6 @@ const PartnerDashboard = () => {
             </div>
           </div>
         </aside>
-
         <section className="right mt-3">
           <Form />
         </section>

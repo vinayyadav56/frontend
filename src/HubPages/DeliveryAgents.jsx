@@ -86,7 +86,7 @@ const DeliveryAgents = () => {
                                                     </button>
                                                 </div>
                                                 <div className='col-md-4 pr-0 '>
-                                                    <span><p>RC no:</p><p>{item.pan_card_no}</p></span>
+                                                    <span><p>PAN no:</p><p>{item.pan_card_no}</p></span>
                                                     <button className='btn btn_unverify' type='button'>
                                                         Unverified
                                                     </button>

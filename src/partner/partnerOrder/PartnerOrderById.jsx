@@ -9,13 +9,10 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
 import PartnerOrderTable from './PartnerOrderTable';
-import { Redirect } from 'react-router-dom';
-import { useAuth } from '../../Services/auth';
+// import { Redirect } from 'react-router-dom';
+// import { useAuth } from '../../Services/auth';
 const PartnerOrderById = () => {
-    const auth = useAuth();
-    if (!auth.isAuthenticated()) {
-      return <Redirect to="/partner" />
-    }
+    // const auth = useAuth();
     return (
         <Fragment>
             <nav className="sticky-top partnerdash-nav ">

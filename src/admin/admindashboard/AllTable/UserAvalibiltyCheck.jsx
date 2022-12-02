@@ -20,7 +20,6 @@ const UserAvalibiltyCheck = () => {
     setLoading(true);
 
     makeRequest('POST', `fetchUsersAvailability`, searchUser).then(result => {
-      alert.success(result.message);
       result.userAvailability
         &&
         setFilterUser(result.userAvailability);

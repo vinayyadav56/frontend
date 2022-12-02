@@ -7,15 +7,11 @@ import { useState } from 'react';
 import { makeRequest, postRequest } from '../../Services/api';
 import { useEffect } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
-
 const PartnerOrderTable = () => {
-    
     const { user, setLoading } = useAuth();
     const [open, setopen] = useState(false);
     const [partnerOrder, setPartnerOrder] = useState([]);
     const [createorder, setCreateorder] = useState({});
-    
-
     const handleClickOpen = () => {
         setopen(true);
     };
@@ -55,7 +51,6 @@ const PartnerOrderTable = () => {
     const handleOrder = async (e) => {
         e.preventDefault();
         setLoading(true);
-
         postRequest('createNewOrderPartner', createorder).then(result => {
             alert.success(result.message);
             console.log(result.createorder);
@@ -221,7 +216,7 @@ const PartnerOrderTable = () => {
                 </div>
             </div>
             {/* PARTNER ORDER DETAILS EDIT START */}
-            <div className="modal fade" id="partnerOrderEdit" tabindex="-1" role="dialog" aria-labelledby="partnerOrderEditTitle" aria-hidden="true">
+            <div className="modal fade" id="partnerOrderEdit" tabIndex="-1" role="dialog" aria-labelledby="partnerOrderEditTitle" aria-hidden="true">
                 <div className="modal-dialog modal-xl modal-dialog-centered" role="document">
                     <div className="modal-content partner_order_details">
                         <div className="modal-header form-title">

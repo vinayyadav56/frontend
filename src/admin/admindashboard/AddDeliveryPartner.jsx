@@ -8,11 +8,10 @@ import '../admindashboard/Adminmenu.css'
 import Previews from './DeliveryImageSelector';
 import { makeRequest } from "../../Services/api";
 import { useAuth } from "../../Services/auth";
+import { FormGroup } from '@material-ui/core';
 const AddDeliveryPartner = () => {
     let alert = useAlert();
     const { setLoading } = useAuth();
-
-    let history = useHistory();
     const [agent, setAgent] = useState({
         first_name: "",
         last_name: "",
@@ -82,10 +81,9 @@ const AddDeliveryPartner = () => {
             is_aadhar_verified
         ) {
             setLoading(true);
-
             makeRequest('POST', `createNewDeliveryAgent`, agent).then(result => {
                 alert.success(result.message);
-                result.success && history.push("/hub/dashboard");
+              
             }).catch(err => {
                 alert.error(err.message);
             }).finally(() => {
@@ -134,8 +132,7 @@ const AddDeliveryPartner = () => {
                             </button>
                         </div>
                         <div className="modal-body">
-                            <form
-                                onSubmit={(e) => handlePartner(e)}
+                            <FormGroup
                                 className="agent_add"
                             >
                                 <label for="#hubid">HUB ID</label>
@@ -228,9 +225,9 @@ const AddDeliveryPartner = () => {
                                     </div>
                                 </div> */}
                                 <div className="d-flex justify-content-between">
-                                    <button className="btn btn-primary">Save Agent</button>
+                                    <button   onClick={(e) => handlePartner(e)} className="btn btn-primary" data-dismiss="modal">Save Agent</button>
                                 </div>
-                            </form>
+                            </FormGroup>
                         </div>
                     </div>
                 </div>

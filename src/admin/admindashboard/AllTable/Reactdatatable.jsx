@@ -55,6 +55,7 @@ const Reactdatatable = () => {
     [`&.${tableCellClasses.body}`]: {
       fontSize: 12,
       padding: '10px 14px',
+      maxWidth:'150px',
       border: '1px solid #c8c8c8'
     },
   }));
@@ -156,7 +157,6 @@ const Reactdatatable = () => {
     setLoading(true);
     makeRequest('GET', `partnerDetailsByPartnerId/${id}`, editData).then(result => {
       setEditData(result.data);
-      console.log(result.data)
     }).catch(err => {
       alert.error(err.message);
     }).finally(() => {
@@ -226,10 +226,10 @@ const Reactdatatable = () => {
                   <StyledTableCell>
                     <button
                       onClick={() => fetchID(row.id)}
-                      className="btn edit_partner py-0 mr-1"
-                      data-toggle="modal"
-                      variant="contained"
-                      data-target="#editPartner"
+                      type="button"
+                      className="btn edit_partner py-0 mr-1" 
+                      data-toggle="modal" 
+                      data-target="#editpartner"
                     >
                       <ModeEditOutlineIcon />
                     </button>
@@ -274,17 +274,9 @@ const Reactdatatable = () => {
       </TableContainer>
       {/* React Table ends */}
       {/* EDIT MODAL START */}
-      <div
-        className="modal fade"
-        id="editPartner"
-        role="dialog"
-        aria-labelledby="editPartnerTitle"
-        aria-hidden="true"
-      >
-        <div
-          className="modal-dialog modal-dialog-centered add-partner"
-          role="document"
-        >
+     
+      <div className="modal fade" id="editpartner" tabIndex="-1" role="dialog" aria-labelledby="editPartnerTitle" aria-hidden="true">
+        <div className="modal-dialog modal-dialog-centered add-partner" role="document">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="editPartnerTitle">
@@ -368,7 +360,7 @@ const Reactdatatable = () => {
                   onChange={handleInput}
                   value={editData.partner_address}
                 />
-                <div className="d-flex justify-content-between">
+                 <div className="d-flex justify-content-between">
                   <button
                     onClick={(e) => handlePartner(e, editData.id)}
                     data-dismiss="modal"

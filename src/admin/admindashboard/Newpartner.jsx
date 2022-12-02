@@ -1,15 +1,15 @@
+import { FormGroup } from "@material-ui/core";
 import React, { useState } from "react";
 // import AddIcon from "@mui/icons-material/Add";
 import { useAlert } from "react-alert";
 import { useHistory } from "react-router-dom";
-import {makeRequest} from "../../Services/api";
-import {useAuth} from "../../Services/auth";
+import { makeRequest } from "../../Services/api";
+import { useAuth } from "../../Services/auth";
 
 const Newpartner = () => {
     let alert = useAlert();
-    let history = useHistory();
-    const {setLoading} = useAuth();
-
+    const { setLoading } = useAuth();
+    const history = useHistory();
     const [partnerregister, setPartnerregister] = useState({
         partner_name: "",
         partner_email: "",
@@ -22,7 +22,7 @@ const Newpartner = () => {
     });
 
     const handleInput = (e) => {
-        const {name, value} = e.target;
+        const { name, value } = e.target;
         setPartnerregister({
             ...partnerregister,
             [name]: value,
@@ -31,6 +31,7 @@ const Newpartner = () => {
 
     const handlePartner = (e) => {
         e.preventDefault();
+        setLoading(true);
         const {
             partner_name,
             partner_email,
@@ -52,25 +53,19 @@ const Newpartner = () => {
             partner_city &&
             partner_address
         ) {
-            setLoading(true);
 
             makeRequest('POST', `createNewPartner`, partnerregister).then(result => {
-                alert.success(result.message);
-                result.success && history.push("/admindashboard");
-                console.log(result)
+                alert.success(result.message) && history.push("/admindashboard")
             }).catch(err => {
                 alert.error(err.message);
             }).finally(() => {
                 setLoading(false);
             })
-        } else {
-            alert.error("Invalid Inputs");
         }
-    };
+    }
     return (
         <div>
-            <form
-                onSubmit={(e) => handlePartner(e)}
+            <FormGroup
                 className="partner_add"
             >
                 <label htmlFor='#pn'>Partner Name</label>
@@ -95,8 +90,8 @@ const Newpartner = () => {
                     onChange={handleInput}
                     value={partnerregister.partner_email}
                 ></input>
-                  <label htmlFor='#pp'>Partner Password</label>
-                 <input
+                <label htmlFor='#pp'>Partner Password</label>
+                <input
                     type="password"
                     name="partner_password"
                     onChange={handleInput}
@@ -162,9 +157,15 @@ const Newpartner = () => {
                     value={partnerregister.partner_address}
                 ></input>
                 <div className="d-flex justify-content-between">
-                    <button className="btn btn-primary">Save Partner</button>
+                    <button
+                        onClick={(e) => handlePartner(e)}
+                        data-dismiss="modal"
+                        className="btn btn-primary"
+                    >
+                        Save Partner
+                    </button>
                 </div>
-            </form>
+            </FormGroup>
 
         </div>
     );

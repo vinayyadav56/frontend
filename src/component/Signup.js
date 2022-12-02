@@ -1,81 +1,85 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import {useAlert} from "react-alert";
-import {makeRequest} from "../Services/api";
-import {useAuth} from "../Services/auth";
+import { useAlert } from "react-alert";
+import { makeRequest } from "../Services/api";
+import { useAuth } from "../Services/auth";
 import newLogo from '../images/newlogo1.png'
 const Signup = () => {
-    let alert = useAlert();
-    const {setLoading} = useAuth();
-    let history = useHistory();
-    const [user, setUser] = useState({
-        first_name: "",
-        phone_no: "",
-        email: "",
-        last_name: "",
-        password: "",
-        reEnterPass: "",
-        dob: "",
-        address: "",
-        city: "",
-        state: "",
-        type: "",
-        pincode: "",
+  let alert = useAlert();
+  const { setLoading } = useAuth();
+  let history = useHistory();
+  const [user, setUser] = useState({
+    first_name: "",
+    phone_no: "",
+    email: "",
+    last_name: "",
+    password: "",
+    reEnterPass: "",
+    dob: "",
+    address: "",
+    city: "",
+    state: "",
+    type: "",
+    pincode: "",
+  });
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setUser({
+      ...user,
+      [name]: value,
     });
+  };
+  const Register = (e) => {
+    e.preventDefault();
+    const {
+      first_name,
+      last_name,
+      phone_no,
+      email,
+      password,
+      reEnterPass,
+      dob,
+      address,
+      city,
+      type,
+      state,
+      pincode,
+    } = user;
 
-    const handleInput = (e) => {
-        const {name, value} = e.target;
-        setUser({
-            ...user,
-            [name]: value,
-        });
-    };
-
-    const Register = (e) => {
-        e.preventDefault();
-        const {
-            first_name,
-            last_name,
-            phone_no,
-            email,
-            password,
-            reEnterPass,
-            dob,
-            address,
-            city,
-            type,
-            state,
-            pincode,
-        } = user;
-
-        if (
-            first_name &&
-            last_name &&
-            phone_no &&
-            email &&
-            password &&
-            type &&
-            dob &&
-            state &&
-            city &&
-            pincode &&
-            address &&
-            password === reEnterPass
-        ){
-            setLoading(true);
-            makeRequest('POST',`register-user`, user).then(result => {
-                alert.success(result.message);
-                result.success && history.push("/customer/dashboard");
-            }).catch(err => {
-                alert.error(err.message);
-            }).finally(() => {
-                setLoading(false);
-            })
-        } else {
-            alert.error("Invalid inputs");
-        }
-    };
-
+    if (
+      first_name &&
+      last_name &&
+      phone_no &&
+      email &&
+      password &&
+      type &&
+      dob &&
+      state &&
+      city &&
+      pincode &&
+      address &&
+      password === reEnterPass
+    ) {
+      setLoading(true);
+      makeRequest('POST', `register-user`, user).then(result => {
+        alert.success(result.message);
+        result.success && history.push("/carrier/dashboard");
+        console.log(result.data);
+        // if (result.userDetails.is_customer === 1) {
+        //   history.push("/customer/dashboard")
+        // }
+        // if (result.userDetails.is_carrier === 1) {
+        //   history.push("/carrier/dashboard")
+        // }
+      }).catch(err => {
+        alert.error(err.message);
+      }).finally(() => {
+        setLoading(false);
+      })
+    } else {
+      alert.error("Invalid inputs");
+    }
+  };
   return (
     <>
       <div className="container-fluid admin-login signup-log">

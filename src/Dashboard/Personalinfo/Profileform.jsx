@@ -3,11 +3,9 @@ import emailicon from "../../images/emailicon.png";
 import {useAuth} from "../../Services/auth";
 import {makeRequest} from "../../Services/api";
 import {useAlert} from "react-alert";
-
 const Profileform = () => {
     const {user, setLoading} = useAuth();
     const alert = useAlert();
-
     const handleInput = (e) => {
         const { name, value } = e.target;
         setuserDatas({
@@ -15,14 +13,12 @@ const Profileform = () => {
             [name]: value,
         });
     };
-
     const [userDatas, setuserDatas] = useState({});
 
     useEffect(() => {
         setuserDatas(user)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
 
     // UPDATE USER START
     const handleUpdate = async () => {
@@ -40,6 +36,7 @@ const Profileform = () => {
         })
     };
     // UPDATE USERS ENDS
+    
     return (
         <div>
             <div className="container-fluid personal-info-form px-0">
