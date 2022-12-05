@@ -253,7 +253,7 @@ export default function CkOrder() {
                                 </select>
                             </div>
                             <div className="col-sm-4 col-12">
-                                <button className='btn ordergenrate' type='submit'>
+                                <button className='btn ordergenrate'>
                                     Search Hub
                                 </button>
                             </div>

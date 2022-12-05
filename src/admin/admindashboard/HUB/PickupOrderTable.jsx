@@ -83,7 +83,7 @@ const PickupOrderTable = () => {
         },
         [`&.${tableCellClasses.body}`]: {
             fontSize: 12,
-            padding: '10px 14px',
+            padding: '5px 5px',
             border: '1px solid #c8c8c8'
         },
     }));
@@ -134,7 +134,7 @@ const PickupOrderTable = () => {
                                 rowsPerPage={rowsPerPage}
                                 onRowsPerPageChange={handleChangeRowsPerPage}
                                 rowsPerPageOptions={[10, 25, 100]}
-                                // count={filterUser.length}
+                                count={hubPickupData.length}
                                 rows={10}
                             />
                         </TableRow>

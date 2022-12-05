@@ -29,7 +29,6 @@ const CustomerSidebar = () => {
                     <img src={profilelogo} alt="profilelogo"/>
                     <p>
                       <span>Welcome Back!</span>
-                      <span>Rahul Yadav</span>
                       {user && user.id ? (
                       <span>
                         {user.first_name} {user.last_name}

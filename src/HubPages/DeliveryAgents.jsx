@@ -19,7 +19,6 @@ const DeliveryAgents = () => {
         makeRequest('GET', `deliveryAgentsListByHubId/${hubId}`).then(result => {
             alert.success(result.message);
             setAddAgent(result.data);
-            console.log("result" + JSON.stringify(result.data))
         }).catch(err => {
             alert.error(err.message);
         }).finally(() => {

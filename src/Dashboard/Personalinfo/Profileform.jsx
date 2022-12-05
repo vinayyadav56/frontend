@@ -123,7 +123,7 @@ const Profileform = () => {
                                     name="pan_no"
                                     onChange={handleInput}
                                     className="form-control"
-                                    value={userDatas.dob}
+                                    value={userDatas.pan_no}
                                     type="text"
                                 />
                             </div>
@@ -132,7 +132,7 @@ const Profileform = () => {
                                 <input
                                     name="aadhar_no"
                                     onChange={handleInput}
-                                    value={userDatas.city}
+                                    value={userDatas.aadhar_no}
                                     className="form-control"
                                     type="text"
                                 />

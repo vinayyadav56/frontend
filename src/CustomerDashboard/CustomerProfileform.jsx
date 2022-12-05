@@ -17,6 +17,7 @@ const CustomerProfileform = () => {
     });
   };
   const [userDatas, setuserDatas] = useState({});
+  console.log(userDatas);
   useEffect(() => {
     setuserDatas(user)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -38,7 +39,7 @@ const CustomerProfileform = () => {
     })
   };
   // UPDATE USERS ENDS
-  
+
   // const auth = useAuth();
   // if (!auth.isAuthenticated()) {
   //   return <Redirect to="/login" />
@@ -60,7 +61,13 @@ const CustomerProfileform = () => {
           </div>
           <div className="form-group col-6">
             <label>Last Name</label>
-            <input className="form-control" type="text" id="lnameid" />
+            <input
+              name="first_name"
+              onChange={handleInput}
+              value={userDatas.last_name}
+              className="form-control"
+              type="text"
+            />
           </div>
         </div>
         <div className="row">
@@ -75,7 +82,13 @@ const CustomerProfileform = () => {
                 </select>
               </div>
               <div className="col-8 pl-1">
-                <input className="form-control" type="text" id="phnid" />
+                <input
+                  name="first_name"
+                  onChange={handleInput}
+                  value={userDatas.phone_no}
+                  className="form-control"
+                  type="text"
+                />
               </div>
             </div>
           </div>
@@ -87,31 +100,56 @@ const CustomerProfileform = () => {
                   <img src={emailicon} alt="emailicons" />
                 </span>
               </div>
-              <input type="text" className="form-control" />
+              <input
+                name="first_name"
+                onChange={handleInput}
+                value={userDatas.email}
+                className="form-control"
+                type="text"
+              />
             </div>
           </div>
         </div>
         <div className="form-group">
           <label >Address</label>
-          <input className="form-control" type="text" id="addid" />
+          <input
+            name="first_name"
+            onChange={handleInput}
+            value={userDatas.address}
+            className="form-control"
+            type="text"
+          />
         </div>
         <div className="row">
           <div className="form-group col-6">
             <label >PAN No:</label>
-            <input className="form-control" type="text" id="pnoid" />
+            <input
+              name="first_name"
+              onChange={handleInput}
+              value={userDatas.pan_no}
+              className="form-control"
+              type="text"
+            />
           </div>
           <div className="form-group col-6">
             <label >Aadhar No:</label>
-            <input className="form-control" type="text" id="adnid" />
+            <input
+              name="first_name"
+              onChange={handleInput}
+              value={userDatas.alternate_no}
+              className="form-control"
+              type="text"
+            />
           </div>
         </div>
         <div className="form-group">
           <label >Alternate No:</label>
           <input
-            className="form-control optional"
-            placeholder="Optional"
+            name="first_name"
+            onChange={handleInput}
+            value={userDatas.alternate_no}
+            className="form-control"
             type="text"
-            id="altnoid"
           />
         </div>
         <div className="persnl-detail-btns">
