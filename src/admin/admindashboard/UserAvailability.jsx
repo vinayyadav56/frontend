@@ -8,7 +8,7 @@ import UserAvalibiltyCheck from "./AllTable/UserAvalibiltyCheck";
 import AdminSidebar from "./AdminSidebar";
 import { useAuth } from "../../Services/auth";
 // import UserOrder from "./UserOrder";
-const Order = () => {
+const UserAvailability = () => {
   const auth = useAuth();
   if (!auth.isAuthenticated()) {
     return <Redirect to="/admin" />
@@ -79,4 +79,4 @@ const Order = () => {
   );
 };
 
-export default Order;
+export default UserAvailability;

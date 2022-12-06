@@ -226,7 +226,13 @@ export default function CkOrder() {
                     <form className='ck_order_form' onSubmit={fetchData}>
                         <h2 className='text-center'>Create Ck Order</h2>
                         <div className="form-row">
-                            <div className="col-4">
+                            <div className="col-2">
+                                <label
+                                    htmlFor="colFormLabelSm"
+                                    className="col-form-label-sm"
+                                >
+                                    Select from hub
+                                </label>
                                 <select id="selectuser" value={ckOrder.from_hub_id} name='from_hub_id' className="form-control"
                                     required onChange={handleLocation}>
                                     <option>From Hub</option>
@@ -239,7 +245,13 @@ export default function CkOrder() {
                                     })}
                                 </select>
                             </div>
-                            <div className="col-4">
+                            <div className="col-2">
+                                <label
+                                    htmlFor="colFormLabelSm"
+                                    className="col-form-label-sm"
+                                >
+                                    Select To Hub
+                                </label>
                                 <select id="selectuser" value={ckOrder.to_hub_id} name='to_hub_id' className="form-control"
                                     required onChange={handleLocation}>
                                     <option>To Hub</option>
@@ -252,14 +264,14 @@ export default function CkOrder() {
                                     })}
                                 </select>
                             </div>
-                            <div className="col-sm-4 col-12">
+                            <div className="col-lg-2">
+                                <br />
                                 <button className='btn ordergenrate' type='submit'>
                                     Search Hub
                                 </button>
                             </div>
-                        </div>
-                        <div className="form-row weight_section">
-                            <div>
+
+                            <div className="col-md-3">
                                 <label
                                     htmlFor="colFormLabelSm"
                                     className="col-form-label-sm"
@@ -275,11 +287,17 @@ export default function CkOrder() {
                                     id="colFormLabelSm"
                                 />
                             </div>
-
+                            <div className='col-md-3 text-right'>
+                                <br/>
+                                <span className='btn ordergenrate form-control' onClick={handleOrder}>
+                                    Make Order
+                                </span>
+                            </div>
                         </div>
                     </form>
+
                     <Box sx={{
-                        height: 267,
+                        height: '70%',
                         width: '100%',
                         background: '#fff',
                         '& .super-app.negative': {
@@ -318,11 +336,7 @@ export default function CkOrder() {
                             disableSelectionOnClick
                             experimentalFeatures={{ newEditingApi: true }}
                         />
-                        <div className='d-flex justify-content-center mt-4'>
-                            <button className='btn ordergenrate' onClick={handleOrder}>
-                                Make Order
-                            </button>
-                        </div>
+
                     </Box>
                 </section>
             </main>

@@ -23,12 +23,14 @@ import Paper from '@mui/material/Paper';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
 import CustomizedSteppers from '../../../Timeline';
+import { TrackingStatus } from "../../../config/contants";
 
-const RecenteOrder = ({ qr }) => {
+const RecentOrder = ({ qr }) => {
     let alert = useAlert();
     const [hubData, setHubData] = useState([]);
-    const { setLoading } = useAuth();
+    const { loading, setLoading, isAuthenticated } = useAuth();
     const [newOrder, setNewOrder] = useState([]);
+
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -52,10 +54,11 @@ const RecenteOrder = ({ qr }) => {
 
     const handleId = (id) => {
     }
-    const auth = useAuth();
-    if (!auth.isAuthenticated()) {
+
+    if (!isAuthenticated()) {
         return <Redirect to="/admin" />
     }
+
     // HUB LIST FETCHED FOR DROPDOWN STARTS
     const hubListData = async () => {
         setLoading(true);
@@ -70,13 +73,13 @@ const RecenteOrder = ({ qr }) => {
     // UPDAT HUB API STARTS
 
     const handleInput = (fieldName, type, e, order_id) => {
-        console.log(fieldName, type, order_id)
+
         if (
             order_id &&
             type &&
             fieldName &&
             e.target.value
-        ) {
+        ){
             setLoading(true);
             makeRequest('POST', `updateHubForNewOrders`, {
                 "order_id": order_id,
@@ -85,7 +88,7 @@ const RecenteOrder = ({ qr }) => {
                 "hubId": e.target.value
             }).then(result => {
                 alert.success(result.message);
-                result.success && console.log(result);
+                result.success && fetchData();
             }).catch(err => {
                 alert.error(err.message);
             }).finally(() => {
@@ -138,6 +141,19 @@ const RecenteOrder = ({ qr }) => {
                 setLoading(false);
             })
     };
+
+    function handleAuthorizeOrder(order_id, order_type, status) {
+        console.log(order_id, order_type, status);
+        setLoading(true)
+
+        makeRequest('POST', 'tracking/authorise-order', {order_id, order_type, status}).then(res => {
+            res.success ? alert.success(res.message) : alert.error(res.message());
+            fetchData();
+        }).catch(err => {
+            console.log(err)
+            alert.error(err.message)
+        }).finally(() => setLoading(false))
+    }
 
     return (
         <Fragment>
@@ -202,25 +218,23 @@ const RecenteOrder = ({ qr }) => {
                     <div className='all_order_table'>
                         <div className="container-fluid">
                             {newOrder.map((item, id) => {
-                                if (item.status === "NEW_CREATED") {
-                                    if (item.source === "CO") {
-                                        return (
-                                            <>
-                                                <span className="badge badge-danger">{item.source}</span>
-                                                <div key={id} className='row table_box'>
-                                                    <div className='col-lg-6'>
-                                                        <div className='row'>
-                                                            <div className='col-md-6 agent_details_col  mt-1'>
-                                                                <h2>Receiver Details :</h2>
-                                                                <span className='pl-0'>
+                                return (
+                                    <>
+                                        <span className={`badge ${ item.source == 'PO' ? "badge-danger" : "badge-success"}`}>{id+1} - {item.source}</span>
+                                        <div key={id} className='row table_box'>
+                                            <div className='col-lg-6'>
+                                                <div className='row'>
+                                                    <div className='col-md-6 agent_details_col  mt-1'>
+                                                        <h2>Receiver Details :</h2>
+                                                        <span className='pl-0'>
                                                                     <p>Name : </p>
                                                                     <p>{item.receiver_name}</p>
                                                                 </span>
-                                                                <span className='pl-0'>
+                                                        <span className='pl-0'>
                                                                     <p>Email : </p>
                                                                     <p>{item.receiver_email}</p>
                                                                 </span>
-                                                                <span className='pl-0'>
+                                                        <span className='pl-0'>
                                                                     <p>Phone No : </p>
                                                                     <p>{item.receiver_contact_no}</p>
                                                                 </span>
@@ -273,1226 +287,242 @@ const RecenteOrder = ({ qr }) => {
                                                                     <p>{item.sender_details.state} </p>
                                                                 </span>
 
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className='col-lg-6 col-md-12 agent_verify_col mt-1'>
-                                                        <div className='row'>
-                                                            <div className='col-12 mb-2 d-flex justify-content-end'>
-                                                                <button type="button" className="btn btn-success mr-2">
-                                                                    Accept
-                                                                </button>
-                                                                <button type="button" className="btn btn-danger">
-                                                                    Decline
-                                                                </button>
-                                                            </div>
-                                                            <div className='col address_detail_col'>
-                                                                <h2>Shipping Details :</h2>
-                                                                <div>
-                                                                    <span className='pl-0'>
-                                                                        <p>Permanent Address:</p>
-                                                                        <p>
-                                                                            87, Block A, Mayur Vihar Extension,122192, Delhi, New-Delhi
-                                                                        </p>
-                                                                    </span>
-                                                                    <span className='pl-0'>
-
-                                                                        <p>Current  Address:</p>
-                                                                        <p>
-                                                                            87, Block A, Mayur Vihar Extension,122192, Delhi, New-Delhi
-                                                                        </p>
-                                                                    </span>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className='col-12 from_hub'>
-                                                        <div className="row">
-                                                            <div className="col-6">
-                                                                <label htmlFor="cars">From Hub:</label>
-                                                                <select className='form-control' name="fromid" id="fromid" onChange={(e) => handleInput('from_hub_id', item.source, e, item.id)}>
-
-                                                                    {hubData.map((index) => {
-                                                                        return (
-                                                                            <>
-                                                                                <option value={index.id} selected={item.from_hub_id == index.id ? true : false}>{index.hub_name} </option>
-                                                                            </>
-                                                                        )
-                                                                    })}
-
-                                                                </select>
-                                                            </div>
-                                                            <div className="col-6">
-                                                                <label htmlFor="cars">To Hub:</label>
-                                                                <select className='form-control' name="id" onChange={(e) => handleInput('to_hub_id', item.source, e, item.id)}>
-
-                                                                    {hubData.map((index) => {
-                                                                        return (
-                                                                            <>
-                                                                                <option value={index.id} selected={item.to_hub_id == index.id ? true : false}>{index.hub_name} </option>
-                                                                            </>
-                                                                        )
-                                                                    })}
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="modal fade" id="partnerprintid" tabIndex="-1" role="dialog" aria-labelledby="partnerprintidLabel" aria-hidden="true">
-                                                        <div className="modal-dialog" role="document">
-                                                            <div className="modal-content">
-                                                                <div className="modal_header pt-2 pr-3">
-                                                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span className='pl-0' aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div className="modal-body">
-                                                                    <div className="invoice_header">
-                                                                        <h2>Carrykar Pvt. Lmt.</h2>
-                                                                        <div className="d-flex justify-content-between">
-
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="invoice_body">
-                                                                        <ul>
-                                                                            <h4>Sender Details</h4>
-                                                                            <li><span>Name :</span><p>{item.sender_details.first_name}</p></li>
-                                                                            <li><span>Email :</span><p>{item.sender_details.email}</p></li>
-                                                                            <li><span>City :</span><p>{item.sender_details.city}</p></li>
-                                                                            <li><span>Address :</span><p>{item.sender_details.address}</p></li>
-                                                                        </ul>
-                                                                        <ul>
-                                                                            <h4>Reciever Details</h4>
-                                                                            <li><span>Name :</span><p>{item.receiver_name}</p></li>
-                                                                            <li><span>Email :</span><p>{item.receiver_email}</p></li>
-                                                                            <li><span>Phone no :</span><p>{item.receiver_contact_no}</p></li>
-                                                                            <li><span>Address :</span><p>{item.receiver_state}</p></li>
-                                                                        </ul>
-                                                                        <ul>
-                                                                            <h4>Order Details</h4>
-                                                                            <li><span>Name :</span><p>{item.receiver_name}</p></li>
-                                                                            <li><span>Email :</span><p>{item.receiver_email}</p></li>
-                                                                            <li><span>Phone no :</span><p>{item.receiver_phone}</p></li>
-                                                                            <li><span>Address :</span><p>{item.receiver_address}</p></li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="modal-footer">
-                                                                    <button type="button" className="btn btn-primary">Save changes</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                 </div>
-                                            </>
-                                        );
-                                    } else {
-                                        return (
-                                            <>
-                                                <span className="badge badge-danger">{item.source}</span>
-                                                <div key={id} className='row table_box'>
-                                                    <div className='col-lg-6'>
-                                                        <div className='row'>
-                                                            <div className='col-md-6 agent_details_col  mt-1'>
-                                                                <h2>Receiver Details :</h2>
-                                                                <span className='pl-0'>
-                                                                    <p>Name : </p>
-                                                                    <p>{item.receiver_name}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Email : </p>
-                                                                    <p>{item.receiver_email}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Phone No : </p>
-                                                                    <p>{item.receiver_contact_no}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Pincode : </p>
-                                                                    <p>{item.receiver_pincode}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Address : </p>
-                                                                    <p>{item.receiver_locality}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>City : </p>
-                                                                    <p>{item.receiver_city}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>State : </p>
-                                                                    <p>{item.receiver_state} </p>
-                                                                </span>
+                                            </div>
+                                            <div className='col-lg-6 col-md-12 mt-1'>
+                                                <div className='row'>
+                                                    <div className='col '>
+                                                        <div className="d-flex border shadow-sm p-2 rounded-lg">
+                                                            <div className="mr-2">
+                                                                <p className="font-weight-bold">Shipping Details :</p>
+                                                                <p className='pl-0'>
+                                                                    87, Block A, Mayur Vihar Extension,122192, Delhi, New-Delhi
+                                                                </p>
+                                                                <hr className="m-0 my-2"/>
+                                                                <p className="badge badge-info p-2 mr-2">Status: <strong>{item.status}</strong></p>
 
+                                                                {item.from_hub_id != null &&
+                                                                <span className="badge badge-info p-2 mr-2">
+                                                                    From Hub: <strong>{item.from_hub_id}</strong>
+                                                                </span>
+                                                                }
+
+                                                                {item.to_hub_id != null &&
+                                                                <span className="badge badge-info p-2 mr-2">
+                                                                    To Hub: <strong>{item.to_hub_id}</strong>
+                                                                </span>
+                                                                }
                                                             </div>
-                                                            <div className='col-md-6 agent_details_col  mt-1'>
-                                                                <h2>Sender Details :</h2>
-                                                                <span className='pl-0'>
-                                                                    <p>Name : </p>
-                                                                    <p>{item.sender_name}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Email : </p>
-                                                                    <p>{item.sender_email}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Phone No : </p>
-                                                                    <p>{item.sender_contact_no}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Pincode : </p>
-                                                                    <p>{item.sender_pincode}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Address : </p>
-                                                                    <p>{item.sender_locality}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>City : </p>
-                                                                    <p>{item.sender_city}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>State : </p>
-                                                                    <p>{item.sender_state} </p>
-                                                                </span>
+                                                            <QrMake path={item.qr_image_path} orderid={item.id} ordertype={item.source} />
+                                                        </div>
+
+                                                    </div>
+                                                    {
+                                                        (item.status === TrackingStatus.confirmed || item.status == TrackingStatus.pickup_hub_assigned )&&
+                                                        <div className='col-12 from_hub mt-2'>
+                                                            <div className="row">
+                                                                {item.from_hub_id == null &&
+                                                                <div className="col-6">
+                                                                    <label htmlFor="cars">From Hub:</label>
+                                                                    <select className='form-control' name="fromid"
+                                                                            id="fromid"
+                                                                            onChange={(e) => handleInput('from_hub_id', item.source, e, item.id)}
+                                                                            defaultValue={item.from_hub_id}>
+                                                                        <option value="" selected disabled>- Select From
+                                                                            Hub -
+                                                                        </option>
+                                                                        {hubData.map((index) => {
+                                                                            return (
+                                                                                <>
+                                                                                    <option
+                                                                                        value={index.id}>{index.hub_name} </option>
+                                                                                </>
+                                                                            )
+                                                                        })}
+
+                                                                    </select>
+                                                                </div>
+                                                                }
+                                                                {item.to_hub_id == null &&
+                                                                <div className="col-6">
+                                                                    <label htmlFor="cars">To Hub:</label>
+                                                                    <select className='form-control' name="id"
+                                                                            onChange={(e) => handleInput('to_hub_id', item.source, e, item.id)}
+                                                                            defaultValue={item.from_hub_id}>
+                                                                        <option value="" selected>- Select To Hub -
+                                                                        </option>
+                                                                        {hubData.map((index) => {
+                                                                            return (
+                                                                                <>
+                                                                                    <option
+                                                                                        value={index.id}>{index.hub_name} </option>
+                                                                                </>
+                                                                            )
+                                                                        })}
+                                                                    </select>
+                                                                </div>
+                                                                }
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div className='col-lg-6 col-md-12 agent_verify_col mt-1'>
-                                                        <div className='row'>
-                                                            <div className='col-12 mb-2 d-flex justify-content-end'>
-                                                                <button type="button" className="btn btn-success mr-2">
-                                                                    Accept
+                                                    }
+                                                    <div className='col-12 mt-4'>
+                                                        { item.status === TrackingStatus.new_created &&
+                                                            <>
+                                                                <button type="button" className="btn btn-danger mr-2" onClick={() => handleAuthorizeOrder(item.id, item.source, TrackingStatus.reject)} disabled={loading}>
+                                                                    Reject
                                                                 </button>
-                                                                <button type="button" className="btn btn-danger">
-                                                                    Decline
+                                                                <button type="button" className="btn btn-success mr-2" onClick={() => handleAuthorizeOrder(item.id, item.source, TrackingStatus.confirmed)} disabled={loading}>
+                                                                    Confirm
                                                                 </button>
-                                                            </div>
-                                                            <div className='col address_detail_col'>
-                                                                <h2>Shipping Details :</h2>
-                                                                <div>
-                                                                    <span className='pl-0'>
-                                                                        <p>Permanent Address: </p>
-                                                                        <p>
-                                                                            87, Block A, Mayur Vihar Extension,122192, Delhi, New-Delhi
-                                                                        </p>
-                                                                    </span>
-                                                                    <span className='pl-0'>
-                                                                        <p>Current  Address: </p>
-                                                                        <p>
-                                                                            87, Block A, Mayur Vihar Extension,122192, Delhi, New-Delhi
-                                                                        </p>
-                                                                    </span>
-                                                                </div>
+                                                            </>
+                                                        }
 
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className='col-12 from_hub'>
-                                                        <div className="row">
-                                                            <div className="col-6">
-                                                                <label htmlFor="cars">From Hub:</label>
-                                                                <select className='form-control' name="fromid" id="fromid" onChange={(e) => handleInput('from_hub_id', item.source, e, item.id)}>
+                                                        { (item.status === TrackingStatus.delivery_hub_assigned || item.status == TrackingStatus.pickup_hub_assigned ) &&
+                                                            <QrButton path={item.qr_image_path} orderid={item.id} ordertype={item.source} updateOrder={fetchData}/>
+                                                        }
 
-                                                                    {hubData.map((index) => {
-                                                                        return (
-                                                                            <>
-                                                                                <option value={index.id} selected={item.from_hub_id == index.id ? true : false}>{index.hub_name} </option>
-                                                                            </>
-                                                                        )
-                                                                    })}
+                                                        {/*{ item.status === TrackingStatus.pickup_hub_assigned &&*/}
+                                                        {/*    <button type="button" className="btn btn-warning mr-2" data-toggle="modal" data-target="#hubAssignForCo">*/}
+                                                        {/*        Assign For Pickup*/}
+                                                        {/*    </button>*/}
+                                                        {/*}*/}
 
-                                                                </select>
-                                                            </div>
-                                                            <div className="col-6">
-                                                                <label htmlFor="cars">To Hub:</label>
-                                                                <select className='form-control' name="id" onChange={(e) => handleInput('to_hub_id', item.source, e, item.id)}>
-                                                                    {hubData.map((index) => {
-                                                                        return (
-                                                                            <>
-                                                                                <option value={index.id} selected={item.to_hub_id == index.id ? true : false}>{index.hub_name} </option>
-                                                                            </>
-                                                                        )
-                                                                    })}
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="modal fade" id="partnerprintid" tabindex="-1" role="dialog" aria-labelledby="partnerprintidLabel" aria-hidden="true">
-                                                        <div className="modal-dialog" role="document">
-                                                            <div className="modal-content">
-                                                                <div className="modal_header pt-2 pr-3">
-                                                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span className='pl-0' aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div className="modal-body">
-                                                                    <div className="invoice_header">
-                                                                        <h2>Carrykar Pvt. Lmt.</h2>
-                                                                        <div className="d-flex justify-content-between">
-
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="invoice_body">
-                                                                        <ul>
-                                                                            {item.id}
-                                                                            <h4>Sender Details</h4>
-                                                                            <li><span>Name :</span><p>{item.sender_name}</p></li>
-                                                                            <li><span>Email :</span><p>{item.sender_email}</p></li>
-                                                                            <li><span>Phone no :</span><p>{item.sender_phone}</p></li>
-                                                                            <li><span>Address :</span><p>{item.sender_address}</p></li>
-                                                                        </ul>
-                                                                        <ul>
-                                                                            <h4>Reciever Details</h4>
-                                                                            <li><span>Name :</span><p>{item.receiver_name}</p></li>
-                                                                            <li><span>Email :</span><p>{item.receiver_email}</p></li>
-                                                                            <li><span>Phone no :</span><p>{item.receiver_phone}</p></li>
-                                                                            <li><span>Address :</span><p>{item.receiver_address}</p></li>
-                                                                        </ul>
-                                                                        <ul>
-                                                                            <h4>Order Details</h4>
-                                                                            <li><span>Name :</span><p>{item.receiver_name}</p></li>
-                                                                            <li><span>Email :</span><p>{item.receiver_email}</p></li>
-                                                                            <li><span>Phone no :</span><p>{item.receiver_phone}</p></li>
-                                                                            <li><span>Address :</span><p>{item.receiver_address}</p></li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="modal-footer">
-                                                                    <button type="button" className="btn btn-primary">Save changes</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </>
-                                        );
-                                    }
-                                }
-                                if (item.status === "CONFIRMED") {
-                                    if (item.source === "CO") {
-                                        return (
-                                            <>
-                                                <span className="badge badge-danger">{item.source}</span>
-                                                <div key={id} className='row table_box'>
-                                                    <div className='col-lg-6'>
-                                                        <div className='row'>
-                                                            <div className='col-md-6 agent_details_col  mt-1'>
-                                                                <h2>Receiver Details :</h2>
-                                                                <span className='pl-0'>
-                                                                    <p>Name : </p>
-                                                                    <p>{item.receiver_name}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Email : </p>
-                                                                    <p>{item.receiver_email}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Phone No : </p>
-                                                                    <p>{item.receiver_contact_no}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Pincode : </p>
-                                                                    <p>{item.receiver_pincode}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Address : </p>
-                                                                    <p>{item.receiver_locality} </p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>City : </p>
-                                                                    <p>{item.receiver_city}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>State : </p>
-                                                                    <p>{item.receiver_state} </p>
-                                                                </span>
-
-                                                            </div>
-                                                            <div className='col-md-6 agent_details_col  mt-1'>
-                                                                <h2>Sender Details :</h2>
-                                                                <span className='pl-0'>
-                                                                    <p>Name : </p>
-                                                                    <p>{item.sender_details.first_name}{item.sender_details.last_name} </p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Email : </p>
-                                                                    <p>{item.sender_details.email}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Phone No : </p>
-                                                                    <p>{item.sender_details.phone_no}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Pincode : </p>
-                                                                    <p>{item.sender_details.pincode}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Address : </p>
-                                                                    <p>{item.sender_details.address}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>City : </p>
-                                                                    <p>{item.sender_details.city}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>State : </p>
-                                                                    <p>{item.sender_details.state} </p>
-                                                                </span>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className='col-lg-6 col-md-12 agent_verify_col mt-1'>
-                                                        <div className='row'>
-                                                            <div className='col address_detail_col'>
-                                                                <h2>Shipping Details :</h2>
-                                                                <div>
-                                                                    <span className='pl-0'>
-                                                                        <p>Permanent Address:</p>
-                                                                        <p>
-                                                                            87, Block A, Mayur Vihar Extension,122192, Delhi, New-Delhi
-                                                                        </p>
-                                                                    </span>
-                                                                    <span className='pl-0'>
-
-                                                                        <p>Current  Address:</p>
-                                                                        <p>
-                                                                            87, Block A, Mayur Vihar Extension,122192, Delhi, New-Delhi
-                                                                        </p>
-                                                                    </span>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                        <div className='row mt-2 d-flex align-items-center'>
-                                                            <div className='col-md-12 mt-2 text-right'>
-                                                                <QrMake path={item.qr_image_path} orderid={item.id} ordertype={item.source} />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className='col-12 from_hub'>
-                                                        <div className="row">
-                                                            <div className="col-6">
-                                                                <label htmlFor="cars">From Hub:</label>
-                                                                <select className='form-control' name="fromid" id="fromid" onChange={(e) => handleInput('from_hub_id', item.source, e, item.id)}>
-
-                                                                    {hubData.map((index) => {
-                                                                        return (
-                                                                            <>
-                                                                                <option value={index.id} selected={item.from_hub_id == index.id ? true : false}>{index.hub_name} </option>
-                                                                            </>
-                                                                        )
-                                                                    })}
-
-                                                                </select>
-                                                            </div>
-                                                            <div className="col-6">
-                                                                <label htmlFor="cars">To Hub:</label>
-                                                                <select className='form-control' name="id" onChange={(e) => handleInput('to_hub_id', item.source, e, item.id)}>
-
-                                                                    {hubData.map((index) => {
-                                                                        return (
-                                                                            <>
-                                                                                <option value={index.id} selected={item.to_hub_id == index.id ? true : false}>{index.hub_name} </option>
-                                                                            </>
-                                                                        )
-                                                                    })}
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className='col-12 mt-2'>
-                                                        <div className='status_track_col'>
-                                                            <button type="button" className="btn btn-warning" data-toggle="modal" data-target="#hubAssignForCo">
-                                                                Assign For Pickup
-                                                            </button>
-                                                            <button className='btn btn-secondary' type='button' data-toggle="collapse" data-target={`#collapsetrack-${item.id}`} aria-expanded="false" aria-controls="collapsetrack">
-                                                                Tracking
-                                                            </button>
-                                                        </div>
-                                                        <div className="collapse mt-2" id={`collapsetrack-${item.id}`}>
-                                                            <div className="card tracking-card">
-                                                                <p>Tracking Status Detail</p>
-                                                                {/* <div className='card-body'>
-                                                                    <div className="card mb-2">
-                                                                        Anim pariatur cliche reprehenderit, enim e
-                                                                    </div>
-                                                                    <div className="card mb-2">
-                                                                        Anim pariatur cliche reprehenderit, enim e
-                                                                    </div>
-                                                                    <div className="card mb-2">
-                                                                        Anim pariatur cliche reprehenderit, enim e
-                                                                    </div>
-                                                                    <div className="card mb-2">
-                                                                        Anim pariatur cliche reprehenderit, enim e
-                                                                    </div>
-                                                                    <div className="card mb-2">
-                                                                        Anim pariatur cliche reprehenderit, enim e
-                                                                    </div>
-                                                                    <div className="card">
-                                                                        Anim pariatur cliche reprehenderit, enim e
-                                                                    </div>
-                                                                </div> */}
-                                                                {/* <Stepper activeStep={6} style={{ width: '100%', padding: '0px', marginBottom: '20px' }} alternativeLabel>
-                                                                    {steps1.map((label) => (
-                                                                        <Step style={{ width: '60px', marginLeft: '0px', marginRight: '0px' }} key={label}>
-                                                                            <StepLabel StepIconComponent={AdjustIcon} style={{ paddingLeft: '0px', paddingRight: '0px' }}>{label}</StepLabel>
-                                                                        </Step>
-                                                                    ))}
-                                                                </Stepper>
-                                                                <Stepper activeStep={0} style={{ width: '100%', padding: '0px' }} alternativeLabel>
-                                                                    {steps2.map((label) => (
-                                                                        <Step style={{ width: '60px', marginLeft: '0px', marginRight: '0px' }} key={label}>
-                                                                            <StepLabel style={{ marginLeft: '0px', marginRight: '0px' }}>{label}</StepLabel>
-                                                                        </Step>
-                                                                    ))}
-                                                                </Stepper> */}
-                                                                <CustomizedSteppers/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="modal fade" id="hubAssignForCo" tabindex="-1" role="dialog" aria-labelledby="hubAssignForCoLabel" aria-hidden="true">
-                                                    <div className="modal-dialog modal-xl add-partner" role="document">
-                                                        <div className="modal-content">
-                                                            <div className="modal-header">
-                                                                <h5 className="modal-title" id="hubAssignForCoLabel">Hub List</h5>
-                                                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div className="modal-body">
-                                                                <TableContainer component={Paper}>
-                                                                    <Table stickyHeader striped aria-label="sticky table">
-                                                                        <TableHead>
-                                                                            <StyledTableRow>
-                                                                                <StyledTableCell>Id </StyledTableCell>
-                                                                                <StyledTableCell>Hub Id </StyledTableCell>
-                                                                                <StyledTableCell>Hub Code </StyledTableCell>
-                                                                                <StyledTableCell>State</StyledTableCell>
-                                                                                <StyledTableCell>City</StyledTableCell>
-                                                                                <StyledTableCell>Pincode</StyledTableCell>
-                                                                                <StyledTableCell>Contact No*</StyledTableCell>
-                                                                                <StyledTableCell>Alternate No*</StyledTableCell>
-                                                                                <StyledTableCell>Address</StyledTableCell>
-                                                                                <StyledTableCell>Action</StyledTableCell>
-                                                                            </StyledTableRow>
-                                                                        </TableHead>
-                                                                        <TableBody>
-                                                                            {Object.values(hubData)
-                                                                                // eslint-disable-next-line
-                                                                                .map((item, id) => (
-                                                                                    <StyledTableRow hover tabIndex={-1} key={id}>
-                                                                                        <StyledTableCell>{item.id} </StyledTableCell>
-                                                                                        <StyledTableCell>{item.hub_name}</StyledTableCell>
-                                                                                        <StyledTableCell>{item.hub_code}</StyledTableCell>
-                                                                                        <StyledTableCell>{item.state}</StyledTableCell>
-                                                                                        <StyledTableCell>{item.city}</StyledTableCell>
-                                                                                        <StyledTableCell>{item.pin}</StyledTableCell>
-                                                                                        <StyledTableCell>{item.contact_number}</StyledTableCell>
-                                                                                        <StyledTableCell>{item.alternate_contact_number}</StyledTableCell>
-                                                                                        <StyledTableCell>{item.hub_full_address}</StyledTableCell>
-                                                                                        <StyledTableCell>
-                                                                                            <button
-                                                                                                type="button"
-                                                                                                className="btn btn-info"
-                                                                                            >
-                                                                                                Assign
-                                                                                            </button>
-                                                                                        </StyledTableCell>
-                                                                                    </StyledTableRow>
-                                                                                ))}
-
-                                                                        </TableBody>
-                                                                        <TableFooter>
-                                                                            <TableRow>
-                                                                                <TablePagination
-                                                                                    page={page}
-                                                                                    onPageChange={handleChangePage}
-                                                                                    rowsPerPage={rowsPerPage}
-                                                                                    onRowsPerPageChange={handleChangeRowsPerPage}
-                                                                                    rowsPerPageOptions={[10, 25, 100]}
-                                                                                    count={hubData.length}
-                                                                                    rows={10}
-                                                                                />
-                                                                            </TableRow>
-                                                                        </TableFooter>
-                                                                    </Table>
-                                                                </TableContainer>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </>
-                                        );
-                                    } else {
-                                        return (
-                                            <>
-                                                <span className="badge badge-danger">{item.source}</span>
-                                                <div key={id} className='row table_box'>
-                                                    <div className='col-lg-6'>
-                                                        <div className='row'>
-                                                            <div className='col-md-6 agent_details_col  mt-1'>
-                                                                <h2>Receiver Details :</h2>
-                                                                <span className='pl-0'>
-                                                                    <p>Name : </p>
-                                                                    <p>{item.receiver_name}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Email : </p>
-                                                                    <p>{item.receiver_email}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Phone No : </p>
-                                                                    <p>{item.receiver_contact_no}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Pincode : </p>
-                                                                    <p>{item.receiver_pincode}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Address : </p>
-                                                                    <p>{item.receiver_locality}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>City : </p>
-                                                                    <p>{item.receiver_city}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>State : </p>
-                                                                    <p>{item.receiver_state} </p>
-                                                                </span>
-
-                                                            </div>
-                                                            <div className='col-md-6 agent_details_col  mt-1'>
-                                                                <h2>Sender Details :</h2>
-                                                                <span className='pl-0'>
-                                                                    <p>Name : </p>
-                                                                    <p>{item.sender_name}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Email : </p>
-                                                                    <p>{item.sender_email}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Phone No : </p>
-                                                                    <p>{item.sender_contact_no}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Pincode : </p>
-                                                                    <p>{item.sender_pincode}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Address : </p>
-                                                                    <p>{item.sender_locality}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>City : </p>
-                                                                    <p>{item.sender_city}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>State : </p>
-                                                                    <p>{item.sender_state} </p>
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className='col-lg-6 col-md-12 agent_verify_col mt-1'>
-                                                        <div className='row'>
-                                                            <div className='col address_detail_col'>
-                                                                <h2>Shipping Details :</h2>
-                                                                <div>
-                                                                    <span className='pl-0'>
-                                                                        <p>Permanent Address: </p>
-                                                                        <p>
-                                                                            87, Block A, Mayur Vihar Extension,122192, Delhi, New-Delhi
-                                                                        </p>
-                                                                    </span>
-                                                                    <span className='pl-0'>
-                                                                        <p>Current  Address: </p>
-                                                                        <p>
-                                                                            87, Block A, Mayur Vihar Extension,122192, Delhi, New-Delhi
-                                                                        </p>
-                                                                    </span>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                        <div className='row mt-2 d-flex align-items-center'>
-                                                            <div className='col-md-12 mt-3 text-right'>
-                                                                <QrMake path={item.qr_image_path} orderid={item.id} ordertype={item.source} />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className='col-12 from_hub'>
-                                                        <div className="row">
-                                                            <div className="col-6">
-                                                                <label htmlFor="cars">From Hub:</label>
-                                                                <select className='form-control' name="fromid" id="fromid" onChange={(e) => handleInput('from_hub_id', item.source, e, item.id)}>
-
-                                                                    {hubData.map((index) => {
-                                                                        return (
-                                                                            <>
-                                                                                <option value={index.id} selected={item.from_hub_id == index.id ? true : false}>{index.hub_name} </option>
-                                                                            </>
-                                                                        )
-                                                                    })}
-
-                                                                </select>
-                                                            </div>
-                                                            <div className="col-6">
-                                                                <label htmlFor="cars">To Hub:</label>
-                                                                <select className='form-control' name="id" onChange={(e) => handleInput('to_hub_id', item.source, e, item.id)}>
-                                                                    {hubData.map((index) => {
-                                                                        return (
-                                                                            <>
-                                                                                <option value={index.id} selected={item.to_hub_id == index.id ? true : false}>{index.hub_name} </option>
-                                                                            </>
-                                                                        )
-                                                                    })}
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className='col-12 mt-2'>
-                                                        <div className='status_track_col'>
-                                                            <button type="button" className="btn btn-warning" data-toggle="modal" data-target="#hubAssignForPo">
-                                                                Assign For Pickup
-                                                            </button>
-                                                            <button className='btn btn-secondary' type='button' data-toggle="collapse" data-target={`#collapsetrack2-${item.id}`} aria-expanded="false" aria-controls="collapsetrack">
-                                                                Tracking
-                                                            </button>
-                                                        </div>
-                                                        <div className="collapse mt-2" id={`collapsetrack2-${item.id}`}>
-                                                            <div className="card tracking-card">
-                                                                <p>Tracking Status Detail</p>
-                                                                {/* <Stepper activeStep={0} alternativeLabel>
-                                                                    {steps1.map((label) => (
-                                                                        <Step style={{ width: '60px' }} key={label}>
-                                                                            <StepLabel style={{ paddingLeft: '0px', paddingRight: '0px' }}>{label}</StepLabel>
-                                                                        </Step>
-                                                                    ))}
-                                                                </Stepper>
-                                                                <Stepper activeStep={0} style={{ width: '100%', padding: '0px' }} alternativeLabel>
-                                                                    {steps2.map((label) => (
-                                                                        <Step style={{ width: '60px', marginLeft: '0px', marginRight: '0px' }} key={label}>
-                                                                            <StepLabel style={{ marginLeft: '0px', marginRight: '0px' }}>{label}</StepLabel>
-                                                                        </Step>
-                                                                    ))}
-                                                                </Stepper> */}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="modal fade" id="hubAssignForPo" tabindex="-1" role="dialog" aria-labelledby="hubAssignForPoLabel" aria-hidden="true">
-                                                    <div className="modal-dialog modal-xl add-partner" role="document">
-                                                        <div className="modal-content">
-                                                            <div className="modal-header">
-                                                                <h5 className="modal-title" id="hubAssignForPoLabel">Hub List</h5>
-                                                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div className="modal-body">
-                                                                <TableContainer component={Paper}>
-                                                                    <Table stickyHeader striped aria-label="sticky table">
-                                                                        <TableHead>
-                                                                            <StyledTableRow>
-                                                                                <StyledTableCell>Id </StyledTableCell>
-                                                                                <StyledTableCell>Hub Id </StyledTableCell>
-                                                                                <StyledTableCell>Hub Code </StyledTableCell>
-                                                                                <StyledTableCell>State</StyledTableCell>
-                                                                                <StyledTableCell>City</StyledTableCell>
-                                                                                <StyledTableCell>Pincode</StyledTableCell>
-                                                                                <StyledTableCell>Contact No*</StyledTableCell>
-                                                                                <StyledTableCell>Alternate No*</StyledTableCell>
-                                                                                <StyledTableCell>Address</StyledTableCell>
-                                                                                <StyledTableCell>Action</StyledTableCell>
-                                                                            </StyledTableRow>
-                                                                        </TableHead>
-                                                                        <TableBody>
-                                                                            {Object.values(hubData)
-                                                                                // eslint-disable-next-line
-                                                                                .map((item, id) => (
-                                                                                    <StyledTableRow hover tabIndex={-1} key={id}>
-                                                                                        <StyledTableCell>{item.id} </StyledTableCell>
-                                                                                        <StyledTableCell>{item.hub_name}</StyledTableCell>
-                                                                                        <StyledTableCell>{item.hub_code}</StyledTableCell>
-                                                                                        <StyledTableCell>{item.state}</StyledTableCell>
-                                                                                        <StyledTableCell>{item.city}</StyledTableCell>
-                                                                                        <StyledTableCell>{item.pin}</StyledTableCell>
-                                                                                        <StyledTableCell>{item.contact_number}</StyledTableCell>
-                                                                                        <StyledTableCell>{item.alternate_contact_number}</StyledTableCell>
-                                                                                        <StyledTableCell>{item.hub_full_address}</StyledTableCell>
-                                                                                        <StyledTableCell>
-                                                                                            <button
-                                                                                                type="button"
-                                                                                                className="btn btn-info"
-                                                                                            >
-                                                                                                Assign
-                                                                                            </button>
-                                                                                        </StyledTableCell>
-                                                                                    </StyledTableRow>
-                                                                                ))}
-
-                                                                        </TableBody>
-                                                                        <TableFooter>
-                                                                            <TableRow>
-                                                                                <TablePagination
-                                                                                    page={page}
-                                                                                    onPageChange={handleChangePage}
-                                                                                    rowsPerPage={rowsPerPage}
-                                                                                    onRowsPerPageChange={handleChangeRowsPerPage}
-                                                                                    rowsPerPageOptions={[10, 25, 100]}
-                                                                                    // count={filterUser.length}
-                                                                                    rows={10}
-                                                                                />
-                                                                            </TableRow>
-                                                                        </TableFooter>
-                                                                    </Table>
-                                                                </TableContainer>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </>
-                                        );
-                                    }
-                                }
-                                if (item.status === "ASSIGNED_HUB_TO_PICK") {
-                                    if (item.source === "CO") {
-                                        return (
-                                            <>
-                                                <span className="badge badge-danger">{item.source}</span>
-                                                <div key={id} className='row table_box'>
-                                                    <div className='col-lg-6'>
-                                                        <div className='row'>
-                                                            <div className='col-md-6 agent_details_col  mt-1'>
-                                                                <h2>Receiver Details :</h2>
-                                                                <span className='pl-0'>
-                                                                    <p>Name : </p>
-                                                                    <p>{item.receiver_name}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Email : </p>
-                                                                    <p>{item.receiver_email}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Phone No : </p>
-                                                                    <p>{item.receiver_contact_no}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Pincode : </p>
-                                                                    <p>{item.receiver_pincode}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Address : </p>
-                                                                    <p>{item.receiver_locality} </p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>City : </p>
-                                                                    <p>{item.receiver_city}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>State : </p>
-                                                                    <p>{item.receiver_state} </p>
-                                                                </span>
-
-                                                            </div>
-                                                            <div className='col-md-6 agent_details_col  mt-1'>
-                                                                <h2>Sender Details :</h2>
-                                                                <span className='pl-0'>
-                                                                    <p>Name : </p>
-                                                                    <p>{item.sender_details.first_name}{item.sender_details.last_name} </p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Email : </p>
-                                                                    <p>{item.sender_details.email}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Phone No : </p>
-                                                                    <p>{item.sender_details.phone_no}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Pincode : </p>
-                                                                    <p>{item.sender_details.pincode}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Address : </p>
-                                                                    <p>{item.sender_details.address}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>City : </p>
-                                                                    <p>{item.sender_details.city}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>State : </p>
-                                                                    <p>{item.sender_details.state} </p>
-                                                                </span>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className='col-lg-6 col-md-12 agent_verify_col mt-1'>
-                                                        <div className='row'>
-                                                            <div className='col address_detail_col'>
-                                                                <h2>Shipping Details :</h2>
-                                                                <div>
-                                                                    <span className='pl-0'>
-                                                                        <p>Permanent Address:</p>
-                                                                        <p>
-                                                                            87, Block A, Mayur Vihar Extension,122192, Delhi, New-Delhi
-                                                                        </p>
-                                                                    </span>
-                                                                    <span className='pl-0'>
-
-                                                                        <p>Current  Address:</p>
-                                                                        <p>
-                                                                            87, Block A, Mayur Vihar Extension,122192, Delhi, New-Delhi
-                                                                        </p>
-                                                                    </span>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                        <div className='row mt-2 d-flex align-items-center'>
-                                                            <div className='col-md-12 mt-2 text-right'>
-                                                                <QrMake path={item.qr_image_path} orderid={item.id} status={item.status} ordertype={item.source} />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className='col-12 from_hub'>
-                                                        <div className="row">
-                                                            <div className="col-6">
-                                                                <label htmlFor="cars">From Hub:</label>
-                                                                <select className='form-control' name="fromid" id="fromid" onChange={(e) => handleInput('from_hub_id', item.source, e, item.id)}>
-
-                                                                    {hubData.map((index) => {
-                                                                        return (
-                                                                            <>
-                                                                                <option value={index.id} selected={item.from_hub_id == index.id ? true : false}>{index.hub_name} </option>
-                                                                            </>
-                                                                        )
-                                                                    })}
-
-                                                                </select>
-                                                            </div>
-                                                            <div className="col-6">
-                                                                <label htmlFor="cars">To Hub:</label>
-                                                                <select className='form-control' name="id" onChange={(e) => handleInput('to_hub_id', item.source, e, item.id)}>
-
-                                                                    {hubData.map((index) => {
-                                                                        return (
-                                                                            <>
-                                                                                <option value={index.id} selected={item.to_hub_id == index.id ? true : false}>{index.hub_name} </option>
-                                                                            </>
-                                                                        )
-                                                                    })}
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className='col-12 mt-2'>
-                                                        <div className='status_track_col'>
-                                                            <button type="button" className="btn btn-info" data-toggle="modal" data-target="#partnerprintid" onClick={handleId(item.id)}>
+                                                        { item.status === TrackingStatus.pickup_hub_assigned &&
+                                                            <button type="button" className="btn btn-info mr-2" data-toggle="modal" data-target="#partnerprintid" onClick={handleId(item.id)}>
                                                                 Generate Invoice
                                                             </button>
-                                                            <QrButton path={item.qr_image_path} status={item.status} orderid={item.id} ordertype={item.source} />
-                                                            <button className='btn btn-secondary' type='button' data-toggle="collapse" data-target={`#collapsetrack-${item.id}`} aria-expanded="false" aria-controls="collapsetrack">
+                                                        }
+
+
+
+                                                        { (item.status != TrackingStatus.new_created && item.status !== TrackingStatus.reject)  &&
+                                                            <button className='btn btn-secondary mr-2'>
                                                                 Tracking
                                                             </button>
-                                                        </div>
-                                                        <div className="collapse mt-2" id={`collapsetrack-${item.id}`}>
-                                                            <div className="card tracking-card">
-                                                                <p>Tracking Status Detail</p>
-                                                                <div className='card-body'>
-                                                                    <div className="card mb-2">
-                                                                        Anim pariatur cliche reprehenderit, enim e
-                                                                    </div>
-                                                                    <div className="card mb-2">
-                                                                        Anim pariatur cliche reprehenderit, enim e
-                                                                    </div>
-                                                                    <div className="card mb-2">
-                                                                        Anim pariatur cliche reprehenderit, enim e
-                                                                    </div>
-                                                                    <div className="card mb-2">
-                                                                        Anim pariatur cliche reprehenderit, enim e
-                                                                    </div>
-                                                                    <div className="card mb-2">
-                                                                        Anim pariatur cliche reprehenderit, enim e
-                                                                    </div>
-                                                                    <div className="card">
-                                                                        Anim pariatur cliche reprehenderit, enim e
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="modal fade" id="partnerprintid" tabindex="-1" role="dialog" aria-labelledby="partnerprintidLabel" aria-hidden="true">
-                                                        <div className="modal-dialog" role="document">
-                                                            <div className="modal-content">
-                                                                <div className="modal_header pt-2 pr-3">
-                                                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span className='pl-0' aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div className="modal-body">
-                                                                    <div className="invoice_header">
-                                                                        <h2>Carrykar Pvt. Lmt.</h2>
-                                                                        <div className="d-flex justify-content-between">
-
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="invoice_body">
-                                                                        <ul>
-                                                                            <h4>Sender Details</h4>
-                                                                            <li><span>Name :</span><p>{item.sender_details.first_name}</p></li>
-                                                                            <li><span>Email :</span><p>{item.sender_details.email}</p></li>
-                                                                            <li><span>City :</span><p>{item.sender_details.city}</p></li>
-                                                                            <li><span>Address :</span><p>{item.sender_details.address}</p></li>
-                                                                        </ul>
-                                                                        <ul>
-                                                                            <h4>Reciever Details</h4>
-                                                                            <li><span>Name :</span><p>{item.receiver_name}</p></li>
-                                                                            <li><span>Email :</span><p>{item.receiver_email}</p></li>
-                                                                            <li><span>Phone no :</span><p>{item.receiver_contact_no}</p></li>
-                                                                            <li><span>Address :</span><p>{item.receiver_state}</p></li>
-                                                                        </ul>
-                                                                        <ul>
-                                                                            <h4>Order Details</h4>
-                                                                            <li><span>Name :</span><p>{item.receiver_name}</p></li>
-                                                                            <li><span>Email :</span><p>{item.receiver_email}</p></li>
-                                                                            <li><span>Phone no :</span><p>{item.receiver_phone}</p></li>
-                                                                            <li><span>Address :</span><p>{item.receiver_address}</p></li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="modal-footer">
-                                                                    <button type="button" className="btn btn-primary">Save changes</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                        }
                                                     </div>
                                                 </div>
-                                            </>
-                                        );
-                                    } else {
-                                        return (
-                                            <>
-                                                <span className="badge badge-danger">{item.source}</span>
-                                                <div key={id} className='row table_box'>
-                                                    <div className='col-lg-6'>
-                                                        <div className='row'>
-                                                            <div className='col-md-6 agent_details_col  mt-1'>
-                                                                <h2>Receiver Details :</h2>
-                                                                <span className='pl-0'>
-                                                                    <p>Name : </p>
-                                                                    <p>{item.receiver_name}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Email : </p>
-                                                                    <p>{item.receiver_email}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Phone No : </p>
-                                                                    <p>{item.receiver_contact_no}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Pincode : </p>
-                                                                    <p>{item.receiver_pincode}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Address : </p>
-                                                                    <p>{item.receiver_locality}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>City : </p>
-                                                                    <p>{item.receiver_city}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>State : </p>
-                                                                    <p>{item.receiver_state} </p>
-                                                                </span>
+                                            </div>
+                                        </div>
+                                        <div className="modal fade" id="partnerprintid" tabIndex="-1" role="dialog" aria-labelledby="partnerprintidLabel" aria-hidden="true">
+                                            <div className="modal-dialog" role="document">
+                                                <div className="modal-content">
+                                                    <div className="modal_header pt-2 pr-3">
+                                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                                            <span className='pl-0' aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div className="modal-body">
+                                                        <div className="invoice_header">
+                                                            <h2>Carrykar Pvt. Lmt.</h2>
+                                                            <div className="d-flex justify-content-between">
 
                                                             </div>
-                                                            <div className='col-md-6 agent_details_col  mt-1'>
-                                                                <h2>Sender Details :</h2>
-                                                                <span className='pl-0'>
-                                                                    <p>Name : </p>
-                                                                    <p>{item.sender_name}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Email : </p>
-                                                                    <p>{item.sender_email}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Phone No : </p>
-                                                                    <p>{item.sender_contact_no}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Pincode : </p>
-                                                                    <p>{item.sender_pincode}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Address : </p>
-                                                                    <p>{item.sender_locality}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>City : </p>
-                                                                    <p>{item.sender_city}</p>
-                                                                </span>
-                                                                <span className='pl-0'>
-                                                                    <p>State : </p>
-                                                                    <p>{item.sender_state} </p>
-                                                                </span>
-                                                            </div>
+                                                        </div>
+                                                        <div className="invoice_body">
+                                                            <ul>
+                                                                <h4>Sender Details</h4>
+                                                                <li><span>Name :</span><p>{item.sender_details?.first_name ?? item.sender_name}</p></li>
+                                                                <li><span>Email :</span><p>{item.sender_details?.email ?? item.sender_email}</p></li>
+                                                                <li><span>City :</span><p>{item.sender_details?.city ?? item.sender_email}</p></li>
+                                                                <li><span>Address :</span><p>{item.sender_details?.address ?? item.sender_address}</p></li>
+                                                            </ul>
+                                                            <ul>
+                                                                <h4>Reciever Details</h4>
+                                                                <li><span>Name :</span><p>{item.receiver_name}</p></li>
+                                                                <li><span>Email :</span><p>{item.receiver_email}</p></li>
+                                                                <li><span>Phone no :</span><p>{item.receiver_contact_no}</p></li>
+                                                                <li><span>Address :</span><p>{item.receiver_state}</p></li>
+                                                            </ul>
+                                                            <ul>
+                                                                <h4>Order Details</h4>
+                                                                <li><span>Name :</span><p>{item.receiver_name}</p></li>
+                                                                <li><span>Email :</span><p>{item.receiver_email}</p></li>
+                                                                <li><span>Phone no :</span><p>{item.receiver_contact_no}</p></li>
+                                                                <li><span>Address :</span><p>{item.receiver_address}</p></li>
+                                                            </ul>
                                                         </div>
                                                     </div>
-                                                    <div className='col-lg-6 col-md-12 agent_verify_col mt-1'>
-                                                        <div className='row'>
-                                                            <div className='col address_detail_col'>
-                                                                <h2>Shipping Details :</h2>
-                                                                <div>
-                                                                    <span className='pl-0'>
-                                                                        <p>Permanent Address: </p>
-                                                                        <p>
-                                                                            87, Block A, Mayur Vihar Extension,122192, Delhi, New-Delhi
-                                                                        </p>
-                                                                    </span>
-                                                                    <span className='pl-0'>
-                                                                        <p>Current  Address: </p>
-                                                                        <p>
-                                                                            87, Block A, Mayur Vihar Extension,122192, Delhi, New-Delhi
-                                                                        </p>
-                                                                    </span>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                        <div className='row mt-2 d-flex align-items-center'>
-                                                            <div className='col-md-12 mt-3 text-right'>
-                                                                <QrMake path={item.qr_image_path} orderid={item.id} ordertype={item.source} />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className='col-12 from_hub'>
-                                                        <div className="row">
-                                                            <div className="col-6">
-                                                                <label htmlFor="cars">From Hub:</label>
-                                                                <select className='form-control' name="fromid" id="fromid" onChange={(e) => handleInput('from_hub_id', item.source, e, item.id)}>
-
-                                                                    {hubData.map((index) => {
-                                                                        return (
-                                                                            <>
-                                                                                <option value={index.id} selected={item.from_hub_id == index.id ? true : false}>{index.hub_name} </option>
-                                                                            </>
-                                                                        )
-                                                                    })}
-
-                                                                </select>
-                                                            </div>
-                                                            <div className="col-6">
-                                                                <label htmlFor="cars">To Hub:</label>
-                                                                <select className='form-control' name="id" onChange={(e) => handleInput('to_hub_id', item.source, e, item.id)}>
-                                                                    {hubData.map((index) => {
-                                                                        return (
-                                                                            <>
-                                                                                <option value={index.id} selected={item.to_hub_id == index.id ? true : false}>{index.hub_name} </option>
-                                                                            </>
-                                                                        )
-                                                                    })}
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className='col-12 mt-2'>
-                                                        <div className='status_track_col'>
-                                                            <button type="button" className="btn btn-info" data-toggle="modal" data-target="#partnerprintid" onClick={handleId(item.id)}>
-                                                                Generate Invoice
-                                                            </button>
-                                                            <QrButton path={item.qr_image_path} orderid={item.id} ordertype={item.source} />
-                                                            <button className='btn btn-secondary' type='button' data-toggle="collapse" data-target={`#collapsetrack2-${item.id}`} aria-expanded="false" aria-controls="collapsetrack">
-                                                                Tracking
-                                                            </button>
-                                                        </div>
-                                                        <div className="collapse mt-2" id={`collapsetrack2-${item.id}`}>
-                                                            <div className="card tracking-card">
-                                                                <p>Tracking Status Detail</p>
-                                                                <div className='card-body'>
-                                                                    <div className="card mb-2">
-                                                                        Anim pariatur cliche reprehenderit, enim e
-                                                                    </div>
-                                                                    <div className="card mb-2">
-                                                                        Anim pariatur cliche reprehenderit, enim e
-                                                                    </div>
-                                                                    <div className="card mb-2">
-                                                                        Anim pariatur cliche reprehenderit, enim e
-                                                                    </div>
-                                                                    <div className="card mb-2">
-                                                                        Anim pariatur cliche reprehenderit, enim e
-                                                                    </div>
-                                                                    <div className="card mb-2">
-                                                                        Anim pariatur cliche reprehenderit, enim e
-                                                                    </div>
-                                                                    <div className="card">
-                                                                        Anim pariatur cliche reprehenderit, enim e
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="modal fade" id="partnerprintid" tabindex="-1" role="dialog" aria-labelledby="partnerprintidLabel" aria-hidden="true">
-                                                        <div className="modal-dialog" role="document">
-                                                            <div className="modal-content">
-                                                                <div className="modal_header pt-2 pr-3">
-                                                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span className='pl-0' aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div className="modal-body">
-                                                                    <div className="invoice_header">
-                                                                        <h2>Carrykar Pvt. Lmt.</h2>
-                                                                        <div className="d-flex justify-content-between">
-
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="invoice_body">
-                                                                        <ul>
-                                                                            {item.id}
-                                                                            <h4>Sender Details</h4>
-                                                                            <li><span>Name :</span><p>{item.sender_name}</p></li>
-                                                                            <li><span>Email :</span><p>{item.sender_email}</p></li>
-                                                                            <li><span>Phone no :</span><p>{item.sender_phone}</p></li>
-                                                                            <li><span>Address :</span><p>{item.sender_address}</p></li>
-                                                                        </ul>
-                                                                        <ul>
-                                                                            <h4>Reciever Details</h4>
-                                                                            <li><span>Name :</span><p>{item.receiver_name}</p></li>
-                                                                            <li><span>Email :</span><p>{item.receiver_email}</p></li>
-                                                                            <li><span>Phone no :</span><p>{item.receiver_phone}</p></li>
-                                                                            <li><span>Address :</span><p>{item.receiver_address}</p></li>
-                                                                        </ul>
-                                                                        <ul>
-                                                                            <h4>Order Details</h4>
-                                                                            <li><span>Name :</span><p>{item.receiver_name}</p></li>
-                                                                            <li><span>Email :</span><p>{item.receiver_email}</p></li>
-                                                                            <li><span>Phone no :</span><p>{item.receiver_phone}</p></li>
-                                                                            <li><span>Address :</span><p>{item.receiver_address}</p></li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="modal-footer">
-                                                                    <button type="button" className="btn btn-primary">Download PDF</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    <div className="modal-footer">
+                                                        <button type="button" className="btn btn-primary">Save changes</button>
                                                     </div>
                                                 </div>
-                                            </>
-                                        );
-                                    }
-                                }
+                                            </div>
+                                        </div>
+                                        <div className="modal fade" id="hubAssignForCo" tabIndex="-1" role="dialog" aria-labelledby="hubAssignForCoLabel" aria-hidden="true">
+                                            <div className="modal-dialog modal-xl add-partner" role="document">
+                                                <div className="modal-content">
+                                                    <div className="modal-header">
+                                                        <h5 className="modal-title" id="hubAssignForCoLabel">Hub List</h5>
+                                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div className="modal-body">
+                                                        <TableContainer component={Paper}>
+                                                            <Table stickyHeader striped aria-label="sticky table">
+                                                                <TableHead>
+                                                                    <StyledTableRow>
+                                                                        <StyledTableCell>Id </StyledTableCell>
+                                                                        <StyledTableCell>Hub Id </StyledTableCell>
+                                                                        <StyledTableCell>Hub Code </StyledTableCell>
+                                                                        <StyledTableCell>State</StyledTableCell>
+                                                                        <StyledTableCell>City</StyledTableCell>
+                                                                        <StyledTableCell>Pincode</StyledTableCell>
+                                                                        <StyledTableCell>Contact No*</StyledTableCell>
+                                                                        <StyledTableCell>Alternate No*</StyledTableCell>
+                                                                        <StyledTableCell>Address</StyledTableCell>
+                                                                        <StyledTableCell>Action</StyledTableCell>
+                                                                    </StyledTableRow>
+                                                                </TableHead>
+                                                                <TableBody>
+                                                                    {Object.values(hubData)
+                                                                        // eslint-disable-next-line
+                                                                        .map((item, id) => (
+                                                                            <StyledTableRow hover tabIndex={-1} key={id}>
+                                                                                <StyledTableCell>{item.id} </StyledTableCell>
+                                                                                <StyledTableCell>{item.hub_name}</StyledTableCell>
+                                                                                <StyledTableCell>{item.hub_code}</StyledTableCell>
+                                                                                <StyledTableCell>{item.state}</StyledTableCell>
+                                                                                <StyledTableCell>{item.city}</StyledTableCell>
+                                                                                <StyledTableCell>{item.pin}</StyledTableCell>
+                                                                                <StyledTableCell>{item.contact_number}</StyledTableCell>
+                                                                                <StyledTableCell>{item.alternate_contact_number}</StyledTableCell>
+                                                                                <StyledTableCell>{item.hub_full_address}</StyledTableCell>
+                                                                                <StyledTableCell>
+                                                                                    <button
+                                                                                        type="button"
+                                                                                        className="btn btn-info"
+                                                                                    >
+                                                                                        Assign
+                                                                                    </button>
+                                                                                </StyledTableCell>
+                                                                            </StyledTableRow>
+                                                                        ))}
+
+                                                                </TableBody>
+                                                                <TableFooter>
+                                                                    <TableRow>
+                                                                        <TablePagination
+                                                                            page={page}
+                                                                            onPageChange={handleChangePage}
+                                                                            rowsPerPage={rowsPerPage}
+                                                                            onRowsPerPageChange={handleChangeRowsPerPage}
+                                                                            rowsPerPageOptions={[10, 25, 100]}
+                                                                            // count={filterUser.length}
+                                                                            rows={10}
+                                                                        />
+                                                                    </TableRow>
+                                                                </TableFooter>
+                                                            </Table>
+                                                        </TableContainer>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </>
+                                );
                             })}
                         </div>
                     </div>
@@ -1502,4 +532,4 @@ const RecenteOrder = ({ qr }) => {
     )
 }
 
-export default RecenteOrder
+export default RecentOrder
