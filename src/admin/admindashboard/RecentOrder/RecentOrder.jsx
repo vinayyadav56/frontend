@@ -238,53 +238,53 @@ const RecentOrder = ({ qr }) => {
                                                                     <p>Phone No : </p>
                                                                     <p>{item.receiver_contact_no}</p>
                                                                 </span>
-                                                                <span className='pl-0'>
-                                                                    <p>Pincode : </p>
+                                                        <span className='pl-0'>
+                                                                    <p>Pincode :</p>
                                                                     <p>{item.receiver_pincode}</p>
                                                                 </span>
-                                                                <span className='pl-0'>
+                                                        <span className='pl-0'>
                                                                     <p>Address : </p>
                                                                     <p>{item.receiver_locality} </p>
                                                                 </span>
-                                                                <span className='pl-0'>
+                                                        <span className='pl-0'>
                                                                     <p>City : </p>
                                                                     <p>{item.receiver_city}</p>
                                                                 </span>
-                                                                <span className='pl-0'>
+                                                        <span className='pl-0'>
                                                                     <p>State : </p>
                                                                     <p>{item.receiver_state} </p>
                                                                 </span>
 
-                                                            </div>
-                                                            <div className='col-md-6 agent_details_col  mt-1'>
-                                                                <h2>Sender Details :</h2>
-                                                                <span className='pl-0'>
+                                                    </div>
+                                                    <div className='col-md-6 agent_details_col  mt-1'>
+                                                        <h2>Sender Details :</h2>
+                                                        <span className='pl-0'>
                                                                     <p>Name : </p>
-                                                                    <p>{item.sender_details.first_name}{item.sender_details.last_name} </p>
+                                                                    <p>{item.sender_details?.first_name ?? item.sender_name} {item.sender_details?.last_name ?? ''} </p>
                                                                 </span>
-                                                                <span className='pl-0'>
+                                                        <span className='pl-0'>
                                                                     <p>Email : </p>
-                                                                    <p>{item.sender_details.email}</p>
+                                                                    <p>{item.sender_details?.email ?? item.sender_email}</p>
                                                                 </span>
-                                                                <span className='pl-0'>
+                                                        <span className='pl-0'>
                                                                     <p>Phone No : </p>
-                                                                    <p>{item.sender_details.phone_no}</p>
+                                                                    <p>{item.sender_details?.phone_no ?? item.sender_contact_no}</p>
                                                                 </span>
-                                                                <span className='pl-0'>
+                                                        <span className='pl-0'>
                                                                     <p>Pincode : </p>
-                                                                    <p>{item.sender_details.pincode}</p>
+                                                                    <p>{item.sender_details?.pincode ?? item.sender_pincode}</p>
                                                                 </span>
-                                                                <span className='pl-0'>
+                                                        <span className='pl-0'>
                                                                     <p>Address : </p>
-                                                                    <p>{item.sender_details.address}</p>
+                                                                    <p>{item.sender_details?.address ?? item.sender_address}</p>
                                                                 </span>
-                                                                <span className='pl-0'>
+                                                        <span className='pl-0'>
                                                                     <p>City : </p>
-                                                                    <p>{item.sender_details.city}</p>
+                                                                    <p>{item.sender_details?.city ?? item.sender_city}</p>
                                                                 </span>
-                                                                <span className='pl-0'>
+                                                        <span className='pl-0'>
                                                                     <p>State : </p>
-                                                                    <p>{item.sender_details.state} </p>
+                                                                    <p>{item.sender_details?.state ?? item.sender_state} </p>
                                                                 </span>
 
                                                     </div>
