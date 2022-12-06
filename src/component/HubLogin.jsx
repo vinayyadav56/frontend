@@ -4,9 +4,11 @@ import { Fragment } from 'react'
 import { useAlert } from 'react-alert'
 import { useHistory } from 'react-router-dom'
 import { postRequest } from '../Services/api'
+import {useAuth} from "../Services/auth";
 
 
 const HubLogin = () => {
+    const {setLoading, handleUser } = useAuth();
     const [hubUserLogin, setHubUserLogin] = useState({
         username: "",
         password: ""
@@ -25,12 +27,15 @@ const HubLogin = () => {
         e.preventDefault();
         const { username, password } = hubUserLogin;
         if (username && password) {
+            setLoading(true);
+
             postRequest('hubLogin', hubUserLogin).then(result => {
                 alert.success(result.message);
+                result.success && handleUser(result.userDetails)
                 history.push("/hub/dashboard")
             }).catch(error => {
                 alert.error(error.message);
-            })
+            }).finally(() => setLoading(false))
         } else {
             alert.error("Invalid inputs please retry");
         }

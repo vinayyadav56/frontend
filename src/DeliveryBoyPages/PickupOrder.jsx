@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Fragment } from 'react'
 import "../admin/admindashboard/AllTable/Table.css";
 import "../admin/admindashboard/partnerorder.css";
@@ -15,14 +15,21 @@ import TablePagination from '@mui/material/TablePagination';
 import { useState } from 'react';
 import DeliveryHeader from './DeliveryHeader';
 import DeliverySidebar from './DeliverySidebar';
-import DeliveryQrScan from './DeliveryQrScan';
+import PickupQrScan from './PickupQrScan';
+import {makeRequest} from "../Services/api";
+import {useAlert} from "react-alert";
+import {useAuth} from "../Services/auth";
 
 const PickupOrder = ({ userActive, addUserLocal }) => {
+    let alert = useAlert();
+    const { user, setLoading } = useAuth();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
+
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(parseInt(event.target.value, 5));
         setPage(0);
@@ -45,7 +52,23 @@ const PickupOrder = ({ userActive, addUserLocal }) => {
             backgroundColor: theme.palette.action.hover,
         }
     }));
-    const [partnerData] = useState([]);
+    const [pickuoOrders, setPickupOrders] = useState([]);
+
+    const fetchPickupOrders = async () => {
+        setLoading(true);
+        const hubId = user.id;
+        makeRequest('GET', `orders/agent/pickup`).then(result => {
+            setPickupOrders(result.data);
+        }).catch(err => {
+            alert.error(err.message);
+        }).finally(() => {
+            setLoading(false);
+        })
+    };
+
+    useEffect(() => {
+        fetchPickupOrders();
+    }, []);
 
     return (
         <Fragment>
@@ -61,31 +84,59 @@ const PickupOrder = ({ userActive, addUserLocal }) => {
                                     <StyledTableRow>
                                         <StyledTableCell>Id</StyledTableCell>
                                         <StyledTableCell>Customer Name</StyledTableCell>
-                                        <StyledTableCell>Pickup Date</StyledTableCell>
-                                        <StyledTableCell>Pickup Time</StyledTableCell>
-                                        <StyledTableCell>Cost</StyledTableCell>
+                                        <StyledTableCell>Phone</StyledTableCell>
                                         <StyledTableCell>Pincode</StyledTableCell>
                                         <StyledTableCell>City</StyledTableCell>
                                         <StyledTableCell>State</StyledTableCell>
                                         <StyledTableCell>Address</StyledTableCell>
+                                        <StyledTableCell>Status</StyledTableCell>
+                                        <StyledTableCell>Action</StyledTableCell>
                                     </StyledTableRow>
                                 </TableHead>
                                 <TableBody>
-
-                                    <StyledTableRow hover tabIndex={-1}>
-                                        <StyledTableCell>04/06/2022</StyledTableCell>
-                                        <StyledTableCell>Delhi</StyledTableCell>
-                                        <StyledTableCell>Mumbai</StyledTableCell>
-                                        <StyledTableCell>Mumbai</StyledTableCell>
-                                        <StyledTableCell>Mumbai</StyledTableCell>
-                                        <StyledTableCell>Mumbai</StyledTableCell>
-                                        <StyledTableCell>Mumbai</StyledTableCell>
-                                        <StyledTableCell>Mumbai</StyledTableCell>
-                                        <StyledTableCell>
-                                            <DeliveryQrScan />
-                                        </StyledTableCell>
-                                    </StyledTableRow>
-
+                                    {pickuoOrders.map((order,i) => {
+                                        return (
+                                            <StyledTableRow hover tabIndex={-1} key={i}>
+                                                <StyledTableCell>{i+1}</StyledTableCell>
+                                                <StyledTableCell>
+                                                    {order.co ?.sender.first_name} {order.co ?.sender.last_name}
+                                                    {order.po ?.sender_name}
+                                                    {order.alpha ?.sender.first_name} {order.alpha ?.sender.last_name}
+                                                </StyledTableCell>
+                                                <StyledTableCell>
+                                                    {order.co ?.sender.phone_no}
+                                                    {order.po ?.sender_contact_no}
+                                                    {order.alpha ?.sender.first_name} {order.alpha ?.sender.last_name}
+                                                </StyledTableCell>
+                                                <StyledTableCell>
+                                                    {order.co ?.sender.pincode}
+                                                    {order.po ?.sender_pincode}
+                                                    {order.alpha ?.sender.first_name} {order.alpha ?.sender.last_name}
+                                                </StyledTableCell>
+                                                <StyledTableCell>
+                                                    {order.co ?.sender.city}
+                                                    {order.po ?.sender_city}
+                                                    {order.alpha ?.sender.first_name} {order.alpha ?.sender.last_name}
+                                                </StyledTableCell>
+                                                <StyledTableCell>
+                                                    {order.co ?.sender.state}
+                                                    {order.po ?.sender_state}
+                                                    {order.alpha ?.sender.first_name} {order.alpha ?.sender.last_name}
+                                                </StyledTableCell>
+                                                <StyledTableCell>
+                                                    {order.co ?.sender.address}
+                                                    {order.po ?.sender_house_number} {order.po ?.sender_locality}
+                                                    {order.alpha ?.sender.first_name} {order.alpha ?.sender.last_name}
+                                                </StyledTableCell>
+                                                <StyledTableCell>
+                                                    <span className="badge badge-info badge-pill p-2">{order.status}</span>
+                                                </StyledTableCell>
+                                                <StyledTableCell>
+                                                    {order.status == 'PICKUP_AGENT_ASSIGNED' && <PickupQrScan orderDetails={order} fetchOrders={fetchPickupOrders}/>}
+                                                </StyledTableCell>
+                                            </StyledTableRow>
+                                        )
+                                    })}
                                 </TableBody>
                                 <TableFooter>
                                     <TableRow>
@@ -95,7 +146,7 @@ const PickupOrder = ({ userActive, addUserLocal }) => {
                                             rowsPerPage={rowsPerPage}
                                             onRowsPerPageChange={handleChangeRowsPerPage}
                                             rowsPerPageOptions={[10, 25, 100]}
-                                            count={partnerData.length}
+                                            count={pickuoOrders.length}
                                             rows={10}
                                         />
                                     </TableRow>

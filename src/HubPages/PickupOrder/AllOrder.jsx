@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, {useEffect, useRef} from 'react'
 import "../../admin/admindashboard/AllTable/Table.css";
 import "../../admin/admindashboard/partnerorder.css";
 import { styled } from '@mui/material/styles';
@@ -49,8 +49,12 @@ const AllOrder = () => {
         }
     }));
     const [hubOrderData, sethubOrderData] = useState([]);
+    const [hubAgent, setHubAgents] = useState([]);
+    const [selectedOrder, setSelectedOrder] = useState(null);
+    const modalCloseBtn = useRef();
+
     const fetchData = async () => {
-        const hubId = user.tokenable_id
+        const hubId = user.id
         setLoading(true);
         makeRequest('GET', `fetchHubOrderByHubId/${hubId}?status=new`).then(result => {
             alert.success(result.message);
@@ -62,8 +66,46 @@ const AllOrder = () => {
             setLoading(false);
         })
     };
+
+    const fetchAgents = async () => {
+        setLoading(true);
+        const hubId = user.id;
+        makeRequest('GET', `deliveryAgentsListByHubId/${hubId}`).then(result => {
+            alert.success(result.message);
+            setHubAgents(result.data);
+        }).catch(err => {
+            alert.error(err.message);
+        }).finally(() => {
+            setLoading(false);
+        })
+    };
+
+
+    const initOrderAssign = (order) => {
+        setSelectedOrder(order);
+    }
+
+    const handleOrderAssign = (agent, transitType) => {
+
+        setLoading(true);
+        const requestBody = {
+            agent_id: agent.id,
+            order_id: selectedOrder.id,
+            order_type: selectedOrder.source,
+            transit_type: transitType,
+        }
+        makeRequest('POST', 'orders/assign-agent', requestBody).then(res => {
+            alert.success(res.message)
+            modalCloseBtn.current.click();
+            res.success && fetchData();
+        }).catch(err => {
+            alert.error(err.message);
+        }).finally(() => setLoading(false))
+    }
+
     useEffect(() => {
         fetchData();
+        fetchAgents();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return (
@@ -87,8 +129,6 @@ const AllOrder = () => {
                         </TableHead>
                         <TableBody>
                             {hubOrderData
-                                // eslint-disable-next-line
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, id) => (
                                     <StyledTableRow hover tabIndex={-1} key={id}>
                                         <StyledTableCell>{row.id}</StyledTableCell>
@@ -103,7 +143,9 @@ const AllOrder = () => {
                                             <button
                                                 type="button"
                                                 className="btn btn-secondary"
-                                                data-toggle="modal" data-target=".assign_order_to_delivery_boy"
+                                                data-toggle="modal"
+                                                data-target=".assign_order_to_delivery_boy"
+                                                onClick={() => initOrderAssign(row)}
                                             >
                                                 Assign For Pickup
                                             </button>
@@ -128,18 +170,19 @@ const AllOrder = () => {
                     </Table>
                 </TableContainer>
             </div>
-            <div className="modal fade assign_order_to_delivery_boy" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div className="modal fade assign_order_to_delivery_boy" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
                 <div className="modal-dialog  add-partner modal-xl">
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title" id="assigncarrierfromAdminTitle">
-                                Avalaible Delivery Agents
+                                Available Delivery Agents
                             </h5>
                             <button
                                 type="button"
                                 className="close"
                                 data-dismiss="modal"
                                 aria-label="Close"
+                                ref={modalCloseBtn}
                             >
                                 <span aria-hidden="true" className="modal-off">
                                     &times;
@@ -147,6 +190,56 @@ const AllOrder = () => {
                             </button>
                         </div>
                         <div className="modal-body">
+                            <TableContainer component={Paper}>
+                                <Table stickyHeader striped aria-label="sticky table">
+                                    <TableHead>
+                                        <StyledTableRow>
+                                            <StyledTableCell>Id</StyledTableCell>
+                                            <StyledTableCell>Name</StyledTableCell>
+                                            <StyledTableCell>Email</StyledTableCell>
+                                            <StyledTableCell>Phone</StyledTableCell>
+                                            <StyledTableCell>Alt Phone</StyledTableCell>
+                                            <StyledTableCell>Action</StyledTableCell>
+                                        </StyledTableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {hubAgent
+                                            .map((row, id) => (
+                                                <StyledTableRow hover tabIndex={-1} key={id}>
+                                                    <StyledTableCell>{row.id}</StyledTableCell>
+                                                    <StyledTableCell>{row.first_name} {row.last_name}</StyledTableCell>
+                                                    <StyledTableCell>{row.email_id}</StyledTableCell>
+                                                    <StyledTableCell>{row.phone_no}</StyledTableCell>
+                                                    <StyledTableCell>{row.alter_phone_no}</StyledTableCell>
+                                                    <StyledTableCell>
+                                                        <button
+                                                            type="button"
+                                                            className="btn btn-primary"
+                                                            data-toggle="modal"
+                                                            onClick={() => handleOrderAssign(row, 'PICKUP')}
+                                                        >
+                                                            Assign
+                                                        </button>
+                                                    </StyledTableCell>
+                                                </StyledTableRow>
+
+                                            ))}
+                                    </TableBody>
+                                    <TableFooter>
+                                        <TableRow>
+                                            <TablePagination
+                                                page={page}
+                                                onPageChange={handleChangePage}
+                                                rowsPerPage={rowsPerPage}
+                                                onRowsPerPageChange={handleChangeRowsPerPage}
+                                                rowsPerPageOptions={[10, 25, 100]}
+                                                count={hubOrderData.length}
+                                                rows={10}
+                                            />
+                                        </TableRow>
+                                    </TableFooter>
+                                </Table>
+                            </TableContainer>
                         </div>
                     </div>
                 </div>

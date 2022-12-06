@@ -27,7 +27,7 @@ import { TrackingStatus } from "../../../config/contants";
 const RecentOrder = ({ qr }) => {
     let alert = useAlert();
     const [hubData, setHubData] = useState([]);
-    const { setLoading, isAuthenticated } = useAuth();
+    const { loading, setLoading, isAuthenticated } = useAuth();
     const [newOrder, setNewOrder] = useState([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -56,6 +56,7 @@ const RecentOrder = ({ qr }) => {
     if (!isAuthenticated()) {
         return <Redirect to="/admin" />
     }
+
     // HUB LIST FETCHED FOR DROPDOWN STARTS
     const hubListData = async () => {
         setLoading(true);
@@ -70,7 +71,7 @@ const RecentOrder = ({ qr }) => {
     // UPDAT HUB API STARTS
 
     const handleInput = (fieldName, type, e, order_id) => {
-        console.log(fieldName, type, order_id)
+
         if (
             order_id &&
             type &&
@@ -85,7 +86,7 @@ const RecentOrder = ({ qr }) => {
                 "hubId": e.target.value
             }).then(result => {
                 alert.success(result.message);
-                result.success && console.log(result);
+                result.success && fetchData();
             }).catch(err => {
                 alert.error(err.message);
             }).finally(() => {
@@ -138,6 +139,20 @@ const RecentOrder = ({ qr }) => {
                 setLoading(false);
             })
     };
+
+    function handleAuthorizeOrder(order_id, order_type, status) {
+        console.log(order_id, order_type, status);
+        setLoading(true)
+
+        makeRequest('POST', 'tracking/authorise-order', {order_id, order_type, status}).then(res => {
+            res.success ? alert.success(res.message) : alert.error(res.message());
+            fetchData();
+        }).catch(err => {
+            console.log(err)
+            alert.error(err.message)
+        }).finally(() => setLoading(false))
+    }
+
     return (
         <Fragment>
             <nav className="sticky-top partnerdash-nav">
@@ -201,7 +216,7 @@ const RecentOrder = ({ qr }) => {
                             {newOrder.map((item, id) => {
                                 return (
                                     <>
-                                        <span className="badge badge-danger">{item.source}</span>
+                                        <span className={`badge ${ item.source == 'PO' ? "badge-danger" : "badge-success"}`}>{id+1} - {item.source}</span>
                                         <div key={id} className='row table_box'>
                                             <div className='col-lg-6'>
                                                 <div className='row'>
@@ -271,29 +286,48 @@ const RecentOrder = ({ qr }) => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className='col-lg-6 col-md-12 agent_verify_col mt-1'>
+                                            <div className='col-lg-6 col-md-12 mt-1'>
                                                 <div className='row'>
-                                                    <div className='col'>
+                                                    <div className='col '>
                                                         <div className="d-flex border shadow-sm p-2 rounded-lg">
                                                             <div className="mr-2">
-                                                                <h2>Shipping Details :</h2>
+                                                                <p className="font-weight-bold">Shipping Details :</p>
                                                                 <p className='pl-0'>
                                                                     87, Block A, Mayur Vihar Extension,122192, Delhi, New-Delhi
                                                                 </p>
+                                                                <hr className="m-0 my-2"/>
+                                                                <p className="badge badge-info p-2 mr-2">Status: <strong>{item.status}</strong></p>
+
+                                                                {item.from_hub_id != null &&
+                                                                <span className="badge badge-info p-2 mr-2">
+                                                                    From Hub: <strong>{item.from_hub_id}</strong>
+                                                                </span>
+                                                                }
+
+                                                                {item.to_hub_id != null &&
+                                                                <span className="badge badge-info p-2 mr-2">
+                                                                    To Hub: <strong>{item.to_hub_id}</strong>
+                                                                </span>
+                                                                }
                                                             </div>
                                                             <QrMake path={item.qr_image_path} orderid={item.id} ordertype={item.source} />
                                                         </div>
+
                                                     </div>
                                                     {
-                                                        item.status === TrackingStatus.confirmed &&
+                                                        (item.status === TrackingStatus.confirmed || item.status == TrackingStatus.pickup_hub_assigned )&&
                                                         <div className='col-12 from_hub mt-2'>
                                                             <div className="row">
+                                                                {item.from_hub_id == null &&
                                                                 <div className="col-6">
                                                                     <label htmlFor="cars">From Hub:</label>
-                                                                    <select className='form-control' name="fromid" id="fromid"
+                                                                    <select className='form-control' name="fromid"
+                                                                            id="fromid"
                                                                             onChange={(e) => handleInput('from_hub_id', item.source, e, item.id)}
                                                                             defaultValue={item.from_hub_id}>
-
+                                                                        <option value="" selected disabled>- Select From
+                                                                            Hub -
+                                                                        </option>
                                                                         {hubData.map((index) => {
                                                                             return (
                                                                                 <>
@@ -305,12 +339,15 @@ const RecentOrder = ({ qr }) => {
 
                                                                     </select>
                                                                 </div>
+                                                                }
+                                                                {item.to_hub_id == null &&
                                                                 <div className="col-6">
                                                                     <label htmlFor="cars">To Hub:</label>
                                                                     <select className='form-control' name="id"
                                                                             onChange={(e) => handleInput('to_hub_id', item.source, e, item.id)}
                                                                             defaultValue={item.from_hub_id}>
-
+                                                                        <option value="" selected>- Select To Hub -
+                                                                        </option>
                                                                         {hubData.map((index) => {
                                                                             return (
                                                                                 <>
@@ -321,36 +358,39 @@ const RecentOrder = ({ qr }) => {
                                                                         })}
                                                                     </select>
                                                                 </div>
+                                                                }
                                                             </div>
                                                         </div>
                                                     }
                                                     <div className='col-12 mt-4'>
                                                         { item.status === TrackingStatus.new_created &&
                                                             <>
-                                                                <button type="button" className="btn btn-danger mr-2">
+                                                                <button type="button" className="btn btn-danger mr-2" onClick={() => handleAuthorizeOrder(item.id, item.source, TrackingStatus.reject)} disabled={loading}>
                                                                     Reject
                                                                 </button>
-                                                                <button type="button" className="btn btn-success mr-2">
+                                                                <button type="button" className="btn btn-success mr-2" onClick={() => handleAuthorizeOrder(item.id, item.source, TrackingStatus.confirmed)} disabled={loading}>
                                                                     Confirm
                                                                 </button>
                                                             </>
                                                         }
 
-                                                        { item.status === TrackingStatus.assigned_hub_to_pick &&
-                                                            <button type="button" className="btn btn-warning mr-2" data-toggle="modal" data-target="#hubAssignForCo">
-                                                                Assign For Pickup
-                                                            </button>
+                                                        { (item.status === TrackingStatus.delivery_hub_assigned || item.status == TrackingStatus.pickup_hub_assigned ) &&
+                                                            <QrButton path={item.qr_image_path} orderid={item.id} ordertype={item.source} updateOrder={fetchData}/>
                                                         }
 
-                                                        { item.status === TrackingStatus.assigned_hub_to_pick &&
+                                                        {/*{ item.status === TrackingStatus.pickup_hub_assigned &&*/}
+                                                        {/*    <button type="button" className="btn btn-warning mr-2" data-toggle="modal" data-target="#hubAssignForCo">*/}
+                                                        {/*        Assign For Pickup*/}
+                                                        {/*    </button>*/}
+                                                        {/*}*/}
+
+                                                        { item.status === TrackingStatus.pickup_hub_assigned &&
                                                             <button type="button" className="btn btn-info mr-2" data-toggle="modal" data-target="#partnerprintid" onClick={handleId(item.id)}>
                                                                 Generate Invoice
                                                             </button>
                                                         }
 
-                                                        { item.status == TrackingStatus.confirmed &&
-                                                            <QrButton path={item.qr_image_path} orderid={item.id} ordertype={item.source} />
-                                                        }
+
 
                                                         { (item.status != TrackingStatus.new_created && item.status !== TrackingStatus.reject)  &&
                                                             <button className='btn btn-secondary mr-2'>

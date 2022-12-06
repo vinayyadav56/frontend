@@ -1,0 +1,45 @@
+.qr-box {
+    width:200px;
+    height:200px;
+    margin:20px auto;
+    outline:2px solid;
+    outline-offset:10px;
+    position:relative;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+.qr-box::before {
+    content:"";
+    position:absolute;
+    top:0;
+    right:0;
+    left:0;
+    opacity: 0.5;
+    height: 5px;
+    background:#18c89b;
+    box-shadow:0 0 70px 20px #18c89b;
+    clip-path:inset(0);
+    animation:
+            x 1s ease-in-out infinite alternate,
+            y 2s   ease-in-out infinite;
+}
+
+@keyframes x {
+    to {
+        transform:translateY(-100%);
+        top:100%;
+    }
+}
+
+@keyframes y {
+    33% {
+        clip-path:inset(-100px 0 0 0);
+    }
+    50% {
+        clip-path:inset(0 0 0 0);
+    }
+    83%{
+        clip-path:inset(0 0 -100px 0);
+    }
+}

@@ -50,7 +50,8 @@ const NewOrder = () => {
     }));
     const [hubOrderData, sethubOrderData] = useState([]);
     const fetchData = async () => {
-        const hubId = user.tokenable_id
+        const hubId = user.id
+        console.log(user);
         setLoading(true);
         makeRequest('GET', `fetchHubOrderByHubId/${hubId}?status=new`).then(result => {
             sethubOrderData(result.data);
