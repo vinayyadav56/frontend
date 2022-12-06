@@ -9,223 +9,125 @@ import { useAuth } from '../Services/auth';
 const HomeHeader = () => {
     const [toggleMenu, setToggleMenu] = useState(false);
     const user = useAuth();
-    if (!user.isAuthenticated()) {
-        return (
-            <>
-                <div className="navbar_section">
-                    <section className="nav-sec">
-                        <div className="menu">
-                            <div className="desktop-menu">
-                                <div className="nav-logo">
-                                    <NavLink to="/carrykar" className="nav-link">
-                                        <img src={Frame} alt="logo" />
-                                    </NavLink>
-                                </div>
-                                <div className="desktop-links">
-                                    <ul>
-                                        <li className="dropdown">
-                                            <Link to="/services">Services</Link>
-                                        </li>
-                                        <li>
-                                            <NavLink to="/latestjob">Daily Commuter</NavLink>
-                                        </li>
-                                        <li>
-                                            <NavLink to="/location">Locations</NavLink>
-                                        </li>
-                                        <li>
-                                            <ContactUsForm />
-                                        </li>
-                                        <li>
-                                            <ModalForm />
-                                        </li>
-                                        <li className="home_login">
-                                            <NavLink to="/login" >Login</NavLink>
-                                        </li>
-                                        <li className="home_signup">
-                                            <NavLink to="/signup" >SignUp</NavLink>
-                                        </li>
-                                    </ul>
-                                </div>
+    return (
+        <>
+            <div className="navbar_section">
+                <section className="nav-sec">
+                    <div className="menu">
+                        <div className="desktop-menu">
+                            <div className="nav-logo">
+                                <NavLink to="/carrykar" className="nav-link">
+                                    <img src={Frame} alt="logo" />
+                                </NavLink>
                             </div>
-                            <div className="nav-mobile">
-                                <button
-                                    className="open_nav"
-                                    onClick={() => setToggleMenu(true)}
-                                >
-                                    <MenuIcon />
-                                </button>
-                                {toggleMenu && (
-                                    <div className="nav-mobile-div slide-bottom">
-                                        <button
-                                            className="close_navlinks"
-                                            onClick={() => setToggleMenu(false)}
-                                        >
-                                            <CloseIcon />
-                                        </button>
-                                        <ul className="nav-mobile-links">
-                                            <li>
-                                                <NavLink
-                                                    exact
-                                                    onClick={() => setToggleMenu(false)}
-                                                    to="/services"
-                                                >
-                                                    Services
-                                                </NavLink>
-                                            </li>
-                                            <li>
-                                                <NavLink
-                                                    onClick={() => setToggleMenu(false)}
-                                                    to="/subscription"
-                                                >
-                                                    Subscription
-                                                </NavLink>
-                                            </li>
-                                            <li>
-                                                <NavLink
-                                                    onClick={() => setToggleMenu(false)}
-                                                    to="/locations"
-                                                >
-                                                    Location
-                                                </NavLink>
-                                            </li>
-                                            <li>
-                                                <ContactUsForm />
-                                            </li>
-                                            <li>
-                                                <ModalForm onClick={() => setToggleMenu(false)} />
-                                            </li>
-                                            <li>
-                                                <NavLink
-                                                    onClick={() => setToggleMenu(false)}
-                                                    to="/login"
-                                                >
-                                                    Login
-                                                </NavLink>
-                                            </li>
-                                            <li>
-                                                <NavLink
-                                                    onClick={() => setToggleMenu(false)}
-                                                    to="/signup"
-                                                >
-                                                    Sign Up
-                                                </NavLink>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                )}
+                            <div className="desktop-links">
+                                <ul>
+                                    <li className="dropdown">
+                                        <Link to="/services">Services</Link>
+                                    </li>
+                                    <li>
+                                        <NavLink activeClass="active" smooth spy to="commuter">Daily Commuter</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink activeClass="active" smooth spy to="location">Locations</NavLink>
+                                    </li>
+                                    <li>
+                                        <ContactUsForm />
+                                    </li>
+                                    <li>
+                                        <ModalForm />
+                                    </li>
+                                    <li className="home_login">
+                                        {
+                                            !user.isAuthenticated() ?
+                                                <NavLink to="/login" >Login</NavLink>
+                                                :
+                                                ''
+                                        }
+                                    </li>
+                                    <li className="home_signup">
+                                        {
+                                            !user.isAuthenticated() ?
+                                                <NavLink to="/signup" >Login</NavLink>
+                                                :
+                                                <NavLink to="/carrier/dashboard">Go To Dashboard</NavLink>
+                                        }
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                    </section>
-                </div>
-            </>
-        )
-
-    } else {
-        return (
-            <>
-                <div className="navbar_section">
-                    <section className="nav-sec">
-                        <div className="menu">
-                            <div className="desktop-menu">
-                                <div className="nav-logo">
-                                    <NavLink to="/carrykar" className="nav-link">
-                                        <img src={Frame} alt="logo" />
-                                    </NavLink>
-                                </div>
-                                <div className="desktop-links">
-                                    <ul>
-                                        <li className="dropdown">
-                                            <Link to="/services">Services</Link>
-                                        </li>
+                        <div className="nav-mobile">
+                            <button
+                                className="open_nav"
+                                onClick={() => setToggleMenu(true)}
+                            >
+                                <MenuIcon />
+                            </button>
+                            {toggleMenu && (
+                                <div className="nav-mobile-div slide-bottom">
+                                    <button
+                                        className="close_navlinks"
+                                        onClick={() => setToggleMenu(false)}
+                                    >
+                                        <CloseIcon />
+                                    </button>
+                                    <ul className="nav-mobile-links">
                                         <li>
-                                            <NavLink to="/dailycommuter">Daily Commuter</NavLink>
+                                            <NavLink
+                                                exact
+                                                onClick={() => setToggleMenu(false)}
+                                                to="/services"
+                                            >
+                                                Services
+                                            </NavLink>
                                         </li>
-                                        <li>
-                                            <NavLink to="/location">Locations</NavLink>
+                                        <li className="home_login">
+                                            {
+                                                !user.isAuthenticated() ?
+                                                    <NavLink to="/login" onClick={() => setToggleMenu(false)} >Login</NavLink>
+                                                    :
+                                                    ''
+                                            }
+                                        </li>
+                                        <li className="home_signup">
+                                            {
+                                                !user.isAuthenticated() ?
+                                                    <NavLink onClick={() => setToggleMenu(false)} to="/signup" >Login</NavLink>
+                                                    :
+                                                    <NavLink onClick={() => setToggleMenu(false)} to="/carrier/dashboard">Go To Dashboard</NavLink>
+                                            }
                                         </li>
                                         <li>
                                             <ContactUsForm />
                                         </li>
                                         <li>
-                                            <ModalForm />
+                                            <ModalForm onClick={() => setToggleMenu(false)} />
                                         </li>
-                                        <li className='home_login'>
+                                        <li>
                                             <NavLink
                                                 onClick={() => setToggleMenu(false)}
-                                                to="/carrier/dashboard"
+                                                to="/login"
                                             >
-                                                Go To Dashboard
+                                                Login
+                                            </NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink
+                                                onClick={() => setToggleMenu(false)}
+                                                to="/signup"
+                                            >
+                                                Sign Up
                                             </NavLink>
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
-                            <div className="nav-mobile">
-                                <button
-                                    className="open_nav"
-                                    onClick={() => setToggleMenu(true)}
-                                >
-                                    <MenuIcon />
-                                </button>
-                                {toggleMenu && (
-                                    <div className="nav-mobile-div slide-bottom">
-                                        <button
-                                            className="close_navlinks"
-                                            onClick={() => setToggleMenu(false)}
-                                        >
-                                            <CloseIcon />
-                                        </button>
-                                        <ul className="nav-mobile-links">
-                                            <li>
-                                                <NavLink
-                                                    exact
-                                                    onClick={() => setToggleMenu(false)}
-                                                    to="/services"
-                                                >
-                                                    Services
-                                                </NavLink>
-                                            </li>
-                                            <li>
-                                                <NavLink
-                                                    onClick={() => setToggleMenu(false)}
-                                                    to="/subscription"
-                                                >
-                                                    Subscription
-                                                </NavLink>
-                                            </li>
-                                            <li>
-                                                <NavLink
-                                                    onClick={() => setToggleMenu(false)}
-                                                    to="/locations"
-                                                >
-                                                    Location
-                                                </NavLink>
-                                            </li>
-                                            <li>
-                                                <ContactUsForm />
-                                            </li>
-                                            <li>
-                                                <ModalForm onClick={() => setToggleMenu(false)} />
-                                            </li>
-                                            <li>
-                                                <NavLink
-                                                    onClick={() => setToggleMenu(false)}
-                                                    to="/carrier/dashboard"
-                                                >
-                                                    Go To Dashboard
-                                                </NavLink>
-                                            </li>
-
-                                        </ul>
-                                    </div>
-                                )}
-                            </div>
+                            )}
                         </div>
-                    </section>
-                </div>
-            </>
-        )
-    }
+                    </div>
+                </section>
+            </div>
+        </>
+    )
 }
 
 export default HomeHeader
