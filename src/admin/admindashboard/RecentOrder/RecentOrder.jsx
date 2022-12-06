@@ -235,7 +235,7 @@ const RecentOrder = ({ qr }) => {
                                                                     <p>{item.receiver_contact_no}</p>
                                                                 </span>
                                                         <span className='pl-0'>
-                                                                    <p>Pincode : </p>
+                                                                    <p>Pincode :</p>
                                                                     <p>{item.receiver_pincode}</p>
                                                                 </span>
                                                         <span className='pl-0'>
