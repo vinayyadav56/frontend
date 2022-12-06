@@ -4,6 +4,18 @@ body {
     overflow-x: hidden;
     background-color: #E7F0F9 !important;
 }
+.log_out{
+    background-color: #fff;
+    color: #0747A9;
+    border: 1px solid #fff;
+    padding:2px 8px;
+    border-radius: 5px;
+}
+.log_out:hover{
+    border: 1px solid #fff;
+    background-color: transparent;
+    color: #fff;
+}
 .popup_close_btn{
     font-size: 1.6rem !important;
     font-weight: 500;
@@ -200,6 +212,10 @@ ul {
     border: 1px solid #fff;
     padding: 2px 8px 4px 8px;
     border-radius: 5px;
+}
+a:not([href]):not([class]) {
+    color: #fff;
+    text-decoration: none;
 }
 
 .menu .desktop-links ul .home_signup a:hover {

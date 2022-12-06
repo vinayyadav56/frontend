@@ -25,14 +25,124 @@ import quetion from "../images/quetion.png";
 import "./homepage.css";
 import Tripsearch from "./Tripsearch";
 import CommuterSignUp from "./CommuterSignUp";
-import HomeHeader from "./HomeHeader";
-const Homepage = (userActive) => {
+import { Link } from "react-scroll";
+import { useState } from "react";
+import { useAuth } from "../Services/auth";
+import ModalForm from "./ShipNow/ModalForm";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
+import { NavLink } from "react-router-dom";
+import Frame from "../images/Frame.png";
+import ContactUsForm from "./ContactUsForm";
+const Homepage = () => {
+  const [toggleMenu, setToggleMenu] = useState(false);
+  const { signout } = useAuth();
+  const user = useAuth();
+
   return (
     <>
 
       <section className="main_section">
         <div className="container">
-           <HomeHeader />
+          {/* <HomeHeader /> */}
+          <div className="navbar_section">
+            <section className="nav-sec">
+              <div className="menu">
+                <div className="desktop-menu">
+                  <div className="nav-logo">
+                    <NavLink to="/carrykar" className="nav-link">
+                      <img src={Frame} alt="logo" />
+                    </NavLink>
+                  </div>
+                  <div className="desktop-links">
+                    <ul>
+                      <li className="dropdown">
+                        <NavLink to="/services">Services</NavLink>
+                      </li>
+                      <li>
+                        <Link activeClass="active" smooth spy to="commuter">Daily Commuter</Link>
+                      </li>
+                      <li>
+                        <Link activeClass="active" smooth spy to="location">Locations</Link>
+                      </li>
+                      <li>
+                        <ContactUsForm />
+                      </li>
+                      <li>
+                        <ModalForm />
+                      </li>
+                      <li className="home_login">
+                        {
+                          !user.isAuthenticated()
+                            ?
+                            <NavLink to="/login" >Login</NavLink>
+                            :
+                            <NavLink to='/carrier/dashboard'>Go To Dashboard</NavLink>
+                        }
+
+                      </li>
+                      <li className="home_signup">
+                        {
+                          !user.isAuthenticated()
+                            ?
+                            <NavLink to="/login" >Sign Up</NavLink>
+                            :
+                            <button className="log_out" onClick={signout}>Logout</button>
+                        }
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div className="nav-mobile">
+                  <button
+                    className="open_nav"
+                    onClick={() => setToggleMenu(true)}
+                  >
+                    <MenuIcon />
+                  </button>
+                  {toggleMenu && (
+                    <div className="nav-mobile-div slide-bottom">
+                      <button
+                        className="close_navlinks"
+                        onClick={() => setToggleMenu(false)}
+                      >
+                        <CloseIcon />
+                      </button>
+                      <ul className="nav-mobile-links">
+                        <li>
+                          <NavLink
+                            exact
+                            onClick={() => setToggleMenu(false)}
+                            to="/services"
+                          >
+                            Services
+                          </NavLink>
+                        </li>
+                        <li>
+                          <Link activeClass="active" onClick={() => setToggleMenu(false)} smooth spy to="commuter">Daily Commuter</Link>
+                        </li>
+                        <li>
+                          <Link activeClass="active" onClick={() => setToggleMenu(false)} smooth spy to="location">Locations</Link>
+                        </li>
+                        <li>
+                          <ContactUsForm />
+                        </li>
+                        <li>
+                          <ModalForm onClick={() => setToggleMenu(false)} />
+                        </li>
+                        <li>
+                          {!user.isAuthenticated() ? <NavLink to="/login" onClick={() => setToggleMenu(false)} >Login</NavLink> : ''}
+                        </li>
+                        <li>
+                          {!user.isAuthenticated() ? <NavLink to="/signup" onClick={() => setToggleMenu(false)} >Sign Up</NavLink> : <NavLink onClick={() => setToggleMenu(false)} to="/carrier/dashboard">Go To Dashboard</NavLink>}
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </section>
+          </div>
           <div className="hero_section">
             <div className="hero_section-div">
               <div className="txt_content">
@@ -187,7 +297,7 @@ const Homepage = (userActive) => {
           </div>
           <img src={step_carrykar1} alt="step-carrykar" />
         </div>
-        <div className="operational">
+        <div className="operational" id="location">
           <div className="container">
             <h2>We are Operational at</h2>
             <div className="location_card">
@@ -216,7 +326,7 @@ const Homepage = (userActive) => {
       </section>
 
       <section className="carrykar_operations">
-        <div className="commuter_section">
+        <div className="commuter_section" id="commuter">
           <div className="container">
             <h2>Daily Commuter</h2>
             <div className="row">
@@ -474,10 +584,10 @@ const Homepage = (userActive) => {
           </div>
         </div>
       </section>
+
       <HomeFoooter />
-
-
       {/* Contact Us Query */}
+
       <div className="modal fade" id="contactUsModal" tabIndex="-1" role="dialog" aria-labelledby="contactUsModalTitle" aria-hidden="true">
         <div className="modal-dialog modal-dialog-centered" role="document">
           <div className="modal-content">
@@ -515,6 +625,7 @@ const Homepage = (userActive) => {
       </div>
 
     </>
+   
   );
 };
 
