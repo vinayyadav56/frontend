@@ -42,7 +42,7 @@ function useProvideAuth() {
         return user && user.is_hub === 'hub';
     }
     const isAdmin = () => {
-        return user && user.is_admin === 'admin';
+        return user && user.is_admin;
     }
 
     const isPartner = () => {
@@ -50,10 +50,10 @@ function useProvideAuth() {
     }
 
     const isUser = () => {
-        return user && user.is_customer === 'user';
+        return user && user.is_customer;
     }
     const isCarrier = () => {
-        return user && user.is_carrier === 'carrier';
+        return user && user.is_carrier;
     }
 
     useEffect(() => {

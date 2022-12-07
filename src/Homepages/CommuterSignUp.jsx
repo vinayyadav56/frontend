@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useAlert } from 'react-alert';
-import { useState } from 'react';
+import { useState , useEffect } from 'react';
 import { useAuth } from '../Services/auth';
 import { useHistory } from 'react-router-dom';
 const style = {
@@ -21,26 +21,13 @@ const style = {
 export default function CommuterSignUp() {
     let alert = useAlert();
     const history = useHistory();
-    const user = useAuth();
+    const auth = useAuth();
     const [open, setOpen] = React.useState(false);
-    const [userLogin, setUserLogin] = useState({
-        first_name: "",
-        phone_no: "",
-        email: "",
-        last_name: "",
-        password: "",
-        reEnterPass: "",
-        dob: "",
-        address: "",
-        city: "",
-        state: "",
-        pincode: "",
-    });
-
+    const [userDatas, setuserDatas] = useState({});
     const handleInput = (e) => {
         const { name, value } = e.target;
-        setUserLogin({
-            ...userLogin,
+        setuserDatas({
+            ...userDatas,
             [name]: value,
         });
     };
@@ -54,11 +41,11 @@ export default function CommuterSignUp() {
         setOpen(false);
         alert.success("Thanks for joining with us");
     };
-    if  (!user.isAuthenticated()) {
-        return (
-            <button onClick={handleRedirect} type="button" className="become-btn">Become a Commuter</button>
-        )
-    } else {
+    useEffect(() => {
+        setuserDatas(auth)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+    if(auth.isUser() || auth.isCarrier()) {
         return(
             <>
                 <button onClick={handleOpen} type="button" className="become-btn">Become a Commuter</button>
@@ -91,7 +78,7 @@ export default function CommuterSignUp() {
                                                         required
                                                         placeholder="First name"
                                                         autoComplete="off"
-                                                        value={userLogin.first_name}
+                                                        value={userDatas.first_name}
                                                         onChange={handleInput}
                                                     />
                                                 </div>
@@ -107,7 +94,7 @@ export default function CommuterSignUp() {
                                                         required
                                                         placeholder="Last name"
                                                         autoComplete="off"
-                                                        value={userLogin.last_name}
+                                                        value={userDatas.last_name}
                                                         onChange={handleInput}
                                                     />
                                                 </div>
@@ -126,7 +113,7 @@ export default function CommuterSignUp() {
                                                         id="pHone"
                                                         placeholder="Phone number"
                                                         autoComplete="off"
-                                                        value={userLogin.phone_no}
+                                                        value={userDatas.phone_no}
                                                         onChange={handleInput}
                                                     />
                                                 </div>
@@ -142,7 +129,7 @@ export default function CommuterSignUp() {
                                                         id="eMail"
                                                         placeholder="Email"
                                                         autoComplete="off"
-                                                        value={userLogin.email}
+                                                        value={userDatas.email}
                                                         onChange={handleInput}
                                                     />
                                                 </div>
@@ -160,7 +147,7 @@ export default function CommuterSignUp() {
                                                         type="password"
                                                         id="password"
                                                         autoComplete="off"
-                                                        value={userLogin.password}
+                                                        value={userDatas.password}
                                                         onChange={handleInput}
                                                     />
                                                 </div>
@@ -176,15 +163,15 @@ export default function CommuterSignUp() {
                                                         id="cnpss"
                                                         placeholder="Confirm password"
                                                         autoComplete="off"
-                                                        value={userLogin.reEnterPass}
+                                                        value={userDatas.reEnterPass}
                                                         onChange={handleInput}
                                                     />
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="form-group">
-                                            <label htmlFor="#selectuserLogin" >userLogin Type</label>
-                                            <select id="selectuserLogin" value={userLogin.type} name='type' className="form-control"
+                                            <label htmlFor="#selectuserDatas" >userDatas Type</label>
+                                            <select id="selectuserDatas" value={userDatas.type} name='type' className="form-control"
                                                 required type='Select' disabled onChange={handleInput}>
                                                 <option value="carrier" >Carrier / Commuter</option>
                                             </select>
@@ -201,7 +188,7 @@ export default function CommuterSignUp() {
                                                         required
                                                         placeholder="DOB"
                                                         autoComplete="off"
-                                                        value={userLogin.dob}
+                                                        value={userDatas.dob}
                                                         onChange={handleInput}
                                                     />
                                                 </div>
@@ -217,7 +204,7 @@ export default function CommuterSignUp() {
                                                         required
                                                         placeholder="Pin Code"
                                                         autoComplete="off"
-                                                        value={userLogin.pincode}
+                                                        value={userDatas.pincode}
                                                         onChange={handleInput}
                                                     />
                                                 </div>
@@ -235,7 +222,7 @@ export default function CommuterSignUp() {
                                                         required
                                                         placeholder="State"
                                                         autoComplete="off"
-                                                        value={userLogin.state}
+                                                        value={userDatas.state}
                                                         onChange={handleInput}
                                                     />
                                                 </div>
@@ -251,7 +238,7 @@ export default function CommuterSignUp() {
                                                         required
                                                         placeholder="City"
                                                         autoComplete="off"
-                                                        value={userLogin.city}
+                                                        value={userDatas.city}
                                                         onChange={handleInput}
                                                     />
                                                 </div>
@@ -267,7 +254,7 @@ export default function CommuterSignUp() {
                                                 placeholder="Address"
                                                 type="text"
                                                 autoComplete="off"
-                                                value={userLogin.address}
+                                                value={userDatas.address}
                                                 onChange={handleInput}
                                             />
                                         </div>
@@ -280,7 +267,9 @@ export default function CommuterSignUp() {
                 </Modal>
             </>
         )
-
-
+    } else {
+        return (
+            <button onClick={handleRedirect} type="button" className="become-btn">Become a Commuter</button>
+        )
     }
 }

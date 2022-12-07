@@ -37,7 +37,7 @@ import ContactUsForm from "./ContactUsForm";
 const Homepage = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
   const { signout } = useAuth();
-  const user = useAuth();
+  const auth = useAuth();
 
   return (
     <>
@@ -73,17 +73,16 @@ const Homepage = () => {
                       </li>
                       <li className="home_login">
                         {
-                          !user.isAuthenticated()
+                          !auth.isAuthenticated()
                             ?
                             <NavLink to="/login" >Login</NavLink>
                             :
-                            <NavLink to='/carrier/dashboard'>Go To Dashboard</NavLink>
+                            <NavLink to={auth.isUser() ? '/customer/dashboard' : 'carrier/dashboard'}>Go To Dashboard</NavLink>
                         }
-
                       </li>
                       <li className="home_signup">
                         {
-                          !user.isAuthenticated()
+                          !auth.isAuthenticated()
                             ?
                             <NavLink to="/login" >Sign Up</NavLink>
                             :
@@ -131,10 +130,22 @@ const Homepage = () => {
                           <ModalForm onClick={() => setToggleMenu(false)} />
                         </li>
                         <li>
-                          {!user.isAuthenticated() ? <NavLink to="/login" onClick={() => setToggleMenu(false)} >Login</NavLink> : ''}
+                          {
+                            !auth.isAuthenticated()
+                              ?
+                              <NavLink to="/login" onClick={() => setToggleMenu(false)} >Login</NavLink>
+                              :
+                              <NavLink onClick={() => setToggleMenu(false)} to={auth.isUser() ? '/customer/dashboard' : 'carrier/dashboard' }>Go To Dashboard</NavLink>
+                          }
                         </li>
                         <li>
-                          {!user.isAuthenticated() ? <NavLink to="/signup" onClick={() => setToggleMenu(false)} >Sign Up</NavLink> : <NavLink onClick={() => setToggleMenu(false)} to="/carrier/dashboard">Go To Dashboard</NavLink>}
+                          {
+                            !auth.isAuthenticated()
+                              ?
+                              <NavLink to="/signup" onClick={() => setToggleMenu(false)} >Sign Up</NavLink>
+                              :
+                              <button className="log_out" onClick={signout}>Logout</button>
+                          }
                         </li>
                       </ul>
                     </div>
@@ -314,7 +325,7 @@ const Homepage = () => {
                 </div>
               </div>
               <div className="card">
-                <span class="badge badge-warning">Coming Soon</span>
+                <span className="badge badge-warning">Coming Soon</span>
                 <div className="card-body">
                   <img src={operation3} alt="operation2" />
                   <p>Kolkata</p>
@@ -625,7 +636,7 @@ const Homepage = () => {
       </div>
 
     </>
-   
+
   );
 };
 

@@ -1,6 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-// import {InstagramIcon,FacebookIcon,LinkedInIcon} from '@mui/icons-material';
+import { Link, NavLink } from "react-router-dom";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -22,7 +21,7 @@ const HomeFoooter = () => {
                     <NavLink to="/services">Services</NavLink>
                   </li>
                   <li>
-                    <NavLink to="/location">Locations</NavLink>
+                    <Link activeClass="active" smooth spy to="location">Locations</Link>
                   </li>
                   <li>
                     <CommuterForm />
@@ -41,7 +40,7 @@ const HomeFoooter = () => {
                     <NavLink to="/Knowledgebase">Knowledge base</NavLink>
                   </li>
                   <li>
-                  <ContactUsForm />
+                    <ContactUsForm />
                   </li>
                 </ul>
               </div>
