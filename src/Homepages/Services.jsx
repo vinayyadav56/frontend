@@ -8,11 +8,21 @@ import pltserimg from "../images/pltserimg.png";
 import expressimg from "../images/expressimg.png";
 import "./homepage.css";
 import "./Service.css";
-import HomeFoooter from "./HomeFoooter";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import footerlogo from "../images/footerlogo.png";
+import CommuterForm from "./BecomePartner";
+import { useAuth } from "../Services/auth";
+import ContactUsForm from "./ContactUsForm";
+import ModalForm from "./ShipNow/ModalForm";
 const Services = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
+  const auth = useAuth();
+  const { signout } = useAuth();
   return (
     <div>
+
       <section className="main_section">
         <div className="container">
           <div className="navbar_section">
@@ -20,32 +30,44 @@ const Services = () => {
               <div className="menu">
                 <div className="desktop-menu">
                   <div className="nav-logo">
-                    <NavLink to="/carrykar" className="nav-link">
+                    <NavLink to="/" className="nav-link">
                       <img src={Frame} alt="logo" />
                     </NavLink>
                   </div>
                   <div className="desktop-links">
                     <ul>
                       <li className="dropdown">
-                        <Link to="/services">Services</Link>
+                        <NavLink to="/services">Services</NavLink>
                       </li>
                       <li>
-                        <NavLink to="/latestjob">Daily Commuter</NavLink>
+                        <Link activeclass="active" smooth spy to="/">Daily Commuter</Link>
                       </li>
                       <li>
-                        <NavLink to="/location">Locations</NavLink>
-                      </li>
-                      {/* <li>
-                        <NavLink to="/result">About Us</NavLink>
-                      </li> */}
-                      <li>
-                        <NavLink to="/answerkey">Contact Us</NavLink>
+                        <Link activeclass="active" smooth spy to="/">Locations</Link>
                       </li>
                       <li>
-                        <NavLink to="/login">Login</NavLink>
+                        <ContactUsForm />
                       </li>
                       <li>
-                        <NavLink to="/carrier/signup">SignUp</NavLink>
+                        <ModalForm />
+                      </li>
+                      <li className="home_login">
+                        {
+                          !auth.isAuthenticated()
+                            ?
+                            <NavLink to="/login" >Login</NavLink>
+                            :
+                            <NavLink to={auth.isUser() ? '/customer/dashboard' : 'carrier/dashboard'}>Go To Dashboard</NavLink>
+                        }
+                      </li>
+                      <li className="home_signup">
+                        {
+                          !auth.isAuthenticated()
+                            ?
+                            <NavLink to="/login" >Sign Up</NavLink>
+                            :
+                            <button className="log_out" onClick={signout}>Logout</button>
+                        }
                       </li>
                     </ul>
                   </div>
@@ -57,7 +79,6 @@ const Services = () => {
                   >
                     <MenuIcon />
                   </button>
-
                   {toggleMenu && (
                     <div className="nav-mobile-div slide-bottom">
                       <button
@@ -77,44 +98,34 @@ const Services = () => {
                           </NavLink>
                         </li>
                         <li>
-                          <NavLink
-                            onClick={() => setToggleMenu(false)}
-                            to="/subscription"
-                          >
-                            Subscription
-                          </NavLink>
+                          <Link activeclass="active" onClick={() => setToggleMenu(false)} smooth spy to="/">Daily Commuter</Link>
                         </li>
                         <li>
-                          <NavLink
-                            onClick={() => setToggleMenu(false)}
-                            to="/locations"
-                          >
-                            Location
-                          </NavLink>
+                          <Link activeclass="active" onClick={() => setToggleMenu(false)} smooth spy to="/">Locations</Link>
                         </li>
                         <li>
-                          <NavLink
-                            onClick={() => setToggleMenu(false)}
-                            to="/contactus"
-                          >
-                            Conatct Us
-                          </NavLink>
+                          <ContactUsForm />
                         </li>
                         <li>
-                          <NavLink
-                            onClick={() => setToggleMenu(false)}
-                            to="/login"
-                          >
-                            Login
-                          </NavLink>
+                          <ModalForm onClick={() => setToggleMenu(false)} />
                         </li>
                         <li>
-                          <NavLink
-                            onClick={() => setToggleMenu(false)}
-                            to="/signup"
-                          >
-                            Sign Up
-                          </NavLink>
+                          {
+                            !auth.isAuthenticated()
+                              ?
+                              <NavLink to="/login" onClick={() => setToggleMenu(false)} >Login</NavLink>
+                              :
+                              <NavLink onClick={() => setToggleMenu(false)} to={auth.isUser() ? '/customer/dashboard' : 'carrier/dashboard'}>Go To Dashboard</NavLink>
+                          }
+                        </li>
+                        <li>
+                          {
+                            !auth.isAuthenticated()
+                              ?
+                              <NavLink to="/signup" onClick={() => setToggleMenu(false)} >Sign Up</NavLink>
+                              :
+                              <button className="log_out" onClick={signout}>Logout</button>
+                          }
                         </li>
                       </ul>
                     </div>
@@ -123,11 +134,12 @@ const Services = () => {
               </div>
             </section>
           </div>
-          <div className="hero_section">
+          <div className="hero_section pb-5">
             <div className="hero_section-div">
               <div className="res_text txt_content">
                 <h3>Services</h3>
-                <h4>we provided</h4>
+                {/* <h4>What</h4> */}
+                <h4>we provide </h4>
               </div>
               <div className="img_content">
                 <img src={servicebanner} alt="homgpagebanner" />
@@ -136,6 +148,7 @@ const Services = () => {
           </div>
         </div>
       </section>
+
       <section className="services_section">
         <div className="premium_section">
           <div className="container">
@@ -171,13 +184,13 @@ const Services = () => {
           <div className="container">
             <div className="plt_text">
               <div>
-              <h3 className="mb-4">Express Delivery</h3>
+                <h3 className="mb-4">Express Delivery</h3>
                 <p>
-                Express is designed for shipments that require urgency
-                in delivery with an advantage of being cost effective. 
-                The service assures delivery within 24 hours, 48 hours
-                and more than 48 hours (Multimodal) to all the metro &
-                non metro locations.
+                  Express is designed for shipments that require urgency
+                  in delivery with an advantage of being cost effective.
+                  The service assures delivery within 24 hours, 48 hours
+                  and more than 48 hours (Multimodal) to all the metro &
+                  non metro locations.
                 </p>
               </div>
               <div className="ser-img-plt">
@@ -187,7 +200,78 @@ const Services = () => {
           </div>
         </div>
       </section>
-      <HomeFoooter/>
+
+
+      <section className="homemainfooter">
+        <div className="home_footer">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-lg-2 col-md-6 mb-3">
+                <ul>
+                  <li>
+                    <NavLink to="/services">Services</NavLink>
+                  </li>
+                  <li>
+                    <Link className="loc_btn" smooth spy to="/">Locations</Link>
+                  </li>
+                  <li>
+                    <CommuterForm />
+                  </li>
+                  <li>
+                    <NavLink to="/login">Refer & Earn</NavLink>
+                  </li>
+                </ul>
+              </div>
+              <div className="col-lg-2 col-md-6 mb-3">
+                <ul>
+                  <li>
+                    <h4>HELP & SUPPORT</h4>
+                  </li>
+                  <li>
+                    <NavLink to="/Knowledgebase">Knowledge base</NavLink>
+                  </li>
+                  <li>
+                    <ContactUsForm />
+                  </li>
+                </ul>
+              </div>
+              <div className="col-lg-2 col-md-6 mb-3">
+                <ul>
+                  <li>
+                    <h4>USEFUL READS</h4>
+                  </li>
+                  <li>
+                    <NavLink to="/privacypolicy">Privacy Policy</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/termconditions">Terms & Conditions</NavLink>
+                  </li>
+                </ul>
+              </div>
+              <div className="col-lg-6 col-md-6 mb-3 footer_logo">
+                <img src={footerlogo} alt="footerlogo" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="social_icons">
+          <div>
+            <p>Follow Us On</p>
+            <div className="icon-group">
+              <InstagramIcon className="mr-3 so_icn" />
+              <FacebookIcon className="mr-3 so_icn" />
+              <LinkedInIcon className="mr-3 so_icn" />
+            </div>
+          </div>
+        </div>
+
+        <div className="d-flex justify-content-center copyright">
+          <p>© Carrykar 2022 All Rights Reserved</p>
+        </div>
+
+      </section>
+
     </div>
   );
 };

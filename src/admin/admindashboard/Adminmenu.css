@@ -168,6 +168,7 @@ main aside .sidebar a {
     gap: 1.2rem;
     height: 3.6rem;
     color: #fff;
+    margin-bottom: 1rem;
     position: relative;
     text-decoration: none;
 }

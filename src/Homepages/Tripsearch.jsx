@@ -1,8 +1,6 @@
 import React from "react";
 import "./homepage.css";
 import BasicTabs from "./TabPanel";
-
-
 const Tripsearch = () => {
   return (
     <div>

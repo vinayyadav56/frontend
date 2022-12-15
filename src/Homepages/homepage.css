@@ -16,6 +16,9 @@ body {
     background-color: transparent;
     color: #fff;
 }
+.loc_btn:hover{
+    color: aqua !important;
+}
 .popup_close_btn{
     font-size: 1.6rem !important;
     font-weight: 500;
@@ -701,7 +704,7 @@ a:not([href]):not([class]) {
     content: "";
 }
 
-.trip_search .form-control {
+.trip_search .form-control{
     border: none;
     border-radius: 0;
     border-bottom: 1px solid #ababab;
@@ -709,7 +712,9 @@ a:not([href]):not([class]) {
     margin-bottom: 0;
     padding: 0px;
 }
-
+.trip_search .form-control{
+    color: #b3b3b3;
+}
 .trip_search .form-control:focus {
     box-shadow: none;
 }

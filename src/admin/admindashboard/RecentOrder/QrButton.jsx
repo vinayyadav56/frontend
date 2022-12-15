@@ -1,14 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
 import { useAlert } from 'react-alert';
-import { useHistory } from 'react-router-dom';
 import { makeRequest } from '../../../Services/api';
 import { useAuth } from '../../../Services/auth';
 const QrButton = ({ path, orderid, ordertype, updateOrder, status }) => {
     const { loading, setLoading } = useAuth();
-    const history = useHistory();
     const alert = useAlert();
-    const [qrdata, setQrdata] = useState({
+    const [qrdata] = useState({
         order_id: orderid,
         order_type: ordertype
     })

@@ -8,10 +8,10 @@ import phonepay from "../images/phonepe.png"
 import "./CustomerHistory.css";
 import { useAuth } from '../Services/auth';
 const CustomerManagereffrals = () => {
-  const auth = useAuth();
-  if (!auth.isUser()) {
-    return <Redirect to="/login" />
-  }
+  // const auth = useAuth();
+  // if (!auth.isUser()) {
+  //   return <Redirect to="/login" />
+  // }
   return (
     <div>
       <section className="user-dashboard">

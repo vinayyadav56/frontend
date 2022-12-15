@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 import {makeRequest} from "../../Services/api";
 import {useAuth} from "../../Services/auth";
 import {useAlert} from "react-alert";
@@ -17,24 +17,24 @@ const PaymentInfo = ({ userActive }) => {
 
     const [userDatas, setuserDatas] = useState({});
 
-    const fetchUser = async () => {
-        const userId = user.tokenable_id;
-        setLoading(true);
+    // const fetchUser = async () => {
+    //     const userId = user.tokenable_id;
+    //     setLoading(true);
 
-        makeRequest('GET', `user-detail/${userId}`).then(result => {
-            alert.success(result.message);
-            setuserDatas(result.userDetails[0]);
-        }).catch(err => {
-            alert.error(err.message);
-        }).finally(() => {
-            setLoading(false);
-        })
-    }
+    //     makeRequest('GET', `user-detail/${userId}`).then(result => {
+    //         alert.success(result.message);
+    //         setuserDatas(result.userDetails[0]);
+    //     }).catch(err => {
+    //         alert.error(err.message);
+    //     }).finally(() => {
+    //         setLoading(false);
+    //     })
+    // }
+    
     useEffect(() => {
-        fetchUser()
+        setuserDatas(user);
         // eslint-disable-next-line
     }, [])
-
 
     // UPDATE USER START
     const handleUpdate = async () => {
@@ -50,6 +50,7 @@ const PaymentInfo = ({ userActive }) => {
             setLoading(false);
         })
     };
+
     // UPDATE USERS ENDS
     return (
         <div>

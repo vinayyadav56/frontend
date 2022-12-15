@@ -2,13 +2,7 @@ import React from "react";
 import Sidebar from "./CustomerSidebar";
 import Header from "./CustomerHeader";
 import Profileform from "./CustomerProfileform";
-import { useAuth } from "../Services/auth";
-import { Redirect } from "react-router-dom";
 const CustomerProfile = () => {
-  const auth = useAuth();
-  if (!auth.isUser()) {
-    return <Redirect to="/login" />
-  }
   return (
     <div>
       <section className="user-dashboard">

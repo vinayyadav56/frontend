@@ -4,8 +4,6 @@ import Sidebar from "./Dashboardsidebar";
 import refral from '../images/referearn1.png';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import "./managerefer.css";
-import { useAuth } from "../Services/auth";
-import { Redirect } from "react-router-dom";
 const Managereffrals = ({addUserLocal, userActive }) => {
   const [copy, setCopy] = useState('CDR2940KAJIM');
   const [myStyle, setMyStyle] = useState({
@@ -27,10 +25,6 @@ const Managereffrals = ({addUserLocal, userActive }) => {
     copy.select();
     navigator.clipboard.writeText(copy.value);
     setCopy('CDR2940KAJIM');
-  }
-  const auth = useAuth();
-  if (!auth.isAuthenticated()) {
-    return <Redirect to="/login" />
   }
   return (
     <div>

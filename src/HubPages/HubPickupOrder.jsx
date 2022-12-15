@@ -1,7 +1,5 @@
 import React from 'react'
 import { Fragment } from 'react'
-import { Redirect } from 'react-router-dom'
-import { useAuth } from '../Services/auth'
 import HubHeader from './HubHeader'
 import HubSidebar from './HubSidebar'
 import HubOrderDetails from './PickupOrder/Order'

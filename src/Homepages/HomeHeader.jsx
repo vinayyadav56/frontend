@@ -8,7 +8,8 @@ import ContactUsForm from "./ContactUsForm";
 import { useAuth } from '../Services/auth';
 const HomeHeader = () => {
     const [toggleMenu, setToggleMenu] = useState(false);
-    const user = useAuth();
+    const { signout } = useAuth();
+    const auth = useAuth();
     return (
         <>
             <div className="navbar_section">
@@ -23,13 +24,13 @@ const HomeHeader = () => {
                             <div className="desktop-links">
                                 <ul>
                                     <li className="dropdown">
-                                        <Link to="/services">Services</Link>
+                                        <NavLink to="/services">Services</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink activeClass="active" smooth spy to="commuter">Daily Commuter</NavLink>
+                                        <Link activeclass="active" smooth spy to="commuter">Daily Commuter</Link>
                                     </li>
                                     <li>
-                                        <NavLink activeClass="active" smooth spy to="location">Locations</NavLink>
+                                        <Link activeclass="active" smooth spy to="location">Locations</Link>
                                     </li>
                                     <li>
                                         <ContactUsForm />
@@ -39,18 +40,20 @@ const HomeHeader = () => {
                                     </li>
                                     <li className="home_login">
                                         {
-                                            !user.isAuthenticated() ?
+                                            !auth.isAuthenticated()
+                                                ?
                                                 <NavLink to="/login" >Login</NavLink>
                                                 :
-                                                ''
+                                                <NavLink to={auth.isUser() ? '/customer/dashboard' : 'carrier/dashboard'}>Go To Dashboard</NavLink>
                                         }
                                     </li>
                                     <li className="home_signup">
                                         {
-                                            !user.isAuthenticated() ?
-                                                <NavLink to="/signup" >Login</NavLink>
+                                            !auth.isAuthenticated()
+                                                ?
+                                                <NavLink to="/login" >Sign Up</NavLink>
                                                 :
-                                                <NavLink to="/carrier/dashboard">Go To Dashboard</NavLink>
+                                                <button className="log_out" onClick={signout}>Logout</button>
                                         }
                                     </li>
                                 </ul>
@@ -81,21 +84,11 @@ const HomeHeader = () => {
                                                 Services
                                             </NavLink>
                                         </li>
-                                        <li className="home_login">
-                                            {
-                                                !user.isAuthenticated() ?
-                                                    <NavLink to="/login" onClick={() => setToggleMenu(false)} >Login</NavLink>
-                                                    :
-                                                    ''
-                                            }
+                                        <li>
+                                            <Link activeclass="active" onClick={() => setToggleMenu(false)} smooth spy to="commuter">Daily Commuter</Link>
                                         </li>
-                                        <li className="home_signup">
-                                            {
-                                                !user.isAuthenticated() ?
-                                                    <NavLink onClick={() => setToggleMenu(false)} to="/signup" >Login</NavLink>
-                                                    :
-                                                    <NavLink onClick={() => setToggleMenu(false)} to="/carrier/dashboard">Go To Dashboard</NavLink>
-                                            }
+                                        <li>
+                                            <Link activeclass="active" onClick={() => setToggleMenu(false)} smooth spy to="location">Locations</Link>
                                         </li>
                                         <li>
                                             <ContactUsForm />
@@ -104,20 +97,22 @@ const HomeHeader = () => {
                                             <ModalForm onClick={() => setToggleMenu(false)} />
                                         </li>
                                         <li>
-                                            <NavLink
-                                                onClick={() => setToggleMenu(false)}
-                                                to="/login"
-                                            >
-                                                Login
-                                            </NavLink>
+                                            {
+                                                !auth.isAuthenticated()
+                                                    ?
+                                                    <NavLink to="/login" onClick={() => setToggleMenu(false)} >Login</NavLink>
+                                                    :
+                                                    <NavLink onClick={() => setToggleMenu(false)} to={auth.isUser() ? '/customer/dashboard' : 'carrier/dashboard'}>Go To Dashboard</NavLink>
+                                            }
                                         </li>
                                         <li>
-                                            <NavLink
-                                                onClick={() => setToggleMenu(false)}
-                                                to="/signup"
-                                            >
-                                                Sign Up
-                                            </NavLink>
+                                            {
+                                                !auth.isAuthenticated()
+                                                    ?
+                                                    <NavLink to="/signup" onClick={() => setToggleMenu(false)} >Sign Up</NavLink>
+                                                    :
+                                                    <button className="log_out" onClick={signout}>Logout</button>
+                                            }
                                         </li>
                                     </ul>
                                 </div>

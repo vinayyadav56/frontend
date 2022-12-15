@@ -1,5 +1,9 @@
 import React from "react";
-import HomeFoooter from "./HomeFoooter";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import footerlogo from "../images/footerlogo.png";
+import CommuterForm from "./BecomePartner";
 import homgbg from "../images/homebg.png";
 import AddIcon from "@mui/icons-material/Add";
 import step_carrykar1 from "../images/step_carrykar1.png";
@@ -37,11 +41,9 @@ import ContactUsForm from "./ContactUsForm";
 const Homepage = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
   const { signout } = useAuth();
-  const user = useAuth();
-
+  const auth = useAuth();
   return (
     <>
-
       <section className="main_section">
         <div className="container">
           {/* <HomeHeader /> */}
@@ -60,10 +62,10 @@ const Homepage = () => {
                         <NavLink to="/services">Services</NavLink>
                       </li>
                       <li>
-                        <Link activeClass="active" smooth spy to="commuter">Daily Commuter</Link>
+                        <Link activeclass="active" smooth spy to="commuter">Daily Commuter</Link>
                       </li>
                       <li>
-                        <Link activeClass="active" smooth spy to="location">Locations</Link>
+                        <Link activeclass="active" smooth spy to="location">Locations</Link>
                       </li>
                       <li>
                         <ContactUsForm />
@@ -73,19 +75,30 @@ const Homepage = () => {
                       </li>
                       <li className="home_login">
                         {
-                          !user.isAuthenticated()
+                          !auth.isAuthenticated()
                             ?
                             <NavLink to="/login" >Login</NavLink>
                             :
-                            <NavLink to='/carrier/dashboard'>Go To Dashboard</NavLink>
+                            <NavLink to={
+                              auth.isUser() ? '/customer/dashboard'
+                                :
+                                auth.isAdmin() ? '/admindashboard'
+                                  :
+                                  auth.isCarrier() ? '/carrier/dashboard'
+                                    :
+                                    auth.isHub() ? '/hub/dashboard'
+                                      :
+                                      auth.isPartner() ? '/partner/dashboard'
+                                        :
+                                        ''
+                            }>Go To Dashboard</NavLink>
                         }
-
                       </li>
                       <li className="home_signup">
                         {
-                          !user.isAuthenticated()
+                          !auth.isAuthenticated()
                             ?
-                            <NavLink to="/login" >Sign Up</NavLink>
+                            <NavLink to="/signup" >Sign Up</NavLink>
                             :
                             <button className="log_out" onClick={signout}>Logout</button>
                         }
@@ -119,10 +132,10 @@ const Homepage = () => {
                           </NavLink>
                         </li>
                         <li>
-                          <Link activeClass="active" onClick={() => setToggleMenu(false)} smooth spy to="commuter">Daily Commuter</Link>
+                          <Link activeclass="active" onClick={() => setToggleMenu(false)} smooth spy to="commuter">Daily Commuter</Link>
                         </li>
                         <li>
-                          <Link activeClass="active" onClick={() => setToggleMenu(false)} smooth spy to="location">Locations</Link>
+                          <Link activeclass="active" onClick={() => setToggleMenu(false)} smooth spy to="location">Locations</Link>
                         </li>
                         <li>
                           <ContactUsForm />
@@ -131,10 +144,22 @@ const Homepage = () => {
                           <ModalForm onClick={() => setToggleMenu(false)} />
                         </li>
                         <li>
-                          {!user.isAuthenticated() ? <NavLink to="/login" onClick={() => setToggleMenu(false)} >Login</NavLink> : ''}
+                          {
+                            !auth.isAuthenticated()
+                              ?
+                              <NavLink to="/login" onClick={() => setToggleMenu(false)} >Login</NavLink>
+                              :
+                              <NavLink onClick={() => setToggleMenu(false)} to={auth.isUser() ? '/customer/dashboard' : 'carrier/dashboard'}>Go To Dashboard</NavLink>
+                          }
                         </li>
                         <li>
-                          {!user.isAuthenticated() ? <NavLink to="/signup" onClick={() => setToggleMenu(false)} >Sign Up</NavLink> : <NavLink onClick={() => setToggleMenu(false)} to="/carrier/dashboard">Go To Dashboard</NavLink>}
+                          {
+                            !auth.isAuthenticated()
+                              ?
+                              <NavLink to="/signup" onClick={() => setToggleMenu(false)} >Sign Up</NavLink>
+                              :
+                              <button className="log_out" onClick={signout}>Logout</button>
+                          }
                         </li>
                       </ul>
                     </div>
@@ -156,7 +181,6 @@ const Homepage = () => {
           </div>
         </div >
       </section >
-
       <section className="trip_section">
         <div className="trip_section-bgc">
           <div className="container">
@@ -264,7 +288,7 @@ const Homepage = () => {
           <div className="container">
             <h2>Service</h2>
             <div className="row">
-              <div className="col-md-6">
+              <div className="col-md-6 mb-3">
                 <div className="img_ser d-flex align-items-center">
                   <img src={service1} alt="service1 " />
                   <p>
@@ -277,7 +301,7 @@ const Homepage = () => {
               <div className="col-md-6">
                 <div className="img_ser d-flex align-items-center">
                   <img src={service2} alt="service2" />
-                  <p>
+                  <p className="pl-1">
                     We are making people carriers too. By doing this, they can
                     reduce their travel expenses and save money, while also
                     turning it into a full-time profession.
@@ -314,7 +338,7 @@ const Homepage = () => {
                 </div>
               </div>
               <div className="card">
-                <span class="badge badge-warning">Coming Soon</span>
+                <span className="badge badge-warning">Coming Soon</span>
                 <div className="card-body">
                   <img src={operation3} alt="operation2" />
                   <p>Kolkata</p>
@@ -585,7 +609,76 @@ const Homepage = () => {
         </div>
       </section>
 
-      <HomeFoooter />
+
+      <section className="homemainfooter">
+        <div className="home_footer">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-lg-2 col-md-6 mb-3">
+                <ul>
+                  <li>
+                    <NavLink to="/services">Services</NavLink>
+                  </li>
+                  <li>
+                    <Link className="loc_btn" smooth spy to="location">Locations</Link>
+                  </li>
+                  <li>
+                    <CommuterForm />
+                  </li>
+                  <li>
+                    <NavLink to="/login">Refer & Earn</NavLink>
+                  </li>
+                </ul>
+              </div>
+              <div className="col-lg-2 col-md-6 mb-3">
+                <ul>
+                  <li>
+                    <h4>HELP & SUPPORT</h4>
+                  </li>
+                  <li>
+                    <NavLink to="/Knowledgebase">Knowledge base</NavLink>
+                  </li>
+                  <li>
+                    <ContactUsForm />
+                  </li>
+                </ul>
+              </div>
+              <div className="col-lg-2 col-md-6 mb-3">
+                <ul>
+                  <li>
+                    <h4>USEFUL READS</h4>
+                  </li>
+                  <li>
+                    <NavLink to="/privacypolicy">Privacy Policy</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/termconditions">Terms & Conditions</NavLink>
+                  </li>
+                </ul>
+              </div>
+              <div className="col-lg-6 col-md-6 mb-3 footer_logo">
+                <img src={footerlogo} alt="footerlogo" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="social_icons">
+          <div>
+            <p>Follow Us On</p>
+            <div className="icon-group">
+              <InstagramIcon className="mr-3 so_icn" />
+              <FacebookIcon className="mr-3 so_icn" />
+              <LinkedInIcon className="mr-3 so_icn" />
+            </div>
+          </div>
+        </div>
+
+        <div className="d-flex justify-content-center copyright">
+          <p>© Carrykar 2022 All Rights Reserved</p>
+        </div>
+
+      </section>
       {/* Contact Us Query */}
 
       <div className="modal fade" id="contactUsModal" tabIndex="-1" role="dialog" aria-labelledby="contactUsModalTitle" aria-hidden="true">
@@ -625,7 +718,7 @@ const Homepage = () => {
       </div>
 
     </>
-   
+
   );
 };
 

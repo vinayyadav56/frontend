@@ -27,9 +27,7 @@ const Profileform = () => {
     // UPDATE USER START
     const handleUpdate = async () => {
         const userId = user.tokenable_id;
-
         setLoading(true);
-
         makeRequest('PUT', `profile-update/${userId}`).then(result => {
             alert.success(result.message);
             setuserDatas(result.userDetails[0]);
