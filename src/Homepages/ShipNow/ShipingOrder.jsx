@@ -53,7 +53,7 @@ const ShipingOrder = (props) => {
 
   // handling form input data by taking onchange value and updating our previous form data state
   const handleInputData = (input, val) => {
-    console.log(input, val);
+    // console.log(input, val);
 
     setFormData(prevState => ({
       ...prevState,
@@ -62,7 +62,7 @@ const ShipingOrder = (props) => {
   }
 
   useEffect(() => {
-    console.log(formData);
+    // console.log(formData);
   }, [formData]);
 
   //  javascript switch case to show different form in each step

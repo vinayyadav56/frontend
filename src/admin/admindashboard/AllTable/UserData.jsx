@@ -19,25 +19,36 @@ import { useAuth } from "../../../Services/auth";
 
 const UserData = () => {
     const { setLoading } = useAuth();
-    // const [setFilterVal] = useState([]);
-
-    const [userData, setUserData] = useState([]);
     // const [searchUserData, setSearchUserData] = useState([]);
-    // const [searchTerm] = useState("");
+    // const [setFilterVal] = useState([]);
+    const [userData, setUserData] = useState([]);
+    const [searchapiData, setSearchapiData] = useState([]);
+    const [searchTerm] = useState("");
 
+    // searchfuntion
+    const handleSearch = (e) => {
+        e.preventDefault();
+        if (e.target.value === "") {
+            userData(searchapiData);
+        } else {
+            const filterResult = searchapiData.filter((item) =>
+                item.first_name.toLowerCase().includes(e.target.value.toLowerCase())
+            );
+            setUserData(filterResult);
+        }
+        // eslint-disable-next-line
+        // setFilterVal(e.target.value);
+    };
     const fetchData = async () => {
         setLoading(true);
         makeRequest('GET', `usersList`).then(result => {
-            // alert.success(result.message);
-            // result.success && 
             setUserData(result.userList);
+            setSearchapiData(result.userList);
+        }).catch(err => {
+            alert.error(err.message);
+        }).finally(() => {
+            setLoading(false);
         })
-            // .catch(err => {
-            //     alert.error(err.message);
-            // })
-            .finally(() => {
-                setLoading(false);
-            })
     };
     useEffect(() => {
         fetchData();
@@ -83,7 +94,7 @@ const UserData = () => {
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
-      };
+    };
     // PAGINATION ENDS
 
     // DATA GRID TABLE START
@@ -107,9 +118,21 @@ const UserData = () => {
     return (
         <div>
             <div className="filter_partner">
+
                 <div className="table-heading">
                     <h2 className="text-center ">All User Data</h2>
                 </div>
+                <div className="form-row">
+                    <div className="col-md-2 mt-5">
+                        <input
+                            className="form-control"
+                            type="text"
+                            placeholder="Search Partner"
+                            onChange={handleSearch}
+                        />
+                    </div>
+                </div>
+
             </div>
             {/* <Paper sx={{ width: '100%', overflow: 'hidden' }}> */}
             <TableContainer component={Paper}>
@@ -129,7 +152,19 @@ const UserData = () => {
                     </TableHead>
                     <TableBody>
                         {userData
-                           .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                            // eslint-disable-next-line
+                            .filter((val) => {
+                                if (searchTerm === "") {
+                                    return val;
+                                } else if (
+                                    val.first_name
+                                        .toLocaleLowerCase()
+                                        .includes(searchTerm.toLocaleLowerCase())
+                                ) {
+                                    return val;
+                                }
+                            })
+                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row, id) => (
                                 <StyledTableRow hover tabIndex={-1} key={id}>
                                     <StyledTableCell>{row.id}</StyledTableCell>
@@ -141,7 +176,7 @@ const UserData = () => {
                                     <StyledTableCell>{row.state}</StyledTableCell>
                                     <StyledTableCell>{row.address}</StyledTableCell>
                                     <StyledTableCell>
-                                       
+
                                         <button
                                             className="btn delete-btn mr-1"
                                             onClick={handleClickOpen}

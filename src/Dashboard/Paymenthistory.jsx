@@ -1,4 +1,4 @@
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Header from "./Dashboardheader";
 import Sidebar from "./Dashboardsidebar";
 import "./Paymenthistory.css";
@@ -11,275 +11,156 @@ import DateRangeIcon from "@mui/icons-material/DateRange";
 import LuggageOutlinedIcon from "@mui/icons-material/LuggageOutlined";
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
 import { useAuth } from "../Services/auth";
-const Paymenthistory = ({addUserLocal, userActive }) => {
-  const auth = useAuth();
-  if (!auth.isAuthenticated()) {
-    return <Redirect to="/login" />
-  }
+import { useState } from "react";
+import { makeRequest } from "../Services/api";
+import { useEffect } from "react";
+const Paymenthistory = () => {
+  const { setLoading, user } = useAuth();
+  const {  setUserHistory } = useState([]);
+  const fetchID = async () => {
+    const id = user.tokenable_id;
+    setLoading(true);
+    makeRequest('GET', `partnersList/${id}`).then(result => {
+      setUserHistory(result.partner_List);
+      console.log(result.partner_List)
+    }).catch(err => {
+      alert.error(err.message);
+    }).finally(() => {
+      setLoading(false);
+    })
+  };
+  useEffect(() => {
+    fetchID();
+    //  eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <>
       <section className="user-dashboard">
-        <Sidebar userActive={userActive}/>
+        <Sidebar />
         <section className="main-content">
-          <Header addUserLocal={addUserLocal} />
-          <div className="payment-cards">
-            <div className="card">
-              <div className="card-body">
-                <div>
-                  <h4>$500</h4>
-                  <p>Total Earnings</p>
-                </div>
-                <img src={paymentimg1} alt="img1" />
-              </div>
-            </div>
-            <div className="card">
-              <div className="card-body">
-                <div>
-                  <h4>24</h4>
-                  <p>Total Bookings</p>
-                </div>
-                <img src={paymentimg2} alt="img2" />
-              </div>
-            </div>
-            <div className="card">
-              <div className="card-body">
-                <div>
-                  <h4>19kgs</h4>
-                  <p>Total Weight</p>
-                </div>
-                <img src={paymentimg3} alt="img3" />
-              </div>
-            </div>
-            <div className="card">
-              <div className="card-body">
-                <div>
-                  <h4>4</h4>
-                  <p>Upcoming Bookings</p>
-                </div>
-                <img src={paymentimg4} alt="img4" />
-              </div>
-            </div>
-          </div>
-          <div className="payment-history">
-            <div className="payment-heading">
-              <h3>Payment History</h3>
-              <div className="filter">
-                <p className="mb-0">Sort By :-</p>
-                <div className="dropdown">
-                  <Link
-                   to="#"
-                    className="dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    Date
-                  </Link>
-                  <div
-                    className="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton"
-                  >
-                    <Link className="dropdown-item" to="/rating">
-                      Rating
-                    </Link>
-                    <Link className="dropdown-item" to="/reviews">
-                      Reviews
-                    </Link>
-                    <Link className="dropdown-item" to="/price">
-                      Price
-                    </Link>
+          <Header />
+          {/* {
+            userHistory.map((item, id) => {
+              return (
+                <> */}
+                  <div className="payment-cards">
+                    <div className="card">
+                      <div className="card-body">
+                        <div>
+                          <h4>$500</h4>
+                          <p>Total Earnings</p>
+                        </div>
+                        <img src={paymentimg1} alt="img1" />
+                      </div>
+                    </div>
+                    <div className="card">
+                      <div className="card-body">
+                        <div>
+                          <h4>24</h4>
+                          <p>Total Bookings</p>
+                        </div>
+                        <img src={paymentimg2} alt="img2" />
+                      </div>
+                    </div>
+                    <div className="card">
+                      <div className="card-body">
+                        <div>
+                          <h4>19kgs</h4>
+                          <p>Total Weight</p>
+                        </div>
+                        <img src={paymentimg3} alt="img3" />
+                      </div>
+                    </div>
+                    <div className="card">
+                      <div className="card-body">
+                        <div>
+                          <h4>4</h4>
+                          <p>Upcoming Bookings</p>
+                        </div>
+                        <img src={paymentimg4} alt="img4" />
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </div>
-            <div className="table-responsive payment-table">
-              <table className="table">
-                <thead className="thead-light">
-                  <tr>
-                    <th scope="col">BOARDING</th>
-                    <th scope="col">DESTINATION</th>
-                    <th scope="col">DATE</th>
-                    <th scope="col">TOTAL WEIGHT</th>
-                    <th scope="col">TOTAL MONEY</th>
-                    <th scope="col">QUALITY</th>
-                    <th scope="col">STATUS</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row" className="d-flex align-items-center">
-                      Assam
-                      <img src={tableicon} alt="table-img" />
-                    </th>
-                    <td>New Delhi</td>
-                    <td>
-                      <DateRangeIcon className="table-row-icon" /> 01/08/2022
-                    </td>
-                    <td>
-                      <LuggageOutlinedIcon className="table-row-icon" /> 10kg
-                    </td>
-                    <td>₹ 2000/-</td>
-                    <td>
-                      <StarOutlinedIcon className="table-rating-icon" />
-                      <StarOutlinedIcon className="table-rating-icon" />
-                      <StarOutlinedIcon className="table-rating-icon" />
-                      <StarOutlinedIcon className="table-rating-icon" />
-                      <StarOutlinedIcon className="table-rating-icon" />
-                    </td>
-                    <td>
-                      <button className="disabled">Recieved</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row" className="d-flex align-items-center">
-                      Assam
-                      <img src={tableicon} alt="table-img" />
-                    </th>
-                    <td>New Delhi</td>
-                    <td>
-                      <DateRangeIcon className="table-row-icon" /> 01/08/2022
-                    </td>
-                    <td>
-                      <LuggageOutlinedIcon className="table-row-icon" /> 10kg
-                    </td>
-                    <td>₹ 2000/-</td>
-                    <td>
-                      <StarOutlinedIcon className="table-rating-icon" />
-                      <StarOutlinedIcon className="table-rating-icon" />
-                      <StarOutlinedIcon className="table-rating-icon" />
-                      <StarOutlinedIcon className="table-rating-icon" />
-                      <StarOutlinedIcon className="table-rating-icon" />
-                    </td>
-                    <td>
-                      <button className="abled">Pending</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row" className="d-flex align-items-center">
-                      Assam
-                      <img src={tableicon} alt="table-img" />
-                    </th>
-                    <td>New Delhi</td>
-                    <td>
-                      <DateRangeIcon className="table-row-icon" /> 01/08/2022
-                    </td>
-                    <td>
-                      <LuggageOutlinedIcon className="table-row-icon" /> 10kg
-                    </td>
-                    <td>₹ 2000/-</td>
-                    <td>
-                      <StarOutlinedIcon className="table-rating-icon" />
-                      <StarOutlinedIcon className="table-rating-icon" />
-                      <StarOutlinedIcon className="table-rating-icon" />
-                      <StarOutlinedIcon className="table-rating-icon" />
-                      <StarOutlinedIcon className="table-rating-icon" />
-                    </td>
-                    <td>
-                      <button className="disabled">Recieved</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row" className="d-flex align-items-center">
-                      Assam
-                      <img src={tableicon} alt="table-img" />
-                    </th>
-                    <td>New Delhi</td>
-                    <td>
-                      <DateRangeIcon className="table-row-icon" /> 01/08/2022
-                    </td>
-                    <td>
-                      <LuggageOutlinedIcon className="table-row-icon" /> 10kg
-                    </td>
-                    <td>₹ 2000/-</td>
-                    <td>
-                      <StarOutlinedIcon className="table-rating-icon" />
-                      <StarOutlinedIcon className="table-rating-icon" />
-                      <StarOutlinedIcon className="table-rating-icon" />
-                      <StarOutlinedIcon className="table-rating-icon" />
-                      <StarOutlinedIcon className="table-rating-icon" />
-                    </td>
-                    <td>
-                      <button className="abled">Pending</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row" className="d-flex align-items-center">
-                      Assam
-                      <img src={tableicon} alt="table-img" />
-                    </th>
-                    <td>New Delhi</td>
-                    <td>
-                      <DateRangeIcon className="table-row-icon" /> 01/08/2022
-                    </td>
-                    <td>
-                      <LuggageOutlinedIcon className="table-row-icon" /> 10kg
-                    </td>
-                    <td>₹ 2000/-</td>
-                    <td>
-                      <StarOutlinedIcon className="table-rating-icon" />
-                      <StarOutlinedIcon className="table-rating-icon" />
-                      <StarOutlinedIcon className="table-rating-icon" />
-                      <StarOutlinedIcon className="table-rating-icon" />
-                      <StarOutlinedIcon className="table-rating-icon" />
-                    </td>
-                    <td>
-                      <button className="disabled">Recieved</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row" className="d-flex align-items-center">
-                      Assam
-                      <img src={tableicon} alt="table-img" />
-                    </th>
-                    <td>New Delhi</td>
-                    <td>
-                      <DateRangeIcon className="table-row-icon" /> 01/08/2022
-                    </td>
-                    <td>
-                      <LuggageOutlinedIcon className="table-row-icon" /> 10kg
-                    </td>
-                    <td>₹ 2000/-</td>
-                    <td>
-                      <StarOutlinedIcon className="table-rating-icon" />
-                      <StarOutlinedIcon className="table-rating-icon" />
-                      <StarOutlinedIcon className="table-rating-icon" />
-                      <StarOutlinedIcon className="table-rating-icon" />
-                      <StarOutlinedIcon className="table-rating-icon" />
-                    </td>
-                    <td>
-                      <button className="disabled">Recieved</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row" className="d-flex align-items-center">
-                      Assam
-                      <img src={tableicon} alt="table-img" />
-                    </th>
-                    <td>New Delhi</td>
-                    <td>
-                      <DateRangeIcon className="table-row-icon" /> 01/08/2022
-                    </td>
-                    <td>
-                      <LuggageOutlinedIcon className="table-row-icon" /> 10kg
-                    </td>
-                    <td>₹ 2000/-</td>
-                    <td>
-                      <StarOutlinedIcon className="table-rating-icon" />
-                      <StarOutlinedIcon className="table-rating-icon" />
-                      <StarOutlinedIcon className="table-rating-icon" />
-                      <StarOutlinedIcon className="table-rating-icon" />
-                      <StarOutlinedIcon className="table-rating-icon" />
-                    </td>
-                    <td>
-                      <button className="disabled">Recieved</button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+                  <div className="payment-history">
+                    <div className="payment-heading">
+                      <h3>Payment History</h3>
+                      <div className="filter">
+                        <p className="mb-0">Sort By :-</p>
+                        <div className="dropdown">
+                          <Link
+                            to="#"
+                            className="dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                          >
+                            Date
+                          </Link>
+                          <div
+                            className="dropdown-menu"
+                            aria-labelledby="dropdownMenuButton"
+                          >
+                            <Link className="dropdown-item" to="/rating">
+                              Rating
+                            </Link>
+                            <Link className="dropdown-item" to="/reviews">
+                              Reviews
+                            </Link>
+                            <Link className="dropdown-item" to="/price">
+                              Price
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="table-responsive payment-table">
+                      <table className="table">
+                        <thead className="thead-light">
+                          <tr>
+                            <th scope="col">BOARDING</th>
+                            <th scope="col">DESTINATION</th>
+                            <th scope="col">DATE</th>
+                            <th scope="col">TOTAL WEIGHT</th>
+                            <th scope="col">TOTAL MONEY</th>
+                            <th scope="col">QUALITY</th>
+                            <th scope="col">STATUS</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                          <tr>
+                            <th scope="row" className="d-flex align-items-center">
+                              Assam
+                              <img src={tableicon} alt="table-img" />
+                            </th>
+                            <td>New Delhi</td>
+                            <td>
+                              <DateRangeIcon className="table-row-icon" /> 01/08/2022
+                            </td>
+                            <td>
+                              <LuggageOutlinedIcon className="table-row-icon" /> 10kg
+                            </td>
+                            <td>₹ 2000/-</td>
+                            <td>
+                              <StarOutlinedIcon className="table-rating-icon" />
+                              <StarOutlinedIcon className="table-rating-icon" />
+                              <StarOutlinedIcon className="table-rating-icon" />
+                              <StarOutlinedIcon className="table-rating-icon" />
+                              <StarOutlinedIcon className="table-rating-icon" />
+                            </td>
+                            <td>
+                              <button className="disabled">Recieved</button>
+                            </td>
+                          </tr>
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+               
         </section>
       </section>
     </>

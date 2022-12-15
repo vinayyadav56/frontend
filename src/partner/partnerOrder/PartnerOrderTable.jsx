@@ -221,7 +221,7 @@ const PartnerOrderTable = () => {
                 </div>
             </div>
             {/* PARTNER ORDER DETAILS EDIT START */}
-            <div className="modal fade" id="partnerOrderEdit" tabindex="-1" role="dialog" aria-labelledby="partnerOrderEditTitle" aria-hidden="true">
+            <div className="modal fade" id="partnerOrderEdit" tabIndex="-1" role="dialog" aria-labelledby="partnerOrderEditTitle" aria-hidden="true">
                 <div className="modal-dialog modal-xl modal-dialog-centered" role="document">
                     <div className="modal-content partner_order_details">
                         <div className="modal-header form-title">

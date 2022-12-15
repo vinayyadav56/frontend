@@ -1,34 +1,41 @@
 .css-1p7vffv {
-    padding: 15px;
+  padding: 15px;
 }
+
 .css-1gsv261 {
-    border:none !important;
+  border: none !important;
 }
-.css-19kzrtu{
-    padding: 24px 9px 0px 9px !important;
+
+.css-19kzrtu {
+  padding: 24px 9px 0px 9px !important;
 }
-.input-box { 
-    position: relative; 
-    width: 100%;
-  }
-.input-box input { 
-    display: block; 
-    border: 1px solid #d7d6d6; 
-    background: #fff; 
-    padding: 10px 10px 10px 20px; 
-    width: 195px; 
-  }
-.unit { 
-    position: absolute; 
-    display: block; 
-    right: 5px; 
-    top: 30px; 
-    z-index: 9; 
-  }
+
+.input-box {
+  position: relative;
+  width: 100%;
+  margin-top: 3px;
+}
+
+.input-box input {
+  display: block;
+  border: 1px solid #d7d6d6;
+  background: #fff;
+  padding: 10px 10px 10px 20px;
+  width: 195px;
+}
+
+.unit {
+  position: absolute;
+  display: block;
+  right: 5px;
+  top: 21px;
+  z-index: 0;
+  opacity: 0.6;
+}
 
 
-  /* srcDataresult css start */
-  /* .srcDataresult{
+/* srcDataresult css start */
+/* .srcDataresult{
     margin-top: 2px;
     width: 100%;
     height: 80px;
@@ -86,10 +93,11 @@
 background-color: #9b9b9b;
 color: #fff;
 } */
-p{
+p {
   margin-bottom: 0rem;
 }
-.top_select_btns{
+
+.top_select_btns {
   background-color: #fff;
   color: #0747a9 !important;
   border: 1px solid #0747a9;
@@ -102,17 +110,20 @@ p{
   align-items: center;
   margin-right: 1rem;
 }
-.top_select_btns.active{
-background-color: #0747a9;
-color: #fff !important;
+
+.top_select_btns.active {
+  background-color: #0747a9;
+  color: #fff !important;
 }
-.trip_search_form .btn-group-toggle{
+
+.trip_search_form .btn-group-toggle {
   display: flex;
   justify-content: space-between;
-  width:380px;
+  width: 380px;
 }
-@media only screen and (max-width:767px){
-  .trip_search_form .btn-group-toggle{
+
+@media only screen and (max-width:767px) {
+  .trip_search_form .btn-group-toggle {
     display: flex;
     justify-content: space-between;
     width: 100%;

@@ -76,6 +76,7 @@ const Billing = ({ values,handleModalClose, prevStep }) => {
                 handler: paymentCallback
             });
 
+            
         }catch (e){
             alert.error(e.message());
         }

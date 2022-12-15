@@ -27,7 +27,7 @@ const CustomerTrack = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const auth = useAuth();
-  if (!auth.isUser()) {
+  if (!auth.isUser()){
     return <Redirect to="/login" />
   }
   return (
