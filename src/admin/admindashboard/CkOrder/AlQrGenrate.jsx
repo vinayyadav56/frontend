@@ -13,14 +13,12 @@ const AlQrGenrate = ({ path, orderid }) => {
         order_id: orderid,
         order_type: "ALPHA"
     })
-    console.log(path)
+    // console.log(path)
     const handleGenrateQr = async () => {
         setLoading(true);
         makeRequest('POST', `generateQrCode`, qrdata).then(result => {
-            alert.success(result.message);
             setQrdata(result.message)
             history.push("/admindashboardckorder");
-            console.log(result )
         }).catch(err => {
             alert.error(err.message);
         }).finally(() => {

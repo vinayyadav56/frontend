@@ -15,7 +15,6 @@ const CkDeliveredOrder = () => {
         setLoading(true);
         makeRequest('GET', `fetchAlphaOrders`).then(result => {
             setUserData(result.data);
-            console.log(result.data)
         })
             .finally(() => {
                 setLoading(false);

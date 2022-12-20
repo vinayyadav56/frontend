@@ -12,19 +12,25 @@ import AdminHub from '../admin/admindashboard/HUB/AdminHub';
 import RecentOrder from '../admin/admindashboard/RecentOrder/RecentOrder';
 import PartnerOrderById from '../partner/partnerOrder/PartnerOrderById';
 import CkOrderList from '../admin/admindashboard/CkOrderList';
+// import { useAuth } from '../Services/auth';
 
 export const AdminRoutes = () => {
+    // const auth = useAuth();
     return (
         <Switch>
+            <Route path="/partner">
+                <Partnerlogin />
+            </Route>
+            <Route exact path="/admin">
+                <Adminlogin />
+            </Route>
             <Route path="/partner/dashboard">
                 <PartnerDashboard />
             </Route>
             <Route path="/dashboard/order">
                 <PartnerOrderById />
             </Route>
-            <Route path="/partner">
-                <Partnerlogin />
-            </Route>
+
             <Route path="/admindashboard">
                 <AdminDashboard />
             </Route>
@@ -34,9 +40,7 @@ export const AdminRoutes = () => {
             <Route exact path="/admin/all-order">
                 <RecentOrder />
             </Route>
-            <Route exact path="/admin">
-                <Adminlogin />
-            </Route>
+
             <Route exact path="/admindashboardckordercreate">
                 <CkOrder />
             </Route>
@@ -49,6 +53,7 @@ export const AdminRoutes = () => {
             <Route exact path="/admindashboardhub">
                 <AdminHub />
             </Route>
+
         </Switch>
     );
 }

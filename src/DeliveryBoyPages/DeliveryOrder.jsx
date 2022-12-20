@@ -57,7 +57,7 @@ const PickupOrder = ({ userActive, addUserLocal }) => {
 
     const fetchPickupOrders = async () => {
         setLoading(true);
-        const hubId = user.id;
+        // const hubId = user.id;
         makeRequest('GET', `orders/agent/delivery`).then(result => {
             setPickupOrders(result.data);
         }).catch(err => {
@@ -69,6 +69,7 @@ const PickupOrder = ({ userActive, addUserLocal }) => {
 
     useEffect(() => {
         fetchPickupOrders();
+         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

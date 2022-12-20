@@ -105,7 +105,7 @@ const HubAssignOrder = () => {
                                                 className="btn hub_order"
                                                 data-toggle="modal" data-target=".see_hub-lg"
                                             >
-                                                Assign Order
+                                                Assign
                                             </button>
                                         </StyledTableCell>
                                     </StyledTableRow>

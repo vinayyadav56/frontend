@@ -20,6 +20,7 @@ import { useAuth } from "../../Services/auth";
 import { useAlert } from "react-alert";
 import { makeRequest } from "../../Services/api";
 import { useEffect } from "react";
+// import Loader from "../../Helpers/Loader";
 const DeliveryPartnerDetails = () => {
     let alert = useAlert();
     const { setLoading } = useAuth();
@@ -199,7 +200,7 @@ const DeliveryPartnerDetails = () => {
                                         rowsPerPage={rowsPerPage}
                                         onRowsPerPageChange={handleChangeRowsPerPage}
                                         rowsPerPageOptions={[10, 25, 100]}
-                                        // count={.length}
+                                        count={addAgent.length}
                                         rows={10}
                                     />
                                 </TableRow>

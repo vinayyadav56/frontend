@@ -13,12 +13,15 @@ import { useState } from 'react';
 import { useAuth } from '../../../Services/auth';
 import { useAlert } from 'react-alert';
 import { makeRequest } from '../../../Services/api';
-const CkAssignAvailibility = () => {
+const CkAssignAvailibility = ({ ckOrderId, availability_id }) => {
     const { setLoading } = useAuth();
     const alert = useAlert();
     const [ckAssignUser, setCkAssignUser] = useState([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
+    // const [orderDetail, setOrderDetail] = useState({
+
+    // });
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -49,15 +52,21 @@ const CkAssignAvailibility = () => {
     const fetchAvailbility = async () => {
         setLoading(true);
         makeRequest('POST', `fetchUsersAvailability`).then(result => {
-            alert.success(result.message);
-            result.userAvailability && setCkAssignUser(result.userAvailability)
+            // alert.success(result.message);
+            result.userAvailability && setCkAssignUser(result.userAvailability);
+            // console.log(result.userAvailability);
         }).catch(err => {
             alert.error(err.message);
         }).finally(() => {
             setLoading(false);
         })
+    }
+
+    const handleAssign = (user_id,ckOrderId, availability_id) => {
+       console.log(ckOrderId);
 
     }
+
     useEffect(() => {
         fetchAvailbility();
         // eslint-disable-next-line
@@ -108,6 +117,7 @@ const CkAssignAvailibility = () => {
                                             type="button"
                                             className="btn hub_order"
                                             data-toggle="modal" data-target=".see_hub-lg"
+                                            onClick={(ckOrderId, availability_id ) => handleAssign((item.user_id, ckOrderId, availability_id ))}
                                         >
                                             Assign
                                         </button>

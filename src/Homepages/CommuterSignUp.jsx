@@ -74,6 +74,7 @@ export default function CommuterSignUp() {
             alert.success(result.message);
             handleUser(result.userData);
             setOpen(false);
+            console.log(result.userData);
         }).catch(err => {
             alert.error(err.message);
         }).finally(() => {

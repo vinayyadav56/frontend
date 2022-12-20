@@ -4,6 +4,7 @@ import { makeRequest } from "../../../Services/api";
 import { useAuth } from "../../../Services/auth";
 import HubAssignOrder from "./HubAssignOrder";
 import { useAlert } from "react-alert";
+import Loader from "../../../Helpers/Loader";
 const UserAvalibiltyCheck = () => {
   const { setLoading } = useAuth();
   const alert = useAlert();
@@ -98,123 +99,127 @@ const UserAvalibiltyCheck = () => {
           </div>
         </div>
       </div>
-      
-      {Object.values(filterUser)
-        // eslint-disable-next-line
-        .map((row, id) => {
-          return (
-            <div className="row ck_order_table" key={id}>
-              <div className="col-12 my-2">
-                <button
-                  type="button"
-                  className="btn hub_order ml-auto mb-2 d-flex"
-                  data-toggle="modal" data-target=".see_hub-lg"
-                >
-                  Assign Order
-                </button>
-                <div className="ck_Order_header">
-                  <ul>
-                    <li>
-                      <p>
-                        <span>User Id :</span><span>{row.user_id}</span>
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        <span>Name :</span><span>{row.first_name} {row.last_name}</span>
-                      </p>
-                    </li>
-                  </ul>
-                  <ul>
-                    <li>
-                      <p>
-                        <span>From Date :</span><span>{row.from_date}</span>
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        <span>Journey Id :</span><span>{row.journey_unique_id}</span>
-                      </p>
-                    </li>
-                  </ul>
+
+      {Object.values(filterUser).length ?
+        Object.values(filterUser)
+          // eslint-disable-next-line
+          .map((row, id) => {
+            return (
+              <div className="row ck_order_table" key={id}>
+                <div className="col-12 my-2">
+                  <button
+                    type="button"
+                    className="btn hub_order ml-auto mb-2 d-flex"
+                    data-toggle="modal" data-target=".see_hub-lg"
+                  >
+                    Assign Hub
+                  </button>
+                  <div className="ck_Order_header">
+                    <ul>
+                      <li>
+                        <p>
+                          <span>User Id :</span><span>{row.user_id}</span>
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          <span>Name :</span><span>{row.first_name} {row.last_name}</span>
+                        </p>
+                      </li>
+                    </ul>
+                    <ul>
+                      <li>
+                        <p>
+                          <span>From Date :</span><span>{row.from_date}</span>
+                        </p>
+                      </li>
+                      <li>
+                        <p>
+                          <span>Journey Id :</span><span>{row.journey_unique_id}</span>
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-              </div>
-              <div className="col-12">
-                <div className="ck_Order_body">
-                  <div className="body_list">
-                    <ul>
+                <div className="col-12">
+                  <div className="ck_Order_body">
+                    <div className="body_list">
+                      <ul>
+                        <li>
+                          <p>
+                            <span>From City :</span><span>{row.from_location_city}</span>
+                          </p>
+                        </li>
+                        <li>
+                          <p>
+                            <span>From Airport Code :</span><span>{row.from_location_airport_code}</span>
+                          </p>
+                        </li>
+                        <li>
+                          <p>
+                            <span>From Pincode :</span><span>{row.from_location_pin_code}</span>
+                          </p>
+                        </li>
+                      </ul>
+                      <ul>
+                        <li>
+                          <p>
+                            <span>From St. Code :</span><span>{row.from_location_station_code}</span>
+                          </p>
+                        </li>
+                        <li>
+                          <p>
+                            <span>To St. Code :</span><span>{row.to_location_station_code}</span>
+                          </p>
+                        </li>
+                      </ul>
+                      <ul>
+                        <li>
+                          <p>
+                            <span>To City :</span><span>{row.to_location_city}</span>
+                          </p>
+                        </li>
+                        <li>
+                          <p>
+                            <span>To Airport Code :</span><span>{row.to_location_airport_code}</span>
+                          </p>
+                        </li>
+                        <li>
+                          <p>
+                            <span>To Pincode :</span><span>{row.to_location_pin_code}</span>
+                          </p>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-12 my-2">
+                  <div className="ck_Order_footer">
+                    <ul className="d-flex justify-content-between">
                       <li>
                         <p>
-                          <span>From City :</span><span>{row.from_location_city}</span>
+                          <span>Journey Type :</span><span>{row.journey_type}</span>
                         </p>
                       </li>
                       <li>
                         <p>
-                          <span>From Airport Code :</span><span>{row.from_location_airport_code}</span>
+                          <span>Available Space :</span><span>{row.available_space}</span>
                         </p>
                       </li>
                       <li>
                         <p>
-                          <span>From Pincode :</span><span>{row.from_location_pin_code}</span>
-                        </p>
-                      </li>
-                    </ul>
-                    <ul>
-                      <li>
-                        <p>
-                          <span>From St. Code :</span><span>{row.from_location_station_code}</span>
-                        </p>
-                      </li>
-                      <li>
-                        <p>
-                          <span>To St. Code :</span><span>{row.to_location_station_code}</span>
-                        </p>
-                      </li>
-                    </ul>
-                    <ul>
-                      <li>
-                        <p>
-                          <span>To City :</span><span>{row.to_location_city}</span>
-                        </p>
-                      </li>
-                      <li>
-                        <p>
-                          <span>To Airport Code :</span><span>{row.to_location_airport_code}</span>
-                        </p>
-                      </li>
-                      <li>
-                        <p>
-                          <span>To Pincode :</span><span>{row.to_location_pin_code}</span>
+                          <span>Journey Medium :</span><span>{row.journey_medium}</span>
                         </p>
                       </li>
                     </ul>
                   </div>
                 </div>
               </div>
-              <div className="col-12 my-2">
-                <div className="ck_Order_footer">
-                  <ul className="d-flex justify-content-between">
-                    <li>
-                      <p>
-                        <span>Journey Type :</span><span>{row.journey_type}</span>
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        <span>Available Space :</span><span>{row.available_space}</span>
-                      </p>
-                    </li>
-                    <li>
-                      <p>
-                        <span>Journey Medium :</span><span>{row.journey_medium}</span>
-                      </p>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          )
-        })}
+            )
+          })
+        :
+        <Loader />
+      }
       {/* ASSIGN DETAILS MODAL TO AGENT HUB TABLE */}
       <div className="modal fade see_hub-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div className="modal-dialog  add-partner modal-lg">

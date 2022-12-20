@@ -33,7 +33,7 @@ const CustomerHeader = () => {
           </li>
           <button className="header-btn d-flex" onClick={signout}>
             {/* <ExitToAppIcon className="mr-2" /> */}
-            <img src={logout} alt="logoutimg" />
+            <img src={logout} alt="logoutimg"/>
             Logout
           </button>
         </div>

@@ -18,9 +18,6 @@ import about4 from "../images/about4.png";
 import about5 from "../images/about5.png";
 import service1 from "../images/service1.png";
 import service2 from "../images/service2.png";
-import operation1 from "../images/operation1.png";
-import operation2 from "../images/operation2.png";
-import operation3 from "../images/operation3.png";
 import commuter from "../images/commuter.png";
 import commuter1 from "../images/commuter1.png";
 import commuter2 from "../images/commuter2.png";
@@ -38,6 +35,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { NavLink } from "react-router-dom";
 import Frame from "../images/Frame.png";
 import ContactUsForm from "./ContactUsForm";
+import LocationSlider from "./LocationSlider";
 const Homepage = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
   const { signout } = useAuth();
@@ -62,10 +60,10 @@ const Homepage = () => {
                         <NavLink to="/services">Services</NavLink>
                       </li>
                       <li>
-                        <Link activeclass="active" smooth spy to="commuter">Daily Commuter</Link>
+                        <Link activeclassname="active" smooth spy to="commuter">Daily Commuter</Link>
                       </li>
                       <li>
-                        <Link activeclass="active" smooth spy to="location">Locations</Link>
+                        <Link activeclassname="active" smooth spy to="location">Locations</Link>
                       </li>
                       <li>
                         <ContactUsForm />
@@ -132,10 +130,10 @@ const Homepage = () => {
                           </NavLink>
                         </li>
                         <li>
-                          <Link activeclass="active" onClick={() => setToggleMenu(false)} smooth spy to="commuter">Daily Commuter</Link>
+                          <Link activeclassname="active" onClick={() => setToggleMenu(false)} smooth spy to="commuter">Daily Commuter</Link>
                         </li>
                         <li>
-                          <Link activeclass="active" onClick={() => setToggleMenu(false)} smooth spy to="location">Locations</Link>
+                          <Link activeclassname="active" onClick={() => setToggleMenu(false)} smooth spy to="location">Locations</Link>
                         </li>
                         <li>
                           <ContactUsForm />
@@ -324,27 +322,7 @@ const Homepage = () => {
         <div className="operational" id="location">
           <div className="container">
             <h2>We are Operational at</h2>
-            <div className="location_card">
-              <div className="card">
-                <div className="card-body">
-                  <img src={operation1} alt="operation1" />
-                  <p>Delhi NCR</p>
-                </div>
-              </div>
-              <div className="card">
-                <div className="card-body">
-                  <img src={operation2} alt="operation2" />
-                  <p>Mumbai</p>
-                </div>
-              </div>
-              <div className="card">
-                <span className="badge badge-warning">Coming Soon</span>
-                <div className="card-body">
-                  <img src={operation3} alt="operation2" />
-                  <p>Kolkata</p>
-                </div>
-              </div>
-            </div>
+            <LocationSlider />
           </div>
         </div>
       </section>
@@ -608,7 +586,6 @@ const Homepage = () => {
           </div>
         </div>
       </section>
-
 
       <section className="homemainfooter">
         <div className="home_footer">

@@ -9,6 +9,7 @@ import Box from "@mui/material/Box";
 import trip from "../images/triplocation.png";
 import AirplanemodeActiveSharpIcon from "@mui/icons-material/AirplanemodeActiveSharp";
 import DirectionsTransitFilledIcon from "@mui/icons-material/DirectionsTransitFilled";
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import { AutoComplete, DatePicker, Input, TimePicker } from "antd";
 import moment from "moment";
 import 'antd/dist/antd.css';
@@ -47,8 +48,6 @@ function a11yProps(index) {
         "aria-controls": `simple-tabpanel-${index}`,
     };
 }
-
-
 export default function BasicTabs() {
     const { user, loading, setLoading } = useAuth();
     const alert = useAlert();
@@ -87,7 +86,6 @@ export default function BasicTabs() {
 
     const callCitySearchApi = (reqObj) => {
         setLoading(true);
-
         try {
             return makeRequest('POST', 'city-airport-train-search', reqObj)
                 .then(res => {
@@ -96,12 +94,12 @@ export default function BasicTabs() {
                 .catch(err => {
                     alert.error(err.message)
                     return [];
-                }).finally(() => setLoading(false));
+                })
+                .finally(() => setLoading(false));
         } catch (e) {
             alert.error(e);
             setLoading(false);
         }
-
     }
 
     const handleLocationSearch = (value) => {
@@ -144,6 +142,7 @@ export default function BasicTabs() {
                     alert.success(res.message)
                     setFormData(FormDataType);
                     formRef.current.reset();
+
                 } else {
                     alert.error(res.message);
                 }
@@ -154,6 +153,7 @@ export default function BasicTabs() {
         } catch (e) {
             alert.error("Please fill all the details")
             setLoading(false);
+
             // console.log(e)
         }
 
@@ -213,7 +213,7 @@ export default function BasicTabs() {
                             onChange={(e) => handleFormChange(e.target.name, e.target.value)}
                         />
                         <AirplanemodeActiveSharpIcon className="btn_icn mr-2" />
-                        Flight
+                        Airport
                     </label>
                     <label className="btn top_select_btns">
                         <input
@@ -225,7 +225,20 @@ export default function BasicTabs() {
                             onChange={(e) => handleFormChange(e.target.name, e.target.value)}
                         />
                         <DirectionsTransitFilledIcon className="btn_icn mr-2" />
-                        Train
+                        Railway
+                    </label>
+                    <label className="btn top_select_btns">
+                        <input
+                            type="radio"
+                            name="transport_type"
+                            disabled
+                            value="commuter"
+                            id="option2"
+                            checked={formData.transport_type === 'flight'}
+                            onChange={(e) => handleFormChange(e.target.name, e.target.value)}
+                        />
+                        <DirectionsCarIcon className="btn_icn mr-2" />
+                        Commuter
                     </label>
                 </div>
                 <Box sx={{ width: "100%" }}>
