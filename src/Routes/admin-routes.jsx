@@ -12,10 +12,10 @@ import AdminHub from '../admin/admindashboard/HUB/AdminHub';
 import RecentOrder from '../admin/admindashboard/RecentOrder/RecentOrder';
 import PartnerOrderById from '../partner/partnerOrder/PartnerOrderById';
 import CkOrderList from '../admin/admindashboard/CkOrderList';
-// import { useAuth } from '../Services/auth';
+import { useAuth } from '../Services/auth';
 
 export const AdminRoutes = () => {
-    // const auth = useAuth();
+    const auth = useAuth();
     return (
         <Switch>
             <Route path="/partner">
@@ -30,29 +30,33 @@ export const AdminRoutes = () => {
             <Route path="/dashboard/order">
                 <PartnerOrderById />
             </Route>
+            {
+                auth.isAdmin() && <>
+                    <Route path="/admindashboard">
+                        <AdminDashboard />
+                    </Route>
+                    <Route exact path="/admin/user-availability">
+                        <UserAvailability />
+                    </Route>
+                    <Route exact path="/admin/all-order">
+                        <RecentOrder />
+                    </Route>
 
-            <Route path="/admindashboard">
-                <AdminDashboard />
-            </Route>
-            <Route exact path="/admin/user-availability">
-                <UserAvailability />
-            </Route>
-            <Route exact path="/admin/all-order">
-                <RecentOrder />
-            </Route>
+                    <Route exact path="/admindashboardckordercreate">
+                        <CkOrder />
+                    </Route>
+                    <Route exact path="/admindashboardckorder">
+                        <CkOrderList />
+                    </Route>
+                    <Route exact path="/admindashboarddeliverypartnerdetails">
+                        <DeliveryPartnerDetails />
+                    </Route>
+                    <Route exact path="/admindashboardhub">
+                        <AdminHub />
+                    </Route>
+                </>
+            }
 
-            <Route exact path="/admindashboardckordercreate">
-                <CkOrder />
-            </Route>
-            <Route exact path="/admindashboardckorder">
-                <CkOrderList />
-            </Route>
-            <Route exact path="/admindashboarddeliverypartnerdetails">
-                <DeliveryPartnerDetails />
-            </Route>
-            <Route exact path="/admindashboardhub">
-                <AdminHub />
-            </Route>
 
         </Switch>
     );

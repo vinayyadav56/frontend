@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import { positions, Provider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
-import { BrowserRouter as Router} from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import { useAuth } from './Services/auth';
 import { AdminRoutes, CareerRoutes, CustomerRoutes, HomeRoutes } from './Routes';
 import { Loader } from "./component/Loader";
@@ -25,6 +25,7 @@ const App = () => {
         <CareerRoutes />
         <DeliveryDashboardRoutes />
         <HubRoutes />
+        {/* <Redirect to="/" /> */}
       </Router>
     </Provider>
   );

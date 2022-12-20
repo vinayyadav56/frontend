@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Postavailablity from "../Dashboard/Postavailablity";
 import UserProfile from "../Dashboard/UserProfile";
 import Paymenthistory from "../Dashboard/Paymenthistory";
@@ -38,7 +38,6 @@ export const CareerRoutes = () => {
                     </Route>
                 </>
             }
-            <Redirect to="/" />
         </Switch>
     );
 }
