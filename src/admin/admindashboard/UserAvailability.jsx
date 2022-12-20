@@ -1,18 +1,12 @@
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Adminmenu.css";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import UserAvalibiltyCheck from "./AllTable/UserAvalibiltyCheck";
 import AdminSidebar from "./AdminSidebar";
-import { useAuth } from "../../Services/auth";
-// import UserOrder from "./UserOrder";
 const UserAvailability = () => {
-  const auth = useAuth();
-  if (!auth.isAuthenticated()) {
-    return <Redirect to="/admin" />
-  }
   return (
     <div>
       <nav className="sticky-top partnerdash-nav">

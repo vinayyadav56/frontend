@@ -8,15 +8,16 @@ import Forgetpassword from "../component/Forgetpassword";
 import Login from "../component/Login";
 import About from "../component/About";
 
+
 export const HomeRoutes = () => {
     return (
         <Switch>
             <Route exact path="/signup" component={Signup} />
             <Route path="/services" component={Services} />
-            <Route exact path="/" component={Homepage} />
             <Route path="/forgetpassword" component={Forgetpassword} />
             <Route path="/login" component={Login} />
             <Route path="/about" component={About} />
+            <Route exact path="/" component={Homepage} />
         </Switch>
     );
 }

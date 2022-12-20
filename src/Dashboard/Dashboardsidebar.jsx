@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink} from "react-router-dom";
 import profilelogo from "../images/profilelogo.png";
 import Frame from "../images/Frame.png";
 import vector from "../images/Vector.png";

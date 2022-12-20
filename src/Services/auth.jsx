@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext, createContext } from 'react';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import { localStorage } from "../Helpers/helper";
 
 const authContext = createContext();
@@ -31,7 +31,7 @@ function useProvideAuth() {
     }
     const signout = () => {
         handleUser(null);
-        <Redirect to="/" />
+       
     }
 
     const isAuthenticated = () => {
@@ -41,7 +41,9 @@ function useProvideAuth() {
         return user && user.is_hub;
     }
     const isAdmin = () => {
-        return user && user.is_admin;
+        // console.log(user);
+        return user && user.is_admin === null;
+       
     }
 
     const isPartner = () => {

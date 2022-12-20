@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { Link, NavLink, Redirect } from "react-router-dom";
+import { Link, NavLink} from "react-router-dom";
 import "./Adminmenu.css";
 import "./ckorder.css";
 import navArray from "./navArray";
@@ -8,13 +8,13 @@ import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
-import { useAuth } from '../../Services/auth';
+// import { useAuth } from '../../Services/auth';
 import CkOrderDetails from './CkOrder/CkOrderTabs';
 const CkOrderList = () => {
-    const auth = useAuth();
-    if (!auth.isAuthenticated()) {
-        return <Redirect to="/admin" />
-    };
+    // const auth = useAuth();
+    // if (!auth.isAuthenticated()) {
+    //     return <Redirect to="/admin" />
+    // };
     return (
         <Fragment>
             <nav className="sticky-top partnerdash-nav">

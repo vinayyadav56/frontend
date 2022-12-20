@@ -5,8 +5,14 @@ import SearchIcon from "@mui/icons-material/Search";
 import bellicon from "../images/bellicon.png";
 import logout from "../images/logout.png";
 import { useAuth } from "../Services/auth";
+import { useHistory } from "react-router-dom";
 const Header = ({addUserLocal}) => {
   const {signout} = useAuth();
+  const history = useHistory();
+ const handleSignOut = () =>{
+    signout();
+    return history.push("/");
+  }
   return (
     <div>
       <nav className="navbar navbar-fixed dashboard-header">
@@ -32,7 +38,7 @@ const Header = ({addUserLocal}) => {
           </li>
           <button
             className="header-btn d-flex"
-            onClick={signout}
+            onClick={handleSignOut}
           >
             {/* <ExitToAppIcon className="mr-2" /> */}
             <img src={logout} alt="logoutimg" />

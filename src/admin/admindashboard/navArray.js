@@ -7,12 +7,12 @@ const navArray = [
     {
         nav: 'New Order',
         icon: <BorderColorRoundedIcon />,
-        link: '/admin/all-order'
+        link: '/all-order'
     },
     {
         nav: 'User Availability',
         icon: <StarBorderRoundedIcon />,
-        link: '/admin/user-availability'
+        link: '/user-availability'
     },
     {
         nav: 'CK Order Create',

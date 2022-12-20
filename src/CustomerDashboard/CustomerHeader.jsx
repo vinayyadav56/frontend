@@ -5,8 +5,14 @@ import SearchIcon from "@mui/icons-material/Search";
 import bellicon from "../images/bellicon.png";
 import logout from "../images/logout.png";
 import { useAuth } from "../Services/auth";
+import { useHistory } from "react-router-dom";
 const CustomerHeader = () => {
+  const history = useHistory();
   const {signout} = useAuth();
+  const handleSignOut = () =>{
+    signout();
+    return history.push("/");
+  }
   return (
     <div>
       <nav className="navbar navbar-fixed dashboard-header">
@@ -31,7 +37,7 @@ const CustomerHeader = () => {
           <li>
             <img src={bellicon} alt="bell" />
           </li>
-          <button className="header-btn d-flex" onClick={signout}>
+          <button className="header-btn d-flex" onClick={handleSignOut}>
             {/* <ExitToAppIcon className="mr-2" /> */}
             <img src={logout} alt="logoutimg"/>
             Logout

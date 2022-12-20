@@ -2,8 +2,6 @@ import React from 'react';
 import { Switch, Route } from "react-router-dom";
 
 import PartnerDashboard from "../partner/PartnerDashboard";
-import Partnerlogin from "../partner/Partnerlogin";
-import Adminlogin from "../admin/Adminlogin";
 import AdminDashboard from "../admin/admindashboard/AdminDashboard";
 import UserAvailability from "../admin/admindashboard/UserAvailability";
 import CkOrder from "../admin/admindashboard/CkOrder";
@@ -13,17 +11,14 @@ import RecentOrder from '../admin/admindashboard/RecentOrder/RecentOrder';
 import PartnerOrderById from '../partner/partnerOrder/PartnerOrderById';
 import CkOrderList from '../admin/admindashboard/CkOrderList';
 import { useAuth } from '../Services/auth';
-
+import Partnerlogin from "../partner/Partnerlogin";
+import Adminlogin from "../admin/Adminlogin";
 export const AdminRoutes = () => {
     const auth = useAuth();
     return (
         <Switch>
-            <Route path="/partner">
-                <Partnerlogin />
-            </Route>
-            <Route exact path="/admin">
-                <Adminlogin />
-            </Route>
+            <Route path="/partner" component={Partnerlogin} />
+            <Route path="/admin" component={Adminlogin} />
             <Route path="/partner/dashboard">
                 <PartnerDashboard />
             </Route>
@@ -35,10 +30,10 @@ export const AdminRoutes = () => {
                     <Route path="/admindashboard">
                         <AdminDashboard />
                     </Route>
-                    <Route exact path="/admin/user-availability">
+                    <Route exact path="/user-availability">
                         <UserAvailability />
                     </Route>
-                    <Route exact path="/admin/all-order">
+                    <Route exact path="/all-order">
                         <RecentOrder />
                     </Route>
 
@@ -56,7 +51,6 @@ export const AdminRoutes = () => {
                     </Route>
                 </>
             }
-
 
         </Switch>
     );

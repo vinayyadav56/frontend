@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import AdminSidebar from '../AdminSidebar';
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
@@ -31,7 +31,7 @@ import Loader from '../../../Helpers/Loader';
 const RecentOrder = ({ qr }) => {
     let alert = useAlert();
     const [hubData, setHubData] = useState([]);
-    const { loading, setLoading, isAuthenticated } = useAuth();
+    const { loading, setLoading } = useAuth();
     const [newOrder, setNewOrder] = useState([]);
 
     const [page, setPage] = React.useState(0);
@@ -58,9 +58,6 @@ const RecentOrder = ({ qr }) => {
     const handleId = (id) => {
     }
 
-    if (!isAuthenticated()) {
-        return <Redirect to="/admin" />
-    }
 
     // HUB LIST FETCHED FOR DROPDOWN STARTS
     const hubListData = async () => {
