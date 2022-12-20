@@ -41,8 +41,7 @@ function useProvideAuth() {
         return user && user.is_hub;
     }
     const isAdmin = () => {
-        // console.log(user);
-        return user && user.is_admin === null;
+        return user && user.is_admin;
        
     }
 
@@ -51,7 +50,6 @@ function useProvideAuth() {
     }
 
     const isUser = () => {
-        // console.log(user);
         return user && user.is_customer;
     }
     const isCarrier = () => {
