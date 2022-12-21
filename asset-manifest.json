@@ -1,7 +1,9 @@
 {
   "files": {
-    "main.css": "/static/css/main.0584c446.css",
-    "main.js": "/static/js/main.c2f14122.js",
+    "main.css": "/static/css/main.24969073.css",
+    "main.js": "/static/js/main.fafa3a45.js",
+    "static/js/703.f6514ffb.chunk.js": "/static/js/703.f6514ffb.chunk.js",
+    "static/js/13.61ae73e4.chunk.js": "/static/js/13.61ae73e4.chunk.js",
     "static/media/homebg.png": "/static/media/homebg.da9731536e0863760e86.png",
     "static/media/commuter.png": "/static/media/commuter.02f6414b0b602ec61833.png",
     "static/media/step_carrykar1.png": "/static/media/step_carrykar1.d81bba8a39e8b7d2084c.png",
@@ -13,16 +15,27 @@
     "static/media/qrimageadmin.jpg": "/static/media/qrimageadmin.e71dc763e4fb562bbed9.jpg",
     "static/media/pltserimg.png": "/static/media/pltserimg.0a2a2ac4f0b092a4dc9a.png",
     "static/media/newlogo1.png": "/static/media/newlogo1.35e666de85a2d466aa6c.png",
+    "static/media/Hyderabad.png": "/static/media/Hyderabad.23f851adebf0b97ba3f3.png",
     "static/media/newlogo.png": "/static/media/newlogo.d39366c47910c2881a10.png",
+    "static/media/Kolkata.png": "/static/media/Kolkata.62d7cde97bcc11c19e72.png",
+    "static/media/Bangalore.png": "/static/media/Bangalore.4f5a0c6aff83a3d549e7.png",
+    "static/media/Chennai.png": "/static/media/Chennai.409dea9e7c2626b0048c.png",
+    "static/media/Mumbai.png": "/static/media/Mumbai.60157e9e27f59cd0c5df.png",
     "static/media/befikar2.png": "/static/media/befikar2.405bf7bbd8005b26fdf9.png",
     "static/media/footerlogo.png": "/static/media/footerlogo.5c285837229d5fb60de9.png",
     "static/media/befikar3.png": "/static/media/befikar3.5183d7cd8794bf40e6ad.png",
+    "static/media/slick.svg": "/static/media/slick.2630a3e3eab21c607e21.svg",
+    "static/media/slick.eot": "/static/media/slick.a4e97f5a2a64f0ab1323.eot",
+    "static/media/slick.ttf": "/static/media/slick.c94f7671dcc99dce43e2.ttf",
+    "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/index.html",
-    "main.0584c446.css.map": "/static/css/main.0584c446.css.map",
-    "main.c2f14122.js.map": "/static/js/main.c2f14122.js.map"
+    "main.24969073.css.map": "/static/css/main.24969073.css.map",
+    "main.fafa3a45.js.map": "/static/js/main.fafa3a45.js.map",
+    "703.f6514ffb.chunk.js.map": "/static/js/703.f6514ffb.chunk.js.map",
+    "13.61ae73e4.chunk.js.map": "/static/js/13.61ae73e4.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0584c446.css",
-    "static/js/main.c2f14122.js"
+    "static/css/main.24969073.css",
+    "static/js/main.fafa3a45.js"
   ]
 }
