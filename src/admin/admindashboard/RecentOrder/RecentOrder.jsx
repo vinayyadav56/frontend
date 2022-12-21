@@ -384,7 +384,7 @@ const RecentOrder = ({ qr }) => {
                                                                 </>
                                                             }
 
-                                                            {(item.status === TrackingStatus.delivery_hub_assigned || item.status == TrackingStatus.pickup_hub_assigned) &&
+                                                            {(item.status == TrackingStatus.delivery_hub_assigned || item.status == TrackingStatus.pickup_hub_assigned) &&
                                                                 <QrButton path={item.qr_image_path} orderid={item.id} ordertype={item.source} updateOrder={fetchData} />
                                                             }
 

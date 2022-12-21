@@ -20,6 +20,7 @@ import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
 import { useAlert } from "react-alert";
 import Loader from "../../../Helpers/Loader";
+import { TrackingStatus } from "../../../config/contants";
 const CkNewOrder = () => {
     const { setLoading } = useAuth();
     const alert = useAlert();
@@ -83,9 +84,9 @@ const CkNewOrder = () => {
         console.log(sub_order_id, user_id);
         setLoading(true);
         makeRequest('POST', `assignAlphaOrderToCarrier`, {
-            "ckOrderId": user_id,
-            "carrierId": sub_order_id,
-            "availability_id": ckOrderId
+            "ckOrderId": ckOrderId,
+            "carrierId": user_id,
+            "availability_id": sub_order_id
         }).then(result => {
             alert.success(result.message);
             // result.success && fetchData();
@@ -192,13 +193,27 @@ const CkNewOrder = () => {
                                                 See Order Details
                                             </a>
                                             <AlQrGenrate path={row.qr_image_alpha} orderid={row.ck_order_id} />
-                                            <button
-                                                type="button"
-                                                className="btn btn-success"
-                                                data-toggle="modal" data-target=".assign_order_to_delivery_boy"
-                                            >
-                                                Assign Carrier
-                                            </button>
+                                            {
+                                                (row.status === TrackingStatus.carrier_assigned) &&
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-success"
+                                                    data-toggle="modal" data-target=".assign_order_to_delivery_boy"
+                                                >
+                                                    Assigned
+                                                </button>
+                                            }
+                                            {
+                                                (row.status != TrackingStatus.carrier_assigned) &&
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-success"
+                                                    data-toggle="modal" data-target=".assign_order_to_delivery_boy"
+                                                >
+                                                    Assign Carrier
+                                                </button>
+                                            }
+
                                         </div>
                                         <div className="collapse" id={`collapsable-${row.id}`}>
                                             <table className="table table-bordered table-hover">

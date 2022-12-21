@@ -11,9 +11,9 @@ import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
+
 const Sidebar = () => {
   const { user } = useAuth();
-
   return (
     <div>
       <section className="user-sidebar">
