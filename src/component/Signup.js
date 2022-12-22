@@ -1,86 +1,86 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import {useAlert} from "react-alert";
-import {makeRequest} from "../Services/api";
-import {useAuth} from "../Services/auth";
+import { useAlert } from "react-alert";
+import { makeRequest } from "../Services/api";
+import { useAuth } from "../Services/auth";
 import newLogo from '../images/newlogo1.png'
 const Signup = () => {
-    let alert = useAlert();
-    const {setLoading, handleUser} = useAuth();
-    let history = useHistory();
-    const [user, setUser] = useState({
-        first_name: "",
-        phone_no: "",
-        email: "",
-        last_name: "",
-        password: "",
-        reEnterPass: "",
-        dob: "",
-        address: "",
-        city: "",
-        state: "",
-        type: "",
-        pincode: "",
+  let alert = useAlert();
+  const { setLoading, handleUser } = useAuth();
+  let history = useHistory();
+  const [user, setUser] = useState({
+    first_name: "",
+    phone_no: "",
+    email: "",
+    last_name: "",
+    password: "",
+    reEnterPass: "",
+    dob: "",
+    address: "",
+    city: "",
+    state: "",
+    type: "",
+    pincode: "",
+  });
+
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setUser({
+      ...user,
+      [name]: value,
     });
+  };
 
-    const handleInput = (e) => {
-        const {name, value} = e.target;
-        setUser({
-            ...user,
-            [name]: value,
-        });
-    };
+  const Register = (e) => {
+    e.preventDefault();
+    const {
+      first_name,
+      last_name,
+      phone_no,
+      email,
+      password,
+      reEnterPass,
+      dob,
+      address,
+      city,
+      type,
+      state,
+      pincode,
+    } = user;
 
-    const Register = (e) => {
-        e.preventDefault();
-        const {
-            first_name,
-            last_name,
-            phone_no,
-            email,
-            password,
-            reEnterPass,
-            dob,
-            address,
-            city,
-            type,
-            state,
-            pincode,
-        } = user;
-
-        if (
-            first_name &&
-            last_name &&
-            phone_no &&
-            email &&
-            password &&
-            type &&
-            dob &&
-            state &&
-            city &&
-            pincode &&
-            address &&
-            password === reEnterPass
-        ){
-            setLoading(true);
-            makeRequest('POST',`register-user`, user).then(result => {
-                alert.success(result.message);
-                handleUser(result.userData);
-                if (result.userData.is_customer == 1) {
-                  history.push("/customer/dashboard")
-                }
-                if(result.userData.is_carrier == 1) {
-                  history.push("/carrier/dashboard")
-                }
-            }).catch(err => {
-                alert.error(err.message);
-            }).finally(() => {
-                setLoading(false);
-            })
-        } else {
-            alert.error("Invalid inputs");
+    if (
+      first_name &&
+      last_name &&
+      phone_no &&
+      email &&
+      password &&
+      type &&
+      dob &&
+      state &&
+      city &&
+      pincode &&
+      address &&
+      password === reEnterPass
+    ) {
+      setLoading(true);
+      makeRequest('POST', `register-user`, user).then(result => {
+        alert.success(result.message);
+        handleUser(result.userData);
+        if (result.userData.is_customer == 1) {
+          history.push("/customer/dashboard")
         }
-    };
+        if (result.userData.is_carrier == 1) {
+          history.push("/carrier/dashboard")
+        }
+      }).catch(err => {
+        alert.error(err.message);
+      }).finally(() => {
+        setLoading(false);
+      })
+    } else {
+      alert.error("Invalid inputs");
+    }
+  };
 
   return (
     <>
@@ -100,7 +100,7 @@ const Signup = () => {
                       <div className="row">
                         <div className="col-lg-6">
                           <div className="form-group">
-                            <label htmlFor="#fsname">FirstName</label>
+                            <label htmlFor="#fsname">First Name</label>
                             <input
                               type="text"
                               name="first_name"
@@ -214,13 +214,15 @@ const Signup = () => {
                           <div className="form-group">
                             <label htmlFor="#dob">DOB</label>
                             <input
+                              type="text"
                               id="dob"
-                              type="date"
+                              placeholder="MM/DD/YYYY"
+                              onFocus={(e) => (e.target.type = "date")}
+                              onBlur={(e) => (e.target.type = "text")}
+                              autoComplete="off"
                               name="dob"
                               className="form-control"
                               required
-                              placeholder="DOB"
-                              autoComplete="off"
                               value={user.dob}
                               onChange={handleInput}
                             />

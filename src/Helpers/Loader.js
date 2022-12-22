@@ -1,18 +1,17 @@
 import React from 'react'
-import { BallTriangle} from 'react-loader-spinner'
+import { ColorRing } from 'react-loader-spinner'
 
 const Loader = () => {
     return (
         <div className='d-flex justify-content-center h-100'>
-            <BallTriangle
-                height={100}
-                width={100}
-                radius={5}
-                color="#0747a9"
-                ariaLabel="ball-triangle-loading"
-                wrapperClass={{}}
-                wrapperStyle=""
+            <ColorRing
                 visible={true}
+                height="80"
+                width="80"
+                ariaLabel="blocks-loading"
+                wrapperStyle={{}}
+                wrapperClass="blocks-wrapper"
+                colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
             />
         </div>
     )

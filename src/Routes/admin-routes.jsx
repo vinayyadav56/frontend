@@ -25,6 +25,8 @@ export const AdminRoutes = () => {
             <Route path="/dashboard/order">
                 <PartnerOrderById />
             </Route>
+
+
             {
                 auth.isAdmin() && <>
                     <Route path="/admindashboard">

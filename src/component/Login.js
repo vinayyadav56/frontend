@@ -37,7 +37,9 @@ const Login = () => {
         if(result.userDetails.is_carrier === 1) {
           history.push("/carrier/dashboard")
         }
-       
+        if(result.userDetails.is_commuter === 1) {
+          history.push("/carrier/dashboard")
+        }
       }).catch(error => {
         alert.error(error.message);
       }).finally(() => {

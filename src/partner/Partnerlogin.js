@@ -1,55 +1,55 @@
-import React, {useState} from "react";
-import {Link} from "react-router-dom";
-import {useAlert} from "react-alert";
-import {useHistory} from "react-router-dom";
-import {postRequest} from "../Services/api";
-import {useAuth} from "../Services/auth";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useAlert } from "react-alert";
+import { useHistory } from "react-router-dom";
+import { postRequest } from "../Services/api";
+import { useAuth } from "../Services/auth";
 
 const Adminlogin = () => {
-    const {setLoading, handleUser} = useAuth();
-    let alert = useAlert();
-    let history = useHistory();
+  const { setLoading, handleUser } = useAuth();
+  let alert = useAlert();
+  let history = useHistory();
 
-    const [login_partner, setLogin_partner] = useState({
-        partner_email: "",
-        partner_password: "",
+  const [login_partner, setLogin_partner] = useState({
+    partner_email: "",
+    partner_password: "",
+  });
+
+  const handlePartner = (e) => {
+    const { name, value } = e.target;
+    setLogin_partner({
+      ...login_partner,
+      [name]: value,
     });
+  };
 
-    const handlePartner = (e) => {
-        const {name, value} = e.target;
-        setLogin_partner({
-            ...login_partner,
-            [name]: value,
-        });
-    };
+  const handleApipartner = (e) => {
+    e.preventDefault();
+    const { partner_email, partner_password } = login_partner;
 
-    const handleApipartner = (e) => {
-        e.preventDefault();
-        const {partner_email, partner_password} = login_partner;
+    if (partner_email && partner_password) {
+      setLoading(true);
 
-        if (partner_email && partner_password) {
-            setLoading(true);
-
-            postRequest('partner-login', login_partner).then(result => {
-                console.log(result);
-                alert.success(result.message);
-                handleUser(result.userDetails);
-                result.success && history.push("/partner/dashboard");
-            }).catch(error => {
-                alert.error(error.message);
-            }).finally(() => {
-                setLoading(false);
-            });
-        } else {
-            alert.error("Invalid Inputs");
-        }
-    };
-    return (
-        <>
-            <div className="container-fluid admin-login">
-                <div className="row partner-section">
-                    <div className="col-12 adminleftctn">
-                        <div className="my-form">
+      postRequest('partner-login', login_partner).then(result => {
+        // console.log(result);
+        alert.success(result.message);
+        handleUser(result.userDetails);
+        history.push("/partner/dashboard");
+      }).catch(error => {
+        alert.error(error.message);
+      }).finally(() => {
+        setLoading(false);
+      });
+    } else {
+      alert.error("Invalid Inputs");
+    }
+  };
+  return (
+    <>
+      <div className="container-fluid admin-login">
+        <div className="row partner-section">
+          <div className="col-12 adminleftctn">
+            <div className="my-form">
               <span className="wel-msg">
                 Welcome To Carrykar
               </span>

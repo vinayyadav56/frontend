@@ -2,10 +2,12 @@ import React from "react";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 import { useEffect, useState } from "react";
 import "../AllTable/Table.css";
+import "../ckorder.css";
+import qrImage from '../../../images/qrimageadmin.jpg'
 import { makeRequest } from "../../../Services/api";
 import { useAuth } from "../../../Services/auth";
 import { Fragment } from "react";
-import qrImage from '../../../images/qrimageadmin.jpg'
+import config from '../../../config.json'
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -14,20 +16,18 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import config from '../../../config.json'
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
+import { useAlert } from "react-alert";
 import Loader from "../../../Helpers/Loader";
 import { TrackingStatus } from "../../../config/contants";
-import { useAlert } from "react-alert";
-const CkNewOrder = () => {
+const CkAllOrder = () => {
     const { setLoading } = useAuth();
     const alert = useAlert();
     const [userData, setUserData] = useState([]);
     const [ckAssignUser, setCkAssignUser] = useState([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -57,7 +57,7 @@ const CkNewOrder = () => {
 
     const fetchData = async () => {
         setLoading(true);
-        makeRequest('GET', `fetchNewAlphaOrder`).then(result => {
+        makeRequest('GET', `fetchAlphaOrders`).then(result => {
             setUserData(result.data);
             console.log(result.data);
         })
@@ -69,7 +69,9 @@ const CkNewOrder = () => {
     const fetchAvailbility = async () => {
         setLoading(true);
         makeRequest('POST', `fetchUsersAvailability`).then(result => {
+            // alert.success(result.message);
             result.userAvailability && setCkAssignUser(result.userAvailability);
+            // console.log(result.userAvailability);
         }).catch(err => {
             alert.error(err.message);
         }).finally(() => {
@@ -77,18 +79,16 @@ const CkNewOrder = () => {
         })
     }
 
-    // ALPHA ORDER ASSIGN FUNCTION TO CARRIER START
-    const handleAssign = (user_id, id, ckOrderId) => {
+    const handleAssign = (user_id,id, ckOrderId) => {
+        // console.log(sub_order_id, user_id);
         setLoading(true);
         makeRequest('POST', `assignAlphaOrderToCarrier`, {
             "ckOrderId": ckOrderId,
             "carrierId": user_id,
-            "availability_id": id
+            "availability_id":id
         }).then(result => {
             alert.success(result.message);
             result.success && fetchAvailbility();
-            // window.location.reload(false);
-
         }).catch(err => {
             alert.error(err.message);
         }).finally(() => {
@@ -96,9 +96,8 @@ const CkNewOrder = () => {
         })
 
     };
-    // ALPHA ORDER ASSIGN FUNCTION TO CARRIER ENDS
 
-    // QR GENRATE FUNCTION START
+    // GENRATE QR FUNCTION START
     const handleGenrateQr = async (ck_order_id) => {
         setLoading(true);
         makeRequest('POST', `generateQrCode`, {
@@ -107,13 +106,14 @@ const CkNewOrder = () => {
         }).then(result => {
             alert.success(result.message);
             result.success && fetchData();
+
         }).catch(err => {
             alert.error(err.message);
         }).finally(() => {
             setLoading(false);
         })
     }
-    // QR GENRATE FUNCTION ENDS
+    // GENRATE QR FUNCTION ENDS
 
     useEffect(() => {
         fetchData();
@@ -176,13 +176,18 @@ const CkNewOrder = () => {
 
                                             </ul>
                                             <ul>
-                                                {
-                                                    row.delivered_on ?
-                                                        <><span>Delivered on :</span><span>{row.delivered_on}</span></>
-                                                        :
-                                                        ""
+                                                <li>
+                                                    <p>
+                                                        {
+                                                            row.delivered_on ?
+                                                                <><span>Delivered on :</span><span>{row.delivered_on}</span></>
+                                                                :
+                                                                ""
 
-                                                }
+                                                        }
+
+                                                    </p>
+                                                </li>
                                             </ul>
                                             <ul>
                                                 <li>
@@ -192,19 +197,21 @@ const CkNewOrder = () => {
                                                 </li>
                                                 <li>
                                                     <p>
-                                                        <span>Sub Order Id :</span><span>{row.sub_order_source}</span>
+                                                        <span>Sub Order Type :</span><span>{row.sub_order_source}</span>
                                                     </p>
                                                 </li>
-                                                <p>
-                                                    {
-                                                        row.assigned_carrier_id ?
-                                                            <>
-                                                                <span>Assigned Carrier Id :</span><span>{row.assigned_carrier_id}</span>
-                                                            </>
-                                                            :
-                                                            ""
-                                                    }
-                                                </p>
+                                                <li>
+                                                    <p>
+                                                        {
+                                                            row.assigned_carrier_id ?
+                                                                <>
+                                                                    <span>Assigned Carrier Id :</span><span>{row.assigned_carrier_id}</span>
+                                                                </>
+                                                                :
+                                                                ""
+                                                        }
+                                                    </p>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -423,6 +430,7 @@ const CkNewOrder = () => {
                                                         <TableBody>
                                                             {ckAssignUser
                                                                 // eslint-disable-next-line
+
                                                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                                                 .map((item, id) => (
                                                                     <StyledTableRow hover key={id}>
@@ -481,5 +489,4 @@ const CkNewOrder = () => {
         </Fragment>
     );
 };
-
-export default CkNewOrder;
+export default CkAllOrder;

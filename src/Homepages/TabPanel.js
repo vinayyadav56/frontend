@@ -202,6 +202,7 @@ export default function BasicTabs() {
     return (
         <>
             <form className="form-inline trip_search_form" onSubmit={handleFormSubmit} ref={formRef} noValidate>
+                <div className="transport_select_btns">
                 <div className="btn-group-toggle" data-toggle="buttons">
                     <label className="btn top_select_btns">
                         <input
@@ -231,7 +232,6 @@ export default function BasicTabs() {
                         <input
                             type="radio"
                             name="transport_type"
-                            disabled
                             value="commuter"
                             id="option2"
                             checked={formData.transport_type === 'flight'}
@@ -241,6 +241,8 @@ export default function BasicTabs() {
                         Commuter
                     </label>
                 </div>
+                </div>
+                
                 <Box sx={{ width: "100%" }}>
                     <Box sx={{ borderColor: "divider" }}>
                         <Tabs

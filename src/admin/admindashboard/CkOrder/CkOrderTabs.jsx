@@ -6,10 +6,10 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import CkAllOrder from "./CkAllOrder";
 import CkNewOrder from "./CkNewOrder";
-import CkDeliveredOrder from "./CkDeliveredOrder";
 function TabPanel(props) {
-const { children, value, index, ...other } = props;
+    const { children, value, index, ...other } = props;
     return (
         <div
             role="tabpanel"
@@ -53,14 +53,14 @@ export default function CkOrderDetails() {
                         aria-label="basic tabs example"
                     >
                         <Tab sx={{ padding: '0px' }} label="New Order" {...a11yProps(0)} />
-                        <Tab sx={{ padding: '0px' }} label="Delivered Order" {...a11yProps(1)} />
+                        <Tab sx={{ padding: '0px' }} label="All Order" {...a11yProps(1)} />
                     </Tabs>
                 </Box>
                 <TabPanel sx={{ padding: '0px' }} value={chooseValue} index={0}>
                     <CkNewOrder sx={{ padding: '0px' }} />
                 </TabPanel>
                 <TabPanel sx={{ padding: '0px' }} value={chooseValue} index={1}>
-                    <CkDeliveredOrder sx={{ padding: '0px' }} />
+                    <CkAllOrder sx={{ padding: '0px' }} />
                 </TabPanel>
             </Box>
         </>

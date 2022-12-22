@@ -46,7 +46,7 @@ function useProvideAuth() {
     }
 
     const isPartner = () => {
-        return user && user.is_partner;
+        return user && user.is_partner === 0;
     }
 
     const isUser = () => {

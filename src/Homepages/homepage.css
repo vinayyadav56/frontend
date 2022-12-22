@@ -251,14 +251,14 @@ a:not([href]):not([class]) {
 
 .home_shipnow {
     background-color: #fff !important;
-    color: #2277C9 !important;
+    color: #0747a9 !important;
     border: 1px solid #fff !important;
     padding: 2px 10px !important;
     border-radius: 5px !important;
 }
 
 .home_shipnow:hover {
-    background-color: #2277C9 !important;
+    background-color: #0747a9 !important;
     color: #fff !important;
 }
 
@@ -516,7 +516,9 @@ a:not([href]):not([class]) {
     margin-bottom: 1.5rem;
     padding-left: 15px;
 }
-
+.nav-mobile-links li a:hover{
+    color: aqua !important;
+}
 .nav-mobile-links li:last-child {
     margin-right: 0rem;
 }
@@ -535,7 +537,7 @@ a:not([href]):not([class]) {
 
 .nav-mobile-links li:nth-child(6) a {
     background: #0747A9;
-    border: 1px solid #2277C9;
+    border: 1px solid #0747a9;
     padding: 2px 20px;
     font-weight: 400;
     color: #fff;
@@ -543,8 +545,8 @@ a:not([href]):not([class]) {
 }
 
 .nav-mobile-links li:nth-child(6) a:hover {
-    background: #0747A9;
-    color: #fff;
+    background: #fff;
+    color: #0747A9 !important;
 }
 
 
@@ -960,21 +962,9 @@ a:not([href]):not([class]) {
     color: #0747a9;
 }
 
-/* .operational .card {
-    background: transparent;
-    border: none;
-    height: auto;
-} */
-
-.operational {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 .slick-slide {
     outline: none;
-    width: 370px;
     justify-content: center !important;
     text-align: center !important;
     display: flex !important;
@@ -992,10 +982,24 @@ a:not([href]):not([class]) {
     text-align: center;
     color: #fff;
 }
-
-/* .operational .carousel-indicators{
-    top: 100%;
-} */
+@media only screen and (max-width:767px){
+    .content img{
+        width:140px;
+        height: auto;
+        position: relative;
+    }
+    .content img{
+        width:100px;
+        height: auto;
+        position: relative;
+    }
+    .operational .content .badge-warning{
+        font-size:0.6rem;
+        font-weight: 400;
+        width: 50px;
+    }
+    
+}
 .operational h2 {
     color: #fff;
     text-align: center;

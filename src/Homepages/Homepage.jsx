@@ -50,7 +50,7 @@ const Homepage = () => {
               <div className="menu">
                 <div className="desktop-menu">
                   <div className="nav-logo">
-                    <NavLink to="/carrykar" className="nav-link">
+                    <NavLink to="/" className="nav-link">
                       <img src={Frame} alt="logo" />
                     </NavLink>
                   </div>
@@ -320,10 +320,8 @@ const Homepage = () => {
           <img src={step_carrykar1} alt="step-carrykar" />
         </div>
         <div className="operational" id="location">
-          <div className="container">
-            <h2>We are Operational at</h2>
-            <LocationSlider />
-          </div>
+          <h2>We are Operational at</h2>
+          <LocationSlider />
         </div>
       </section>
 
