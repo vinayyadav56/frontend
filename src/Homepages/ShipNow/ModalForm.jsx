@@ -63,7 +63,7 @@ const ModalForm = () => {
                     </button>
                 </Modal.Header>
                 <Modal.Body>
-                    <ShipingOrder />
+                    <ShipingOrder handleClose={handleClose}/>
                 </Modal.Body>
             </Modal>
         </div>

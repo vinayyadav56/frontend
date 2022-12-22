@@ -127,7 +127,7 @@ const ShipingOrder = (props) => {
           prevStep={prevStep}
           handleFormData={handleInputData}
           values={formData}
-          handleModalClose={props.modalHandleClode}
+          handleModalClose={props.handleClose}
         />
       )
 

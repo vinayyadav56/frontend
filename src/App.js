@@ -26,7 +26,6 @@ const App = () => {
         <CareerRoutes />
         <DeliveryDashboardRoutes />
         <HubRoutes />
-        <Route exact path="/" component={Homepage} />
         {/* <Redirect to="/" /> */}
       </Router>
     </Provider>
