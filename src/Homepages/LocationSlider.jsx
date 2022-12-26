@@ -72,7 +72,7 @@ export default function LocationSlider() {
                 <div className='content'>
                     <span className="badge badge-warning">Coming Soon</span>
                     <img src={Banglore} alt="operation1" />
-                    <p>Bengluru</p>
+                    <p>Bangalore</p>
                 </div>
             </div>
             <div>

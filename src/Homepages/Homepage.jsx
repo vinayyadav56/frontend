@@ -36,10 +36,137 @@ import { NavLink } from "react-router-dom";
 import Frame from "../images/Frame.png";
 import ContactUsForm from "./ContactUsForm";
 import LocationSlider from "./LocationSlider";
+import Modal from 'react-bootstrap/Modal';
+import { makeRequest } from "../Services/api";
+import PropTypes from 'prop-types';
+import { styled } from '@mui/material/styles';
+import Stack from '@mui/material/Stack';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  height: 'auto',
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+  p: 2,
+};
+
 const Homepage = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
-  const { signout } = useAuth();
+  const [show, setShow] = useState(false);
+  const [data, setData] = useState({
+    order_id: "",
+    order_type: ""
+  })
+  const [newOrder, setNewOrder] = useState([]);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const { signout, setLoading } = useAuth();
+
   const auth = useAuth();
+  const handleRefresh = () => {
+    window.location.reload(false)
+  }
+
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setData({
+      ...data,
+      [name]: value
+    })
+  }
+
+  const orderStatus = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    makeRequest('POST', `tracking/orderTrackingStatus`, data).then(result => {
+      setNewOrder(result.orderTraking);
+      console.log(result);
+    })
+      .finally(() => {
+        setLoading(false);
+      })
+  }
+
+  const QontoConnector = styled(StepConnector)(({ theme }) => ({
+    [`&.${stepConnectorClasses.alternativeLabel}`]: {
+      top: 10,
+      left: 'calc(-50% + 16px)',
+      right: 'calc(50% + 16px)',
+    },
+    [`&.${stepConnectorClasses.active}`]: {
+      [`& .${stepConnectorClasses.line}`]: {
+        borderColor: '#784af4',
+      },
+    },
+    [`&.${stepConnectorClasses.completed}`]: {
+      [`& .${stepConnectorClasses.line}`]: {
+        borderColor: '#784af4',
+      },
+    },
+    [`& .${stepConnectorClasses.line}`]: {
+      borderColor: theme.palette.mode === 'dark' ? theme.palette.grey[800] : '#eaeaf0',
+      borderTopWidth: 3,
+      borderRadius: 1,
+    },
+  }));
+
+  const AdjustIconRoot = styled('div')(({ theme, ownerState }) => ({
+    color: theme.palette.mode === 'dark' ? theme.palette.grey[700] : '#eaeaf0',
+    display: 'flex',
+    height: 22,
+    alignItems: 'center',
+    ...(ownerState.active && {
+      color: '#784af4',
+    }),
+    '& .AdjustIcon-completedIcon': {
+      color: '#784af4',
+      zIndex: 1,
+      fontSize: 18,
+    },
+    '& .AdjustIcon-circle': {
+      width: 8,
+      height: 8,
+      borderRadius: '50%',
+      backgroundColor: 'currentColor',
+    },
+  }));
+
+  function AdjustIcon(props) {
+    const { active, completed, className } = props;
+
+    return (
+      <AdjustIconRoot ownerState={{ active }} className={className}>
+        {completed ? (
+          <CheckCircleIcon className="AdjustIcon-completedIcon" />
+        ) : (
+          <div className="AdjustIcon-circle" />
+        )}
+      </AdjustIconRoot>
+    );
+  }
+
+  AdjustIcon.propTypes = {
+    /**
+     * Whether this step is active.
+     * @default false
+     */
+    active: PropTypes.bool,
+    className: PropTypes.string,
+    /**
+     * Mark the step as completed. Is passed to child components.
+     * @default false
+     */
+    completed: PropTypes.bool,
+  };
+
   return (
     <>
       <section className="main_section">
@@ -50,7 +177,7 @@ const Homepage = () => {
               <div className="menu">
                 <div className="desktop-menu">
                   <div className="nav-logo">
-                    <NavLink to="/" className="nav-link">
+                    <NavLink to="/" onClick={handleRefresh} className="nav-link">
                       <img src={Frame} alt="logo" />
                     </NavLink>
                   </div>
@@ -86,10 +213,10 @@ const Homepage = () => {
                                     :
                                     auth.isHub() ? '/hub/dashboard'
                                       :
-                                      auth.isPartner() ? '/partner/dashboard'
+                                      auth.isPartner() ? '/partnerdashboard'
                                         :
                                         ''
-                            }>Go To Dashboard</NavLink>
+                            }>Dashboard</NavLink>
                         }
                       </li>
                       <li className="home_signup">
@@ -147,7 +274,19 @@ const Homepage = () => {
                               ?
                               <NavLink to="/login" onClick={() => setToggleMenu(false)} >Login</NavLink>
                               :
-                              <NavLink onClick={() => setToggleMenu(false)} to={auth.isUser() ? '/customer/dashboard' : 'carrier/dashboard'}>Go To Dashboard</NavLink>
+                              <NavLink to={
+                                auth.isUser() ? '/customer/dashboard'
+                                  :
+                                  auth.isAdmin() ? '/admindashboard'
+                                    :
+                                    auth.isCarrier() ? '/carrier/dashboard'
+                                      :
+                                      auth.isHub() ? '/hub/dashboard'
+                                        :
+                                        auth.isPartner() ? '/partnerdashboard'
+                                          :
+                                          ''
+                              }>Dashboard</NavLink>
                           }
                         </li>
                         <li>
@@ -601,7 +740,69 @@ const Homepage = () => {
                     <CommuterForm />
                   </li>
                   <li>
-                    <NavLink to="/login">Refer & Earn</NavLink>
+                    <button type="button" className="btn home_track" onClick={handleShow}>
+                      Track Order
+                    </button>
+                    <Modal show={show} sx={style} centered>
+                      <Modal.Header style={{ padding: "0px", borderBottom: "0px" }}>
+                        <button type="button" className="close ml-auto mr-0" onClick={handleClose}>
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <form onSubmit={orderStatus}>
+                          <p className="package_text mb-3">Track Your Order Here</p>
+                          <div className="form-group">
+                            <label htmlFor="#ordeR_id" >Order Id</label>
+                            <input
+                              name="order_id"
+                              size='small'
+                              type="text"
+                              placeholder="Enter Order Id"
+                              required
+                              value={data.order_id}
+                              onChange={handleInput}
+                              className="form-control"
+                            />
+                            {/* <p className="ship_text">Get a free pickup from the comfort of your home</p> */}
+                          </div>
+                          <div className="form-group">
+                            <label htmlFor="#selectuser" >Order Type</label>
+                            <select id="selectuser" value={data.order_type} name='order_type' className="form-control"
+                              required type='Select' onChange={handleInput}>
+                              <option>Select Type</option>
+                              <option value="CO" >Customer Order</option>
+                              <option value="PO" >Partner Order</option>
+                              <option value="ALPHA" >Alpha Order</option>
+                            </select>
+                          </div>
+                          <div className="d-block w-100">
+                            <button className="track_btn" type="submit"><span>Track Order </span></button>
+                          </div>
+                        </form>
+
+                        {
+                          newOrder.length > 0 ?
+                            <>
+                            <p className="order_status_text">Your Order Status </p>
+                              <Stack sx={{ width: '100%', marginTop: '1rem' }} spacing={3}>
+                                <Stepper alternativeLabel activeStep={10} style={{ width: '100%', margin: 'auto' }} connector={<QontoConnector />}>
+                                  {newOrder.map((label,id) => (
+                                    <Step style={{ width: '30px' }} key={id}>
+                                      <StepLabel style={{ fontSize: '0.7rem' }} StepIconComponent={AdjustIcon}>{label.status}</StepLabel>
+                                    </Step>
+                                  ))}
+                                </Stepper>
+                              </Stack>
+                            </>
+                            :
+                            <>
+                            </>
+                            
+}
+
+                      </Modal.Body>
+                    </Modal>
                   </li>
                 </ul>
               </div>
@@ -655,7 +856,6 @@ const Homepage = () => {
 
       </section>
       {/* Contact Us Query */}
-
       <div className="modal fade" id="contactUsModal" tabIndex="-1" role="dialog" aria-labelledby="contactUsModalTitle" aria-hidden="true">
         <div className="modal-dialog modal-dialog-centered" role="document">
           <div className="modal-content">

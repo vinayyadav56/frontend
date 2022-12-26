@@ -10,7 +10,7 @@ import { makeRequest } from "../../Services/api";
 import { useAuth } from "../../Services/auth";
 const AddDeliveryPartner = () => {
     let alert = useAlert();
-    const { setLoading } = useAuth();
+    const { setLoading } = useAuth()
 
     let history = useHistory();
     const [agent, setAgent] = useState({
@@ -61,7 +61,6 @@ const AddDeliveryPartner = () => {
             is_aadhar_verified
 
         } = agent;
-        // console.log(handlePartner);
         if (
             first_name &&
             last_name &&

@@ -90,29 +90,22 @@ const steps1 = [
     'ORDER_BAGGED',
 ];
 
-const steps2 = [
-    'CARRIER_ASSIGNED',
-    'CARRIER_DELIVERY_AGENT_ASSIGEND',
-    'DELIVERED_TO_CARRIER',
-    'CARRIER_RECEIVED',
-    ' AT_HUB',
-    'ORDER_BAGGED',
-    'CARRIER_ASSIGNED',
-    'CARRIER_RECEIVED',
-];
+// const steps2 = [
+//     'CARRIER_ASSIGNED',
+//     'CARRIER_DELIVERY_AGENT_ASSIGEND',
+//     'DELIVERED_TO_CARRIER',
+//     'CARRIER_RECEIVED',
+//     ' AT_HUB',
+//     'ORDER_BAGGED',
+//     'CARRIER_ASSIGNED',
+//     'CARRIER_RECEIVED',
+// ];
 
-export default function CustomizedSteppers() {
+export default function TrackingSteppers() {
     return (
         <Stack sx={{ width: '100%' }} spacing={4}>
             <Stepper alternativeLabel activeStep={3} style={{width:'100%'}} connector={<QontoConnector />}>
                 {steps1.map((label) => (
-                    <Step style={{width:'50px'}} key={label}>
-                        <StepLabel style={{fontSize:'0.7rem'}} StepIconComponent={AdjustIcon}>{label}</StepLabel>
-                    </Step>
-                ))}
-            </Stepper>
-            <Stepper alternativeLabel style={{width:'100%'}}  connector={<QontoConnector />}>
-                {steps2.map((label) => (
                     <Step style={{width:'50px'}} key={label}>
                         <StepLabel style={{fontSize:'0.7rem'}} StepIconComponent={AdjustIcon}>{label}</StepLabel>
                     </Step>

@@ -8,12 +8,9 @@ import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
-// import { useAuth } from "../Services/auth";
+import { useAuth } from "../Services/auth";
 const PartnerDashboard = () => {
-  // const auth = useAuth();
-  // if (!auth.isAuthenticated()) {
-  //   return <Redirect to="/partner" />
-  // }
+  const { user } = useAuth();
   return (
     <>
       <nav className="sticky-top partnerdash-nav ">
@@ -26,7 +23,7 @@ const PartnerDashboard = () => {
           <div className="profile-area">
             <div className="profile">
               <div className="profile-photo">
-                <AccountCircleRoundedIcon />
+                <AccountCircleRoundedIcon className="pb-1" />
               </div>
               <div className="dropdown show">
                 <Link
@@ -38,7 +35,13 @@ const PartnerDashboard = () => {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  <span>User Name</span>
+                  {user && user.id ? (
+                    <span>
+                      {user.partner_name}
+                    </span>
+                  ) : (
+                    "Guest"
+                  )}
                 </Link>
 
                 <div
@@ -71,7 +74,7 @@ const PartnerDashboard = () => {
               <CloseRoundedIcon />
             </button>
             <div className="responsive-sidebar">
-              <NavLink to="/partner/dashboard">
+              <NavLink to="/partnerdashboard">
                 <span className="icon">
                   <GridViewRoundedIcon />
                 </span>
@@ -80,7 +83,7 @@ const PartnerDashboard = () => {
               {partnerArray.map((data, id) => {
                 return (
                   <li key={id}>
-                   <NavLink exact to={data.link}>
+                    <NavLink exact to={data.link}>
                       <span className="icon">{data.icon}</span>
                       <h4 className="title">{data.navitem}</h4>
                     </NavLink>

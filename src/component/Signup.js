@@ -216,7 +216,7 @@ const Signup = () => {
                             <input
                               type="text"
                               id="dob"
-                              placeholder="MM/DD/YYYY"
+                              placeholder="DD/MM/YYYY"
                               onFocus={(e) => (e.target.type = "date")}
                               onBlur={(e) => (e.target.type = "text")}
                               autoComplete="off"

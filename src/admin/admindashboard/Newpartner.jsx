@@ -53,11 +53,9 @@ const Newpartner = () => {
             partner_address
         ) {
             setLoading(true);
-
             makeRequest('POST', `createNewPartner`, partnerregister).then(result => {
                 alert.success(result.message);
                 result.success && history.push("/admindashboard");
-                console.log(result)
             }).catch(err => {
                 alert.error(err.message);
             }).finally(() => {
@@ -169,5 +167,4 @@ const Newpartner = () => {
         </div>
     );
 };
-
 export default Newpartner;

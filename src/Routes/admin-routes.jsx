@@ -19,14 +19,14 @@ export const AdminRoutes = () => {
         <Switch>
             <Route path="/partner" component={Partnerlogin} />
             <Route path="/admin" component={Adminlogin} />
-            <Route path="/partner/dashboard">
-                <PartnerDashboard />
-            </Route>
-            <Route path="/dashboard/order">
-                <PartnerOrderById />
-            </Route>
-
-
+            {
+                auth.isPartner() && <>
+                    <Route path="/partnerdashboard" component={PartnerDashboard} />
+                    <Route path="/dashboard/order">
+                        <PartnerOrderById />
+                    </Route>
+                </>
+            }
             {
                 auth.isAdmin() && <>
                     <Route path="/admindashboard">

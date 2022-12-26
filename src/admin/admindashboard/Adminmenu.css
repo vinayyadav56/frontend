@@ -437,3 +437,16 @@ select {
     font-weight: 500 !important;
     color: #000;
 }
+
+.admin_track{
+    margin-left: 5rem;
+    background-color: transparent;
+    color: #fff;
+    font-weight: 600;
+    margin-right: 2rem; 
+    font-size: 14px;
+}
+.admin_track:hover{
+    background: #fff;
+    color: #0747a9;
+}

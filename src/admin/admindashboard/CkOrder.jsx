@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { Link, NavLink, Redirect } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./Adminmenu.css";
 import clsx from 'clsx';
 import "./ckorder.css";
@@ -22,7 +22,6 @@ export default function CkOrder() {
         items_total_weight: 0,
         subOrders: []
     });
-    console.log(ckOrder.subOrders);
     const { setLoading } = useAuth();
     const [newOrder, setNewOrder] = useState([]);
     const [hubData, setHubData] = useState([]);
@@ -47,7 +46,6 @@ export default function CkOrder() {
                 })
             })
             setNewOrder(tempData);
-            console.log(tempData)
         })
             .finally(() => {
                 setLoading(false);
@@ -82,10 +80,6 @@ export default function CkOrder() {
             setLoading(false);
         });
     }
-    const auth = useAuth();
-    if (!auth.isAuthenticated()) {
-        return <Redirect to="/admin" />
-    };
     const columns = [
         {
             field: 'id',

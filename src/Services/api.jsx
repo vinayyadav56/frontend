@@ -33,7 +33,6 @@ export function putRequest(URL, payload) {
 export function deleteRequest(URL) {
     return axiosClient.delete(`/${URL}`).then(response => response.data);
 }
-
 export function makeRequest(method, URL, payload){
     switch (method){
         case 'GET':

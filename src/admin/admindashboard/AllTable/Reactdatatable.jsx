@@ -156,7 +156,7 @@ const Reactdatatable = () => {
     setLoading(true);
     makeRequest('GET', `partnerDetailsByPartnerId/${id}`, editData).then(result => {
       setEditData(result.data);
-      console.log(result.data)
+      // console.log(result.data)
     }).catch(err => {
       alert.error(err.message);
     }).finally(() => {

@@ -28,7 +28,7 @@ body {
     font-weight: 500;
     cursor: pointer;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     margin-bottom: -25px;
 }
 
@@ -297,12 +297,10 @@ a:not([href]):not([class]) {
 
 .menu .desktop-links a:hover {
     color: aqua;
-    border-bottom: 1px solid #fff;
 }
 
 .menu a.active {
     color: aqua;
-    border-bottom: 1px solid #fff;
 }
 
 /*SHIP  MODAL CSS START */
@@ -1165,7 +1163,7 @@ a:not([href]):not([class]) {
 }
 
 .home_footer ul li a {
-    color: #ffF;
+    color: #fff;
     font-size: 14px;
     text-decoration: none;
 }
@@ -1179,10 +1177,71 @@ a:not([href]):not([class]) {
     font-size: 16px;
     font-weight: 600;
 }
-
+.home_track{
+    color: #fff;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    font-size: 14px;
+}
+.home_track:hover{
+    color: aqua;
+    border: none;
+    box-shadow: none;
+}
+.home_track:focus{
+    box-shadow: none;
+    border: none;
+}
+.order_status_text {
+    font-size: 14px;
+    font-family: emoji;
+    margin-top: 2rem;
+    margin-left: 1rem;
+    font-weight: 600;
+}
+.track_btn{
+    border-radius: 4px;
+    background-color: #0747a9;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 0.6rem;
+    width:100%;
+    transition: all 0.5s;
+    cursor: pointer;
+  }
+  
+  .track_btn span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .track_btn span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+  
+  .track_btn:hover span {
+    padding-right: 25px;
+  }
+  
+  .track_btn:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
 .footer_logo {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
 }
 
 .footer_logo img {
@@ -1376,7 +1435,7 @@ a:not([href]):not([class]) {
     .footer_logo {
         color: #fff;
         display: flex;
-        justify-content: start;
+        justify-content: flex-start;
     }
 
 }

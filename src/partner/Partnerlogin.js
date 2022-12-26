@@ -31,10 +31,9 @@ const Adminlogin = () => {
       setLoading(true);
 
       postRequest('partner-login', login_partner).then(result => {
-        // console.log(result);
         alert.success(result.message);
-        handleUser(result.userDetails);
-        history.push("/partner/dashboard");
+        handleUser(result.PartnerUsers);
+        history.push("/partnerdashboard");
       }).catch(error => {
         alert.error(error.message);
       }).finally(() => {

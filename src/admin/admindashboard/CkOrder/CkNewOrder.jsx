@@ -59,7 +59,7 @@ const CkNewOrder = () => {
         setLoading(true);
         makeRequest('GET', `fetchNewAlphaOrder`).then(result => {
             setUserData(result.data);
-            console.log(result.data);
+            // console.log(result.data);
         })
             .finally(() => {
                 setLoading(false);
@@ -70,6 +70,7 @@ const CkNewOrder = () => {
         setLoading(true);
         makeRequest('POST', `fetchUsersAvailability`).then(result => {
             result.userAvailability && setCkAssignUser(result.userAvailability);
+            // console.log(result.userAvailability);
         }).catch(err => {
             alert.error(err.message);
         }).finally(() => {
@@ -86,8 +87,7 @@ const CkNewOrder = () => {
             "availability_id": id
         }).then(result => {
             alert.success(result.message);
-            result.success && fetchAvailbility();
-            // window.location.reload(false);
+            // result.success && fetchAvailbility() && fetchData();
 
         }).catch(err => {
             alert.error(err.message);
@@ -229,7 +229,8 @@ const CkNewOrder = () => {
                                                     <button
                                                         type="button"
                                                         className="btn btn-success"
-                                                        data-toggle="modal" data-target=".assign_order_to_delivery_boy"
+                                                        // onClick={console.log('hello')}
+                                                        data-toggle="modal" data-target={`#call-${row.id}`}
                                                     >
                                                         Assign Carrier
                                                     </button>
@@ -381,7 +382,7 @@ const CkNewOrder = () => {
                                 </div>
 
                                 {/* ASSIGNING CARRIER DETAILS MODAL  */}
-                                <div className="modal fade assign_order_to_delivery_boy" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                <div className="modal fade" tabIndex="-1" id={`call-${row.id}`} role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                     <div className="modal-dialog  add-partner modal-xl">
                                         <div className="modal-content">
                                             <div className="modal-header">
@@ -416,7 +417,6 @@ const CkNewOrder = () => {
                                                                 <StyledTableCell>Journey Type</StyledTableCell>
                                                                 <StyledTableCell>Available Space</StyledTableCell>
                                                                 <StyledTableCell>Journey Medium</StyledTableCell>
-
                                                                 <StyledTableCell>Action</StyledTableCell>
                                                             </StyledTableRow>
                                                         </TableHead>

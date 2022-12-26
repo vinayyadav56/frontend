@@ -27,7 +27,7 @@ const HubSidebar = () => {
                                         <span>Welcome Back!</span>
                                         {user && user.id ? (
                                             <span>
-                                                {user.first_name} {user.last_name}
+                                                {user.hub_name}
                                             </span>
                                         ) : (
                                             "Guest"

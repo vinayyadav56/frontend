@@ -1,5 +1,5 @@
 export const TrackingStatus = {
-    new_created: "NEW_CREATED",
+    new_created: "NEW_CREATE",
     reject: "REJECT",
     confirmed: "CONFIRMED",
     pickup_hub_assigned: "PICKUP_HUB_ASSIGNED",

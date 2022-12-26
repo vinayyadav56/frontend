@@ -32,7 +32,9 @@ const HubLogin = () => {
             postRequest('hubLogin', hubUserLogin).then(result => {
                 alert.success(result.message);
                 result.success && handleUser(result.userDetails)
-                history.push("/hub/dashboard")
+                if (result.userDetails.is_hub === 0) {
+                  history.push("/hub/dashboard")
+                }
             }).catch(error => {
                 alert.error(error.message);
             }).finally(() => setLoading(false))
@@ -63,6 +65,7 @@ const HubLogin = () => {
                                     <input
                                         type="password"
                                         name="password"
+                                        autoComplete='off'
                                         placeholder="Enter password"
                                         value={hubUserLogin.password}
                                         onChange={handleLoginInput}

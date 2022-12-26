@@ -9,11 +9,9 @@ import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
 import PartnerOrderTable from './PartnerOrderTable';
+import { useAuth } from '../../Services/auth';
 const PartnerOrderById = () => {
-    // const auth = useAuth();
-    // if (!auth.isAuthenticated()) {
-    //   return <Redirect to="/partner" />
-    // }
+    const {user} = useAuth();
     return (
         <Fragment>
             <nav className="sticky-top partnerdash-nav ">
@@ -26,7 +24,7 @@ const PartnerOrderById = () => {
                     <div className="profile-area">
                         <div className="profile">
                             <div className="profile-photo">
-                                <AccountCircleRoundedIcon />
+                                <AccountCircleRoundedIcon className='mb-1' />
                             </div>
                             <div className="dropdown show">
                                 <Link
@@ -38,7 +36,13 @@ const PartnerOrderById = () => {
                                     aria-haspopup="true"
                                     aria-expanded="false"
                                 >
-                                    <span>User Name</span>
+                                    {user && user.id ? (
+                                        <span>
+                                            {user.partner_name}
+                                        </span>
+                                    ) : (
+                                        "Guest"
+                                    )}
                                 </Link>
 
                                 <div
@@ -70,7 +74,7 @@ const PartnerOrderById = () => {
                             <CloseRoundedIcon />
                         </button>
                         <div className="responsive-sidebar">
-                            <NavLink to="/partner/dashboard">
+                            <NavLink to="/partnerdashboard">
                                 <span className="icon">
                                     <GridViewRoundedIcon />
                                 </span>

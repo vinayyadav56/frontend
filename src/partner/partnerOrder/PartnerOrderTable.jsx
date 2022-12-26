@@ -14,8 +14,6 @@ const PartnerOrderTable = () => {
     const [open, setopen] = useState(false);
     const [partnerOrder, setPartnerOrder] = useState([]);
     const [createorder, setCreateorder] = useState({});
-    
-
     const handleClickOpen = () => {
         setopen(true);
     };
@@ -25,7 +23,6 @@ const PartnerOrderTable = () => {
     };
     const fetchData = async () => {
       const partnerId = user.id
-      console.log(partnerId);
         setLoading(true);
         makeRequest('GET',`partnerOrdersByPartnerId/${partnerId}`).then(result => {
             setPartnerOrder(result.orders);
@@ -74,7 +71,7 @@ const PartnerOrderTable = () => {
                 <div className='table_partner_data'>
                     {partnerOrder.map((item, id) => (
                         <div>
-                            <span className="badge badge-danger">{item.id}</span>
+                            <span className="badge badge-danger">{user.id}</span>
                             <div key={id} className='row table_row_data'>
                                 <div className='col-12 header_partner_oder mb-3'>
                                     <div className='d-flex justify-content-end'>
@@ -122,7 +119,7 @@ const PartnerOrderTable = () => {
                                             </li>
                                             <li>
                                                 <span>Sub Category Id :</span>
-                                                <span>{item.sub_cateogory_id}</span>
+                                                <span>{item.sub_category_id}</span>
                                             </li>
                                         </ul>
                                         <ul>

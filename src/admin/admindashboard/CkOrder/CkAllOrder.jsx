@@ -59,7 +59,7 @@ const CkAllOrder = () => {
         setLoading(true);
         makeRequest('GET', `fetchAlphaOrders`).then(result => {
             setUserData(result.data);
-            console.log(result.data);
+            // console.log(result.data);
         })
             .finally(() => {
                 setLoading(false);
@@ -236,7 +236,7 @@ const CkAllOrder = () => {
                                                     <button
                                                         type="button"
                                                         className="btn btn-success"
-                                                        data-toggle="modal" data-target=".assign_order_to_delivery_boy"
+                                                        data-toggle="modal" data-target={`call-${row.id}`}
                                                     >
                                                         Assign Carrier
                                                     </button>
@@ -388,7 +388,7 @@ const CkAllOrder = () => {
                                 </div>
 
                                 {/* ASSIGNING CARRIER DETAILS MODAL  */}
-                                <div className="modal fade assign_order_to_delivery_boy" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                <div className="modal fade" id={`call-${row.id}`} tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                     <div className="modal-dialog  add-partner modal-xl">
                                         <div className="modal-content">
                                             <div className="modal-header">

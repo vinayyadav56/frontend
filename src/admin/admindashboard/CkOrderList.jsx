@@ -8,13 +8,8 @@ import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import GridViewRoundedIcon from "@mui/icons-material/GridViewRounded";
-// import { useAuth } from '../../Services/auth';
 import CkOrderDetails from './CkOrder/CkOrderTabs';
 const CkOrderList = () => {
-    // const auth = useAuth();
-    // if (!auth.isAuthenticated()) {
-    //     return <Redirect to="/admin" />
-    // };
     return (
         <Fragment>
             <nav className="sticky-top partnerdash-nav">

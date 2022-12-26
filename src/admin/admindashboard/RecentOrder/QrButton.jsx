@@ -15,8 +15,6 @@ const QrButton = ({ path, orderid, ordertype, updateOrder, status }) => {
         makeRequest('POST', `generateQrCode`, qrdata).then(result => {
             alert.success(result.message);
             result.success && updateOrder();
-            // setQrdata(console.log(result))
-            // history.push("/admin/all-order");
         }).catch(err => {
             alert.error(err.message);
         }).finally(() => {

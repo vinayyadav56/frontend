@@ -24,16 +24,15 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
-// import CustomizedSteppers from '../../../Timeline';
 import { TrackingStatus } from "../../../config/contants";
 import Loader from '../../../Helpers/Loader';
+import TrackingSteppers from '../../../Timeline';
 
-const RecentOrder = ({ qr }) => {
+const RecentOrder = () => {
     let alert = useAlert();
     const [hubData, setHubData] = useState([]);
     const { loading, setLoading } = useAuth();
     const [newOrder, setNewOrder] = useState([]);
-
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -48,18 +47,13 @@ const RecentOrder = ({ qr }) => {
         setLoading(true);
         makeRequest('GET', `fetchNewOrders`).then(result => {
             setNewOrder(result.data);
-            console.log(result.data);
         })
             .finally(() => {
                 setLoading(false);
             })
     };
 
-    const handleId = (id) => {
-    }
-
-
-    // HUB LIST FETCHED FOR DROPDOWN STARTS
+    // HUB LIST FETCHED FUNCTION FOR DROPDOWN STARTS
     const hubListData = async () => {
         setLoading(true);
         makeRequest('GET', `hubsList`).then(result => {
@@ -69,9 +63,9 @@ const RecentOrder = ({ qr }) => {
                 setLoading(false);
             })
     };
+    // HUB LIST FETCHED FUNCTION FOR DROPDOWN ENDS
 
-    // UPDAT HUB API STARTS
-
+    // UPDATE HUB FUNCTION STARTS
     const handleInput = (fieldName, type, e, order_id) => {
         if (
             order_id &&
@@ -98,6 +92,7 @@ const RecentOrder = ({ qr }) => {
         }
 
     };
+      // UPDATE HUB FUNCTION ENDS
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -136,14 +131,11 @@ const RecentOrder = ({ qr }) => {
             })
     };
     function handleAuthorizeOrder(order_id, order_type, status) {
-        console.log(order_id, order_type, status);
         setLoading(true)
-
         makeRequest('POST', 'tracking/authorise-order', { order_id, order_type, status }).then(res => {
             res.success ? alert.success(res.message) : alert.error(res.message());
             fetchData();
         }).catch(err => {
-            console.log(err)
             alert.error(err.message)
         }).finally(() => setLoading(false))
     }
@@ -222,7 +214,7 @@ const RecentOrder = ({ qr }) => {
                     </div>
                     <div className='all_order_table'>
                         <div className="container-fluid">
-                            {newOrder.length ?
+                            {newOrder.length > 0 ?
                                 newOrder.map((item, id) => {
                                     return (
                                         <>
@@ -307,13 +299,11 @@ const RecentOrder = ({ qr }) => {
                                                                     </p>
                                                                     <hr className="m-0 my-2" />
                                                                     <p className="badge badge-info p-2 mr-2">Status: <strong>{item.status}</strong></p>
-
                                                                     {item.from_hub_id != null &&
                                                                         <span className="badge badge-info p-2 mr-2">
                                                                             From Hub: <strong>{item.from_hub_id}</strong>
                                                                         </span>
                                                                     }
-
                                                                     {item.to_hub_id != null &&
                                                                         <span className="badge badge-info p-2 mr-2">
                                                                             To Hub: <strong>{item.to_hub_id}</strong>
@@ -322,7 +312,6 @@ const RecentOrder = ({ qr }) => {
                                                                 </div>
                                                                 <QrMake path={item.qr_image_path} orderid={item.id} ordertype={item.source} />
                                                             </div>
-
                                                         </div>
                                                         {
                                                             (item.status === TrackingStatus.confirmed || item.status == TrackingStatus.pickup_hub_assigned) &&
@@ -346,7 +335,6 @@ const RecentOrder = ({ qr }) => {
                                                                                         </>
                                                                                     )
                                                                                 })}
-
                                                                             </select>
                                                                         </div>
                                                                     }
@@ -383,47 +371,34 @@ const RecentOrder = ({ qr }) => {
                                                                     </button>
                                                                 </>
                                                             }
-
                                                             {(item.status == TrackingStatus.delivery_hub_assigned || item.status == TrackingStatus.pickup_hub_assigned) &&
                                                                 <QrButton path={item.qr_image_path} orderid={item.id} ordertype={item.source} updateOrder={fetchData} />
                                                             }
-
-                                                            {/*{ item.status === TrackingStatus.pickup_hub_assigned &&*/}
-                                                            {/*    <button type="button" className="btn btn-warning mr-2" data-toggle="modal" data-target="#hubAssignForCo">*/}
-                                                            {/*        Assign For Pickup*/}
-                                                            {/*    </button>*/}
-                                                            {/*}*/}
-
                                                             {item.status === TrackingStatus.pickup_hub_assigned &&
-                                                                <button type="button" className="btn btn-info mr-2" data-toggle="modal" data-target="#partnerprintid" onClick={handleId(item.id)}>
+                                                                <button type="button" className="btn btn-info mr-2" data-toggle="modal" data-target={`#call-${item.id}`}>
                                                                     Generate Invoice
                                                                 </button>
                                                             }
                                                             {(item.status != TrackingStatus.new_created && item.status !== TrackingStatus.reject) &&
-                                                                <button className='btn btn-secondary mr-2'>
-                                                                    Tracking
-                                                                </button>
-                                                                // <>
-                                                                //     <Button
-                                                                //         onClick={() => setOpen(!open)}
-                                                                //         aria-controls="example-collapse-text"
-                                                                //         aria-expanded={open}
-                                                                //     >
-                                                                //         Tracking
-                                                                //     </Button>
-                                                                //     <Collapse in={open}>
-                                                                //         <div id="example-collapse-text">
-                                                                //             <Tracker />
-                                                                //         </div>
-                                                                //     </Collapse>
-                                                                // </>
+                                                                <>
 
+                                                                    <a className="btn btn-secondary mr-2" data-toggle="collapse" href={`#collapsable-${item.id}`} role="button" aria-expanded="false" aria-controls="trackercollapse">
+                                                                        Tracking
+                                                                    </a>
+                                                                    
+                                                                    <div className="collapse mt-1" id={`collapsable-${item.id}`}>
+                                                                        <div className="card card-body">
+                                                                            {/* <Tracker /> */}
+                                                                            <TrackingSteppers />
+                                                                        </div>
+                                                                    </div>
+                                                                </>
                                                             }
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="modal fade" id="partnerprintid" tabIndex="-1" role="dialog" aria-labelledby="partnerprintidLabel" aria-hidden="true">
+                                            <div className="modal fade" id={`call-${item.id}`} tabIndex="-1" role="dialog" aria-labelledby="partnerprintidLabel" aria-hidden="true">
                                                 <div className="modal-dialog" role="document">
                                                     <div className="modal-content">
                                                         <div className="modal_header pt-2 pr-3">

@@ -5,50 +5,47 @@ import { useAlert } from "react-alert";
 // import { useHistory } from "react-router-dom";
 
 const Form = () => {
-    const { setLoading } = useAuth();
+    const {user, setLoading } = useAuth();
     let alert = useAlert();
-    // let history = useHistory();
-
     const [createorder, setCreateorder] = useState(
         {
-            partner_id: 1,
+            partner_id: user.id,
             delivery_pincode: 123401,
             pickup_pincode: 123435,
-            delivery_type: "",
+            delivery_type: "express",
             sender_details: {
-                sender_name: '',
-                sender_email: '',
-                sender_contact_no: '',
+                sender_name: 'Rahul Yadav',
+                sender_email: 'rahul@gm.dhd',
+                sender_contact_no: '78877876',
                 address: {
-                    sender_house_number: '',
-                    sender_locality: '',
-                    sender_city: '',
-                    sender_state: '',
-                    sender_pincode: ''
+                    sender_house_number: 'hghghgd',
+                    sender_locality: 'dhgdghd',
+                    sender_city: 'dghghdd',
+                    sender_state: 'shjd',
+                    sender_pincode: '12321'
                 }
             },
             reciever_details: {
-                receiver_name: '',
-                receiver_email: '',
-                receiver_contact_no: '',
+                receiver_name: 'Rohan Rastogi',
+                receiver_email: 'adarsh@hhf.dhj',
+                receiver_contact_no: '776788787',
                 address: {
-                    receiver_house_number: '',
-                    receiver_locality: '',
-                    receiver_city: '',
-                    receiver_state: '',
-                    receiver_pincode: ''
+                    receiver_house_number: '6674',
+                    receiver_locality: '673673',
+                    receiver_city: 'gdghd',
+                    receiver_state: 'eee',
+                    receiver_pincode: 'wee'
                 }
             },
             package_details: {
-                package_size: '',
-                package_dimension: '',
-                cateogory_id: '',
-                sub_category_id: '',
-                additional_details: ''
+                package_size: 'Size',
+                package_dimension: 'fer',
+                cateogory_id: 'ggghdd',
+                sub_category_id: '23',
+                additional_details: 'test'
             }
         }
     );
-
     const handleCreateinput = (e) => {
         const { name, value } = e.target;
         setCreateorder({
@@ -64,7 +61,6 @@ const Form = () => {
 
         postRequest('createNewOrderPartner', createorder).then(result => {
             alert.success(result.message);
-            console.log(result.createorder);
         }).catch(error => {
             alert.error(error.message);
         }).finally(() => {

@@ -38,24 +38,21 @@ function useProvideAuth() {
         return user ? true : false;
     }
     const isHub = () => {
-        return user && user.is_hub;
+        return user && user.is_hub === 0;
     }
     const isAdmin = () => {
         return user && user.is_admin;
        
     }
-
     const isPartner = () => {
-        return user && user.is_partner === 0;
+        return user && user.is_partner;
     }
-
     const isUser = () => {
         return user && user.is_customer;
     }
     const isCarrier = () => {
         return user && user.is_carrier;
     }
-
     useEffect(() => {
         user ? storage.setJson('user', user) : storage.clear('user');
     }, [user, storage]);
