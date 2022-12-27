@@ -256,7 +256,7 @@ export default function BasicTabs() {
                     </Box>
                     <TabPanel value={activeTab} index={0}>
                         <span className="row">
-                            <span className="form-group col-sm-12 col-md-5  mb-sm-4 px-2  col-lg-5">
+                            <span className="form-group col-sm-12 col-md-6  mb-sm-4 px-2  col-lg-6">
                                 <span className="search-container">
                                     <span className="search-inner">
                                         <AutoComplete
@@ -272,10 +272,10 @@ export default function BasicTabs() {
                                     </span>
                                 </span>
                             </span>
-                            <span className="form-group col-sm-12 col-md-2  mb-sm-4 px-0  col-lg-2 d-flex justify-content-center">
+                            {/* <span className="form-group col-sm-12 col-md-2  mb-sm-4 px-0  col-lg-2 d-flex justify-content-center">
                                 <img src={trip} alt="triploc" />
-                            </span>
-                            <span className="form-group col-sm-12 col-md-5  mb-sm-4 px-2  col-lg-5">
+                            </span> */}
+                            <span className="form-group col-sm-12 col-md-6  mb-sm-4 px-2  col-lg-6">
                                 <span className="search-container">
                                     <span className="search-inner">
                                         <AutoComplete
