@@ -2,8 +2,9 @@ import React from 'react'
 import { ColorRing } from 'react-loader-spinner'
 
 const Loader = () => {
+    
     return (
-        <div className='d-flex justify-content-center h-100'>
+        <div className='loading'>
             <ColorRing
                 visible={true}
                 height="80"

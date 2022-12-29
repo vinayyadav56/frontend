@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Fragment } from 'react'
 import AddIcon from "@mui/icons-material/Add";
 import { useHistory } from 'react-router-dom';
@@ -21,6 +21,7 @@ const AddDeliveryPartner = () => {
         alter_phone_no: "",
         phone_no: "",
         pin: "",
+        password:"",
         state: "",
         city: "",
         linked_hub_id: "",
@@ -32,6 +33,9 @@ const AddDeliveryPartner = () => {
         is_pan_verified: 1,
         is_driving_licence_verified: 1
     });
+    // console.log(agent);
+    const [hubData, setHubData] = useState([]);
+    const modalCloseBtn = useRef();
     const handleInput = (e) => {
         const { name, value } = e.target;
         setAgent({
@@ -50,6 +54,7 @@ const AddDeliveryPartner = () => {
             alter_phone_no,
             pin,
             state,
+            password,
             city,
             current_address,
             permanent_address,
@@ -78,12 +83,14 @@ const AddDeliveryPartner = () => {
             linked_hub_id &&
             is_pan_verified &&
             is_driving_licence_verified &&
+            password &&
             is_aadhar_verified
         ) {
             setLoading(true);
 
             makeRequest('POST', `createNewDeliveryAgent`, agent).then(result => {
                 alert.success(result.message);
+                modalCloseBtn.current.click();
                 result.success && history.push("/hub/dashboard");
             }).catch(err => {
                 alert.error(err.message);
@@ -94,6 +101,20 @@ const AddDeliveryPartner = () => {
             alert.error("Invalid Inputs");
         }
     };
+    const hubListData = async () => {
+        setLoading(true);
+        makeRequest('GET', `hubsList`).then(result => {
+            setHubData(result.data);
+        })
+            .finally(() => {
+                setLoading(false);
+            })
+    };
+    useEffect(() => {
+        hubListData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
     return (
         <Fragment>
             <button
@@ -101,6 +122,7 @@ const AddDeliveryPartner = () => {
                 className="btn add_partner"
                 data-toggle="modal"
                 data-target="#deliverypartner"
+                ref={modalCloseBtn}
             >
                 <AddIcon />
                 Add Delivery Partner
@@ -138,11 +160,16 @@ const AddDeliveryPartner = () => {
                                 className="agent_add"
                             >
                                 <label for="#hubid">HUB ID</label>
-                                <select id='hubid' name='linked_hub_id' className="custom-select" onChange={handleInput} value={agent.linked_hub_id}>
-                                    <option selected>Choose hub id</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                <select id="selectuser" value={agent.linked_hub_id} name='linked_hub_id' className="form-control"
+                                    required onChange={handleInput}>
+                                    <option>Choose Hub</option>
+                                    {hubData.map((index) => {
+                                        return (
+                                            <>
+                                                <option value={index.hub_id}>{index.hub_name}</option>
+                                            </>
+                                        )
+                                    })}
                                 </select>
 
                                 <div className="row mb-3">
@@ -151,13 +178,29 @@ const AddDeliveryPartner = () => {
                                         <input id='firstname' name='first_name' type="text" onChange={handleInput} value={agent.first_name} className="form-control" placeholder="First name" />
                                         <label for="#lastname">LastName</label>
                                         <input id='lastname' name='last_name' type="text" onChange={handleInput} value={agent.last_name} className="form-control" placeholder="Last name" />
-                                        <label for="#dob">DOB</label>
-                                        <input id='dob' type="date" name='dob' onChange={handleInput} value={agent.dob} className="form-control" placeholder="DOB" />
                                         <label for="#email">Email ID</label>
                                         <input id='email' type="email" name='email_id' onChange={handleInput} value={agent.email_id} className="form-control" placeholder="Email Id" />
+
+
                                     </div>
                                     <div className="col-6 d-flex align-items-center">
                                         <Previews />
+                                    </div>
+                                </div>
+                                <div className="row mb-3">
+                                    <div className="col">
+                                        <label for="#dob">DOB</label>
+                                        <input id='dob' type="date"
+                                            name='dob' onChange={handleInput} value={agent.dob}
+                                            className="form-control" placeholder="DOB"
+                                        />
+                                    </div>
+                                    <div className="col">
+                                        <label for="#dob">Password</label>
+                                        <input id='dob' type="password" name='password'
+                                            onChange={handleInput} value={agent.password}
+                                            className="form-control" placeholder="Password"
+                                        />
                                     </div>
                                 </div>
                                 <div className="row mb-3">

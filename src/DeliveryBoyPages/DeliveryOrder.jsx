@@ -79,7 +79,7 @@ const PickupOrder = ({ userActive, addUserLocal }) => {
                 <section className="main-content">
                     <DeliveryHeader addUserLocal={addUserLocal} />
                     <div className='pickup_table_section mt-5'>
-                        <p>Pickup Orders</p>
+                        <p>Delivery Orders</p>
                         <TableContainer component={Paper}>
                             <Table stickyHeader striped aria-label="sticky table">
                                 <TableHead>

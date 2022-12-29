@@ -13,6 +13,7 @@ import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import { makeRequest, postRequest } from "../../Services/api";
 import { useAuth } from '../../Services/auth';
+import { useAlert } from 'react-alert';
 export default function CkOrder() {
     const [selectedRows, setSelectedRows] = useState([]);
     const [ckOrder, setCkOrder] = useState({
@@ -23,6 +24,7 @@ export default function CkOrder() {
         subOrders: []
     });
     const { setLoading } = useAuth();
+    let alert = useAlert();
     const [newOrder, setNewOrder] = useState([]);
     const [hubData, setHubData] = useState([]);
 
@@ -61,7 +63,7 @@ export default function CkOrder() {
 
         setCkOrder({
             ...ckOrder,
-            package_weight: weight
+            items_total_weight: weight
         })
     }
     useEffect(() => {
@@ -264,7 +266,6 @@ export default function CkOrder() {
                                     Search Hub
                                 </button>
                             </div>
-
                             <div className="col-md-3">
                                 <label
                                     htmlFor="colFormLabelSm"
@@ -274,22 +275,21 @@ export default function CkOrder() {
                                 </label>
                                 <input
                                     type="number"
-                                    name='package_volume_weight'
+                                    name='items_total_weight'
                                     onChange={handleLocation}
-                                    value={ckOrder.package_weight}
+                                    value={ckOrder.items_total_weight}
                                     className="form-control"
                                     id="colFormLabelSm"
                                 />
                             </div>
                             <div className='col-md-3 text-right'>
-                                <br/>
+                                <br />
                                 <span className='btn ordergenrate form-control' onClick={handleOrder}>
                                     Make Order
                                 </span>
                             </div>
                         </div>
                     </form>
-
                     <Box sx={{
                         height: '70%',
                         width: '100%',

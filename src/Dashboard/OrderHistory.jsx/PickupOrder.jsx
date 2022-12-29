@@ -3,20 +3,19 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { Fragment } from 'react'
 import { useAlert } from 'react-alert';
-import { Table } from 'react-bootstrap'
 import { makeRequest } from '../../Services/api';
 import { useAuth } from '../../Services/auth';
 
 const PickupOrder = () => {
-    const { setLoading , user} = useAuth();
+    const { setLoading, user } = useAuth();
     const alert = useAlert();
-    const [pickupOrder, setPickupOrder] = useState({});
+    const [pickupOrder, setPickupOrder] = useState([]);
     const fetchAvailbility = async () => {
-        const id = user.tokenable_id
+        const carrierId = user.id
         setLoading(true);
-        makeRequest('GET', `CarrierPickupOrder/${id}`).then(result => {
+        makeRequest('GET', `CarrierPickupOrder/${carrierId}`).then(result => {
             alert.success(result.message);
-            setPickupOrder(result.pickupOrder);
+            setPickupOrder(result.pickupData);
         }).catch(err => {
             alert.error(err.message);
         }).finally(() => {
@@ -30,33 +29,35 @@ const PickupOrder = () => {
     }, []);
     return (
         <Fragment>
-            <Table responsive="md" striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Alpha Order Id</th>
-                        <th>Remarks</th>
-                        <th>Assigned By</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {pickupOrder
-                        // eslint-disable-next-line
-                        .map((row, id) => {
-                            return (
-                                <tr key={id}>
-                                    <td>{row.id}</td>
-                                    <td>{row.alpha_order_id}</td>
-                                    <td>{row.alpha_order_id}</td>
-                                    <td>{row.alpha_order_id}</td>
-                                    <td>{row.alpha_order_id}</td>
-                                </tr>
-                            )
-                        })}
-                </tbody>
-            </Table>
+            <div className="table-responsive h-auto">
+                <table className="table table-hover table table-bordered">
+                    <thead className="table-primary">
+                        <tr>
+                            <th>Id</th>
+                            <th>ALPHA ORDER ID</th>
+                            <th>REMARKS</th>
+                            <th>STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            Object.values(pickupOrder)
+                                // eslint-disable-next-line
+                                .map((row, id) => {
+                                    return (
+                                        <tr key={id}>
+                                            <td className="pt-3 pb-3">{row.id}</td>
+                                            <td className="pt-3 pb-3">{row.alpha_order_id}</td>
+                                            <td className="pt-3 pb-3">{row.remarks}</td>
+                                            <td className="pt-3 pb-3">{row.status}</td>
+                                        </tr>
+                                    )
+                                })
+                        }
+                    </tbody>
+                </table>
 
+            </div>
         </Fragment>
     )
 }

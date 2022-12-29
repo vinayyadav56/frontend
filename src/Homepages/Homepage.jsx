@@ -66,7 +66,7 @@ const Homepage = () => {
     order_type: ""
   })
   const [newOrder, setNewOrder] = useState([]);
-  const handleClose = () => setShow(false);
+ 
   const handleShow = () => setShow(true);
   const { signout, setLoading } = useAuth();
 
@@ -74,7 +74,10 @@ const Homepage = () => {
   const handleRefresh = () => {
     window.location.reload(false)
   }
-
+  const handleClose = () => {
+    setShow(false);
+    handleRefresh();
+  };
   const handleInput = (e) => {
     const { name, value } = e.target;
     setData({
@@ -88,7 +91,7 @@ const Homepage = () => {
     setLoading(true);
     makeRequest('POST', `tracking/orderTrackingStatus`, data).then(result => {
       setNewOrder(result.orderTraking);
-      console.log(result);
+      // console.log(result);
     })
       .finally(() => {
         setLoading(false);
@@ -784,10 +787,10 @@ const Homepage = () => {
                         {
                           newOrder.length > 0 ?
                             <>
-                            <p className="order_status_text">Your Order Status </p>
+                              <p className="order_status_text">Your Order Status </p>
                               <Stack sx={{ width: '100%', marginTop: '1rem' }} spacing={3}>
                                 <Stepper alternativeLabel activeStep={10} style={{ width: '100%', margin: 'auto' }} connector={<QontoConnector />}>
-                                  {newOrder.map((label,id) => (
+                                  {newOrder.map((label, id) => (
                                     <Step style={{ width: '30px' }} key={id}>
                                       <StepLabel style={{ fontSize: '0.7rem' }} StepIconComponent={AdjustIcon}>{label.status}</StepLabel>
                                     </Step>
@@ -797,9 +800,10 @@ const Homepage = () => {
                             </>
                             :
                             <>
+                              <h4 className='text-center mt-3'>No Order History</h4>
                             </>
-                            
-}
+
+                        }
 
                       </Modal.Body>
                     </Modal>

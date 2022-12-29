@@ -45,13 +45,16 @@ function useProvideAuth() {
        
     }
     const isPartner = () => {
-        return user && user.is_partner;
+        return user && user.is_partner === 0;
     }
     const isUser = () => {
         return user && user.is_customer;
     }
     const isCarrier = () => {
         return user && user.is_carrier;
+    }
+    const isCommuter= () => {
+        return user && user.is_daily_commuter;
     }
     useEffect(() => {
         user ? storage.setJson('user', user) : storage.clear('user');
@@ -68,6 +71,7 @@ function useProvideAuth() {
         isPartner,
         isUser,
         isCarrier,
+        isCommuter,
         signout,
     }
 }

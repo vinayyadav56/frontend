@@ -21,7 +21,9 @@ export const AdminRoutes = () => {
             <Route path="/admin" component={Adminlogin} />
             {
                 auth.isPartner() && <>
-                    <Route path="/partnerdashboard" component={PartnerDashboard} />
+                    <Route path="/partnerdashboard">
+                        <PartnerDashboard />
+                    </Route>
                     <Route path="/dashboard/order">
                         <PartnerOrderById />
                     </Route>

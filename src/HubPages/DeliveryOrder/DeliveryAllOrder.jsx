@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import "../../admin/admindashboard/AllTable/Table.css";
 import "../../admin/admindashboard/partnerorder.css";
 import { styled } from '@mui/material/styles';
@@ -11,7 +11,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
-import { useState } from 'react';
 import { Fragment } from 'react';
 import { makeRequest } from '../../Services/api';
 import { useAlert } from 'react-alert';
@@ -48,13 +47,16 @@ const DeliveryAllOrder = () => {
             backgroundColor: theme.palette.action.hover,
         }
     }));
-    // const [hubOrderData] = useState([]);
     const [hubOrderData, sethubOrderData] = useState([]);
+    const [hubAgent, setHubAgents] = useState([]);
+    const [selectedOrder, setSelectedOrder] = useState(null);
+    const modalCloseBtn = useRef();
+
     const fetchData = async () => {
         const hubId = user.id
-        console.log(hubId)
         setLoading(true);
         makeRequest('GET', `fetchHubOrderByHubId/${hubId}?status=new`).then(result => {
+            // alert.success(result.message);
             sethubOrderData(result.data);
         }).catch(err => {
             alert.error(err.message);
@@ -63,28 +65,46 @@ const DeliveryAllOrder = () => {
         })
     };
 
-    useEffect(() => {
-        fetchData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    // ASSIGN ORDER TO DELIVERY AGENTS 
-
-    const [deliveryAgents, setDeliveryAgents] = useState([]);
-    const fetchDeliveryAgents = async () => {
+    const fetchAgents = async () => {
         setLoading(true);
-        const hubId = user.id
+        const hubId = user.id;
         makeRequest('GET', `deliveryAgentsListByHubId/${hubId}`).then(result => {
-            setDeliveryAgents(result.data);
+            // alert.success(result.message);
+            setHubAgents(result.data);
+        }).catch(err => {
+            alert.error(err.message);
         }).finally(() => {
             setLoading(false);
         })
     };
+
+
+    const initOrderAssign = (order) => {
+        setSelectedOrder(order);
+    }
+
+    const handleOrderAssign = (agent, transitType) => {
+        setLoading(true);
+        const requestBody = {
+            agent_id: agent.id,
+            order_id: selectedOrder.id,
+            order_type: selectedOrder.source,
+            transit_type: transitType,
+        }
+        makeRequest('POST', 'orders/assign-agent', requestBody).then(res => {
+            alert.success(res.message)
+            modalCloseBtn.current.click();
+            res.success && fetchData();
+        }).catch(err => {
+            alert.error(err.message);
+        }).finally(() => setLoading(false))
+    }
+
     useEffect(() => {
-        fetchDeliveryAgents();
+        fetchData();
+        fetchAgents();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
     return (
         <Fragment>
             <div className='pickup_table_section'>
@@ -106,8 +126,6 @@ const DeliveryAllOrder = () => {
                         </TableHead>
                         <TableBody>
                             {hubOrderData
-                                // eslint-disable-next-line
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, id) => (
                                     <StyledTableRow hover tabIndex={-1} key={id}>
                                         <StyledTableCell>{row.id}</StyledTableCell>
@@ -122,12 +140,15 @@ const DeliveryAllOrder = () => {
                                             <button
                                                 type="button"
                                                 className="btn btn-secondary"
-                                                data-toggle="modal" data-target=".assign_order_to_delivery_boy"
+                                                data-toggle="modal"
+                                                data-target=".assign_order_to_delivery_boy"
+                                                onClick={() => initOrderAssign(row)}
                                             >
-                                                Assign For Delivery
+                                                Assign For Pickup
                                             </button>
                                         </StyledTableCell>
                                     </StyledTableRow>
+
                                 ))}
                         </TableBody>
                         <TableFooter>
@@ -146,19 +167,19 @@ const DeliveryAllOrder = () => {
                     </Table>
                 </TableContainer>
             </div>
-
-            <div className="modal fade assign_order_to_delivery_boy" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div className="modal fade assign_order_to_delivery_boy" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
                 <div className="modal-dialog  add-partner modal-xl">
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title" id="assigncarrierfromAdminTitle">
-                                Avalaible Delivery Agents
+                                Available Delivery Agents
                             </h5>
                             <button
                                 type="button"
                                 className="close"
                                 data-dismiss="modal"
                                 aria-label="Close"
+                                ref={modalCloseBtn}
                             >
                                 <span aria-hidden="true" className="modal-off">
                                     &times;
@@ -171,35 +192,34 @@ const DeliveryAllOrder = () => {
                                     <TableHead>
                                         <StyledTableRow>
                                             <StyledTableCell>Id</StyledTableCell>
-                                            <StyledTableCell>Delivery Boy Name</StyledTableCell>
+                                            <StyledTableCell>Name</StyledTableCell>
                                             <StyledTableCell>Email</StyledTableCell>
-                                            <StyledTableCell>Phone No</StyledTableCell>
-                                            <StyledTableCell>Alternate Phone No</StyledTableCell>
+                                            <StyledTableCell>Phone</StyledTableCell>
+                                            <StyledTableCell>Alt Phone</StyledTableCell>
                                             <StyledTableCell>Action</StyledTableCell>
                                         </StyledTableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {deliveryAgents
-                                            // eslint-disable-next-line
-                                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                        {hubAgent
                                             .map((row, id) => (
                                                 <StyledTableRow hover tabIndex={-1} key={id}>
                                                     <StyledTableCell>{row.id}</StyledTableCell>
-                                                    <StyledTableCell>{row.first_name}{row.last_name}</StyledTableCell>
+                                                    <StyledTableCell>{row.first_name} {row.last_name}</StyledTableCell>
                                                     <StyledTableCell>{row.email_id}</StyledTableCell>
                                                     <StyledTableCell>{row.phone_no}</StyledTableCell>
                                                     <StyledTableCell>{row.alter_phone_no}</StyledTableCell>
                                                     <StyledTableCell>
                                                         <button
                                                             type="button"
-                                                            className="btn btn-secondary"
-                                                            onClick={fetchDeliveryAgents}
-                                                            data-toggle="modal" data-target=".assign_order_to_delivery_boy"
+                                                            className="btn btn-success"
+                                                            data-toggle="modal"
+                                                            onClick={() => handleOrderAssign(row, 'PICKUP')}
                                                         >
                                                             Assign
                                                         </button>
                                                     </StyledTableCell>
                                                 </StyledTableRow>
+
                                             ))}
                                     </TableBody>
                                     <TableFooter>
@@ -210,7 +230,7 @@ const DeliveryAllOrder = () => {
                                                 rowsPerPage={rowsPerPage}
                                                 onRowsPerPageChange={handleChangeRowsPerPage}
                                                 rowsPerPageOptions={[10, 25, 100]}
-                                                count={deliveryAgents.length}
+                                                count={hubOrderData.length}
                                                 rows={10}
                                             />
                                         </TableRow>
@@ -224,5 +244,4 @@ const DeliveryAllOrder = () => {
         </Fragment>
     )
 }
-
 export default DeliveryAllOrder

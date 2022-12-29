@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { postRequest } from "../Services/api";
 import { useAuth } from "../Services/auth";
 import { useAlert } from "react-alert";
@@ -14,46 +14,73 @@ const Form = () => {
             pickup_pincode: 123435,
             delivery_type: "express",
             sender_details: {
-                sender_name: 'Rahul Yadav',
-                sender_email: 'rahul@gm.dhd',
-                sender_contact_no: '78877876',
+                sender_name: '',
+                sender_email: '',
+                sender_contact_no: '',
                 address: {
-                    sender_house_number: 'hghghgd',
-                    sender_locality: 'dhgdghd',
-                    sender_city: 'dghghdd',
-                    sender_state: 'shjd',
-                    sender_pincode: '12321'
+                    sender_house_number: '',
+                    sender_locality: '',
+                    sender_city: '',
+                    sender_state: '',
+                    sender_pincode: ''
                 }
             },
             reciever_details: {
-                receiver_name: 'Rohan Rastogi',
-                receiver_email: 'adarsh@hhf.dhj',
-                receiver_contact_no: '776788787',
+                receiver_name: '',
+                receiver_email: '',
+                receiver_contact_no: '',
                 address: {
-                    receiver_house_number: '6674',
-                    receiver_locality: '673673',
-                    receiver_city: 'gdghd',
-                    receiver_state: 'eee',
-                    receiver_pincode: 'wee'
+                    receiver_house_number: '',
+                    receiver_locality: '',
+                    receiver_city: '',
+                    receiver_state: '',
+                    receiver_pincode: ''
                 }
             },
             package_details: {
-                package_size: 'Size',
-                package_dimension: 'fer',
-                cateogory_id: 'ggghdd',
-                sub_category_id: '23',
+                package_size: '',
+                package_dimension: '',
+                cateogory_id: '',
+                sub_category_id: '',
                 additional_details: 'test'
             }
         }
     );
-    const handleCreateinput = (e) => {
+
+    const handleCreateinput = (e, key=null, subkey=null) => {
         const { name, value } = e.target;
-        setCreateorder({
-            ...createorder,
-            [name]: value,
-        });
+       
+        if(key != null && subkey == null){
+            setCreateorder({
+                ...createorder,
+                [key]:{
+                    ...createorder[key],
+                    [name]:value
+                }
+            })
+        }else if(key != null && subkey != null){
+            setCreateorder({
+                ...createorder,
+                [key]:{
+                    ...createorder[key],
+                    [subkey]:{
+                        ...createorder[key][subkey],
+                        [name]:value   
+                    }
+                }
+            })
+        }else{
+            setCreateorder({
+                ...createorder,
+                [name]: value
+            });
+        }
     };
 
+    useEffect(() => {
+      console.log(createorder);
+    }, [createorder])
+    
     // PARTNER ORDER API FUNCTION
     const handleOrder = async (e) => {
         e.preventDefault();
@@ -81,11 +108,11 @@ const Form = () => {
                                 <input
                                     id="inputcat"
                                     className="form-control"
-                                    name="category_id"
+                                    name="cateogory_id"
                                     type="text"
                                     placeholder="Enter Category Id"
-                                    value={createorder.category_id}
-                                    onChange={handleCreateinput}
+                                    value={createorder.cateogory_id}
+                                    onChange={(e) =>handleCreateinput(e, 'package_details')}
                                 />
                             </div>
                             <div className="col-md-6 pr-0">
@@ -96,14 +123,14 @@ const Form = () => {
                                     placeholder="Enter Sub Category"
                                     name="sub_category_id"
                                     value={createorder.sub_category_id}
-                                    onChange={handleCreateinput}
+                                    onChange={(e) =>handleCreateinput(e, 'package_details')}
                                     className="form-control"
                                 />
                             </div>
                             <div className="col-md-6 pl-0">
                                 <label htmlFor="inputsize">Size</label>
                                 <select id="inputsize" value={createorder.package_size} name="package_size" className="form-control"
-                                    required type='Select' onChange={handleCreateinput}>
+                                    required type='Select' onChange={(e) =>handleCreateinput(e, 'package_details')}>
                                     <option>Select Size</option>
                                     <option value="Extra Small" >Extra</option>
                                     <option value="Small" >Small</option>
@@ -119,14 +146,14 @@ const Form = () => {
                                     className="form-control"
                                     placeholder="Select Quantity"
                                     name="package_dimension"
-                                    onChange={handleCreateinput}
+                                    onChange={(e) =>handleCreateinput(e, 'package_details')}
                                     value={createorder.package_dimension}
                                 ></input>
                             </div>
                             <div className="col-md-6 pl-0">
                                 <label htmlFor="deliverytype">Delivery Type</label>
                                 <select id="deliverytype" value={createorder.delivery_type} name='delivery_type' className="form-control"
-                                    required type='Select' onChange={handleCreateinput}>
+                                    required type='Select' onChange={(e) =>handleCreateinput(e)}>
                                     <option>Select Delivery Type</option>
                                     <option value="EXP" >Express</option>
                                     <option value="PLT" >Platinum</option>
@@ -143,7 +170,7 @@ const Form = () => {
                                     name="sender_name"
                                     placeholder="Enter Name"
                                     value={createorder.sender_name}
-                                    onChange={handleCreateinput}
+                                    onChange={(e) =>handleCreateinput(e, 'sender_details')}
                                     autoComplete="off"
                                 />
                             </div>
@@ -154,7 +181,7 @@ const Form = () => {
                                     className="form-control"
                                     name="sender_email"
                                     value={createorder.sender_email}
-                                    onChange={handleCreateinput}
+                                    onChange={(e) =>handleCreateinput(e, 'sender_details')}
                                     autoComplete="off"
                                     placeholder="Enter email"
                                 />
@@ -165,7 +192,7 @@ const Form = () => {
                                     type="number"
                                     className="form-control"
                                     id="inputphone"
-                                    onChange={handleCreateinput}
+                                    onChange={(e) =>handleCreateinput(e, 'sender_details')}
                                     value={createorder.sender_contact_no}
                                     name="sender_contact_no"
                                     placeholder="Enter mobile number"
@@ -179,7 +206,7 @@ const Form = () => {
                                     id="inputhno"
                                     name="sender_house_number"
                                     value={createorder.sender_house_number}
-                                    onChange={handleCreateinput}
+                                    onChange={(e) =>handleCreateinput(e, 'sender_details','address')}
                                     placeholder="Enter House No"
                                 />
                             </div>
@@ -192,7 +219,7 @@ const Form = () => {
                                     placeholder="Enter Locality"
                                     name="sender_locality"
                                     value={createorder.sender_locality}
-                                    onChange={handleCreateinput}
+                                    onChange={(e) =>handleCreateinput(e, 'sender_details','address')}
                                 />
                             </div>
                             <div className="col-md-4">
@@ -203,7 +230,7 @@ const Form = () => {
                                     id="inputpin"
                                     name="sender_pincode"
                                     value={createorder.sender_pincode}
-                                    onChange={handleCreateinput}
+                                    onChange={(e) =>handleCreateinput(e, 'sender_details','address')}
                                     placeholder="Enter PIN"
                                 />
                             </div>
@@ -215,7 +242,7 @@ const Form = () => {
                                     id="inputCity"
                                     name="sender_city"
                                     value={createorder.sender_city}
-                                    onChange={handleCreateinput}
+                                    onChange={(e) =>handleCreateinput(e, 'sender_details','address')}
                                     placeholder="Enter city"
                                 />
                             </div>
@@ -228,7 +255,7 @@ const Form = () => {
                                     placeholder="Enter state"
                                     name="sender_state"
                                     value={createorder.sender_state}
-                                    onChange={handleCreateinput}
+                                    onChange={(e) =>handleCreateinput(e, 'sender_details','address')}
                                 />
                             </div>
                         </div>
@@ -242,7 +269,7 @@ const Form = () => {
                                     name="receiver_name"
                                     placeholder="Enter Name"
                                     value={createorder.receiver_name}
-                                    onChange={handleCreateinput}
+                                    onChange={(e) =>handleCreateinput(e, 'reciever_details')}
                                     autoComplete="off"
                                 />
                             </div>
@@ -253,7 +280,7 @@ const Form = () => {
                                     className="form-control"
                                     name="receiver_email"
                                     value={createorder.receiver_email}
-                                    onChange={handleCreateinput}
+                                    onChange={(e) =>handleCreateinput(e, 'reciever_details')}
                                     autoComplete="off"
                                     placeholder="Enter email"
                                 />
@@ -264,7 +291,7 @@ const Form = () => {
                                     type="number"
                                     className="form-control"
                                     id="inputphone"
-                                    onChange={handleCreateinput}
+                                    onChange={(e) =>handleCreateinput(e, 'reciever_details')}
                                     value={createorder.receiver_contact_no}
                                     name="receiver_contact_no"
                                     placeholder="Enter mobile number"
@@ -278,7 +305,7 @@ const Form = () => {
                                     id="inputhno"
                                     name="receiver_house_number"
                                     value={createorder.receiver_house_number}
-                                    onChange={handleCreateinput}
+                                    onChange={(e) =>handleCreateinput(e, 'reciever_details', 'address', 'address')}
                                     placeholder="Enter House No"
                                 />
                             </div>
@@ -291,7 +318,7 @@ const Form = () => {
                                     placeholder="Enter Locality"
                                     name="receiver_locality"
                                     value={createorder.receiver_locality}
-                                    onChange={handleCreateinput}
+                                    onChange={(e) =>handleCreateinput(e, 'reciever_details', 'address')}
                                 />
                             </div>
                             <div className="col-md-4">
@@ -302,7 +329,7 @@ const Form = () => {
                                     id="inputpin"
                                     name="receiver_pincode"
                                     value={createorder.receiver_pincode}
-                                    onChange={handleCreateinput}
+                                    onChange={(e) =>handleCreateinput(e, 'reciever_details', 'address')}
                                     placeholder="Enter PIN"
                                 />
                             </div>
@@ -314,7 +341,7 @@ const Form = () => {
                                     id="inputCity"
                                     name="receiver_city"
                                     value={createorder.receiver_city}
-                                    onChange={handleCreateinput}
+                                    onChange={(e) =>handleCreateinput(e, 'reciever_details', 'address')}
                                     placeholder="Enter city"
                                 />
                             </div>
@@ -327,7 +354,7 @@ const Form = () => {
                                     placeholder="Enter state"
                                     name="receiver_state"
                                     value={createorder.receiver_state}
-                                    onChange={handleCreateinput}
+                                    onChange={(e) =>handleCreateinput(e, 'reciever_details', 'address')}
                                 />
                             </div>
                         </div>

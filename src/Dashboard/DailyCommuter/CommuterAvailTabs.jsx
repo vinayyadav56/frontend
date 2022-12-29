@@ -6,8 +6,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import AllOrder from "./AllOrder";
-import PickupOrder from "./PickupOrder";
+import CommuterTabs from "./CommuterAvailability";
+import Tripsearch from "../../Homepages/Tripsearch";
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
     return (
@@ -19,65 +19,48 @@ function TabPanel(props) {
             {...other}
         >
             {value === index && (
-                <Box sx={{ p: 3 }}>
+                <Box sx={{ p: 0 }}>
                     <Typography>{children}</Typography>
                 </Box>
             )}
         </div>
     );
 }
-
 TabPanel.propTypes = {
     children: PropTypes.node,
     index: PropTypes.number.isRequired,
     value: PropTypes.number.isRequired,
 };
-
 function a11yProps(index) {
     return {
         id: `simple-tab-${index}`,
         "aria-controls": `simple-tabpanel-${index}`,
     };
 }
-export default function OrderTabs() {
+export default function DailyCommuterAvailabilty() {
     const [chooseValue, setChooseValue] = React.useState(0);
     const handleChange = (event, newValue) => {
         setChooseValue(newValue);
     };
-
-
     return (
         <>
-            <Box sx={{ width: "100%" }}>
-                <Box sx={{ padding: '0px' }}>
+            <Box sx={{ width: "100%", padding: '0px' }}>
+                <Box sx={{ borderColor: "divider" }}>
                     <Tabs
+                        sx={{ padding: '0px', marginBottom:'1rem' }}
                         value={chooseValue}
                         onChange={handleChange}
-                        sx={{ display: 'felx', borderBottom: '1px solid #0747a9', justifyContent: 'space-between' }}
                         aria-label="basic tabs example"
                     >
-                        <Tab sx={{
-                            padding: '0px',
-                            marginRight: '2rem',
-                            marginBottom: '-5px',
-                            fontWeight: 'bold'
-                        }}
-                            label="All Order" {...a11yProps(0)} />
-                            <Tab sx={{
-                            padding: '0px',
-                            marginRight: '2rem',
-                            marginBottom: '-5px',
-                            fontWeight: 'bold'
-                        }}
-                            label="Pickup Order" {...a11yProps(1)} />
-                     
+                        <Tab sx={{ padding: '0px' }} label="One Day" {...a11yProps(0)} />
+                        <Tab sx={{ padding: '0px' }} label="Multiple Day" {...a11yProps(1)} />
                     </Tabs>
                 </Box>
-                <TabPanel value={chooseValue} index={0}>
-                    <AllOrder />
+                <TabPanel sx={{ padding: '0px' }} value={chooseValue} index={0}>
+                    <CommuterTabs sx={{ padding: '0px' }} />
                 </TabPanel>
-                <TabPanel value={chooseValue} index={1}>
-                    <PickupOrder />
+                <TabPanel sx={{ padding: '0px' }} value={chooseValue} index={1}>
+                    <Tripsearch sx={{ padding: '0px' }} />
                 </TabPanel>
             </Box>
         </>

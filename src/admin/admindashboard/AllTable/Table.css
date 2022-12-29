@@ -8,76 +8,6 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-.table-responsive {
-  display: block;
-  overflow-x: auto;
-  white-space: nowrap;
-  height: 300px;
-}
-
-.table-responsive tr td {
-  padding: 0.6rem 0.2rem;
-  border: 1px solid #c8c8c8;
-  text-align: center;
-  vertical-align: middle;
-}
-
-/* .table-responsive-lg{
-    border: 0px;
-    max-height: 300px;
-    overflow: scroll;
-    scroll-behavior: smooth;
-  }
-  .table-responsive-lg table{
-    width: 100%;
-   
-    scrollbar-width: 10px;
-  }
-  .table-responsive-lg thead tr th{
-    position:sticky;
-    text-align: left;
-    padding:1rem 0.8rem;
-    font-style: normal;
-    font-size: 12px;
-    color: #000000;
-    background-color: rgb(255, 251, 251);
-  }
-  .table-responsive-lg tbody tr td{
-    text-align: left;
-    padding: 0.8rem 0.8rem;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    color: #0e54b2;
-  }
-  .table-responsive-lg tbody tr th{
-    padding: 1.6rem 0.8rem;
-    border: none;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    color: #000000;
-  }
-.table-responsive-lg tbody tr td{
-  background: #FFFFFF;
-  /* box-shadow: 0px 0px 12px rgb(0 0 0 / 10%); */
-/* border-radius: 4px; */
-
-/* .table-responsive-lg tr{
-    border-bottom: 1px solid #333;
-    border-top: 1px solid #333;
-    padding-left: 2px;
-    vertical-align: center;
-  } */
-
-/* .modal-body input[type="email"] {
-  width: 100%;
-  height: 30px;
-  padding: 5px 10px;
-  margin-bottom: 10px;
-  color: #888;
-} */
-
 .delete-btn {
   color: rgb(243, 3, 3) !important;
 }
@@ -137,7 +67,9 @@ body {
 .table-heading h2 {
   color: #0747a9;
 }
-
+.table tbody tr td{
+  font-weight: 500;
+}
 .table-heading h2::after {
   content: "";
   display: block;

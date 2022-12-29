@@ -30,7 +30,6 @@ const Login = () => {
       setLoading(true);
       postRequest('login', loginuser).then(result => {
         alert.success(result.message);
-        console.log(result.userDetails)
         handleUser(result.userDetails);
         if (result.userDetails.is_customer === 1) {
           history.push("/customer/dashboard")

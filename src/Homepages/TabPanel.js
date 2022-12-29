@@ -16,6 +16,7 @@ import 'antd/dist/antd.css';
 import { useAlert } from "react-alert";
 import { makeRequest } from "../Services/api";
 import { useAuth } from "../Services/auth";
+import { useHistory } from "react-router-dom";
 // import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -51,11 +52,10 @@ function a11yProps(index) {
 export default function BasicTabs() {
     const { user, loading, setLoading } = useAuth();
     const alert = useAlert();
+    const history = useHistory();
     const [activeTab, setActiveTab] = React.useState(0);
     const formRef = useRef();
-
     const [suggestions, setSuggestion] = useState([]);
-
     const handleChange = (e, newValue) => {
         setActiveTab(newValue);
     };
@@ -124,7 +124,6 @@ export default function BasicTabs() {
     }
 
     const handleFormChange = (name, value) => {
-
         setFormData({
             ...formData,
             [name]: value
@@ -134,7 +133,6 @@ export default function BasicTabs() {
     const handleFormSubmit = (e) => {
         e.preventDefault();
         setLoading(true);
-
         try {
             const payload = getPayload(formData.journey_type === 'round_trip');
             makeRequest('POST', 'createUserAvailability', payload).then(res => {
@@ -147,20 +145,14 @@ export default function BasicTabs() {
                     alert.error(res.message);
                 }
             }).catch(err => {
-
                 alert.error(err.message);
             }).finally(() => setLoading(false));
-        } catch (e) {
-            alert.error("Please fill all the details")
+        }catch(e) {
+            history.push("/login")
             setLoading(false);
-
-            // console.log(e)
         }
-
-
         return false;
     }
-
     const getPayload = (twoWay = false) => {
         return {
             user_id: user.id,
@@ -203,46 +195,46 @@ export default function BasicTabs() {
         <>
             <form className="form-inline trip_search_form" onSubmit={handleFormSubmit} ref={formRef} noValidate>
                 <div className="transport_select_btns">
-                <div className="btn-group-toggle" data-toggle="buttons">
-                    <label className="btn top_select_btns">
-                        <input
-                            type="radio"
-                            name="transport_type"
-                            value="flight"
-                            id="option1"
-                            checked={formData.transport_type === 'flight'}
-                            onChange={(e) => handleFormChange(e.target.name, e.target.value)}
-                        />
-                        <AirplanemodeActiveSharpIcon className="btn_icn mr-2" />
-                        Airport
-                    </label>
-                    <label className="btn top_select_btns">
-                        <input
-                            type="radio"
-                            name="transport_type"
-                            value="station"
-                            id="option2"
-                            checked={formData.transport_type === 'station'}
-                            onChange={(e) => handleFormChange(e.target.name, e.target.value)}
-                        />
-                        <DirectionsTransitFilledIcon className="btn_icn mr-2" />
-                        Railway
-                    </label>
-                    <label className="btn top_select_btns">
-                        <input
-                            type="radio"
-                            name="transport_type"
-                            value="commuter"
-                            id="option2"
-                            checked={formData.transport_type === 'flight'}
-                            onChange={(e) => handleFormChange(e.target.name, e.target.value)}
-                        />
-                        <DirectionsCarIcon className="btn_icn mr-2" />
-                        Commuter
-                    </label>
+                    <div className="btn-group-toggle" data-toggle="buttons">
+                        <label className="btn top_select_btns">
+                            <input
+                                type="radio"
+                                name="transport_type"
+                                value="flight"
+                                id="option1"
+                                checked={formData.transport_type === 'flight'}
+                                onChange={(e) => handleFormChange(e.target.name, e.target.value)}
+                            />
+                            <AirplanemodeActiveSharpIcon className="btn_icn mr-2" />
+                            Airport
+                        </label>
+                        <label className="btn top_select_btns">
+                            <input
+                                type="radio"
+                                name="transport_type"
+                                value="station"
+                                id="option2"
+                                checked={formData.transport_type === 'station'}
+                                onChange={(e) => handleFormChange(e.target.name, e.target.value)}
+                            />
+                            <DirectionsTransitFilledIcon className="btn_icn mr-2" />
+                            Railway
+                        </label>
+                        <label className="btn top_select_btns">
+                            <input
+                                type="radio"
+                                name="transport_type"
+                                value="commuter"
+                                id="option2"
+                                checked={formData.transport_type === 'flight'}
+                                onChange={(e) => handleFormChange(e.target.name, e.target.value)}
+                            />
+                            <DirectionsCarIcon className="btn_icn mr-2" />
+                            Commuter
+                        </label>
+                    </div>
                 </div>
-                </div>
-                
+
                 <Box sx={{ width: "100%" }}>
                     <Box sx={{ borderColor: "divider" }}>
                         <Tabs

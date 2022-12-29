@@ -3,7 +3,6 @@ import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 import { useEffect, useState } from "react";
 import "../AllTable/Table.css";
 import "../ckorder.css";
-import qrImage from '../../../images/qrimageadmin.jpg'
 import { makeRequest } from "../../../Services/api";
 import { useAuth } from "../../../Services/auth";
 import { Fragment } from "react";
@@ -79,16 +78,17 @@ const CkAllOrder = () => {
         })
     }
 
-    const handleAssign = (user_id,id, ckOrderId) => {
+    const handleAssign = (user_id, id, ckOrderId) => {
         // console.log(sub_order_id, user_id);
         setLoading(true);
         makeRequest('POST', `assignAlphaOrderToCarrier`, {
             "ckOrderId": ckOrderId,
             "carrierId": user_id,
-            "availability_id":id
+            "availability_id": id
         }).then(result => {
             alert.success(result.message);
-            result.success && fetchAvailbility();
+            fetchAvailbility() && fetchData();
+
         }).catch(err => {
             alert.error(err.message);
         }).finally(() => {
@@ -129,7 +129,6 @@ const CkAllOrder = () => {
                 {userData.length ?
                     userData.map((row, id) => {
                         return (
-
                             <div className="row ck_order_table" key={id}>
                                 <div className="col-12 my-2">
                                     <div className="ck_Order_header">
@@ -163,55 +162,34 @@ const CkAllOrder = () => {
                                                         <span>Ck Order Id :</span><span>{row.ck_order_id}</span>
                                                     </p>
                                                 </li>
-                                                <li>
-                                                    <p>
-                                                        <span>Package Weight :</span><span>{row.package_weight}</span>
-                                                    </p>
-                                                </li>
+
+
+                                            </ul>
+                                            <ul>
+                                                {
+                                                    row.delivered_on ?
+                                                        <><span>Delivered on :</span><span>{row.delivered_on}</span></>
+                                                        :
+                                                        ""
+
+                                                }
+                                            </ul>
+                                            <ul>
                                                 <li>
                                                     <p>
                                                         <span>Total Weight :</span><span>{row.items_total_weight}</span>
                                                     </p>
                                                 </li>
-
-                                            </ul>
-                                            <ul>
-                                                <li>
-                                                    <p>
-                                                        {
-                                                            row.delivered_on ?
-                                                                <><span>Delivered on :</span><span>{row.delivered_on}</span></>
-                                                                :
-                                                                ""
-
-                                                        }
-
-                                                    </p>
-                                                </li>
-                                            </ul>
-                                            <ul>
-                                                <li>
-                                                    <p>
-                                                        <span>Sub Order Id :</span><span>{row.sub_order_id}</span>
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <p>
-                                                        <span>Sub Order Type :</span><span>{row.sub_order_source}</span>
-                                                    </p>
-                                                </li>
-                                                <li>
-                                                    <p>
-                                                        {
-                                                            row.assigned_carrier_id ?
-                                                                <>
-                                                                    <span>Assigned Carrier Id :</span><span>{row.assigned_carrier_id}</span>
-                                                                </>
-                                                                :
-                                                                ""
-                                                        }
-                                                    </p>
-                                                </li>
+                                                <p>
+                                                    {
+                                                        row.assigned_carrier_id ?
+                                                            <>
+                                                                <span>Assigned Carrier Id :</span><span>{row.assigned_carrier_id}</span>
+                                                            </>
+                                                            :
+                                                            ""
+                                                    }
+                                                </p>
                                             </ul>
                                         </div>
                                     </div>
@@ -231,12 +209,12 @@ const CkAllOrder = () => {
                                                     :
                                                     <img style={{ width: '100px', height: '100px' }} src={`${config.BASE_URL}${row.qr_image_alpha}`} alt="qrcode" />
                                             }
-                                            {
-                                                (row.status !== TrackingStatus.carrier_assigned) ?
+                                           {
+                                                (row.status !== TrackingStatus.carrier_assigned & row.qr_image_alpha !== null) ?
                                                     <button
                                                         type="button"
                                                         className="btn btn-success"
-                                                        data-toggle="modal" data-target={`call-${row.id}`}
+                                                        data-toggle="modal" data-target={`#call-${row.id}`}
                                                     >
                                                         Assign Carrier
                                                     </button>
@@ -255,134 +233,146 @@ const CkAllOrder = () => {
 
                                         </div>
                                         <div className="collapse" id={`collapsable-${row.id}`}>
-                                            <table className="table table-bordered table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Partner Id</th>
-                                                        <th scope="col">Delivered</th>
-                                                        <th scope="col">Order Dimension</th>
-                                                        <th scope="col">From Hub</th>
-                                                        <th scope="col">To Hub</th>
-                                                        <th scope="col">Total Weight</th>
-                                                        <th scope="col">Qr Code</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>{row.subOrderDetails.partner_id}</td>
-                                                        <td>{row.delivered_on} </td>
-                                                        <td>{row.dimension} </td>
-                                                        <td>{row.from_hub_id} </td>
-                                                        <td>{row.to_hub_id} </td>
-                                                        <td>{row.items_total_weight} </td>
-                                                        <td>
-                                                            <img className="" src={qrImage} alt="qr_src" />
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                                <tfoot>
-                                                    <tr>
-                                                        <div className='d-flex align-items-center'>
-                                                            <a className='collpase_button_prt mr-2' data-toggle="collapse" href={`#collapsable1-${row.id}`} role="button" aria-expanded="false" aria-controls="collapse1">
-                                                                Sender Details
-                                                            </a>
-                                                            <p>/</p>
-                                                            <a className='collpase_button_prt ml-2' data-toggle="collapse" href={`#collapsable2-${row.id}`} role="button" aria-expanded="false" aria-controls="collapse2">
-                                                                Receiver Details
-                                                            </a>
+                                            {
+                                                row.sub_order && row.sub_order.map((i) => {
+                                                    return (
+                                                        <div>
+                                                            <div className="collapse_sub_order">
+                                                                <ul className="d-flex w-100 justify-content-between">
+                                                                    <li>
+                                                                        <p>
+                                                                            <span>Sub Order ID :</span>
+                                                                            <span>{i.sub_order_id}</span>
+                                                                        </p>
+                                                                        <p>
+                                                                            <span>Sub Order Source :</span>
+                                                                            <span>{i.sub_order_source}</span>
+                                                                        </p>
+                                                                    </li>
+                                                                    <li>
+                                                                        <p>
+                                                                            <span>Delivery Pincode:</span>
+                                                                            <span>{i.subOrderDetails.delivery_pincode}</span>
+                                                                        </p>
+                                                                        <p>
+                                                                            <span>Pickup Pincode:</span>
+                                                                            <span>{i.subOrderDetails.pickup_pincode}</span>
+                                                                        </p>
+                                                                    </li>
+                                                                </ul>
+                                                                {
+                                                                    i.sub_order_source === "PO" ?
+                                                                        <>
+                                                                            <div className="collapse_sub_order_details">
+                                                                                <ul className="d-flex justify-content-between">
+                                                                                    <li>
+                                                                                        <p>
+                                                                                            <span>Sender Name :</span>
+                                                                                            <span>{i.subOrderDetails ? i.subOrderDetails.sender_name : ""}</span>
+                                                                                        </p>
+                                                                                    </li>
+                                                                                    <li>
+                                                                                        <p>
+                                                                                            <span>Sender Email :</span>
+                                                                                            <span>{i.subOrderDetails ? i.subOrderDetails.sender_email : ""}</span>
+                                                                                        </p>
+                                                                                    </li>
+                                                                                    <li>
+                                                                                        <p>
+                                                                                            <span>Sender Contact :</span>
+                                                                                            <span>{i.subOrderDetails ? i.subOrderDetails.sender_contact_no : ""}</span>
+                                                                                        </p>
+                                                                                    </li>
+                                                                                    <li>
+                                                                                        <p>
+                                                                                            <span>Sender City :</span>
+                                                                                            <span>{i.subOrderDetails ? i.subOrderDetails.sender_city : ""}</span>
+                                                                                        </p>
+                                                                                    </li>
+                                                                                    <li>
+                                                                                        <p>
+                                                                                            <span>Sender State :</span>
+                                                                                            <span>{i.subOrderDetails ? i.subOrderDetails.sender_state : ""}</span>
+                                                                                        </p>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </div>
+                                                                            <div className="collapse_sub_order_details">
+                                                                                <ul className="d-flex justify-content-between">
+                                                                                    <li>
+                                                                                        <p>
+                                                                                            <span>Receiver Name :</span>
+                                                                                            <span>{i.subOrderDetails ? i.subOrderDetails.receiver_name : ""}</span>
+                                                                                        </p>
+                                                                                    </li>
+                                                                                    <li>
+                                                                                        <p>
+                                                                                            <span>Receiver Email :</span>
+                                                                                            <span>{i.subOrderDetails ? i.subOrderDetails.receiver_email : ""}</span>
+                                                                                        </p>
+                                                                                    </li>
+                                                                                    <li>
+                                                                                        <p>
+                                                                                            <span>Receiver Contact :</span>
+                                                                                            <span>{i.subOrderDetails ? i.subOrderDetails.receiver_contact_no : ""}</span>
+                                                                                        </p>
+                                                                                    </li>
+                                                                                    <li>
+                                                                                        <p>
+                                                                                            <span>Receiver City :</span>
+                                                                                            <span>{i.subOrderDetails ? i.subOrderDetails.receiver_city : ""}</span>
+                                                                                        </p>
+                                                                                    </li>
+                                                                                    <li>
+                                                                                        <p>
+                                                                                            <span>Receiver State :</span>
+                                                                                            <span>{i.subOrderDetails ? i.subOrderDetails.receiver_state : ""}</span>
+                                                                                        </p>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </>
+                                                                        :
+                                                                        <div className="collapse_sub_order_details">
+                                                                            <ul className="d-flex justify-content-between">
+                                                                                <li>
+                                                                                    <p>
+                                                                                        <span>Receiver Name :</span>
+                                                                                        <span>{i.subOrderDetails ? i.subOrderDetails.receiver_name : ""}</span>
+                                                                                    </p>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <p>
+                                                                                        <span>Receiver Email :</span>
+                                                                                        <span>{i.subOrderDetails ? i.subOrderDetails.receiver_email : ""}</span>
+                                                                                    </p>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <p>
+                                                                                        <span>Receiver Contact :</span>
+                                                                                        <span>{i.subOrderDetails ? i.subOrderDetails.receiver_contact_no : ""}</span>
+                                                                                    </p>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <p>
+                                                                                        <span>Receiver City :</span>
+                                                                                        <span>{i.subOrderDetails ? i.subOrderDetails.receiver_city : ""}</span>
+                                                                                    </p>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <p>
+                                                                                        <span>Receiver State :</span>
+                                                                                        <span>{i.subOrderDetails ? i.subOrderDetails.receiver_state : ""}</span>
+                                                                                    </p>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                }
+                                                            </div>
                                                         </div>
-                                                    </tr>
-
-                                                </tfoot>
-                                            </table>
-                                            <div className="collapse" id={`collapsable1-${row.id}`}>
-                                                <div className="ck_order_footer_sub_details">
-                                                    <ul>
-                                                        <li>
-                                                            <p>
-                                                                <span>Sender Name :</span>
-                                                                <span>{row.subOrderDetails.sender_name}</span>
-                                                            </p>
-
-                                                        </li>
-                                                        <li>
-                                                            <p>
-                                                                <span>Sender Email :</span>
-                                                                <span>{row.subOrderDetails.sender_email}</span>
-                                                            </p>
-                                                        </li>
-
-                                                        <li>
-                                                            <p>
-                                                                <span>Sender Phone :</span>
-                                                                <span>{row.subOrderDetails.sender_contact_no}</span>
-                                                            </p>
-                                                        </li>
-                                                        <li>
-                                                            <p>
-                                                                <span>Sender Pincode :</span>
-                                                                <span>{row.subOrderDetails.sender_pincode}</span>
-                                                            </p>
-                                                        </li>
-                                                        <li>
-                                                            <p>
-                                                                <span>Sender City :</span>
-                                                                <span>{row.subOrderDetails.sender_city}</span>
-                                                            </p>
-                                                        </li>
-                                                        <li>
-                                                            <p>
-                                                                <span>Sender State :</span>
-                                                                <span>{row.subOrderDetails.sender_state}</span>
-                                                            </p>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div className="collapse" id={`collapsable2-${row.id}`}>
-                                                <div className="ck_order_footer_sub_details">
-                                                    <ul>
-                                                        <li>
-                                                            <p>
-                                                                <span>Receiver Name :</span>
-                                                                <span>{row.subOrderDetails.receiver_name}</span>
-                                                            </p>
-
-                                                        </li>
-                                                        <li>
-                                                            <p>
-                                                                <span>Receiver Email :</span>
-                                                                <span>{row.subOrderDetails.receiver_email}</span>
-                                                            </p>
-                                                        </li>
-
-                                                        <li>
-                                                            <p>
-                                                                <span>Receiver Phone :</span>
-                                                                <span>{row.subOrderDetails.receiver_contact_no}</span>
-                                                            </p>
-                                                        </li>
-                                                        <li>
-                                                            <p>
-                                                                <span>Receiver Pincode :</span>
-                                                                <span>{row.subOrderDetails.receiver_pincode}</span>
-                                                            </p>
-                                                        </li>
-                                                        <li>
-                                                            <p>
-                                                                <span>Receiver City :</span>
-                                                                <span>{row.subOrderDetails.receiver_city}</span>
-                                                            </p>
-                                                        </li>
-                                                        <li>
-                                                            <p>
-                                                                <span>Receiver State :</span>
-                                                                <span>{row.subOrderDetails.receiver_state}</span>
-                                                            </p>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
+                                                    )
+                                                })
+                                            }
                                         </div>
                                     </div>
                                 </div>

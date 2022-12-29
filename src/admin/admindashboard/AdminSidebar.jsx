@@ -15,6 +15,7 @@ import StepLabel from '@mui/material/StepLabel';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
 import { makeRequest } from '../../Services/api';
+import ShareLocationIcon from '@mui/icons-material/ShareLocation';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -150,7 +151,11 @@ const AdminSidebar = () => {
             );
           })}
           <li>
+            {/* <span className='icon'> */}
+
+            {/* </span> */}
             <button type="button" className="btn admin_track" onClick={handleShow}>
+              <ShareLocationIcon className='mr-3' />
               Track Order
             </button>
             <Modal show={show} sx={style} centered>
@@ -204,6 +209,7 @@ const AdminSidebar = () => {
                     </>
                     :
                     <>
+                      <h3 className='text-center mt-3'>No Order Found for this Order Id</h3>
                     </>
 
                 }

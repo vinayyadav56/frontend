@@ -11,16 +11,19 @@
     background-color: #0747a9;
     border: 1px solid #0747a9;
 }
-.ordergenrate{
+
+.ordergenrate {
     font-size: 13px;
     letter-spacing: 1px;
     color: #fff;
     background-color: #0747a9;
     border: 1px solid #0747a9;
 }
-.ordergenrate:hover{
+
+.ordergenrate:hover {
     color: #fff;
 }
+
 .ck_order_form .locasrchbtn:hover {
     color: #0747a9;
     background-color: #fff;
@@ -44,21 +47,25 @@
     font-weight: 600;
     font-size: 14px;
 }
+
 .ck_order_form .weight_section {
     display: flex;
     justify-content: space-between;
     margin-top: 3rem;
 }
+
 .CkOrderTableData {
     background-color: #fff;
 }
-.ck_order_table{
+
+.ck_order_table {
     border: 2px solid #cfcfcf;
     border-radius: 5px;
     margin: 5px;
     font-family: revert;
     background: #fff;
 }
+
 .ck_Order_header {
     display: flex;
     align-items: center;
@@ -66,77 +73,75 @@
     border: 1px solid #e5e5e5;
     border-radius: 5px;
     background-color: #f9f9f8;
-    box-shadow: 0px 0px 8px 0px rgba(0,0,NaN,1);
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, NaN, 1);
     padding: 8px;
 }
-.ck_Order_body{
+
+.ck_Order_body {
     border: 1px solid #e5e5e5;
     border-radius: 5px;
     background-color: #f9f9f8;
-    box-shadow: 0px 0px 8px 0px rgba(0,0,NaN,1);
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, NaN, 1);
     padding: 16px 8px;
 }
+
 .ck_order_table p span:first-child {
     font-size: 10px;
     font-weight: 600;
 }
+
 .ck_order_table p span:last-child {
     font-size: 10px;
     padding-left: 4px;
     font-weight: 600;
     color: #5f5f5fbd;
 }
-.ck_Order_body .body_list{
+
+.ck_Order_body .body_list {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-.ck_Order_footer{
+
+.ck_Order_footer {
     border: 1px solid #e5e5e5;
     border-radius: 5px;
     background-color: #f9f9f8;
-    box-shadow: 0px 0px 8px 0px rgba(0,0,NaN,1);
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, NaN, 1);
     padding: 16px 8px;
 }
-.ck_Order_footer a:hover{
+
+.ck_Order_footer a:hover {
     color: #fff;
 }
-.ck_Order_footer .collpase_button_prt{
+
+.ck_Order_footer .collpase_button_prt {
     color: brown !important;
-}
-.ck_Order_footer .collpase_button_prt:hover{
-    color: brown !important;
-}
-.ck_order_footer_sub_details ul{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.ck_order_footer_sub_details ul li {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.ck_order_footer_sub_details p span:first-child {
-    font-size: 10px;
-    font-weight: 600;
 }
 
-.ck_order_footer_sub_details p span:last-child {
-    font-size: 10px;
-    padding-left: 4px;
-    font-weight: 600;
-    color: #5f5f5fbd;
+.ck_Order_footer .collpase_button_prt:hover {
+    color: brown !important;
 }
-.ck_Order_footer img{
-    width: 50px;
-    height: 50px;
+
+.collapse_sub_order {
+    border: 1px solid #999999;
+    border-radius: 5px;
+    background-color: #f9f9f8;
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, NaN, 1);
+    padding: 16px 8px;
+    margin: 1rem 0rem;
 }
-.ck_Order_footer .table td, .table th {
-    padding: 0.75rem;
-    vertical-align: center;
+
+.collapse_sub_order_details {
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    background-color: #f9f9f8;
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, NaN, 1);
+    padding:8px 4px;
+    margin: 1rem 0rem;
 }
-.ck_Order_body .status_btn{
+
+.ck_Order_body .status_btn {
     margin-bottom: 2rem;
     border: 1px solid rgb(163, 163, 22) !important;
     color: #0747a9;
@@ -144,8 +149,9 @@
     padding: 0px;
     background: transparent;
 }
+
 /* .ck_Order_footer tbody */
 
-.css-19kzrtu{
-    padding:20px 9px 0px 9px;
+.css-19kzrtu {
+    padding: 20px 9px 0px 9px;
 }

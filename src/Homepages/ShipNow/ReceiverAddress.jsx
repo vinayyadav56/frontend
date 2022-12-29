@@ -1,6 +1,6 @@
-import { Box, Button, FormGroup, TextField} from '@material-ui/core'
+import { Box, Button, FormGroup, TextField } from '@material-ui/core'
 import React from 'react'
-const ReceiverAddress = ({ values, handleFormData, nextStep, prevStep}) => {
+const ReceiverAddress = ({ values, handleFormData, nextStep, prevStep }) => {
     const submitFormData = (e) => {
         e.preventDefault();
         nextStep();
@@ -9,19 +9,17 @@ const ReceiverAddress = ({ values, handleFormData, nextStep, prevStep}) => {
     const handleInputChange = (e) => {
         let name = e.target.name;
         let val = e.target.value;
-
         handleFormData("receiver_address", {
             ...values.receiver_address,
             [name]: val
         });
-
     }
 
     return (
         <div>
             <Box>
                 <form onSubmit={submitFormData}>
-                    <FormGroup sx={{padding:'0px auto'}} className="address_modal">
+                    <FormGroup sx={{ padding: '0px auto' }} className="address_modal">
                         <h5>Receiver Details</h5>
                         <TextField
                             size="small"
@@ -92,7 +90,7 @@ const ReceiverAddress = ({ values, handleFormData, nextStep, prevStep}) => {
                             variant="outlined"
                             placeholder="Enter Pincode"
                             fullWidth
-                            inputProps={{readOnly: true}}
+                            inputProps={{ readOnly: true }}
                             disabled
                             margin="dense"
                             onChange={handleInputChange}
@@ -106,7 +104,7 @@ const ReceiverAddress = ({ values, handleFormData, nextStep, prevStep}) => {
                             placeholder="Enter City"
                             component="form"
                             fullWidth
-                            inputProps={{readOnly: true}}
+                            inputProps={{ readOnly: true }}
                             disabled
                             margin="dense"
                             onChange={handleInputChange}
@@ -120,12 +118,12 @@ const ReceiverAddress = ({ values, handleFormData, nextStep, prevStep}) => {
                             placeholder="Enter State"
                             margin="dense"
                             fullWidth
-                            inputProps={{readOnly: true}}
+                            inputProps={{ readOnly: true }}
                             disabled
                             onChange={handleInputChange}
                             defaultValue={values.receiver_address.receiver_state}
                         />
-                        <div  className='mt-4' style={{ display: 'flex', justifyContent: 'space-between', pt: 2, flex: '1 auto' }}>
+                        <div className='mt-4' style={{ display: 'flex', justifyContent: 'space-between', pt: 2, flex: '1 auto' }}>
                             <Button
                                 color="inherit"
                                 onClick={prevStep}
@@ -145,7 +143,6 @@ const ReceiverAddress = ({ values, handleFormData, nextStep, prevStep}) => {
                     </FormGroup>
                 </form>
             </Box>
-
         </div >
     )
 }

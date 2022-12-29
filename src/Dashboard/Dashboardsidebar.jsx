@@ -63,10 +63,10 @@ const Sidebar = () => {
               <li className="nav-item">
                 <NavLink
                   className="nav-link"
-                  to="/carrier/paymenthistory"
+                  to="/carrier/availablehistory"
                 >
                   <AccountBalanceWalletIcon className='mr-3' />
-                  <span>Payment History</span>
+                  <span>Avalaible History</span>
                 </NavLink>
               </li>
               <li className="nav-item">
@@ -78,7 +78,7 @@ const Sidebar = () => {
                   <span> Manage Referals</span>
                 </NavLink>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <NavLink
                   className="nav-link"
                   to="/carrier/qr-scan"
@@ -86,7 +86,7 @@ const Sidebar = () => {
                   <QrCodeScannerIcon className='mr-3' />
                   <span>QR Code</span>
                 </NavLink>
-              </li>
+              </li> */}
               <li className="nav-item nav-footer-link mt-auto">
                 <NavLink className="nav-link" to="/helpandsupport">
                   <img src={vector} alt="setting" />

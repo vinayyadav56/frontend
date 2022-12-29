@@ -7,7 +7,7 @@ import { postRequest } from '../Services/api';
 import newLogo from '../images/newlogo.png'
 const AgentLogin = () => {
     const [loginuser, setLoginuser] = useState({
-        email: "",
+        email_id: "",
         password: "",
     });
     const { setLoading, handleUser } = useAuth();
@@ -22,11 +22,10 @@ const AgentLogin = () => {
     };
     const handleLogin = async (e) => {
         e.preventDefault();
-        const { email, password } = loginuser;
-        if (email && password) {
+        const { email_id, password } = loginuser;
+        if (email_id && password) {
             setLoading(true);
-            postRequest('login', loginuser).then(result => {
-                console.log(result);
+            postRequest('loginDeliveryAgent', loginuser).then(result => {
                 alert.success(result.message);
                 handleUser(result.userDetails);
                 result.success && history.push("/delivery/dashboard")
@@ -54,9 +53,9 @@ const AgentLogin = () => {
                                     <div className="form-group">
                                         <input
                                             type="email"
-                                            name="email"
+                                            name="email_id"
                                             placeholder="Email Address"
-                                            value={loginuser.email}
+                                            value={loginuser.email_id}
                                             onChange={handleLoginInput}
                                             autoComplete="off"
                                         />

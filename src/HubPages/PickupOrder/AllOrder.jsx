@@ -59,7 +59,6 @@ const AllOrder = () => {
         makeRequest('GET', `fetchHubOrderByHubId/${hubId}?status=new`).then(result => {
             alert.success(result.message);
             sethubOrderData(result.data);
-            console.log(result + JSON.stringify(result.data))
         }).catch(err => {
             alert.error(err.message);
         }).finally(() => {
@@ -86,7 +85,6 @@ const AllOrder = () => {
     }
 
     const handleOrderAssign = (agent, transitType) => {
-
         setLoading(true);
         const requestBody = {
             agent_id: agent.id,
@@ -233,7 +231,7 @@ const AllOrder = () => {
                                                 rowsPerPage={rowsPerPage}
                                                 onRowsPerPageChange={handleChangeRowsPerPage}
                                                 rowsPerPageOptions={[10, 25, 100]}
-                                                count={hubOrderData.length}
+                                                count={hubAgent.length}
                                                 rows={10}
                                             />
                                         </TableRow>

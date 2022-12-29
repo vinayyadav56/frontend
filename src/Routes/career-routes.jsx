@@ -21,10 +21,10 @@ export const CareerRoutes = () => {
                     <Route path="/carrier/profile">
                         <UserProfile />
                     </Route>
-                    <Route path="/carrier/paymenthistory">
+                    <Route path="/carrier/availablehistory">
                         <Paymenthistory />
                     </Route>
-                    <Route path="/carrier/managereferals">
+                    <Route path="/carrier/managereferrals">
                         <Managereffrals />
                     </Route>
                     <Route path="/carrier/qr-scan">

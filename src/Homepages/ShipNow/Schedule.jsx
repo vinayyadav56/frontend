@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, FormGroup, TextField } from '@material-ui/core'
+import { Button, FormGroup, } from '@material-ui/core'
 const Schedule = ({ values, handleFormData, nextStep, prevStep }) => {
   const submitFormData = (e) => {
     e.preventDefault();
@@ -16,17 +16,17 @@ const Schedule = ({ values, handleFormData, nextStep, prevStep }) => {
     <div>
       <form onSubmit={submitFormData}>
         <FormGroup >
-          <p className="package_text">Schedule Your Order Pickup Date</p>
-          <TextField
-            name="schedule_date"
-            variant='outlined'
-            size='small'
+          <p className="package_text mb-5">Schedule Your Order Pickup Date</p>
+          <label htmlFor="#dob">Date</label>
+          <input
             type="text"
             placeholder="DD/MM/YYYY"
             onFocus={(e) => (e.target.type = "date")}
             onBlur={(e) => (e.target.type = "text")}
+            autoComplete="off"
+            name="schedule_date"
             required
-            className="sechdule-date my-5"
+            className="form-control sechdule-date mb-5"
             defaultValue={values.schedule_date}
             onChange={handleInputChange}
           />

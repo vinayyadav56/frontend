@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import profilelogo from "../images/profilelogo.png";
@@ -37,6 +37,12 @@ const CustomerSidebar = () => {
                     )}
                   </p>
                 </div>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/customer/dashboard">
+                  <img src={prlogo} alt="pr" />
+                  <span>Dashboard</span>
+                </Link>
               </li>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/customer/dashboard/profile">

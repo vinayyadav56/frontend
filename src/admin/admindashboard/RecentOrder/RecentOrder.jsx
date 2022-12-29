@@ -47,6 +47,7 @@ const RecentOrder = () => {
         setLoading(true);
         makeRequest('GET', `fetchNewOrders`).then(result => {
             setNewOrder(result.data);
+            console.log(result.data);
         })
             .finally(() => {
                 setLoading(false);
@@ -148,7 +149,7 @@ const RecentOrder = () => {
                 const pdf = new jsPDF();
                 pdf.addImage(imgData, 'PNG');
                 // pdf.output('dataurlnewwindow');
-                pdf.save("download.pdf");
+                pdf.save("Carrykar_Order_Invoice.pdf");
             })
             ;
     }
@@ -291,7 +292,7 @@ const RecentOrder = () => {
                                                 <div className='col-lg-6 col-md-12 mt-1'>
                                                     <div className='row'>
                                                         <div className='col '>
-                                                            <div className="d-flex border shadow-sm p-2 rounded-lg">
+                                                            <div className="d-flex border justify-content-between shadow-sm p-2 rounded-lg">
                                                                 <div className="mr-2">
                                                                     <p className="font-weight-bold">Shipping Details :</p>
                                                                     <p className='pl-0'>
