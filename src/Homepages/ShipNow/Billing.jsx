@@ -1,15 +1,14 @@
 import { Button, CardContent } from '@material-ui/core'
 import React from 'react'
-import {CreateShippingOrder, StartPayment} from "../../Services/Payment";
-// import axios from "axios";
-import {useAuth} from "../../Services/auth";
-import {useAlert} from "react-alert";
-import {makeRequest} from "../../Services/api";
-
-const Billing = ({ values,handleModalClose, prevStep }) => {
-    const {user, setLoading} = useAuth();
+import { CreateShippingOrder, StartPayment } from "../../Services/Payment";
+import { useAuth } from "../../Services/auth";
+import { useAlert } from "react-alert";
+import { makeRequest } from "../../Services/api";
+import { useHistory } from 'react-router-dom';
+const Billing = ({ values, handleModalClose, prevStep }) => {
+    const { user, setLoading } = useAuth();
     const alert = useAlert();
-
+    const history = useHistory();
     const paymentCallback = (res) => {
         setLoading(false);
         createShipmentOrder();
@@ -22,13 +21,13 @@ const Billing = ({ values,handleModalClose, prevStep }) => {
             "pickup_pincode": values.pickup_pincode,
             "pickup_timing": values.schedule_date,
             "delivery_type": "EXP",
-            "sender_id":1,
+            "sender_id": user.id,
             "reciever_details": {
-                "receiver_name":values.receiver_address.receiver_name,
+                "receiver_name": values.receiver_address.receiver_name,
                 "receiver_email": values.receiver_address.receiver_email_id,
                 "receiver_contact_no": values.receiver_address.receiver_phone_no,
                 "address": {
-                    "receiver_house_number":values.receiver_address.receiver_house_no,
+                    "receiver_house_number": values.receiver_address.receiver_house_no,
                     "receiver_locality": values.receiver_address.receiver_area,
                     "receiver_city": values.receiver_address.receiver_city,
                     "receiver_state": values.receiver_address.receiver_state,
@@ -36,26 +35,25 @@ const Billing = ({ values,handleModalClose, prevStep }) => {
                 }
             },
             "package_details": {
-                "package_size":"S",
-                "package_dimension": "10*20*30",
-                "cateogory_id": "1",
-                "sub_category_id":"2",
-                "additional_details": "test"
+                "package_size": "",
+                "package_dimension": "",
+                "cateogory_id": "",
+                "sub_category_id": "",
+                "additional_details": ""
             }
         }
-
         makeRequest('POST', 'createNewShipmentOrderByCustomer', shipment).then(res => {
             console.log(res);
         }).catch(e => {
+            history.push("/login")
             console.log(e);
         })
-
         handleModalClose();
         alert.success("Your Order Created Successfully");
     }
 
     const handlePayment = async () => {
-        try{
+        try {
             setLoading(true);
 
             let Order = await CreateShippingOrder({
@@ -63,11 +61,11 @@ const Billing = ({ values,handleModalClose, prevStep }) => {
             })
 
             let payment = await StartPayment({
-                "amount": Order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                "amount": Order.amount,
                 "currency": "INR",
                 "name": "Carrykar",
                 "description": "Shipping Changes based on weight",
-                "order_id": Order.order_id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                "order_id": Order.order_id,
                 "prefill": {
                     "name": user.first_name,
                     "email": user.email,
@@ -76,8 +74,9 @@ const Billing = ({ values,handleModalClose, prevStep }) => {
                 handler: paymentCallback
             });
 
-            
-        }catch (e){
+            console.log(payment)
+
+        } catch (e) {
             alert.error(e.message());
         }
     }
@@ -131,7 +130,7 @@ const Billing = ({ values,handleModalClose, prevStep }) => {
                 </p>
                 <strong>Cost:</strong> {values.delivery_cost}
 
-                <div  className='mt-4' style={{ display: 'flex', justifyContent: 'space-between', pt: 2, flex: '1 auto' }}>
+                <div className='mt-4' style={{ display: 'flex', justifyContent: 'space-between', pt: 2, flex: '1 auto' }}>
                     <Button
                         color="inherit"
                         onClick={prevStep}

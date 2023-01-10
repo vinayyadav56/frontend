@@ -12,12 +12,11 @@ import DirectionsTransitFilledIcon from "@mui/icons-material/DirectionsTransitFi
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import { AutoComplete, DatePicker, Input, TimePicker } from "antd";
 import moment from "moment";
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.min.css';
 import { useAlert } from "react-alert";
 import { makeRequest } from "../Services/api";
 import { useAuth } from "../Services/auth";
 import { useHistory } from "react-router-dom";
-// import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
     return (
@@ -80,7 +79,7 @@ export default function BasicTabs() {
     };
 
     const [formData, setFormData] = useState(FormDataType);
-
+    
     useEffect(() => {
     }, [formData])
 
@@ -272,7 +271,7 @@ export default function BasicTabs() {
                                     <span className="search-inner">
                                         <AutoComplete
                                             dropdownMatchSelectWidth={252}
-                                            style={{ width: "100%" }}
+                                            style={{ width: "100%", textAlign:'left' }}
                                             options={suggestions}
                                             onSelect={(value, opt) => handleFormChange('location_to', opt)}
                                             onSearch={handleLocationSearch}

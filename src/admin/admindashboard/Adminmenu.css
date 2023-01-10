@@ -7,7 +7,7 @@
     --color-primary: rgb(71, 7, 234);
     --color-purple: rgb(160, 99, 245);
     --color-success: rgb(34, 202, 75);
-    --color-danger: :rgb(255, 67, 54);
+    --color-danger:rgb(255, 67, 54);
 
     --color-primary-light: rgba(71, 7, 234, 0.2);
     --color-success-light: rgba(34, 202, 75, 0.2);
@@ -64,7 +64,9 @@
 }
 
 /* navbar css start */
-
+label{
+    color: #0747a9 !important;
+}
 .partnerdash-nav {
     width: 100% !important;
     background: var(--color-white);
@@ -401,6 +403,7 @@ select {
 
 .order-dis .form-group label {
     margin-bottom: 0;
+    color: #0747a9;
 }
 
 /* partner-form css start */

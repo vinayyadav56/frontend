@@ -19,6 +19,7 @@ import TablePagination from '@mui/material/TablePagination';
 import Loader from "../../../Helpers/Loader";
 import { TrackingStatus } from "../../../config/contants";
 import { useAlert } from "react-alert";
+import { useRef } from "react";
 const CkNewOrder = () => {
     const { setLoading } = useAuth();
     const alert = useAlert();
@@ -26,7 +27,7 @@ const CkNewOrder = () => {
     const [ckAssignUser, setCkAssignUser] = useState([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-
+    const modalCloseBtn = useRef();
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -84,8 +85,9 @@ const CkNewOrder = () => {
             "carrierId": user_id,
             "availability_id": id
         }).then(result => {
-            alert.success(result.message);
-           fetchAvailbility() && fetchData();
+            alert.success(result.message) 
+            modalCloseBtn.current.click();
+            fetchAvailbility() && fetchData();
 
         }).catch(err => {
             alert.error(err.message);
@@ -213,6 +215,7 @@ const CkNewOrder = () => {
                                                         type="button"
                                                         className="btn btn-success"
                                                         data-toggle="modal" data-target={`#call-${row.id}`}
+                                                        
                                                     >
                                                         Assign Carrier
                                                     </button>

@@ -7,7 +7,7 @@ import { useAuth } from '../Services/auth';
 import { postRequest } from '../Services/api';
 import newLogo from '../images/newlogo1.png'
 const Login = () => {
-  const { setLoading, handleUser } = useAuth();
+  const {user, setLoading, handleUser } = useAuth();
   let alert = useAlert();
   let history = useHistory();
 
@@ -15,7 +15,7 @@ const Login = () => {
     email: "",
     password: "",
   });
-
+console.log(user);
   const handleLoginInput = (e) => {
     const { name, value } = e.target;
     setLoginuser({

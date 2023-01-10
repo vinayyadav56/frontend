@@ -29,7 +29,7 @@ const DeliveryOrder = ({ values, handleFormData, nextStep, prevStep }) => {
                 <FormGroup >
                     <p className="package_text">Choose Package Size</p>
                     <div className="btn-group-toggle my-4 d-flex" data-toggle="buttons">
-                        <label className={"btn ship_select_btns " + (values.package_size == "extra small" ? "active" : "")}  >
+                        <label className={"btn ship_select_btns " + (values.package_size.toString() === "extra small" ? "active" : "")}  >
                             <input
                                 type="radio"
                                 name="package_size"
@@ -37,11 +37,11 @@ const DeliveryOrder = ({ values, handleFormData, nextStep, prevStep }) => {
                                 required
                                 id="option2"
                                 onChange={handleInputChange}
-                                checked={() => values.package_size == "extra small"}
+                                checked={() => values.package_size.toString() === "extra small"}
                             />
                             100g
                         </label>
-                        <label className={"btn ship_select_btns " + (values.package_size == "small" ? "active" : "")}>
+                        <label className={"btn ship_select_btns " + (values.package_size.toString() === "small" ? "active" : "")}>
                             <input
                                 type="radio"
                                 name="package_size"
@@ -49,11 +49,11 @@ const DeliveryOrder = ({ values, handleFormData, nextStep, prevStep }) => {
                                 required
                                 id="option2"
                                 onChange={handleInputChange}
-                                checked={() => values.package_size == "small"}
+                                checked={() => values.package_size.toString() === "small"}
                             />
                             250g
                         </label>
-                        <label className={"btn ship_select_btns " + (values.package_size == "medium" ? "active" : "")}>
+                        <label className={"btn ship_select_btns " + (values.package_size.toString() === "medium" ? "active" : "")}>
                             <input
                                 type="radio"
                                 name="package_size"
@@ -61,11 +61,11 @@ const DeliveryOrder = ({ values, handleFormData, nextStep, prevStep }) => {
                                 required
                                 id="option1"
                                 onChange={handleInputChange}
-                                checked={() => values.package_size == "medium"}
+                                checked={() => values.package_size.toString() === "medium"}
                             />
                             500g
                         </label>
-                        <label className={"btn ship_select_btns " + (values.package_size == "large" ? "active" : "")}>
+                        <label className={"btn ship_select_btns " + (values.package_size.toString() === "large" ? "active" : "")}>
                             <input
                                 type="radio"
                                 name="package_size"
@@ -73,7 +73,7 @@ const DeliveryOrder = ({ values, handleFormData, nextStep, prevStep }) => {
                                 id="option2"
                                 required
                                 onChange={handleInputChange}
-                                checked={() => values.package_size == "large"}
+                                checked={() => values.package_size.toString() === "large"}
                             />
                             1Kg
                         </label>

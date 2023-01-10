@@ -6,11 +6,11 @@ import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
 import "bootstrap/dist/js/bootstrap.bundle";
 
 import App from "./App";
-import {AuthProvider} from "./Services/auth";
-
+import { AuthProvider } from "./Services/auth";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <AuthProvider >
-            <App />
+       
+        <App />
     </AuthProvider>
 );

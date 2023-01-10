@@ -9,7 +9,6 @@ import ApprovalIcon from '@mui/icons-material/Approval';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
-import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 
 const Sidebar = () => {

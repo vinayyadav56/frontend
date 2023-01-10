@@ -3,28 +3,22 @@ import Sidebar from "./Dashboardsidebar";
 import Header from "./Dashboardheader";
 import "../Homepages/homepage.css";
 import Tripsearch from "../Homepages/Tripsearch";
-import { useAuth } from "../Services/auth";
-import DailyCommuterAvailabilty from "./DailyCommuter/CommuterAvailTabs";
-const Postavailablity = ({ addUserLocal, userActive }) => {
-  const user = useAuth();
+const Postavailablity = () => {
   return (
     <div>
-      <section className="user-dashboard">
-        <Sidebar userActive={userActive} />
-        <section className="main-content">
-          <Header addUserLocal={addUserLocal} />
-          <div className="mt-5 trip_form">
-            {
-              !user.isCommuter() ?
-                <Tripsearch />
-                :
-                <DailyCommuterAvailabilty />
 
-            }
+      <section className="user-dashboard">
+        <Sidebar  />
+        <section className="main-content">
+          <Header  />
+          <div className="mt-5 trip_form">
+                <Tripsearch />
+                
 
           </div>
         </section>
       </section>
+      
     </div>
   );
 };

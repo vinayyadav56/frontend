@@ -27,28 +27,35 @@ export default function CommuterSignUp() {
     const history = useHistory();
     const auth = useAuth();
 
-    const { user, setLoading, handleUser } = useAuth();
+    const { setLoading, handleUser } = useAuth();
     const [open, setOpen] = React.useState(false);
 
     const handleOpen = () => {
         setOpen(true);
     };
+
     const handleClose = () => {
         setOpen(false);
     };
+
     const handleRedirect = () => {
         history.push("/login")
     }
-    const userid = auth.isAuthenticated() ? user.id : '' ;
+
+    // const userid = auth.isAuthenticated() ? user.id : '' ;
+    // const user_id = userid
     const [userDatas, setuserDatas] = useState({
-        user_id: userid,
+        user_id: "",
         pan_no: "",
         aadhar_no: "",
-        vehicle_type: "sdfg",
+        vehicle_type: "",
         vehicle_registration_number: "",
         driving_licens_number: "",
         type: "dailyCommuter"
     });
+
+
+
     const handleInput = (e) => {
         const { name, value } = e.target;
         setuserDatas({
@@ -56,25 +63,15 @@ export default function CommuterSignUp() {
             [name]: value,
         });
     };
+
     const handleRegisterCommuter = (e) => {
         e.preventDefault();
-
-        // const {
-        //     user_id,
-        //     pan_no,
-        //     aadhar_no,
-        //     vehicle_type,
-        //     vehicle_registration_number,
-        //     driving_licens_number,
-        //     type
-        // } = userDatas;
-
         setLoading(true);
         makeRequest('POST', `commuterSignup`, userDatas).then(result => {
-            alert.success(result.message);
+            alert.success(result.message)
             handleUser(result.userData);
             setOpen(false);
-            console.log(result.userData);
+
         }).catch(err => {
             alert.error(err.message);
         }).finally(() => {
@@ -86,7 +83,8 @@ export default function CommuterSignUp() {
     useEffect(() => {
         setuserDatas(auth.user)
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, []);
+
     if (auth.isUser() || auth.isCarrier()) {
         return (
             <>
@@ -108,6 +106,29 @@ export default function CommuterSignUp() {
                                                 Register<span className="ml-2 mb-0">Commuter</span>
                                             </h3>
                                         </div>
+                                        <div className='row'>
+                                            <div className='col'>
+                                                <div className="form-group">
+                                                    {/* <label htmlFor="#selectid" >Type</label>
+                                                    <select id="selectid" disabled value={userDatas.user_id} name='user_id' className="form-control"
+                                                        required type='Select' onChange={handleInput}>
+                                                        <option value="1" >Commuter</option>
+                                                    </select> */}
+                                                    <input type="text" value={userDatas.user_id} name='user_id' onChange={handleInput}  className="form-control" />
+                                                </div>
+                                            </div>
+                                            <div className='col'>
+                                                <div className="form-group">
+                                                    <label htmlFor="#selectuser" >Type</label>
+                                                    <select id="selectuser" disabled value={userDatas.type} name='type' className="form-control"
+                                                        required type='Select' onChange={handleInput}>
+                                                        <option value="dailyCommuter" >Commuter</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
                                         <div className="row">
                                             <div className="col">
                                                 <label htmlFor='pan'>Pan No** :</label>

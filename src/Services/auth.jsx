@@ -31,7 +31,6 @@ function useProvideAuth() {
     }
     const signout = () => {
         handleUser(null);
-       
     }
 
     const isAuthenticated = () => {
@@ -42,19 +41,23 @@ function useProvideAuth() {
     }
     const isAdmin = () => {
         return user && user.is_admin;
-       
+
     }
     const isPartner = () => {
         return user && user.is_partner === 0;
+    }
+    const isCompanyPartner = () => {
+        return user && user.is_company;
     }
     const isUser = () => {
         return user && user.is_customer;
     }
     const isCarrier = () => {
         return user && user.is_carrier;
+
     }
-    const isCommuter= () => {
-        return user && user.is_daily_commuter;
+    const isCommuter = () => {
+        return user && user.is_daily_commuter === 1;
     }
     useEffect(() => {
         user ? storage.setJson('user', user) : storage.clear('user');
@@ -67,6 +70,7 @@ function useProvideAuth() {
         setLoading,
         isAuthenticated,
         isAdmin,
+        isCompanyPartner,
         isHub,
         isPartner,
         isUser,

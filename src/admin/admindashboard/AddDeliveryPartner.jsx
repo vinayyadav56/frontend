@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { Fragment } from 'react'
 import AddIcon from "@mui/icons-material/Add";
-import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import { useAlert } from 'react-alert';
 import '../admindashboard/Adminmenu.css'
@@ -11,8 +10,6 @@ import { useAuth } from "../../Services/auth";
 const AddDeliveryPartner = () => {
     let alert = useAlert();
     const { setLoading } = useAuth()
-
-    let history = useHistory();
     const [agent, setAgent] = useState({
         first_name: "",
         last_name: "",
@@ -21,10 +18,10 @@ const AddDeliveryPartner = () => {
         alter_phone_no: "",
         phone_no: "",
         pin: "",
-        password:"",
+        password: "",
         state: "",
         city: "",
-        linked_hub_id: "",
+        linked_hub_id: "" ,
         current_address: "",
         permanent_address: "",
         pan_card_no: "",
@@ -33,7 +30,6 @@ const AddDeliveryPartner = () => {
         is_pan_verified: 1,
         is_driving_licence_verified: 1
     });
-    // console.log(agent);
     const [hubData, setHubData] = useState([]);
     const modalCloseBtn = useRef();
     const handleInput = (e) => {
@@ -91,7 +87,6 @@ const AddDeliveryPartner = () => {
             makeRequest('POST', `createNewDeliveryAgent`, agent).then(result => {
                 alert.success(result.message);
                 modalCloseBtn.current.click();
-                result.success && history.push("/hub/dashboard");
             }).catch(err => {
                 alert.error(err.message);
             }).finally(() => {
@@ -119,7 +114,7 @@ const AddDeliveryPartner = () => {
         <Fragment>
             <button
                 type="button"
-                className="btn add_partner"
+                className="btn btn-info"
                 data-toggle="modal"
                 data-target="#deliverypartner"
                 ref={modalCloseBtn}
@@ -166,7 +161,7 @@ const AddDeliveryPartner = () => {
                                     {hubData.map((index) => {
                                         return (
                                             <>
-                                                <option value={index.hub_id}>{index.hub_name}</option>
+                                                <option value={index.id}>{index.hub_name}</option>
                                             </>
                                         )
                                     })}
@@ -196,8 +191,8 @@ const AddDeliveryPartner = () => {
                                         />
                                     </div>
                                     <div className="col">
-                                        <label for="#dob">Password</label>
-                                        <input id='dob' type="password" name='password'
+                                        <label for="#psswrd">Password</label>
+                                        <input id='psswrd' type="password" name='password'
                                             onChange={handleInput} value={agent.password}
                                             className="form-control" placeholder="Password"
                                         />

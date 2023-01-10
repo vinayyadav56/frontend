@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import AirplanemodeActiveSharpIcon from "@mui/icons-material/AirplanemodeActiveSharp";
 import DirectionsTransitFilledIcon from "@mui/icons-material/DirectionsTransitFilled";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
-import trip from "../images/triplocation.png";
+// import trip from "../images/triplocation.png";
 import "./homepage.css";
-import { Box, Tabs, Typography } from "@mui/material";
 import BasicTabs from "./TabPanel";
 
 const Tripsearch = () => {

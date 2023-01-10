@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react'
+import React, { useEffect, useRef } from 'react'
 import "../../admin/admindashboard/AllTable/Table.css";
 import "../../admin/admindashboard/partnerorder.css";
 import { styled } from '@mui/material/styles';
@@ -16,6 +16,9 @@ import { Fragment } from 'react';
 import { makeRequest } from '../../Services/api';
 import { useAlert } from 'react-alert';
 import { useAuth } from '../../Services/auth';
+import Loader from '../../Helpers/Loader';
+import config from '../../config.json';
+import { TrackingStatus } from '../../config/contants';
 const AllOrder = () => {
     let alert = useAlert();
     const { user, setLoading } = useAuth();
@@ -56,9 +59,9 @@ const AllOrder = () => {
     const fetchData = async () => {
         const hubId = user.id
         setLoading(true);
-        makeRequest('GET', `fetchHubOrderByHubId/${hubId}?status=new`).then(result => {
-            alert.success(result.message);
-            sethubOrderData(result.data);
+        makeRequest('GET', `HubAllOrder/${hubId}`).then(result => {
+            sethubOrderData(result.HubAllData);
+            console.log(result.HubAllData);
         }).catch(err => {
             alert.error(err.message);
         }).finally(() => {
@@ -70,7 +73,6 @@ const AllOrder = () => {
         setLoading(true);
         const hubId = user.id;
         makeRequest('GET', `deliveryAgentsListByHubId/${hubId}`).then(result => {
-            alert.success(result.message);
             setHubAgents(result.data);
         }).catch(err => {
             alert.error(err.message);
@@ -108,65 +110,140 @@ const AllOrder = () => {
     }, []);
     return (
         <Fragment>
-            <div className='pickup_table_section'>
-                <p>Pickup Orders</p>
-                <TableContainer component={Paper}>
-                    <Table stickyHeader striped aria-label="sticky table">
-                        <TableHead>
-                            <StyledTableRow>
-                                <StyledTableCell>Id</StyledTableCell>
-                                <StyledTableCell>Ck Order Id</StyledTableCell>
-                                <StyledTableCell>From Hub</StyledTableCell>
-                                <StyledTableCell>To Hub</StyledTableCell>
-                                <StyledTableCell>Package Weight</StyledTableCell>
-                                <StyledTableCell>Item Total Weight</StyledTableCell>
-                                <StyledTableCell>Sub Order Id</StyledTableCell>
-                                <StyledTableCell>Sub Order Source</StyledTableCell>
-                                <StyledTableCell>Action</StyledTableCell>
-                            </StyledTableRow>
-                        </TableHead>
-                        <TableBody>
-                            {hubOrderData
-                                .map((row, id) => (
-                                    <StyledTableRow hover tabIndex={-1} key={id}>
-                                        <StyledTableCell>{row.id}</StyledTableCell>
-                                        <StyledTableCell>{row.ck_order_id}</StyledTableCell>
-                                        <StyledTableCell>{row.from_hub_id}</StyledTableCell>
-                                        <StyledTableCell>{row.to_hub_id}</StyledTableCell>
-                                        <StyledTableCell>{row.package_weight}</StyledTableCell>
-                                        <StyledTableCell>{row.item_total_weight}</StyledTableCell>
-                                        <StyledTableCell>{row.sub_order_id}</StyledTableCell>
-                                        <StyledTableCell>{row.sub_order_source}</StyledTableCell>
-                                        <StyledTableCell>
-                                            <button
-                                                type="button"
-                                                className="btn btn-secondary"
-                                                data-toggle="modal"
-                                                data-target=".assign_order_to_delivery_boy"
-                                                onClick={() => initOrderAssign(row)}
-                                            >
-                                                Assign For Pickup
-                                            </button>
-                                        </StyledTableCell>
-                                    </StyledTableRow>
+            <div className="container-fluid pb-2">
+                {hubOrderData.length > 0 ?
+                    hubOrderData.map((row, id) => {
+                        return (
+                            <div className="row ck_order_table" key={id}>
+                                <div className="col-12 my-2">
+                                    <div className="ck_Order_header">
+                                        <ul>
+                                            <li>
+                                                <p>
+                                                    <span>From Hub :</span><span>{row.from_hub_id}</span>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p>
+                                                    <span>To Hub :</span><span>{row.to_hub_id}</span>
+                                                </p>
+                                            </li>
+                                        </ul>
+                                        <ul>
+                                            <li>
+                                                <p>
+                                                    <span>Delivery Pincode :</span><span>{row.delivery_pincode}</span>
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <p>
+                                                    <span>Pickup Pincode :</span><span>{row.pickup_pincode}</span>
+                                                </p>
+                                            </li>
 
-                                ))}
-                        </TableBody>
-                        <TableFooter>
-                            <TableRow>
-                                <TablePagination
-                                    page={page}
-                                    onPageChange={handleChangePage}
-                                    rowsPerPage={rowsPerPage}
-                                    onRowsPerPageChange={handleChangeRowsPerPage}
-                                    rowsPerPageOptions={[10, 25, 100]}
-                                    count={hubOrderData.length}
-                                    rows={10}
-                                />
-                            </TableRow>
-                        </TableFooter>
-                    </Table>
-                </TableContainer>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div className="col-12">
+                                    <div className="ck_Order_body">
+                                        <div className="body_list">
+                                            <ul>
+                                                <li>
+                                                    <p className='badge badge-info'>
+                                                        <span>Ck Order Id :</span><span className='text-light'>{row.ck_order_id}</span>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <p className='badge badge-info'>
+                                                        <span >Category Id :</span><span className='text-light'>{row.cateogory_id}</span>
+                                                    </p>
+                                                </li>
+                                            </ul>
+                                            <ul>
+                                                <li>
+                                                    <p>
+                                                        <span>Total Weight :</span><span>{row.package_volume_weight}</span>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <p>
+                                                        <span>Order Size :</span><span>{row.package_size}</span>
+                                                    </p>
+                                                </li>
+                                                <li>
+                                                    <p>
+                                                        <span>Item Dimension :</span><span>{row.package_dimension}</span>
+                                                    </p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-12 my-2">
+                                    <div className="ck_Order_footer">
+                                        <div className="row align-items-center">
+                                            <div className='col-md-4'>
+                                                <ul className='mx-auto'>
+                                                    <li>
+                                                        <p>
+                                                            <span>Receiver Name :</span><span>{row.package_volume_weight}</span>
+                                                        </p>
+                                                    </li>
+
+                                                    <li>
+                                                        <p>
+                                                            <span>Receiver Number :</span><span>{row.package_dimension}</span>
+                                                        </p>
+                                                    </li>
+                                                    <li>
+                                                        <p>
+                                                            <span>Receiver Address :</span><span>{row.receiver_house_number},{row.receiver_city},{row.receiver_state} </span>
+                                                        </p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div className='col-md-4'>
+                                                <div className='d-flex justify-content-center'>
+                                                    <ul>
+                                                        <li>
+                                                            <img style={{ width: '80px', height: '80px' }} src={`${config.BASE_URL}${row.qr_image_path}`} alt="qrcode" />
+                                                        </li>
+                                                    </ul>
+                                                </div>
+
+                                            </div>
+                                            <div className='col-md-4'>
+                                                <div className='d-flex justify-content-end'>
+                                                    <ul >
+                                                        <li>
+                                                            {(row.status === TrackingStatus.pickup_agent_assigned) ?
+                                                                <span className='badge badge-info'>
+                                                                    Pickup Assigned
+                                                                </span>
+                                                                :
+                                                                <button
+                                                                    type="button"
+                                                                    className="btn btn-secondary"
+                                                                    data-toggle="modal"
+                                                                    data-target=".assign_order_to_delivery_boy"
+                                                                    onClick={() => initOrderAssign(row)}
+                                                                >
+                                                                    Assign For Pickup
+                                                                </button>
+                                                            }
+
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    })
+                    :
+                    <Loader />}
             </div>
             <div className="modal fade assign_order_to_delivery_boy" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
                 <div className="modal-dialog  add-partner modal-xl">
@@ -242,6 +319,7 @@ const AllOrder = () => {
                     </div>
                 </div>
             </div>
+
         </Fragment>
     )
 }

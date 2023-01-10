@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import emailicon from "../../images/emailicon.png";
-import {useAuth} from "../../Services/auth";
-import {makeRequest} from "../../Services/api";
-import {useAlert} from "react-alert";
+import { useAuth } from "../../Services/auth";
+import { makeRequest } from "../../Services/api";
+import { useAlert } from "react-alert";
 
 const Profileform = () => {
-    const {user, setLoading} = useAuth();
+    const { user, setLoading } = useAuth();
     const alert = useAlert();
 
     const handleInput = (e) => {
@@ -26,7 +26,7 @@ const Profileform = () => {
 
     // UPDATE USER START
     const handleUpdate = async () => {
-        const userId = user.tokenable_id;
+        const userId = user.id;
         setLoading(true);
         makeRequest('PUT', `profile-update/${userId}`).then(result => {
             alert.success(result.message);

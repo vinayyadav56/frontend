@@ -66,10 +66,10 @@ const Signup = () => {
       makeRequest('POST', `register-user`, user).then(result => {
         alert.success(result.message);
         handleUser(result.userData);
-        if (result.userData.is_customer == 1) {
+        if (result.userData.is_customer === 1) {
           history.push("/customer/dashboard")
         }
-        if (result.userData.is_carrier == 1) {
+        if (result.userData.is_carrier === 1) {
           history.push("/carrier/dashboard")
         }
       }).catch(err => {

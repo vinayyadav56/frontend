@@ -9,7 +9,7 @@ body {
     background-color: #fff;
     color: #0747A9;
     border: 1px solid #fff;
-    padding: 2px 8px;
+    padding: 2px 8px 4px 8px;
     border-radius: 5px;
 }
 
@@ -38,6 +38,22 @@ body {
     cursor: pointer;
 }
 
+.order_track_timline {
+    height: 300px;
+    scroll-behavior: smooth;
+    /* scrollbar-width: 3px !important;
+    scrollbar-color: #0747a9;
+    overflow: -moz-scrollbars-vertical; */
+    box-shadow: 0px 0px 12px -4px rgba(0, 0, 0, 0.40);
+    padding: 5px;
+    overflow-y: scroll;
+}
+.MuiTimelineOppositeContent-root {
+    flex: 0 !important;
+    padding: 6px 16px;
+    text-align: left !important;
+    margin-right: 2px !important;
+}
 .main_section {
     background: linear-gradient(77.42deg, #0747A9 -0.01%, #2277C9 94.19%);
     height: 100%;
@@ -514,9 +530,11 @@ a:not([href]):not([class]) {
     margin-bottom: 1.5rem;
     padding-left: 15px;
 }
-.nav-mobile-links li a:hover{
+
+.nav-mobile-links li a:hover {
     color: aqua !important;
 }
+
 .nav-mobile-links li:last-child {
     margin-right: 0rem;
 }
@@ -980,24 +998,30 @@ a:not([href]):not([class]) {
     text-align: center;
     color: #fff;
 }
-@media only screen and (max-width:767px){
-    .content img{
-        width:140px;
+
+@media only screen and (max-width:767px) {
+    .content img {
+        width: 140px;
         height: auto;
         position: relative;
     }
-    .content img{
-        width:100px;
+
+    .content img {
+        width: 100px;
         height: auto;
         position: relative;
     }
-    .operational .content .badge-warning{
-        font-size:0.6rem;
+
+    .operational .content .badge-warning {
+        font-size: 0.6rem;
         font-weight: 400;
-        width: 50px;
+        width: 55px;
+        padding-bottom: 1px;
+        padding-top: 2px;
     }
-    
+
 }
+
 .operational h2 {
     color: #fff;
     text-align: center;
@@ -1177,7 +1201,8 @@ a:not([href]):not([class]) {
     font-size: 16px;
     font-weight: 600;
 }
-.home_track{
+
+.home_track {
     color: #fff;
     background-color: transparent;
     border: none;
@@ -1185,15 +1210,18 @@ a:not([href]):not([class]) {
     padding: 0;
     font-size: 14px;
 }
-.home_track:hover{
+
+.home_track:hover {
     color: aqua;
     border: none;
     box-shadow: none;
 }
-.home_track:focus{
+
+.home_track:focus {
     box-shadow: none;
     border: none;
 }
+
 .order_status_text {
     font-size: 14px;
     font-family: emoji;
@@ -1201,7 +1229,8 @@ a:not([href]):not([class]) {
     margin-left: 1rem;
     font-weight: 600;
 }
-.track_btn{
+
+.track_btn {
     border-radius: 4px;
     background-color: #0747a9;
     border: none;
@@ -1210,35 +1239,36 @@ a:not([href]):not([class]) {
     font-size: 1.2rem;
     font-weight: 600;
     padding: 0.6rem;
-    width:100%;
+    width: 100%;
     transition: all 0.5s;
     cursor: pointer;
-  }
-  
-  .track_btn span {
+}
+
+.track_btn span {
     cursor: pointer;
     display: inline-block;
     position: relative;
     transition: 0.5s;
-  }
-  
-  .track_btn span:after {
+}
+
+.track_btn span:after {
     content: '\00bb';
     position: absolute;
     opacity: 0;
     top: 0;
     right: -20px;
     transition: 0.5s;
-  }
-  
-  .track_btn:hover span {
+}
+
+.track_btn:hover span {
     padding-right: 25px;
-  }
-  
-  .track_btn:hover span:after {
+}
+
+.track_btn:hover span:after {
     opacity: 1;
     right: 0;
-  }
+}
+
 .footer_logo {
     display: flex;
     justify-content: flex-end;

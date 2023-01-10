@@ -8,6 +8,10 @@ import Userdashboard from "../Dashboard/Userdashboard";
 import Qrscanner from "../Dashboard/Qrscan";
 import CarrierOrder from '../Dashboard/OrderHistory.jsx/CarrierOrder';
 import { useAuth } from '../Services/auth';
+import CommuterAvailability from '../Dashboard/Commuter/CommuterAvailability';
+import CommuterProfile from '../Dashboard/Commuter/CommuterProfile';
+import CommuterHistory from '../Dashboard/Commuter/CommuterHistory';
+import CommuterOrder from '../Dashboard/Commuter/CommuterOrder';
 
 export const CareerRoutes = () => {
     const auth = useAuth();
@@ -35,6 +39,22 @@ export const CareerRoutes = () => {
                     </Route>
                     <Route path="/carrier/dashboard">
                         <Userdashboard />
+                    </Route>
+                </>
+            }
+            {auth.isCommuter() && auth.isCarrier() &&
+                <>
+                    <Route path="/commuter/postavailabilty">
+                        <CommuterAvailability />
+                    </Route>
+                    <Route path="/commuter/profile">
+                        <CommuterProfile />
+                    </Route>
+                    <Route path="/commuter/availablehistory">
+                        <CommuterHistory />
+                    </Route>
+                    <Route path="/commuter/order">
+                        <CommuterOrder />
                     </Route>
                 </>
             }

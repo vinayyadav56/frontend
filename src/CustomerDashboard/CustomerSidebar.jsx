@@ -18,7 +18,7 @@ const CustomerSidebar = () => {
       <section className="user-sidebar">
         <div className="desktop-navbar">
           <nav className="user-dash-navbar">
-            <NavLink to="/customer/dashboard" className="navbar-brand">
+            <NavLink to="/" className="navbar-brand">
               <img src={dashboardlogo} alt="dashlogo" />
               {/* <img src={moblogo} alt="mobilelogo" /> */}
             </NavLink>

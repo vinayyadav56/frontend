@@ -6,8 +6,9 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import AllOrder from "./AllOrder";
 import NewOrder from "./NewOrder";
+import AllOrder from "./AllOrder";
+import AgentAssignedOrder from "./AgentAssignedOrder";
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
     return (
@@ -44,8 +45,6 @@ export default function HubOrderDetails() {
     const handleChange = (event, newValue) => {
         setChooseValue(newValue);
     };
-
-
     return (
         <>
             <Box sx={{ width: "100%" }}>
@@ -56,27 +55,37 @@ export default function HubOrderDetails() {
                         sx={{ display: 'felx', justifyContent: 'space-between', borderBottom: '1px solid #0747a9' }}
                         aria-label="basic tabs example"
                     >
-                        <Tab sx={{
-                            padding: '0px',
-                            marginRight: '2rem',
-                            fontWeight: 'bold',
-                            marginBottom: '-5px'
-                        }}
-                            label="All Order" {...a11yProps(0)} />
 
                         <Tab sx={{
                             padding: '0px',
                             marginBottom: '-5px',
                             fontWeight: 'bold'
                         }}
-                            label="New Order" {...a11yProps(1)} />
+                            label="New Order" {...a11yProps(0)} />
+                             <Tab sx={{
+                            padding: '0px',
+                            marginBottom: '-5px',
+                            marginLeft:'10px',
+                            marginRight:'10px',
+                            fontWeight: 'bold'
+                        }}
+                            label="Agent Assigned Order" {...a11yProps(1)} />
+                        <Tab sx={{
+                            padding: '0px',
+                            marginBottom: '-5px',
+                            fontWeight: 'bold'
+                        }}
+                            label="All Order" {...a11yProps(2)} />
                     </Tabs>
                 </Box>
                 <TabPanel value={chooseValue} index={0}>
-                    <AllOrder />
+                    <NewOrder />
                 </TabPanel>
                 <TabPanel value={chooseValue} index={1}>
-                    <NewOrder />
+                    <AgentAssignedOrder />
+                </TabPanel>
+                <TabPanel value={chooseValue} index={2}>
+                    <AllOrder />
                 </TabPanel>
             </Box>
         </>

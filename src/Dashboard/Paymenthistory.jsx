@@ -11,17 +11,17 @@ import { useState } from "react";
 import { makeRequest } from "../Services/api";
 import { useEffect } from "react";
 import { useAlert } from "react-alert";
-import Loader from "../Helpers/Loader";
+// import Loader from "../Helpers/Loader";
 import Tripsearch from "../Homepages/Tripsearch";
 import CommuterTabs from "./DailyCommuter/CommuterAvailability";
 const Paymenthistory = () => {
-  const { setLoading } = useAuth();
-  const user = useAuth();
+  const { user, setLoading } = useAuth();
   const [userHistory, setUserHistory] = useState({});
   const alert = useAlert();
   const fetchHistory = async () => {
     setLoading(true);
-    makeRequest('GET', `availabiltyHistoryByCarrierId/24`).then(result => {
+    const id = user.id
+    makeRequest('GET', `availabiltyHistoryByCarrierId/${id}`).then(result => {
       setUserHistory(result.data);
     }).catch(err => {
       alert.error(err.message);
@@ -32,8 +32,7 @@ const Paymenthistory = () => {
   useEffect(() => {
     fetchHistory();
     //  eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
+  }, []);
   return (
     <>
       <section className="user-dashboard">
@@ -128,7 +127,7 @@ const Paymenthistory = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {userHistory.length > 0 ?
+                  {
                     Object.values(userHistory).map((row, id) => {
                       return (
                         <tr key={id}>
@@ -161,19 +160,10 @@ const Paymenthistory = () => {
                                     </button>
                                   </div>
                                   <div className="modal-body">
-                                    {
-                                      !user.isCommuter() ?
                                         <Tripsearch />
                                         :
-                                        <div className="trip_search">
-                                          <div className="card">
-                                            <div className="card-body">
-                                              <CommuterTabs />
-                                            </div>
-                                          </div>
-                                        </div>
-
-                                    }
+                                        <CommuterTabs />
+                                    
                                   </div>
                                 </div>
                               </div>
@@ -182,9 +172,6 @@ const Paymenthistory = () => {
                         </tr>
                       )
                     })
-                    :
-                    <Loader />
-
                   }
                 </tbody>
               </table>
@@ -195,5 +182,4 @@ const Paymenthistory = () => {
     </>
   );
 };
-
 export default Paymenthistory;

@@ -20,8 +20,9 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",
-    "antd": "^4.23.5",
+    "antd": "^5.0.2",
     "axios": "^0.27.2",
+    "babel-eslint": "^10.1.0",
     "bootstrap": "^4.6.2",
     "clsx": "^1.2.1",
     "framer-motion": "^6.3.11",
@@ -49,11 +50,12 @@
     "react-qr-code": "^2.0.8",
     "react-qr-scanner": "^1.0.0-alpha.11",
     "react-router-dom": "^5.3.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "react-scroll": "^1.8.8",
     "react-slick": "^0.29.0",
     "react-slick-carousel": "^0.14.9",
     "react-super-responsive-table": "^5.2.1",
+    "react-uuid": "^2.0.0",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.5",
     "table": "^6.8.0",
@@ -87,6 +89,7 @@
     ]
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "gh-pages": "^4.0.0"
   }
 }

@@ -7,6 +7,7 @@ export const TrackingStatus = {
     qr_generated: "QR_GENERATED",
     label_generated: "LABEL_GENERATED",
     pickup_assigned: "PICKUP_ASSIGNED",
+    pickup_agent_assigned: "PICKUP_AGENT_ASSIGNED",
     out_for_pickup: "OUT_FOR_PICKUP",
     order_picked: "ORDER_PICKED",
     at_hub: "AT_HUB",

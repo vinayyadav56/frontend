@@ -4,10 +4,11 @@ import { positions, Provider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 import { BrowserRouter as Router} from "react-router-dom";
 import { useAuth } from './Services/auth';
-import { AdminRoutes, CareerRoutes, CustomerRoutes, HomeRoutes } from './Routes';
+import { AdminRoutes, CareerRoutes, CommuterRoutes, CustomerRoutes, HomeRoutes } from './Routes';
 import { Loader } from "./component/Loader";
 import { DeliveryDashboardRoutes } from "./Routes/delivery-dashborad-routes";
 import { HubRoutes } from "./Routes/HubRoutes";
+import CompanyRoutes from "./Routes/companyPartner-routes";
 // import Homepage from "./Homepages/Homepage";
 const App = () => {
   const auth = useAuth();
@@ -26,6 +27,8 @@ const App = () => {
         <CareerRoutes />
         <DeliveryDashboardRoutes />
         <HubRoutes />
+        <CompanyRoutes />
+        <CommuterRoutes />
         {/* <Route exact path="/" component={Homepage} /> */}
         {/* <Redirect to="/" /> */}
       </Router>

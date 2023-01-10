@@ -62,9 +62,6 @@ export default function AllDetails() {
                 <TabPanel  sx={{padding:'0px'}} value={chooseValue} index={1}>
                     <UserData sx={{padding:'0px'}}/>
                 </TabPanel>
-                <TabPanel  sx={{padding:'0px'}} value={chooseValue} index={2}>
-                    <UserData sx={{padding:'0px'}}/>
-                </TabPanel>
             </Box>
         </>
     );

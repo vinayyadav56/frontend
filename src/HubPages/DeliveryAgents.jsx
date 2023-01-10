@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Fragment } from 'react'
 import HubHeader from './HubHeader'
 import HubSidebar from './HubSidebar'
-import agent1 from '../images/agentimg.png';
+import agent1 from '../images/delivery.jpg';
 import './HubAgent.css';
 import AddDeliveryPartner from '../admin/admindashboard/AddDeliveryPartner';
 import { makeRequest } from '../Services/api';
@@ -19,7 +19,6 @@ const DeliveryAgents = () => {
         makeRequest('GET', `deliveryAgentsListByHubId/${hubId}`).then(result => {
             alert.success(result.message);
             setAddAgent(result.data);
-            console.log("result" + JSON.stringify(result.data))
         }).catch(err => {
             alert.error(err.message);
         }).finally(() => {
@@ -40,13 +39,14 @@ const DeliveryAgents = () => {
                         <AddDeliveryPartner />
                     </div>
                     <div className='agent_details'>
-
                         {addAgent.map((item, id) => {
                             return (
-                                <div className='container-fluid mb-2'>
-                                    <div className='row' key={id}>
+                                <div className='container-fluid mb-4' key={id}>
+                                    <div className='row'>
                                         <div className='col-lg-3 col-md-6 agent_details_col'>
-                                            <img src={agent1} alt='agent1' />
+                                            <div className='pt-3'>
+                                                <img src={agent1} alt='agent1' />
+                                            </div>
                                             <span>
                                                 <p>Name : </p>
                                                 <p>{item.first_name}</p>
@@ -73,26 +73,6 @@ const DeliveryAgents = () => {
                                         </div>
                                         <div className='col-lg-6 col-md-12 agent_verify_col'>
                                             <div className='row'>
-                                                <div className='col-md-4 pr-0 '>
-                                                    <span><p>Aadhar no:</p><p>{item.aadhar_card_no}</p></span>
-                                                    <button className='btn btn_unverify' type='button'>
-                                                        Unverified
-                                                    </button>
-                                                </div>
-                                                <div className='col-md-4 col-lg-px-0 '>
-                                                    <span><p>License no:</p><p>{item.driving_licence_no}</p></span>
-                                                    <button className='btn btn_verify' type='button'>
-                                                        Verified
-                                                    </button>
-                                                </div>
-                                                <div className='col-md-4 pr-0 '>
-                                                    <span><p>RC no:</p><p>{item.pan_card_no}</p></span>
-                                                    <button className='btn btn_unverify' type='button'>
-                                                        Unverified
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div className='row mt-2'>
                                                 <div className='col address_detail_col'>
                                                     <h2>Address Details :</h2>
                                                     <div>
@@ -110,6 +90,26 @@ const DeliveryAgents = () => {
                                                         </span>
                                                     </div>
 
+                                                </div>
+                                            </div>
+                                            <div className='row  mt-3'>
+                                                <div className='col-md-4 pr-0 '>
+                                                    <span><p>Aadhar no:</p><p>{item.aadhar_card_no}</p></span>
+                                                    <button className='btn btn_unverify' type='button'>
+                                                        Unverified
+                                                    </button>
+                                                </div>
+                                                <div className='col-md-4 col-lg-px-0 '>
+                                                    <span><p>License no:</p><p>{item.driving_licence_no}</p></span>
+                                                    <button className='btn btn_verify' type='button'>
+                                                        Verified
+                                                    </button>
+                                                </div>
+                                                <div className='col-md-4 pr-0 '>
+                                                    <span><p>RC no:</p><p>{item.pan_card_no}</p></span>
+                                                    <button className='btn btn_unverify' type='button'>
+                                                        Unverified
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>

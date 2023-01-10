@@ -66,16 +66,11 @@ export default function CkOrder() {
             items_total_weight: weight
         })
     }
-    useEffect(() => {
-        totalWeight(selectedRows);
-        hubListData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedRows])
-    // Data Fetch Api ends
+
 
     const handleOrder = async (e) => {
         postRequest('createAlphaOrder', ckOrder).then(result => {
-            alert.success(result.message);
+            alert.success(result.message) && window.location.reload();
             result.success &&
                 setCkOrder(result);
         }).finally(() => {
@@ -89,13 +84,8 @@ export default function CkOrder() {
             width: 60,
         },
         {
-            field: `${newOrder.partner_details?.partner_name}`,
-            headerName: 'Partner Name',
-            width: 150
-        },
-        {
-            field: 'sender_name',
-            headerName: 'Customer Name',
+            field: 'partner_name',
+            headerName: 'User Name',
             width: 150
         },
         {
@@ -139,7 +129,11 @@ export default function CkOrder() {
                 setLoading(false);
             })
     };
-
+    useEffect(() => {
+        totalWeight(selectedRows);
+        hubListData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedRows])
     return (
         <Fragment>
             <nav className="sticky-top partnerdash-nav">

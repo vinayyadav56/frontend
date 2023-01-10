@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
@@ -7,12 +6,10 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 // import trip from "../../images/triplocation.png";
-// import AirplanemodeActiveSharpIcon from "@mui/icons-material/AirplanemodeActiveSharp";
-// import DirectionsTransitFilledIcon from "@mui/icons-material/DirectionsTransitFilled";
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import { AutoComplete, DatePicker, Input, TimePicker } from "antd";
 import moment from "moment";
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.min.css';
 import { useAlert } from "react-alert";
 import { useAuth } from "../../Services/auth";
 import { makeRequest } from "../../Services/api";

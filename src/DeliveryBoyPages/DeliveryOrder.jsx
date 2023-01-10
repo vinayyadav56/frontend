@@ -15,7 +15,6 @@ import TablePagination from '@mui/material/TablePagination';
 import { useState } from 'react';
 import DeliveryHeader from './DeliveryHeader';
 import DeliverySidebar from './DeliverySidebar';
-import PickupQrScan from './PickupQrScan';
 import {makeRequest} from "../Services/api";
 import {useAlert} from "react-alert";
 import {useAuth} from "../Services/auth";
@@ -23,7 +22,7 @@ import DeliveryQrScan from "./DeliveryQrScan";
 
 const PickupOrder = ({ userActive, addUserLocal }) => {
     let alert = useAlert();
-    const { user, setLoading } = useAuth();
+    const {  setLoading } = useAuth();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -100,34 +99,34 @@ const PickupOrder = ({ userActive, addUserLocal }) => {
                                             <StyledTableRow hover tabIndex={-1}>
                                                 <StyledTableCell>{i+1}</StyledTableCell>
                                                 <StyledTableCell>
-                                                    {order.co ?.sender.first_name} {order.co ?.sender.last_name}
-                                                    {order.po ?.sender_name}
-                                                    {order.alpha ?.sender.first_name} {order.alpha ?.sender.last_name}
+                                                    {order.co?.sender.first_name} {order.co?.sender.last_name}
+                                                    {order.po?.sender_name}
+                                                    {order.alpha?.sender.first_name} {order.alpha?.sender.last_name}
                                                 </StyledTableCell>
                                                 <StyledTableCell>
-                                                    {order.co ?.sender.phone_no}
-                                                    {order.po ?.sender_contact_no}
-                                                    {order.alpha ?.sender.first_name} {order.alpha ?.sender.last_name}
+                                                    {order.co?.sender.phone_no}
+                                                    {order.po?.sender_contact_no}
+                                                    {order.alpha?.sender.first_name} {order.alpha?.sender.last_name}
                                                 </StyledTableCell>
                                                 <StyledTableCell>
-                                                    {order.co ?.sender.pincode}
-                                                    {order.po ?.sender_pincode}
-                                                    {order.alpha ?.sender.first_name} {order.alpha ?.sender.last_name}
+                                                    {order.co?.sender.pincode}
+                                                    {order.po?.sender_pincode}
+                                                    {order.alpha?.sender.first_name} {order.alpha?.sender.last_name}
                                                 </StyledTableCell>
                                                 <StyledTableCell>
-                                                    {order.co ?.sender.city}
-                                                    {order.po ?.sender_city}
-                                                    {order.alpha ?.sender.first_name} {order.alpha ?.sender.last_name}
+                                                    {order.co?.sender.city}
+                                                    {order.po?.sender_city}
+                                                    {order.alpha?.sender.first_name} {order.alpha?.sender.last_name}
                                                 </StyledTableCell>
                                                 <StyledTableCell>
-                                                    {order.co ?.sender.state}
-                                                    {order.po ?.sender_state}
-                                                    {order.alpha ?.sender.first_name} {order.alpha ?.sender.last_name}
+                                                    {order.co?.sender.state}
+                                                    {order.po?.sender_state}
+                                                    {order.alpha?.sender.first_name} {order.alpha?.sender.last_name}
                                                 </StyledTableCell>
                                                 <StyledTableCell>
-                                                    {order.co ?.sender.address}
-                                                    {order.po ?.sender_house_number} {order.po ?.sender_locality}
-                                                    {order.alpha ?.sender.first_name} {order.alpha ?.sender.last_name}
+                                                    {order.co?.sender.address}
+                                                    {order.po?.sender_house_number} {order.po?.sender_locality}
+                                                    {order.alpha?.sender.first_name} {order.alpha?.sender.last_name}
                                                 </StyledTableCell>
                                                 <StyledTableCell>
                                                     <DeliveryQrScan orderDetails={order}/>

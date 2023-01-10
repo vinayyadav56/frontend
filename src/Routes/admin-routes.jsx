@@ -13,6 +13,7 @@ import CkOrderList from '../admin/admindashboard/CkOrderList';
 import { useAuth } from '../Services/auth';
 import Partnerlogin from "../partner/Partnerlogin";
 import Adminlogin from "../admin/Adminlogin";
+import ListCompany from '../admin/admindashboard/Company/ListCompany';
 export const AdminRoutes = () => {
     const auth = useAuth();
     return (
@@ -41,17 +42,20 @@ export const AdminRoutes = () => {
                         <RecentOrder />
                     </Route>
 
-                    <Route exact path="/admindashboardckordercreate">
+                    <Route exact path="/ckordercreate">
                         <CkOrder />
                     </Route>
-                    <Route exact path="/admindashboardckorder">
+                    <Route exact path="/ckorder">
                         <CkOrderList />
                     </Route>
-                    <Route exact path="/admindashboarddeliverypartnerdetails">
+                    <Route exact path="/delivery/partnerdetails">
                         <DeliveryPartnerDetails />
                     </Route>
-                    <Route exact path="/admindashboardhub">
+                    <Route exact path="/hubOrder">
                         <AdminHub />
+                    </Route>
+                    <Route exact path="/companyUsers">
+                        <ListCompany />
                     </Route>
                 </>
             }

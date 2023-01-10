@@ -47,7 +47,6 @@ const RecentOrder = () => {
         setLoading(true);
         makeRequest('GET', `fetchNewOrders`).then(result => {
             setNewOrder(result.data);
-            console.log(result.data);
         })
             .finally(() => {
                 setLoading(false);
@@ -149,7 +148,7 @@ const RecentOrder = () => {
                 const pdf = new jsPDF();
                 pdf.addImage(imgData, 'PNG');
                 // pdf.output('dataurlnewwindow');
-                pdf.save("Carrykar_Order_Invoice.pdf");
+                pdf.save("download.pdf");
             })
             ;
     }
@@ -219,7 +218,7 @@ const RecentOrder = () => {
                                 newOrder.map((item, id) => {
                                     return (
                                         <>
-                                            <span className={`badge ${item.source == 'PO' ? "badge-danger" : "badge-success"}`}>{id + 1} - {item.source}</span>
+                                            <span className={`badge ${item.source.toString() === 'PO' ? "badge-danger" : "badge-success"}`}>{id + 1} - {item.source}</span>
                                             <div key={id} className='row table_box'>
                                                 <div className='col-lg-6'>
                                                     <div className='row'>
@@ -315,7 +314,7 @@ const RecentOrder = () => {
                                                             </div>
                                                         </div>
                                                         {
-                                                            (item.status === TrackingStatus.confirmed || item.status == TrackingStatus.pickup_hub_assigned) &&
+                                                            (item.status === TrackingStatus.confirmed || item.status.toString() === TrackingStatus.pickup_hub_assigned) &&
                                                             <div className='col-12 from_hub mt-2'>
                                                                 <div className="row">
                                                                     {item.from_hub_id == null &&
@@ -372,15 +371,15 @@ const RecentOrder = () => {
                                                                     </button>
                                                                 </>
                                                             }
-                                                            {(item.status == TrackingStatus.delivery_hub_assigned || item.status == TrackingStatus.pickup_hub_assigned) &&
+                                                            {(item.status.toString() === TrackingStatus.delivery_hub_assigned || item.status.toString() === TrackingStatus.pickup_hub_assigned) &&
                                                                 <QrButton path={item.qr_image_path} orderid={item.id} ordertype={item.source} updateOrder={fetchData} />
                                                             }
                                                             {item.status === TrackingStatus.pickup_hub_assigned &&
-                                                                <button type="button" className="btn btn-info mr-2" data-toggle="modal" data-target={`#call-${item.id}`}>
+                                                                <button type="button" className="btn btn-info mr-2" data-toggle="modal" data-target={`#call-${item.id}`} >
                                                                     Generate Invoice
                                                                 </button>
                                                             }
-                                                            {(item.status != TrackingStatus.new_created && item.status !== TrackingStatus.reject) &&
+                                                            {(item.status.toString() !== TrackingStatus.new_created && item.status !== TrackingStatus.reject) &&
                                                                 <>
 
                                                                     <a className="btn btn-secondary mr-2" data-toggle="collapse" href={`#collapsable-${item.id}`} role="button" aria-expanded="false" aria-controls="trackercollapse">

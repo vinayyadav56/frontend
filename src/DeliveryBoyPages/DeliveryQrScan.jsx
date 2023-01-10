@@ -4,9 +4,8 @@ import QrReader from 'react-qr-scanner'
 import './DeliveryPartner.css'
 import './QrScanner.css';
 import {Button, Modal} from "react-bootstrap";
-import {Box, MenuItem, TextField} from '@material-ui/core';
+import {MenuItem, TextField} from '@material-ui/core';
 import {useAlert} from "react-alert";
-import {useAuth} from "../Services/auth";
 import {makeRequest} from "../Services/api";
 
 const DeliveryQrScan = (props) => {
@@ -21,7 +20,7 @@ const DeliveryQrScan = (props) => {
     });
 
     const alert = useAlert();
-    const auth = useAuth();
+    // const auth = useAuth();
 
     const handleScan = (data) => {
         if (data) {
@@ -93,7 +92,7 @@ const DeliveryQrScan = (props) => {
     const handleFormSubmit = (e) => {
         e.preventDefault();
 
-        console.log("btn clicked");
+        // console.log("btn clicked");
 
         setState({
             ...state, isLoading: true
