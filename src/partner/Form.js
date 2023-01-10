@@ -78,7 +78,7 @@ const Form = () => {
     };
 
     useEffect(() => {
-      console.log(createorder);
+    //   console.log(createorder);
     }, [createorder])
     
     // PARTNER ORDER API FUNCTION
@@ -115,7 +115,7 @@ const Form = () => {
                                     onChange={(e) =>handleCreateinput(e, 'package_details')}
                                 />
                             </div>
-                            <div className="col-md-6 pr-0">
+                            <div className="col-md-6 pl-0">
                                 <label htmlFor="inputsubcat">Sub Category</label>
                                 <input
                                     id="inputsubcat"
@@ -139,7 +139,7 @@ const Form = () => {
                                     <option value="Extra Large" >Extra Large</option>
                                 </select>
                             </div>
-                            <div className="col-md-6 pr-0">
+                            <div className="col-md-6 pl-0">
                                 <label htmlFor="inputquantity">Package Dimensions</label>
                                 <input
                                     type="number"

@@ -10,8 +10,8 @@ const CompanyLogin = () => {
     let history = useHistory();
   
     const [login_partner, setLogin_partner] = useState({
-      partner_email: "",
-      partner_password: "",
+      company_email: "",
+      company_password: "",
     });
   
     const handlePartner = (e) => {
@@ -24,14 +24,13 @@ const CompanyLogin = () => {
   
     const handleApipartner = (e) => {
       e.preventDefault();
-      const { partner_email, partner_password } = login_partner;
+      const { company_email, company_password } = login_partner;
   
-      if (partner_email && partner_password) {
+      if (company_email && company_password) {
         setLoading(true);
-  
-        postRequest('partner-login', login_partner).then(result => {
+        postRequest('CompanyLogin', login_partner).then(result => {
           alert.success(result.message);
-          handleUser(result.PartnerUsers);
+          handleUser(result.CompanyData);
           history.push("/company/dashboard");
         }).catch(error => {
           alert.error(error.message);
@@ -56,9 +55,9 @@ const CompanyLogin = () => {
                   <div className="form-group">
                     <input
                       type="email"
-                      name="partner_email"
+                      name="company_email"
                       placeholder="Email"
-                      value={login_partner.partner_email}
+                      value={login_partner.company_email}
                       onChange={handlePartner}
                       autoComplete="off"
                     />
@@ -66,9 +65,9 @@ const CompanyLogin = () => {
                   <div className="form-group">
                     <input
                       type="password"
-                      name="partner_password"
+                      name="company_password"
                       placeholder="Password"
-                      value={login_partner.partner_password}
+                      value={login_partner.company_password}
                       onChange={handlePartner}
                     />
                   </div>

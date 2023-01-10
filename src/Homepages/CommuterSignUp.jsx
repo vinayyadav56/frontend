@@ -27,7 +27,7 @@ export default function CommuterSignUp() {
     const history = useHistory();
     const auth = useAuth();
 
-    const { user, setLoading, handleUser } = useAuth();
+    const { setLoading, handleUser } = useAuth();
     const [open, setOpen] = React.useState(false);
 
     const handleOpen = () => {
@@ -45,7 +45,7 @@ export default function CommuterSignUp() {
     // const userid = auth.isAuthenticated() ? user.id : '' ;
     // const user_id = userid
     const [userDatas, setuserDatas] = useState({
-        user_id: user.id,
+        user_id: "",
         pan_no: "",
         aadhar_no: "",
         vehicle_type: "",

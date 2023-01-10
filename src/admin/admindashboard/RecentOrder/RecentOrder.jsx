@@ -261,7 +261,7 @@ const RecentOrder = () => {
                                                                 <p>{item.sender_details?.first_name ?? item.sender_name} {item.sender_details?.last_name ?? ''} </p>
                                                             </span>
                                                             <span className='pl-0'>
-                                                                <p>Email : </p>
+                                                                <p>Email:</p>
                                                                 <p>{item.sender_details?.email ?? item.sender_email}</p>
                                                             </span>
                                                             <span className='pl-0'>

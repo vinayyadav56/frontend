@@ -32,7 +32,7 @@ const navArray = [
     {
         nav: 'Hub',
         icon: <HubIcon />,
-        link: '/hub'
+        link: '/hubOrder'
     },
     {
         nav: 'Company',

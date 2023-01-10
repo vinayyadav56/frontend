@@ -99,8 +99,7 @@ const CompanyDashboard = () => {
                             <div className="profile-photo">
                                 <AccountCircleRoundedIcon className="pb-1" />
                             </div>
-                            <div className="dropdown show">
-                                <NavLink
+                                <p
                                     className="btn dropdown-toggle "
                                     to="/partner/profile"
                                     role="button"
@@ -111,28 +110,12 @@ const CompanyDashboard = () => {
                                 >
                                     {user && user.id ? (
                                         <span>
-                                            {user.partner_name}
+                                            {user.company_name}
                                         </span>
                                     ) : (
                                         "Guest"
                                     )}
-                                </NavLink>
-
-                                <div
-                                    className="dropdown-menu"
-                                    aria-labelledby="dropdownMenuLink"
-                                >
-                                    <NavLink className="dropdown-item" to="/partner">
-                                        Logout
-                                    </NavLink>
-                                    <NavLink className="dropdown-item" to="/carrykar">
-                                        Change Profile
-                                    </NavLink>
-                                    <NavLink className="dropdown-item" to="/setting">
-                                        Setting
-                                    </NavLink>
-                                </div>
-                            </div>
+                                </p>
                         </div>
                         <button id="menu-btn">
                             <MenuRoundedIcon />
@@ -186,7 +169,7 @@ const CompanyDashboard = () => {
                                             <option value="Extra Large" >Extra Large</option>
                                         </select>
                                     </div>
-                                    <div className="col-md-6 pr-0">
+                                    <div className="col-md-6 pl-0 ">
                                         <label htmlFor="inputquantity">Package Dimensions</label>
                                         <input
                                             type="number"
@@ -318,7 +301,7 @@ const CompanyDashboard = () => {
                     </div>
                 </section>
             </main>
-        </Fragment>
+        </Fragment >
     )
 }
 
