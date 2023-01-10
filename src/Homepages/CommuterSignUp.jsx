@@ -27,7 +27,7 @@ export default function CommuterSignUp() {
     const history = useHistory();
     const auth = useAuth();
 
-    const { setLoading, handleUser } = useAuth();
+    const { user, setLoading, handleUser } = useAuth();
     const [open, setOpen] = React.useState(false);
 
     const handleOpen = () => {
@@ -45,13 +45,13 @@ export default function CommuterSignUp() {
     // const userid = auth.isAuthenticated() ? user.id : '' ;
     // const user_id = userid
     const [userDatas, setuserDatas] = useState({
-        user_id: "",
+        user_id: user.id,
         pan_no: "",
         aadhar_no: "",
         vehicle_type: "",
         vehicle_registration_number: "",
         driving_licens_number: "",
-        type: "dailyCommuter"
+        type: "dailycommuter"
     });
 
 
@@ -106,27 +106,7 @@ export default function CommuterSignUp() {
                                                 Register<span className="ml-2 mb-0">Commuter</span>
                                             </h3>
                                         </div>
-                                        <div className='row'>
-                                            <div className='col'>
-                                                <div className="form-group">
-                                                    {/* <label htmlFor="#selectid" >Type</label>
-                                                    <select id="selectid" disabled value={userDatas.user_id} name='user_id' className="form-control"
-                                                        required type='Select' onChange={handleInput}>
-                                                        <option value="1" >Commuter</option>
-                                                    </select> */}
-                                                    <input type="text" value={userDatas.user_id} name='user_id' onChange={handleInput}  className="form-control" />
-                                                </div>
-                                            </div>
-                                            <div className='col'>
-                                                <div className="form-group">
-                                                    <label htmlFor="#selectuser" >Type</label>
-                                                    <select id="selectuser" disabled value={userDatas.type} name='type' className="form-control"
-                                                        required type='Select' onChange={handleInput}>
-                                                        <option value="dailyCommuter" >Commuter</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
+                                       
 
 
                                         <div className="row">
