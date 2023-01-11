@@ -70,7 +70,6 @@ const Reactdatatable = () => {
   const [partnerData, setPartnerData] = useState([]);
   const [searchapiData, setSearchapiData] = useState([]);
   const [searchTerm] = useState("");
-  // PARTNER ORDER LIST BY ID START
   const [partnerOrder, setPartnerOrder] = useState([]);
   const fetchOrderData = async (id) => {
     setLoading(true);
@@ -81,12 +80,6 @@ const Reactdatatable = () => {
         setLoading(false);
       })
   };
-  useEffect(() => {
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  // PARTNER ORDER LIST ENDS
-  // ALL PARTNER  LIST START
   const fetchData = async () => {
     setLoading(true);
     makeRequest('GET', `partnersList`).then(result => {
@@ -98,22 +91,15 @@ const Reactdatatable = () => {
       setLoading(false);
     })
   };
-  useEffect(() => {
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  // DELETE PARTNER START
   const deleteData = async (id) => {
     setLoading(true);
     makeRequest('DELETE', `delete-user/${id}`).then(result => {
-      alert.success(result.message);
+      alert.success(result.message) && fetchData();
       setopen(false);
     }).catch(err => {
       alert.error(err.message);
     })
   };
-  // DELETE PARTNER ENDS
-  // searchfuntion
   const handleSearch = (e) => {
     e.preventDefault();
     if (e.target.value === "") {
@@ -127,7 +113,6 @@ const Reactdatatable = () => {
     // eslint-disable-next-line
     setFilterVal(e.target.value);
   };
-  // searchfuntion ends
   const handleInput = (e) => {
     const { name, value } = e.target;
     setEditData({
@@ -135,14 +120,12 @@ const Reactdatatable = () => {
       [name]: value,
     });
   };
-  // UPDATE PARTNER DATA
   const [editData, setEditData] = useState({});
   const handlePartner = async (e, id) => {
     e.preventDefault();
     setLoading(true);
-
     makeRequest('PUT', `update-user/${id}`, editData).then(result => {
-      alert.success(result.message);
+      alert.success(result.message) &&  fetchData();
     }).catch(err => {
       alert.error(err.message);
     }).finally(() => {
@@ -151,19 +134,20 @@ const Reactdatatable = () => {
 
     return false;
   };
-  // FETCH PARTNER DETAILS By Partner Id
   const fetchID = async (id) => {
     setLoading(true);
     makeRequest('GET', `partnerDetailsByPartnerId/${id}`, editData).then(result => {
       setEditData(result.data);
-      // console.log(result.data)
     }).catch(err => {
       alert.error(err.message);
     }).finally(() => {
       setLoading(false);
     })
   };
-  // FETCH PARTNER DETAILS ENDS
+  useEffect(() => {
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <Fragment>
       <div className="filter_partner">
@@ -383,6 +367,7 @@ const Reactdatatable = () => {
         </div>
       </div>
       {/* EDIT MODAL ENDS */}
+
       {/* ORDER DETAILS START */}
       <div
         className="modal bd-example-modal-xl fade"

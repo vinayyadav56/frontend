@@ -63,12 +63,12 @@ const Details = () => {
                         <input
                             type="text"
                             className="form-control"
+                            required
                             name="receiver_name"
                             placeholder="Enter Name"
                             value={receiver_name}
                             onChange={(e) => setReceiver_name(e.target.value)}
                             autoComplete="off"
-                            required
                         />
                     </div>
                     <div className="col-md-4">
@@ -76,8 +76,10 @@ const Details = () => {
                         <input
                             type="email"
                             className="form-control"
+                            required
                             name="receiver_email"
                             value={receiver_email}
+
                             onChange={(e) => setReceiver_email(e.target.value)}
                             autoComplete="off"
                             placeholder="Enter email"
@@ -88,12 +90,12 @@ const Details = () => {
                         <input
                             type="number"
                             className="form-control"
+                            required
                             id="inputphone"
                             onChange={(e) => setReceiver_contact_no(e.target.value)}
                             value={receiver_contact_no}
                             name="receiver_contact_no"
                             placeholder="Enter mobile number"
-                            required
                         />
                     </div>
                     <div className="col-md-4">
@@ -101,12 +103,12 @@ const Details = () => {
                         <input
                             type="text"
                             className="form-control"
+                            required
                             id="inputhno"
                             name="receiver_house_number"
                             value={receiver_house_number}
                             onChange={(e) => setReceiver_house_number(e.target.value)}
                             placeholder="Enter House No"
-                            required
                         />
                     </div>
                     <div className="col-md-4">
@@ -114,6 +116,7 @@ const Details = () => {
                         <input
                             type="text"
                             className="form-control"
+                            required
                             id="inputlocality"
                             placeholder="Enter Locality"
                             name="receiver_locality"
@@ -126,6 +129,7 @@ const Details = () => {
                         <input
                             type="number"
                             className="form-control"
+                            required
                             id="inputpin"
                             name="receiver_pincode"
                             value={receiver_pincode}
@@ -138,12 +142,12 @@ const Details = () => {
                         <input
                             type="text"
                             className="form-control"
+                            required
                             id="inputCity"
                             name="receiver_city"
                             value={receiver_city}
                             onChange={(e) => setReceiver_city(e.target.value)}
                             placeholder="Enter city"
-                            required
                         />
                     </div>
                     <div className="col-md-4">
@@ -151,11 +155,11 @@ const Details = () => {
                         <input
                             type="text"
                             className="form-control"
+                            required
                             id="inputstate"
                             placeholder="Enter state"
                             name="receiver_state"
                             value={receiver_state}
-                            required
                             onChange={(e) => setReceiver_state(e.target.value)}
                         />
                     </div>

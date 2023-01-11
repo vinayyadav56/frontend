@@ -40,6 +40,7 @@ function useProvideAuth() {
         return user && user.is_hub === 0;
     }
     const isAdmin = () => {
+        
         return user && user.is_admin;
 
     }
@@ -47,7 +48,7 @@ function useProvideAuth() {
         return user && user.is_partner === 0;
     }
     const isCompanyPartner = () => {
-        return user && user.is_company;
+        return user && user.is_company_partner === 1;
     }
     const isUser = () => {
         return user && user.is_customer;

@@ -25,40 +25,23 @@ const Order = () => {
               <div className="profile-photo">
                 <AccountCircleRoundedIcon className="pb-1" />
               </div>
-              <div className="dropdown show">
-                <NavLink
-                  className="btn dropdown-toggle"
-                  to="/partner/profile"
-                  role="button"
-                  id="dropdownMenuLink"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  {user && user.id ? (
-                    <span>
-                      {user.partner_name}
-                    </span>
-                  ) : (
-                    "Guest"
-                  )}
-                </NavLink>
-
-                <div
-                  className="dropdown-menu"
-                  aria-labelledby="dropdownMenuLink"
-                >
-                  <NavLink className="dropdown-item" to="/partner">
-                    Logout
-                  </NavLink>
-                  <NavLink className="dropdown-item" to="/carrykar">
-                    Change Profile
-                  </NavLink>
-                  <NavLink className="dropdown-item" to="/setting">
-                    Setting
-                  </NavLink>
-                </div>
-              </div>
+              <p
+                className="btn dropdown-toggle "
+                to="/partner/profile"
+                role="button"
+                id="dropdownMenuLink"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                {user && user.id ? (
+                  <span>
+                    {user.company_name}
+                  </span>
+                ) : (
+                  "Guest"
+                )}
+              </p>
             </div>
             <button id="menu-btn">
               <MenuRoundedIcon />

@@ -85,8 +85,7 @@ const Homepage = () => {
       ...data,
       [name]: value
     })
-  }
-
+  };
   const orderStatus = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -144,6 +143,8 @@ const Homepage = () => {
                                     auth.isHub() ? '/hub/dashboard'
                                       :
                                       auth.isPartner() ? '/partnerdashboard'
+                                        :
+                                        auth.isCompanyPartner() ? '/company/dashboard'
                                         :
                                         ''
                             }>Dashboard</NavLink>
